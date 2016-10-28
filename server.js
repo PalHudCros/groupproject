@@ -1,5 +1,6 @@
 // Configure Session
 import express from "express";
+import session from "express-session";
 import {json} from "body-parser";
 import config from "./config/config";
 const app = express();
@@ -7,7 +8,7 @@ const port = process.env.PORT || 5001;
 
 app.use(express.static(`${__dirname}/dist`));
 app.use(json());
-app.use(session({secret: config.session.secret}));
+app.use(session(config.session));
 
 // Configure Passport
 import passport from "passport"
