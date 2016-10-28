@@ -8,7 +8,7 @@ npm i //To install needed dependencies
 
 npm i -g concurrently //To run concurrently from the cli
 
-make config.js, .gitignore, .bablrc
+make config.js, .gitignore
 Add config file to .gitignore
 
 The group project of JJ, Brian and Joseph! Also, Joe is here sometimes.
