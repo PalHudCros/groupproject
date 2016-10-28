@@ -1,0 +1,46 @@
+{
+  "name": "groupproject",
+  "version": "0.0.1",
+  "description": "This project is geared toward developing a proof of concept that pairs consumers with a wine delivery service from a local wine retailer. The focus of the project is from the logistical standpoint of a specific liqour retailer",
+  "main": "server.js",
+  "scripts": {
+    "start": "concurrently 'webpack -b -d' 'nodemon server.js --exec babel-node --presets es2015' "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PalHudCros/groupproject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PalHudCros/groupproject/issues"
+  },
+  "homepage": "https://github.com/PalHudCros/groupproject#readme",
+  "dependencies": {
+    "axios": "^0.15.2",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jquery": "^3.1.1",
+    "material-ui": "^0.16.1",
+    "mongoose": "^4.6.5",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^3.0.0",
+    "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.6.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.0",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "concurrently": "^3.1.0",
+    "css-loader": "^0.25.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.3"
+  }
+}
