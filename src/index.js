@@ -2,16 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from "react-router";
 import { Provider } from "react-redux";
-
 import App from "./container/App";
+import store from "./store";
 
 document.addEventListener('DOMContentLoaded', () => {
   const reactNode = document.getElementById('react-node');
 
   ReactDOM.render(
-    // <Provider>
-      <Router history={browserHistory}>
-        <Route component={App} path="/">
+    <Provider store={ store }>
+      <Router history={ browserHistory }>
+        <Route component={ App } path="/">
           <Route path="home"></Route>
           <Route path="shop"></Route>
           <Route path="cart"></Route>
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <Route path="admin"></Route>
         </Route>
       </Router>
-    // </Provider>
+    </Provider>
     ,
       reactNode
   );
