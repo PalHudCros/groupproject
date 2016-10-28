@@ -4,7 +4,7 @@
   "description": "This project is geared toward developing a proof of concept that pairs consumers with a wine delivery service from a local wine retailer. The focus of the project is from the logistical standpoint of a specific liqour retailer",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently 'webpack -b -d' 'nodemon server.js --exec babel-node --presets es2015' "
+    "start": "concurrently 'webpack -w -d' 'nodemon server.js --exec babel-node --presets es2015' "
   },
   "repository": {
     "type": "git",
