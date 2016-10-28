@@ -3,3 +3,4 @@ config
 tou
 bundle.js
 dist/bundle.js.map
+jsconfig.json
