@@ -1,9 +1,16 @@
+//Styles
+import "!style!css!sass!./styles/all.scss"
+
+//Modules
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from "react-router";
 import { Provider } from "react-redux";
-import App from "./container/App";
+
+//Components
+import App from "./component/App/App";
 import store from "./store";
+import Admin from "./component/Admin/Admin";
 
 document.addEventListener('DOMContentLoaded', () => {
   const reactNode = document.getElementById('react-node');
@@ -16,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <Route path="shop"></Route>
           <Route path="cart"></Route>
           <Route path="checkout"></Route>
-          <Route path="admin"></Route>
+          <Route component={ Admin } path="admin"></Route>
+
         </Route>
       </Router>
     </Provider>
