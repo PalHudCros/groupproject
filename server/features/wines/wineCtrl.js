@@ -6,8 +6,12 @@ const baseUrl = 'http://services.wine.com/api/beta/service.svc/json/catalog?offs
 
 module.exports = {
     getWines(req, res) {
-        axios.get(baseUrl).then(result => {
-            return result.data;
-        })
+        axios.get(baseUrl)
+          .then(result => {
+            return res.status(200).json(result.data);
+          })
+          .catch( error => {
+            return res.status(500).json(error);
+          })
     }
 }
