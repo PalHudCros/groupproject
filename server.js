@@ -12,19 +12,23 @@ app.use(json());
 app.use(session(config.session));
 
 // Configure Passport
-import passport from "passport"
-import strategy from "./server/FacebookStrategy";
+// import passport from "passport"
+// import strategy from "./server/FacebookStrategy";
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(strategy);
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(strategy);
+// passport.serializeUser((user, done) => done(null, user));
+// passport.deserializeUser((user, done) => done(null, user));
 
 // Configure Mongoose
 import mongoose from "mongoose";
 mongoose.connect(config.database.mongoURI);
 mongoose.connection.once("open", () => console.log(`Connected to MongoDB at ${config.database.mongoURI}`));
+
+// Configure Routes
+import masterRoutes from "./server/features/masterRoutes";
+masterRoutes(app);
 
 // Listen on Port
 app.listen(port, ()=>console.log(`listening on port ${port}`));
