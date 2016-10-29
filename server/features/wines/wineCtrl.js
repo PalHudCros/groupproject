@@ -2,7 +2,7 @@ import axios from 'axios';
 import config from '../../../config/config';
 import Wine from './Wine';
 
-const baseUrl = 'http://services.wine.com/api/beta2/service.svc/filter=categories(490+124)&size=5&apikey=' + config.wineAPI.key;
+const baseUrl = 'http://services.wine.com/api/beta/service.svc/json/catalog?offset=0&size=100&apikey=' + config.wineAPI.key + '&filter=rating(85%7C100)&sort=popularity%7Cascending'
 
 module.exports = {
     getWines(req, res) {
