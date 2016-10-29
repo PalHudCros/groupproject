@@ -24,7 +24,7 @@ passport.deserializeUser((user, done) => done(null, user));
 // Configure Mongoose
 import mongoose from "mongoose";
 mongoose.connect(config.database.mongoURI);
-mongoose.connection.once("open", () => console.log(`Connected to MongoDB at ${config.database.mongoURI}`));
+mongoose.connection.once("open", () => console.log('WINE database now connected!'));
 
 // Listen on Port
 app.listen(port, ()=>console.log(`listening on port ${port}`));
