@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const Wine = new mongoose.Schema({
     id: {type: Number, required: true}
@@ -29,4 +29,4 @@ const Wine = new mongoose.Schema({
     , productAttributes: [{type: String}]
 });
 
-module.exports = mongoose.model("Wine", Wine);
+module.exports = mongoose.model('Wine', Wine);
