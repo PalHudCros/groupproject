@@ -16,10 +16,6 @@ export default class App extends React.Component{
     return(
       <div>
         <Navbar></Navbar>
-        <Link to="/admin">Admin</Link>
-        <h2>Hello!</h2>
-        {this.props.children}
-
       </div>
     )
   }
