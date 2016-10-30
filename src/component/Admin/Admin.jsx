@@ -1,8 +1,10 @@
 import "./Admin.scss";
 import React from "react";
 
-export default function Admin(){
-  return(
-    <h1>hello</h1>
-  )
+export default class Admin extends React.Component {
+  render() {
+    return(
+      <h1>hello</h1>
+    )
+  }
 }

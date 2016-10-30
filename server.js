@@ -3,6 +3,7 @@ import express from "express";
 import session from "express-session";
 import {json} from "body-parser";
 import config from "./config/config";
+import path from "path";
 
 const app = express();
 const port = process.env.PORT || 5001;
@@ -29,6 +30,10 @@ mongoose.connection.once("open", () => console.log(`Connected to MongoDB at ${co
 // Configure Routes
 import masterRoutes from "./server/features/masterRoutes";
 masterRoutes(app);
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+});
+
 
 // Listen on Port
 app.listen(port, ()=>console.log(`listening on port ${port}`));
