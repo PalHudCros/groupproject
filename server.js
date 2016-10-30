@@ -25,7 +25,7 @@ app.use(session(config.session));
 // Configure Mongoose
 import mongoose from "mongoose";
 mongoose.connect(config.database.mongoURI);
-mongoose.connection.once("open", () => console.log(`Connected to MongoDB at ${config.database.mongoURI}`));
+mongoose.connection.once("open", () => console.log('WINE database now connected!'));
 
 // Configure Routes
 import masterRoutes from "./server/features/masterRoutes";
