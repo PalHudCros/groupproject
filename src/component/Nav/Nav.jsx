@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import SearchBox from "../../container/SearchBox/SearchBox";
 import ActionShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
+import {Link} from "react-router";
 
 export default function Nav(){
   return(
@@ -17,9 +18,11 @@ export default function Nav(){
           <SearchBox></SearchBox>
           <FlatButton
             label="Cart"
-            href="#"
+
             icon={<ActionShoppingCart></ActionShoppingCart>}
-          />
+          >
+            <Link to="/admin"></Link>
+          </FlatButton>
         </span>
       </div>
     </div>

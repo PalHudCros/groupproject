@@ -18,14 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Provider store={ store }>
       <Router history={ browserHistory }>
-        <Route component={ App } path="/">
-          <Route path="home"></Route>
-          <Route path="shop"></Route>
-          <Route path="cart"></Route>
-          <Route path="checkout"></Route>
-          <Route component={ Admin } path="admin"></Route>
+        <Route component={ App } path="/"></Route>
+        <Route component={ Admin } path="/admin"></Route>
 
-        </Route>
+        
       </Router>
     </Provider>
     ,
