@@ -1,4 +1,4 @@
-import "!style!css!sass!./Admin.scss";
+import "./Admin.scss";
 import React from "react";
 
 export default function Admin(){

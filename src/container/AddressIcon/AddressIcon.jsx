@@ -1,4 +1,4 @@
-import "!style!css!sass!./AddressIcon.scss"
+import "./AddressIcon.scss";
 
 import React, { Component } from 'react'
 import RoomIcon from 'material-ui/svg-icons/action/room';

@@ -1,4 +1,4 @@
-import "!style!css!sass!./SuperNav.scss"
+import "./SuperNav.scss";
 import React from 'react';
 
 import UserIcon from "../../container/UserIcon/UserIcon"
