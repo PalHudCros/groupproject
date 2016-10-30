@@ -14,14 +14,16 @@ export default function Nav(){
         <span>
           <FlatButton
             label="Wine"
-          />
+          >
+            <Link to="/shop"></Link>
+          </FlatButton>
+
           <SearchBox></SearchBox>
           <FlatButton
             label="Cart"
-
             icon={<ActionShoppingCart></ActionShoppingCart>}
           >
-            <Link to="/admin"></Link>
+            <Link to="/cart"></Link>
           </FlatButton>
         </span>
       </div>
