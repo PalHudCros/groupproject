@@ -1,5 +1,5 @@
 //Styles
-import "!style!css!sass!./styles/all.scss"
+import "./styles/all.scss"
 
 //Modules
 import React from 'react';

@@ -1,4 +1,4 @@
-import "!style!css!sass!./UserIcon.scss"
+import "./UserIcon.scss";
 
 import React, { Component } from 'react'
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';

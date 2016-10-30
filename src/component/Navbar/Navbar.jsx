@@ -1,5 +1,5 @@
 //styles
-import "!style!css!sass!./Navbar.scss";
+import "./Navbar.scss";
 
 //Components
 import React from "react";
