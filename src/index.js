@@ -8,9 +8,11 @@ import { Router, Route, browserHistory } from "react-router";
 import { Provider } from "react-redux";
 
 //Components
-import App from "./component/App/App";
+import Shop from "./shop/component/Shop/Shop";
+import Admin from "./admin/component/Admin/Admin";
+import Driver from "./driver/component/Driver/Driver";
+
 import store from "./store";
-import Admin from "./component/Admin/Admin";
 
 document.addEventListener('DOMContentLoaded', () => {
   const reactNode = document.getElementById('react-node');
@@ -18,10 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Provider store={ store }>
       <Router history={ browserHistory }>
-        <Route component={ App } path="/"></Route>
+        <Route component={ Shop } path="/">
+            <Route component={ Home } path="/home"></Route>
+            <Route component={ Cart } path="/cart"></Route>
+            <Route component={ About } path="/about"></Route>
+        </Route>
         <Route component={ Admin } path="/admin"></Route>
-
-        
+        <Route component={ Driver } path="/driver"></Route>
       </Router>
     </Provider>
     ,
