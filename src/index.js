@@ -20,11 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Provider store={ store }>
       <Router history={ browserHistory }>
-        <Route component={ Shop } path="/">
-            <Route component={ Home } path="/home"></Route>
-            <Route component={ Cart } path="/cart"></Route>
-            <Route component={ About } path="/about"></Route>
-        </Route>
+        <Route component={ Shop } path="/"></Route>
         <Route component={ Admin } path="/admin"></Route>
         <Route component={ Driver } path="/driver"></Route>
       </Router>
