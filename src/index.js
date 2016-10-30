@@ -4,11 +4,12 @@ import "./styles/all.scss"
 //Modules
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory } from "react-router";
+import { Router, Route, browserHistory, IndexRoute } from "react-router";
 import { Provider } from "react-redux";
 
 //Components
 import Shop from "./shop/component/Shop/Shop";
+import Home from "./shop/component/Home/Home.jsx";
 import Admin from "./admin/component/Admin/Admin";
 import Driver from "./driver/component/Driver/Driver";
 
@@ -20,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Provider store={ store }>
       <Router history={ browserHistory }>
-        <Route component={ Shop } path="/"></Route>
+        <Route component={ Shop } path="/">
+          <IndexRoute component={ Home }></IndexRoute>
+        </Route>
         <Route component={ Admin } path="/admin"></Route>
         <Route component={ Driver } path="/driver"></Route>
       </Router>
