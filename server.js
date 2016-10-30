@@ -13,14 +13,14 @@ app.use(json());
 app.use(session(config.session));
 
 // Configure Passport
-// import passport from "passport"
-// import strategy from "./server/FacebookStrategy";
+import passport from "passport"
+import strategy from "./server/FacebookStrategy";
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-// passport.use(strategy);
-// passport.serializeUser((user, done) => done(null, user));
-// passport.deserializeUser((user, done) => done(null, user));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(strategy);
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
 
 // Configure Mongoose
 import mongoose from "mongoose";
