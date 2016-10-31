@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 module.exports = {
-  entry: { shop: "./src/shop/index.js", driver: "./src/driver/index.js", admin:"./src/admin/index.js" }
+  entry: { shop: "./src/shop/index.jsx", driver: "./src/driver/index.jsx", admin:"./src/admin/index.jsx" }
   , output: {
     path: __dirname + '/dist/chunks'
     ,  filename: "[name].js" }
