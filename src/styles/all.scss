@@ -1,3 +1,15 @@
+$pal-darkgrey: #dce1e5;
+$pal-black: #414141;
+$pal-red: #ec423d;
+$pal-white: #f2f5f7;
+$pal-lightgrey: #e8e8e8;
+// black link font on footer
+$pal-footer-link: #484d56;
+// black text font on footer
+$pal-footer-text: #2a678f;
+// black social media icons on footer
+$pal-footer-icons: #727786;
+
 //Base
 @import "./base/reset";
 @import "./base/bootstrap";
