@@ -9,12 +9,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default function Navbar(){
   return (
-    <div className="container-fluid">
-        <nav className="row Nav">
+    <div className="row navbar">
           <MuiThemeProvider>
             <Nav></Nav>
           </MuiThemeProvider>
-        </nav>
     </div>
   );
 }

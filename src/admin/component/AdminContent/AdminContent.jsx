@@ -7,15 +7,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 export default function AdminContent(props) {
 
   return (
-    <div className="container-fluid admincontent">
-      <nav className="row admincontent">
+      <nav className="col-xs-11 content admincontent">
         <MuiThemeProvider>
           <h1>Content</h1>
         </MuiThemeProvider>
 
       </nav>
-
-    </div>
   );
 
 }

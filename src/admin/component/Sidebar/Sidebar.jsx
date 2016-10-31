@@ -2,19 +2,16 @@ import './Sidebar.scss';
 
 import React from 'react';
 import {Link} from 'react-router';
+import SidebarDrawer from '../../container/SidebarDrawer/SidebarDrawer.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default function Sidebar( props ) {
 
   return (
-    <div className="container-fluid sidebar">
-      <nav className="row side-nav sidebar">
+      <nav className="col-xs-1 side-nav sidebar">
         <MuiThemeProvider>
-          <h1>Side</h1>
+          <SidebarDrawer></SidebarDrawer>
         </MuiThemeProvider>
-
       </nav>
-
-    </div>
   );
 }
