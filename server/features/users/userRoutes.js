@@ -6,10 +6,10 @@ module.exports = app => {
   // Passport authentication routes
   app.get('/auth/facebook', passport.authenticate('facebook'));
   app.get('/auth/facebook/callback', passport.authenticate('facebook',
-    {successReturnToOrRedirect: 'http://localhost:5001/', failureRedirect: '/'})
+    {successReturnToOrRedirect: '/', failureRedirect: '/'})
   );
-
-  app.get('/api/user', ensure.ensureLoggedIn(), userCtrl.getUser);
+  app.get('/auth/facebook/checkUser', userCtrl.checkUser);
+  app.get('/api/user', userCtrl.isAuthed, userCtrl.getUser);
   app.get('/api/logout', userCtrl.logoutUser);
 
 }
