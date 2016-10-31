@@ -1,5 +1,4 @@
 /node_modules
 config
-bundle.js
-dist/bundle.js.map
 jsconfig.json
+/dist/chunks
