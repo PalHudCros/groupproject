@@ -1,11 +1,10 @@
 const webpack = require('webpack');
 
 module.exports = {
-  entry:["./src/index.js"]
+  entry: { shop: "./src/shop/index.jsx", driver: "./src/driver/index.jsx", admin:"./src/admin/index.jsx" }
   , output: {
-    path: __dirname + '/dist'
-    , filename: 'bundle.js'
-  }
+    path: __dirname + '/dist/chunks'
+    ,  filename: "[name].js" }
   , module: {
   		loaders: [
   			{
@@ -30,6 +29,12 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: "jquery",
             jquery: "jQuery"
+        })
+        , new webpack.optimize.CommonsChunkPlugin({
+          name: 'init',
+          filename: 'init.js',
+          minChunks: 3,
+          chunks:['shop', 'driver', 'admin']
         })
     ]
 }
