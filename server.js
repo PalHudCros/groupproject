@@ -8,7 +8,6 @@ import path from "path";
 const app = express();
 const port = process.env.PORT || 5001;
 
-// app.use(express.static(`${__dirname}/dist`));
 
 // This needs to be first
 import subdomains from "./server/subdomains.js"
