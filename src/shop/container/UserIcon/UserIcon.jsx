@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { connect } from "react-redux";
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import IconButton from 'material-ui/IconButton';
+import Avatar from 'material-ui/Avatar';
 
 import { getUser, login } from "../../../services/userService";
 
@@ -12,34 +13,30 @@ class UserIcon extends Component{
   constructor(){
     super();
     this.state = {
-      status:'Sign in'
+      loggedIn: false
+      , photo: ""
+      , _id: ""
+      , name: ""
     }
   }
   componentWillMount() {
-    getUser()
-      .then(result => {
-        console.log(result)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-  componentWillReceiveProps(props){
-    console.log(props)
-    if (props.user.loggedIn) {
-      this.setState({status: 'Sign out'})
+    if (!this.state.loggedIn) {
+      getUser()
+        .then(result => {          
+          if (result._id) {
+              console.log(result);
+              this.setState({loggedIn: true, photo: result.photo, _id: result._id, name: result.name}); 
+          }
+        })
+        .catch(err => {
+          console.log("Error", err);
+        });     
     }
   }
 
-  // login() {
-  //     console.log("Login fired");
-  //     login().then(results=>{
-  //     console.log(results)
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-  // }
+  componentWillReceiveProps(props){
+    console.log(props)
+  }
 
   render(){
     return(
@@ -49,8 +46,22 @@ class UserIcon extends Component{
         
         
         >
+        {
+          this.state.photo
+          ?
+          <Avatar src={this.state.photo} size={25} />
+          :
           <AccountCircle></AccountCircle>
-          <span className="signIn">{this.state.status}</span>
+        }
+          <span className="signIn">
+          {
+            this.state.loggedIn
+            ?
+            "Sign Out"
+            :
+            "Sign In"
+          }
+          </span>
         </span>
       </a>
 
