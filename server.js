@@ -11,7 +11,6 @@ const port = process.env.PORT || 5001;
 
 // This needs to be first
 import subdomains from "./server/subdomains.js"
-subdomains(app)
 
 app.use(json());
 app.use(session(config.session));
@@ -34,10 +33,8 @@ mongoose.connection.once("open", () => console.log('WINE database now connected!
 // Configure Routes
 import masterRoutes from "./server/features/masterRoutes";
 masterRoutes(app);
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
-});
 
 
 // Listen on Port
+subdomains(app)
 app.listen(port, ()=>console.log(`listening on port ${port}`));
