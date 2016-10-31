@@ -8,7 +8,7 @@ import { Router, Route, browserHistory, IndexRoute } from "react-router";
 document.addEventListener('DOMContentLoaded', () => {
   const reactNode = document.getElementById('react-node');
 
-  ReactDom.render(
+  ReactDOM.render(
   <div><h1>admin</h1></div>
   ,  reactNode
   )
