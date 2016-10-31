@@ -7,7 +7,7 @@ import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 
-import { getUser, login } from "../../../services/userService";
+import { getUser, login } from "../../services/userService";
 
 class UserIcon extends Component{
   constructor(){
@@ -22,15 +22,15 @@ class UserIcon extends Component{
   componentWillMount() {
     if (!this.state.loggedIn) {
       getUser()
-        .then(result => {          
+        .then(result => {
           if (result._id) {
               console.log(result);
-              this.setState({loggedIn: true, photo: result.photo, _id: result._id, name: result.name}); 
+              this.setState({loggedIn: true, photo: result.photo, _id: result._id, name: result.name});
           }
         })
         .catch(err => {
           console.log("Error", err);
-        });     
+        });
     }
   }
 
@@ -41,10 +41,10 @@ class UserIcon extends Component{
   render(){
     return(
       <a href="/auth/facebook">
-        <span 
+        <span
           className="UserIcon"
-        
-        
+
+
         >
         {
           this.state.photo
