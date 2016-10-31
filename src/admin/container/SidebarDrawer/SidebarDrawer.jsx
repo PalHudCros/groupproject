@@ -22,7 +22,6 @@ export default class DrawerSimpleExample extends Component {
   }
 
   handleToggle() {
-    console.log( this.state.open );
     this.setState({
       open: !this.state.open
     });
