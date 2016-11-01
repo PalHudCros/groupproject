@@ -1,5 +1,3 @@
-import './SidebarDrawer.scss';
-
 import React, {Component} from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -12,18 +10,18 @@ import CustomersIcon from 'material-ui/svg-icons/social/people'
 import Close from 'material-ui/svg-icons/navigation/close';
 import {Link} from 'react-router';
 
-export default class DrawerSimpleExample extends Component {
+export default class SidebarDrawer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false
+      openDrawer: false
     };
   }
 
   handleToggle() {
     this.setState({
-      open: !this.state.open
+      openDrawer: !this.state.openDrawer
     });
   }
 
@@ -31,51 +29,43 @@ export default class DrawerSimpleExample extends Component {
     return (
       <div className="drawer-container sidebardrawer">
 
-        <IconButton
-          iconStyle={{width: 60, height: 60}}
+        <Link to="/"><IconButton
+          iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Dashboard"
-          tooltip="Dashboard"
-          tooltipPosition="bottom-right"
           onClick={this.handleToggle.bind(this)}
         >
           <DashboardIcon></DashboardIcon>
-        </IconButton>
-        <IconButton
-          iconStyle={{width: 60, height: 60}}
+        </IconButton></Link>
+        <Link to="/inventory"><IconButton
+          iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Inventory"
-          tooltip="Manage Inventory"
-          tooltipPosition="bottom-right"
           onClick={this.handleToggle.bind(this)}
         >
           <InventoryIcon></InventoryIcon>
-        </IconButton>
-        <IconButton
-          iconStyle={{width: 60, height: 60}}
+        </IconButton></Link>
+      <Link to="/drivers"><IconButton
+          iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Drivers"
-          tooltip="Manage Drivers"
-          tooltipPosition="bottom-right"
           onClick={this.handleToggle.bind(this)}
         >
           <DriversIcon></DriversIcon>
-        </IconButton>
-        <IconButton
-          iconStyle={{width: 60, height: 60}}
+        </IconButton></Link>
+        <Link to="/customers"><IconButton
+          iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Customers"
-          tooltip="Manage Customers"
-          tooltipPosition="bottom-right"
           onClick={this.handleToggle.bind(this)}
         >
           <CustomersIcon></CustomersIcon>
-        </IconButton>
+        </IconButton></Link>
 
       <Drawer
         className="hello"
         containerClassName="drawer sidebardrawer"
-        open={this.state.open}
+        open={this.state.openDrawer}
         >
           <div className="flex-end sidebardrawer">
 

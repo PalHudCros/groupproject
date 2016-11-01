@@ -2,3 +2,5 @@
 config
 jsconfig.json
 /dist/chunks
+/dist/bundle.js
+/dist/bundle.js.map

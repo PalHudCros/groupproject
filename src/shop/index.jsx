@@ -1,3 +1,5 @@
+//Shop Index
+
 //Styles
 import "../styles/all.scss"
 //Modules
