@@ -13,3 +13,14 @@ $pal-footer-icons: #727786;
 //Base
 @import "./base/reset";
 @import "./base/bootstrap";
+@import "./base/mixins";
+@import "../admin/component/CustomersContent/CustomersContent.scss";
+@import "../admin/component/Dashboard/Dashboard.scss";
+@import "../admin/component/DashboardContent/DashboardContent.scss";
+@import "../admin/component/DriversContent/DriversContent.scss";
+@import "../admin/component/InventoryContent/InventoryContent.scss";
+@import "../admin/component/Navbar/Navbar.scss";
+@import "../admin/component/Sidebar/Sidebar.scss";
+@import "../admin/container/Nav/Nav.scss";
+@import "../admin/container/ProfileMenu/ProfileMenu.scss";
+@import "../admin/container/SidebarDrawer/SidebarDrawer.scss";

@@ -1,5 +1,3 @@
-import './AdminContent.scss';
-
 import React from 'react';
 import { Link } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -7,9 +5,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 export default function AdminContent(props) {
 
   return (
-      <nav className="col-xs-11 content admincontent">
+      <nav className="col-xs-12 content admincontent">
         <MuiThemeProvider>
-          <h1>Content</h1>
+          <h1>Inventory Route</h1>
         </MuiThemeProvider>
 
       </nav>
