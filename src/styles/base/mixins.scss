@@ -1,0 +1,13 @@
+@mixin bgGradient( $color1a, $color1b, $color1c, $color1d, $color2a, $color2b, $color2c, $color2d ) {
+  background: -webkit-linear-gradient(left, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) );
+  background: -o-linear-gradient(right, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) );
+  background: -moz-linear-gradient(right, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) );
+  background: linear-gradient(to right, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) );
+}
+
+@mixin bgGradientImportant( $color1a, $color1b, $color1c, $color1d, $color2a, $color2b, $color2c, $color2d ) {
+  background: -webkit-linear-gradient(left, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) ) !important;
+  background: -o-linear-gradient(right, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) ) !important;
+  background: -moz-linear-gradient(right, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) ) !important;
+  background: linear-gradient(to right, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) ) !important;
+}

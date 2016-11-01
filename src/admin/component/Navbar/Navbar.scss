@@ -1,9 +1,10 @@
-.row.navbar {
+.navbar-wrapper.navbar {
   background-color: #e8e8e8;
-  height: 55px;
+  height: 75px;
+  width: 90%;
+  position: fixed;
+  top: 0px;
+  left: 10%;
+  z-index: 1;
+  box-shadow: 0px 0px 10px 1px black;
 }
-
-/* .col-xs-12.navbar {
-  height: 100%;
-  width: 100%;
-} */

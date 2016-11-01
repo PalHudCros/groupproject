@@ -1,15 +1,12 @@
-//styles
-import "./Navbar.scss";
-
 //Components
 import React from "react";
-import Nav from '../Nav/Nav.jsx';
+import Nav from '../../container/Nav/Nav.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 export default function Navbar(){
   return (
-    <div className="row navbar">
+    <div className="row navbar-wrapper navbar">
           <MuiThemeProvider>
             <Nav></Nav>
           </MuiThemeProvider>
