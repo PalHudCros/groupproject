@@ -3,4 +3,10 @@
 }
 .UserIcon{
   margin-left: 20px;
+  vertical-align: super;
+  overflow: hidden;
+  display: inline-block;
+  height: 25px;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
