@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 export default function Sidebar( props ) {
 
   return (
-      <nav className="side-nav sidebar">
+      <nav className="side-nav admin">
         <MuiThemeProvider>
           <ProfileMenu></ProfileMenu>
         </MuiThemeProvider>

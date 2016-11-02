@@ -27,7 +27,7 @@ export default class SidebarDrawer extends Component {
 
   render() {
     return (
-      <div className="drawer-container sidebardrawer">
+      <div className="drawer-container admin">
 
         <Link to="/"><IconButton
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
@@ -63,11 +63,10 @@ export default class SidebarDrawer extends Component {
         </IconButton></Link>
 
       <Drawer
-        className="hello"
-        containerClassName="drawer sidebardrawer"
+        containerClassName="drawer admin"
         open={this.state.openDrawer}
         >
-          <div className="flex-end sidebardrawer">
+          <div className="flex-end admin">
 
             <IconButton
               onClick={this.handleToggle.bind(this)}
