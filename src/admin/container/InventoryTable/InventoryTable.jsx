@@ -14,10 +14,42 @@ export default class InventoryTable extends Component {
 
     return (
         <nav className="col-xs-12 dashboardcontent admin">
-            <h1>Where is the table?</h1>
         </nav>
     );
 
   }
 
 }
+
+const dummyWines = [
+  {
+    name: "Pinot Grigio"
+    , price: "199.99"
+    , qty: 0
+  }
+  , {
+    name: "Chardonnay"
+    , price: "59.99"
+    , qty: 0
+  }
+  , {
+    name: "Malbec"
+    , price: "109.99"
+    , qty: 0
+  }
+  , {
+    name: "Reisling"
+    , price: "9.99"
+    , qty: 0
+  }
+  , {
+    name: "Champagne"
+    , price: "79.99"
+    , qty: 0
+  }
+  , {
+    name: "Zinfardel"
+    , price: "19.99"
+    , qty: 0
+  }
+];

@@ -16,6 +16,9 @@ $pal-footer-icons: #727786;
 @import "./base/bootstrap";
 @import "./base/mixins";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+* {
+  font-family: "Roboto", sans-serif;
+}
 
 @import "../shop/component/Home/Home.scss";
 @import "../shop/component/Nav/Nav.scss";
