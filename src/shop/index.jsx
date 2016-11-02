@@ -37,6 +37,4 @@ document.addEventListener('DOMContentLoaded', () => {
     ,
       reactNode
   );
-  console.log('document', document);
-  console.log('document', document.cookie[0]);
 })

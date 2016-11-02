@@ -14,13 +14,9 @@ class WineList extends React.Component {
         this.props.dispatch(getWines())
     }
     componentWillReceiveProps(props) {
-        console.log(props)
         const wines = props.wines.wines.map(wine=> {
             wine.labelImage = wine.Labels[0].Url;
             wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";            
-            console.log(wine.bottleImage);
-
-            console.log(wine.bottleImage);
             return (
                     <div key={wine.Id}>
                         <h2>{wine.Name}</h2>
