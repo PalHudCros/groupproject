@@ -1,5 +1,21 @@
-.inventorycontent.admin {
-  background-color: #ffffff;
+.inventory-content-wrapper.admin {
   height: 100%;
+}
+
+.header-wrapper.admin {
+  height: 10%;
   width: 100%;
+  text-align: center;
+}
+
+.h1-wrapper.admin {
+
+}
+  h1 {
+    margin: 0;
+  }
+
+.searchbar-wrapper.admin {
+  height: 10%;
+  text-align: center;
 }

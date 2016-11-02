@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 export default function DashboardContent(props) {
 
   return (
-      <nav className="col-xs-12 dashboardcontent admin">
+      <nav className="row dashboardcontent admin">
         <MuiThemeProvider>
           <h1>Admin Dashboard Route</h1>
         </MuiThemeProvider>
