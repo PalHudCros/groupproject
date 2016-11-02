@@ -33,7 +33,7 @@ export default class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Dashboard"
-          onClick={this.handleToggle.bind(this)}
+          onTouchTap={this.handleToggle.bind(this)}
         >
           <DashboardIcon></DashboardIcon>
         </IconButton></Link>
@@ -41,7 +41,7 @@ export default class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Inventory"
-          onClick={this.handleToggle.bind(this)}
+          onTouchTap={this.handleToggle.bind(this)}
         >
           <InventoryIcon></InventoryIcon>
         </IconButton></Link>
@@ -57,7 +57,7 @@ export default class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Customers"
-          onClick={this.handleToggle.bind(this)}
+          onTouchTap={this.handleToggle.bind(this)}
         >
           <CustomersIcon></CustomersIcon>
         </IconButton></Link>
@@ -69,7 +69,7 @@ export default class SidebarDrawer extends Component {
           <div className="flex-end admin">
 
             <IconButton
-              onClick={this.handleToggle.bind(this)}
+              onTouchTap={this.handleToggle.bind(this)}
               >
               <Close></Close>
             </IconButton>

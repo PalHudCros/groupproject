@@ -1,3 +1,4 @@
+
 $pal-darkgrey: #dce1e5;
 $pal-black: #414141;
 $pal-red: #ec423d;
@@ -14,6 +15,8 @@ $pal-footer-icons: #727786;
 @import "./base/reset";
 @import "./base/bootstrap";
 @import "./base/mixins";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 @import "../shop/component/Home/Home.scss";
 @import "../shop/component/Nav/Nav.scss";
 @import "../shop/component/Navbar/Navbar.scss";
