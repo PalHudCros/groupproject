@@ -20,9 +20,6 @@ import Checkout from "./component/Checkout/Checkout.jsx";
 //Store
 import store from "./store";
 
-import tapEvent from 'react-tap-event-plugin';
-tapEvent();
-
 document.addEventListener('DOMContentLoaded', () => {
   const reactNode = document.getElementById('react-node');
 

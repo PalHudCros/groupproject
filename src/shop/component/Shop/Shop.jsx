@@ -7,6 +7,7 @@ import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Store from '../Store/Store';
 
 
 export default class Shop extends React.Component {
@@ -117,12 +118,12 @@ export default class Shop extends React.Component {
                   <br/>
                   <br/>
                   <br/>
-                  <br/>
+
                 </Paper>
               </MuiThemeProvider>
             </div>
-            <div className="col-sm-8 col-md-10 store-container shop">
-
+            <div className="col-sm-8 store-container shop">
+              <Store></Store>
             </div>
           </div>
         </div>
