@@ -1,5 +1,3 @@
-import "./UserIcon.scss";
-
 import React, { Component } from 'react'
 import { Link, browserHistory } from "react-router";
 import { connect } from "react-redux";
@@ -24,7 +22,7 @@ class UserIcon extends Component{
   }
 
   componentWillReceiveProps(props){
-   
+
   }
 
   handleAuthClick() {
