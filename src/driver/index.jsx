@@ -1,7 +1,7 @@
 // Driver Index
 
 // Styles
-import "../styles/all.scss"
+import "../styles/all.scss";
 
 // Modules
 import React from 'react';
@@ -24,17 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const reactNode = document.getElementById('react-node');
 
   ReactDOM.render(
-  <Provider store={ store }>
-  <Router history={ browserHistory }>
-    <Route component={ Dashboard } path="/">
-    <IndexRoute component={ QueueContent }></IndexRoute>
-    <Route component={ OrdersContent } path="orders"></Route>
-    <Route component={ MapContent } path="map"></Route>
-    </Route>
+    <Provider store={ store }>
+    <Router history={ browserHistory }>
+      <Route component={ Dashboard } path="/">
+      <IndexRoute component={ QueueContent }></IndexRoute>
+      <Route component={ OrdersContent } path="orders"></Route>
+      <Route component={ MapContent } path="map"></Route>
+      </Route>
 
-  </Router>
+    </Router>
 
-  </Provider>
-  ,  reactNode
-  )
+    </Provider>
+    ,  reactNode
+  );
 } )
