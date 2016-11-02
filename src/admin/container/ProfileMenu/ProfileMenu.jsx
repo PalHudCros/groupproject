@@ -17,8 +17,8 @@ export default class ProfileMenu extends Component {
   render() {
 
     return (
-      <div className="profilemenu-wrapper profilemenu">
-        <div className="hamburger-menu-wrapper profilemenu">
+      <div className="profilemenu-wrapper admin">
+        <div className="hamburger-menu-wrapper admin">
 
       <IconMenu
         menuStyle={{background: "linear-gradient(to right, rgba( 242, 245, 247, 1), rgba( 235, 227, 225, 1))"}}

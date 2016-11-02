@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 export default function AdminContent(props) {
 
   return (
-      <nav className="col-xs-12 content admincontent">
+      <nav className="col-xs-12 driverscontent admin">
         <MuiThemeProvider>
           <h1>Drivers Route</h1>
         </MuiThemeProvider>

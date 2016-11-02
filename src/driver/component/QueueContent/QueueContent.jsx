@@ -1,15 +1,13 @@
-//Admin
-
 import React from 'react';
 import { Link } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-export default function DashboardContent(props) {
+export default function MapContent(props) {
 
   return (
-      <nav className="col-xs-12 dashboardcontent admin">
+      <nav className="col-xs-12 queuecontent driver">
         <MuiThemeProvider>
-          <h1>Admin Dashboard Route</h1>
+          <h1>QueueContent Route</h1>
         </MuiThemeProvider>
 
       </nav>

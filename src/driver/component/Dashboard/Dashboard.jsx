@@ -1,9 +1,7 @@
-//Admin
-
 import React, {Component} from "react";
-import Navbar from '../Navbar/Navbar.jsx';
-import Sidebar from '../Sidebar/Sidebar.jsx';
 import { Link } from "react-router";
+
+import Navbar from '../Navbar/Navbar.jsx';
 
 export default function Dashboard(props) {
 
@@ -11,12 +9,12 @@ export default function Dashboard(props) {
       <div>
 
         <Navbar></Navbar>
-        <Sidebar></Sidebar>
+        
+        <div className="container-fluid driver">
 
-        <div className="container-fluid admin">
 
 
-          <div className="row admin">
+          <div className="row driver">
 
 
 

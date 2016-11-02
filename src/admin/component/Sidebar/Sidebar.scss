@@ -1,4 +1,4 @@
-.side-nav.sidebar {
+.side-nav.admin {
   @include bgGradient( 242, 245, 247, 1, 235, 227, 225, 1);
   height: 100%;
   position: fixed;
@@ -6,9 +6,4 @@
   width: 10%;
   z-index: 1;
   box-shadow: 0px 0px 16px -2px black;
-}
-
-.drawer.sidebardrawer {
-  @include bgGradientImportant( 242, 245, 247, 1, 235, 227, 225, 1);
-  box-shadow: 0px 0px 16px -2px black !important;
 }
