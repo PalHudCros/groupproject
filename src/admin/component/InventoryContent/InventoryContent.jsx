@@ -20,7 +20,7 @@ export default function InventoryContent(props) {
 
       <div className="row searchbar-wrapper admin">
 
-        <div className="col-xs-offset-8 col-xs-4 admin">
+        <div className="col-xs-4 admin">
           <MuiThemeProvider>
             <SearchBar></SearchBar>
           </MuiThemeProvider>
@@ -28,13 +28,9 @@ export default function InventoryContent(props) {
 
       </div>
 
-      <div className="inventory-table-wrapper admin">
-
         <MuiThemeProvider>
           <InventoryTable></InventoryTable>
         </MuiThemeProvider>
-
-      </div>
 
     </div>
 

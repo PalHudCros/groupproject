@@ -13,8 +13,76 @@ export default class InventoryTable extends Component {
   render() {
 
     return (
-        <nav className="col-xs-12 dashboardcontent admin">
-        </nav>
+
+      <div className="inventory-table-wrapper admin">
+
+        <div className="row inventory-filters-wrapper admin">
+
+
+          <div className="col-xs-3 admin">
+            <p>Filter by Smell</p>
+          </div>
+          <div className="col-xs-3 admin">
+            <p>Filter by Usefulness</p>
+          </div>
+          <div className="col-xs-3 admin">
+            <p>Filter by Strangeity</p>
+          </div>
+          <div className="col-xs-3 admin">
+            <p>Filter by Potency of Corruption</p>
+          </div>
+
+        </div>
+
+        <div className="inventory-rows-wrapper admin">
+
+
+
+          <div className="row inventory-row admin">
+
+
+          </div>
+          <div className="row inventory-row admin">
+
+
+          </div>
+          <div className="row inventory-row admin">
+
+
+          </div>
+          <div className="row inventory-row admin">
+
+
+          </div>
+          <div className="row inventory-row admin">
+
+
+          </div>
+          <div className="row inventory-row admin">
+
+
+          </div>
+          <div className="row inventory-row admin">
+
+
+          </div>
+          <div className="row inventory-row admin">
+
+
+          </div>
+          <div className="row inventory-row admin">
+
+
+          </div>
+          <div className="row inventory-row admin">
+
+
+          </div>
+        </div>
+
+      </div>
+
+
     );
 
   }

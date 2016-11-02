@@ -54,7 +54,7 @@ export class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Drivers"
-          onClick={this.handleToggle.bind(this, ["Tab 1", "Tab 2"])}
+          onClick={this.handleToggle.bind(this, ["Tab 1", "TABBY", "Tab 2"])}
         >
           <DriversIcon></DriversIcon>
         </IconButton></Link>

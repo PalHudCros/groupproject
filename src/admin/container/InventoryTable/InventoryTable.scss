@@ -1,0 +1,24 @@
+.inventory-table-wrapper.admin {
+  height: 80%;
+  width: 100%;
+  background-color: green;
+  text-align: center;
+  overflow: hidden;
+}
+
+.inventory-filters-wrapper.admin {
+  height: 8%;
+  width: 100%;
+  background-color: pink;
+}
+
+.inventory-rows-wrapper.admin {
+  height: 100%;
+  overflow: scroll;
+}
+
+.inventory-row.admin {
+  height: 150px;
+  width: 100%;
+  background: radial-gradient(red, yellow, green);
+}
