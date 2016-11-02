@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router';
-import SearchBar from "../container/SearchBar/SearchBar.jsx";
-import InventoryTable from "../container/InventoryTable/InventoryTable.jsx";
+import SearchBar from "../../container/SearchBar/SearchBar.jsx";
+import InventoryTable from "../../container/InventoryTable/InventoryTable.jsx";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-export default function AdminContent(props) {
+export default function InventoryContent(props) {
 
   return (
-      <nav className="col-xs-12 inventorycontent admin">
+      <nav className="row inventorycontent admin">
 
-        <h1 className="admin">Manage Inventory</h1>
+        <div className="col-xs-12 admin">
+          <h1 className="admin">Manage Inventory</h1>
+        </div>
 
         <MuiThemeProvider>
           <SearchBar></SearchBar>
