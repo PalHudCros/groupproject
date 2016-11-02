@@ -1,9 +1,7 @@
 // Admin
 
-import { createStore, applyMiddleware } from "redux";
-
-import thunkMiddleware from "redux-thunk"
+import { createStore } from "redux";
 
 import reducer from "./reducer.js";
 
-export default createStore( reducer, applyMiddleware(thunkMiddleware) );
+export default createStore( reducer );

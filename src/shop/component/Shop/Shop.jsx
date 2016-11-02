@@ -1,6 +1,5 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar.jsx';
-import Store from "../Store/Store.jsx";
+import Navbar from '../Navbar/Navbar.jsx'
 
 export default function Shop(props) {
 
@@ -15,7 +14,7 @@ export default function Shop(props) {
               control panel
             </div>
             <div className="col-sm-9 store-container"  style={{border: 'solid 1px black', backgroundColor:'grey'}}>
-              <Store />
+              store
             </div>
           </div>
         </div>

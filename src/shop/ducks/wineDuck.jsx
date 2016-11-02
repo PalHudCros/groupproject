@@ -13,13 +13,11 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch ( action.type ) {
         case PROCESS:
-            return Object.assign({}, state, {status: "fetching"});
+            return Object.assign({}, state, {status: fetching});
         case SUCCESS:
-            return Object.assign({}, {wines: action.wines, selectedWine: {}}, {status: "fetched"})
+            return Object.assign({}, action.wines, {status: fetched})
         case FAILURE:
-            return Object.assign({}, state, {status: "error"});
-        case SELECT: 
-            return Object.assign({}, state, {selecedWine: action.selectedWine})
+            return Object.assign({}, state, {status: error});
         default:
             return state;
     }
@@ -37,19 +35,13 @@ export function failure() {
     return {type: FAILURE}
 }
 
-export function selectWine(wine) {
-    return {type: SELECT, selectedWine: wine}
-}
-
 export function getWines() {
-    return dispatch => {
-        dispatch(process());
-        return axios.get("/api/wines")
-            .then(results => {
-                dispatch(success(results.data.Products.List));            
-            })
-            .catch(error => {   
-                dispatch(failure(error))
-            })  
-        }
+    dispatch(process());
+    axios.get("/api/wines")
+        .then(results => {
+            dispatch(success(results.data));            
+        })
+        .catch(error => {
+            dispatch(failure(error))
+        }) 
 }

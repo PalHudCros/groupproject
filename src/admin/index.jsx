@@ -29,14 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
     <Provider store={ store }>
     <Router history={ browserHistory }>
       <Route component={ Dashboard } path="/">
-        <IndexRoute component={ DashboardContent }></IndexRoute>
-        <Route component={ InventoryContent } path="inventory">
-        </Route>
-        <Route component={ DriversContent } path="drivers">
-        </Route>
-        <Route component={ CustomersContent } path="customers">
-        </Route>
+
+      <IndexRoute component={ DashboardContent }></IndexRoute>
+
+      <Route component={ InventoryContent } path="inventory">
       </Route>
+      <Route component={ DriversContent } path="drivers">
+      </Route>
+      <Route component={ CustomersContent } path="customers">
+      </Route>
+    </Route>
 
     </Router>
     </Provider>
