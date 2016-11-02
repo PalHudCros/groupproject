@@ -5,7 +5,7 @@ import Navbar from '../Navbar/Navbar.jsx';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 import { Link } from "react-router";
 
-export default function Admin(props) {
+export default function Dashboard(props) {
 
   return (
       <div>

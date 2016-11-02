@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 export default function MapContent(props) {
 
   return (
-      <nav className="col-xs-12 content admincontent">
+      <nav className="col-xs-12 mapcontent driver">
         <MuiThemeProvider>
           <h1>MapContent Route</h1>
         </MuiThemeProvider>

@@ -3,14 +3,15 @@ import { Link } from "react-router";
 
 import Navbar from '../Navbar/Navbar.jsx';
 
-export default function Admin(props) {
+export default function Dashboard(props) {
 
   return (
       <div>
 
+        <Navbar></Navbar>
+        
         <div className="container-fluid driver">
 
-          <Navbar></Navbar>
 
 
           <div className="row driver">

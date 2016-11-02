@@ -2,6 +2,7 @@
 
 // Styles
 import "../styles/all.scss"
+
 // Modules
 import React from 'react';
 import ReactDOM from 'react-dom';

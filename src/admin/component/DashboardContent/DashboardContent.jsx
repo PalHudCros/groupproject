@@ -9,7 +9,7 @@ export default function DashboardContent(props) {
   return (
       <nav className="col-xs-12 dashboardcontent admin">
         <MuiThemeProvider>
-          <h1>Dashboard Route</h1>
+          <h1>Admin Dashboard Route</h1>
         </MuiThemeProvider>
 
       </nav>
