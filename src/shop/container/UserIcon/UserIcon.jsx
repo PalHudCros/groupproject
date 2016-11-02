@@ -1,5 +1,3 @@
-import "./UserIcon.scss";
-
 import React, { Component } from 'react'
 import { Link, browserHistory } from "react-router";
 import { connect } from "react-redux";
@@ -24,7 +22,7 @@ class UserIcon extends Component{
   }
 
   componentWillReceiveProps(props){
-   
+
   }
 
   handleAuthClick() {
@@ -35,7 +33,7 @@ class UserIcon extends Component{
     return(
       <a onClick={this.handleAuthClick.bind(this)} href="/auth/facebook">
         <span
-          className="UserIcon"
+          className="UserIcon shop"
         >
         {
           this.props.user.photo
@@ -44,7 +42,7 @@ class UserIcon extends Component{
           :
           <AccountCircle></AccountCircle>
         }
-          <span className="signIn">
+          <span className="signIn shop">
           {
             this.props.user.loggedIn
             ?
