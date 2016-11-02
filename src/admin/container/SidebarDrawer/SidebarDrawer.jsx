@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {setTabTitles} from "../../ducks/tabsDuck.jsx";
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
@@ -10,7 +12,7 @@ import CustomersIcon from 'material-ui/svg-icons/social/people'
 import Close from 'material-ui/svg-icons/navigation/close';
 import {Link} from 'react-router';
 
-export default class SidebarDrawer extends Component {
+export class SidebarDrawer extends Component {
   constructor(props) {
     super(props);
 
@@ -19,7 +21,10 @@ export default class SidebarDrawer extends Component {
     };
   }
 
-  handleToggle() {
+  handleToggle( tabsToLoad ) {
+    if ( tabsToLoad ) {
+      this.props.dispatch( setTabTitles( tabsToLoad ) );
+    }
     this.setState({
       openDrawer: !this.state.openDrawer
     });
@@ -33,7 +38,7 @@ export default class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Dashboard"
-          onClick={this.handleToggle.bind(this)}
+          onTouchTap={this.handleToggle.bind(this, ["Tab 1", "Tab 2"])}
         >
           <DashboardIcon></DashboardIcon>
         </IconButton></Link>
@@ -41,7 +46,7 @@ export default class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Inventory"
-          onClick={this.handleToggle.bind(this)}
+          onTouchTap={this.handleToggle.bind(this, ["Distributor", "Inventory Yo"])}
         >
           <InventoryIcon></InventoryIcon>
         </IconButton></Link>
@@ -49,7 +54,7 @@ export default class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Drivers"
-          onClick={this.handleToggle.bind(this)}
+          onClick={this.handleToggle.bind(this, ["Tab 1", "TABBY", "Tab 2"])}
         >
           <DriversIcon></DriversIcon>
         </IconButton></Link>
@@ -57,7 +62,7 @@ export default class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Customers"
-          onClick={this.handleToggle.bind(this)}
+          onTouchTap={this.handleToggle.bind(this, ["Tab 1", "Tab 2"])}
         >
           <CustomersIcon></CustomersIcon>
         </IconButton></Link>
@@ -69,7 +74,7 @@ export default class SidebarDrawer extends Component {
           <div className="flex-end admin">
 
             <IconButton
-              onClick={this.handleToggle.bind(this)}
+              onTouchTap={this.handleToggle.bind(this, null)}
               >
               <Close></Close>
             </IconButton>
@@ -81,3 +86,7 @@ export default class SidebarDrawer extends Component {
     );
   }
 }
+
+export default connect( state => {
+  return { tabs: state.tabs };
+} )( SidebarDrawer );

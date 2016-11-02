@@ -1,3 +1,4 @@
+
 $pal-darkgrey: #dce1e5;
 $pal-black: #414141;
 $pal-red: #ec423d;
@@ -14,6 +15,11 @@ $pal-footer-icons: #727786;
 @import "./base/reset";
 @import "./base/bootstrap";
 @import "./base/mixins";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+* {
+  font-family: "Roboto", sans-serif !important;
+}
+
 @import "../shop/component/Home/Home.scss";
 @import "../shop/component/Nav/Nav.scss";
 @import "../shop/component/Navbar/Navbar.scss";
@@ -31,9 +37,12 @@ $pal-footer-icons: #727786;
 @import "../admin/component/InventoryContent/InventoryContent.scss";
 @import "../admin/component/Navbar/Navbar.scss";
 @import "../admin/component/Sidebar/Sidebar.scss";
+@import "../admin/container/InventoryTable/InventoryTable.scss";
 @import "../admin/container/Nav/Nav.scss";
 @import "../admin/container/ProfileMenu/ProfileMenu.scss";
+@import "../admin/container/SearchBar/SearchBar.scss";
 @import "../admin/container/SidebarDrawer/SidebarDrawer.scss";
+@import "../admin/container/WineList/WineList.scss";
 @import "../driver/component/Dashboard/Dashboard.scss";
 @import "../driver/component/MapContent/MapContent.scss";
 @import "../driver/component/Navbar/Navbar.scss";
