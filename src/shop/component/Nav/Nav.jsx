@@ -1,4 +1,3 @@
-import "./Nav.scss";
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';

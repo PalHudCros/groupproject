@@ -1,6 +1,3 @@
-//styles
-import "./Navbar.scss";
-
 //Components
 import React from "react";
 import Nav from '../Nav/Nav.jsx';

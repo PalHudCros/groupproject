@@ -1,4 +1,3 @@
-import "./Home.scss";
 import React from 'react';
 import {Link} from "react-router";
 import Paper from 'material-ui/Paper';
