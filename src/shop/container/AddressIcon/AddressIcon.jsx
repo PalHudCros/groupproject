@@ -14,9 +14,9 @@ export default class AddressIcon extends Component{
 
   render(){
     return(
-      <span className="AddressIcon">
+      <span className="AddressIcon shop">
         <RoomIcon></RoomIcon>
-        <span className="addressBox">{this.state.location}</span>
+        <span className="addressBox shop">{this.state.location}</span>
       </span>
     )
   }

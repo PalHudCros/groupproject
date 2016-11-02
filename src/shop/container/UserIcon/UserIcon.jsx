@@ -33,7 +33,7 @@ class UserIcon extends Component{
     return(
       <a onClick={this.handleAuthClick.bind(this)} href="/auth/facebook">
         <span
-          className="UserIcon"
+          className="UserIcon shop"
         >
         {
           this.props.user.photo
@@ -42,7 +42,7 @@ class UserIcon extends Component{
           :
           <AccountCircle></AccountCircle>
         }
-          <span className="signIn">
+          <span className="signIn shop">
           {
             this.props.user.loggedIn
             ?

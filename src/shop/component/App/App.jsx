@@ -3,7 +3,7 @@ import Navbar from "../Navbar/Navbar"
 
 export default function App(props){
   return(
-    <div className='conatiner-fluid'>
+    <div className='conatiner-fluid shop'>
       <Navbar></Navbar>
       {props.children}
       <footer style={{marginTop:20,backgroundColor:'#e8e8e8'}}>

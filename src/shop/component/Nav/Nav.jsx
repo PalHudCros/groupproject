@@ -7,7 +7,7 @@ import {Link} from "react-router";
 
 export default function Nav(){
   return(
-    <div className="col-xs-10 col-xs-offset-1">
+    <div className="col-xs-10 col-xs-offset-1 shop">
       <div style={{display:"flex", justifyContent:'space-between'}}>
         <span>Logo of sorts</span>
         <span>

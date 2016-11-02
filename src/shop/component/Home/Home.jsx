@@ -6,20 +6,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default function Home(props){
   return(
-    <div className="container-fluid">
-      <div className="container">
+    <div className="container-fluid shop">
+      <div className="container shop">
 
-        <div className="row">
+        <div className="row shop">
           <MuiThemeProvider>
-            <Paper className="col-xs-12" style={style} zDepth={1} rounded={false}/>
+            <Paper className="col-xs-12 shop" style={style} zDepth={1} rounded={false}/>
           </MuiThemeProvider>
         </div>
 
         <MuiThemeProvider>
-          <div className="row">
-              <Paper className="featured-span col-xs-12 col-sm-12 col-md-4" style={style} zDepth={1} rounded={false}>first</Paper>
-              <Paper className="featured-span col-xs-12 col-sm-12 col-md-4" style={style} zDepth={1} rounded={false}>second</Paper>
-              <Paper className="featured-span col-xs-12 col-sm-12 col-md-4" style={style} zDepth={1} rounded={false}>third</Paper>
+          <div className="row shop">
+              <Paper className="featured-span col-xs-12 col-sm-12 col-md-4 shop" style={style} zDepth={1} rounded={false}>first</Paper>
+              <Paper className="featured-span col-xs-12 col-sm-12 col-md-4 shop" style={style} zDepth={1} rounded={false}>second</Paper>
+              <Paper className="featured-span col-xs-12 col-sm-12 col-md-4 shop" style={style} zDepth={1} rounded={false}>third</Paper>
           </div>
         </MuiThemeProvider>
       </div>

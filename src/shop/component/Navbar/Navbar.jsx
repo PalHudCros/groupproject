@@ -7,13 +7,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default function Navbar(){
   return (
-    <div className="container-fluid">
-        <nav className="row">
+    <div className="container-fluid shop">
+        <nav className="row shop">
           <MuiThemeProvider>
             <SuperNav></SuperNav>
           </MuiThemeProvider>
         </nav>
-        <nav className="row Nav">
+        <nav className="row Nav shop">
           <MuiThemeProvider>
             <Nav></Nav>
           </MuiThemeProvider>
