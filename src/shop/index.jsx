@@ -7,12 +7,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from "react-router";
 import { Provider } from "react-redux";
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 //Components
 import App from "./component/App/App";
 import Shop from "./component/Shop/Shop";
 import Home from "./component/Home/Home";
 import Cart from "./component/Cart/Cart";
 import Checkout from "./component/Checkout/Checkout.jsx";
+
 //Store
 import store from "./store";
 
