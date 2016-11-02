@@ -24,17 +24,6 @@ export default function Home(props){
           </div>
         </MuiThemeProvider>
       </div>
-      <footer style={{marginTop:20,backgroundColor:'#e8e8e8'}}>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-      </footer>
     </div>
   );
 }
