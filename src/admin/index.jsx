@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const reactNode = document.getElementById('react-node');
 
   ReactDOM.render(
+
     <Provider store={ store }>
     <Router history={ browserHistory }>
       <Route component={ Dashboard } path="/">
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     </Router>
     </Provider>
+
   ,  reactNode
   )
 } )

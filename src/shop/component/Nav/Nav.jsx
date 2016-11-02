@@ -12,19 +12,21 @@ export default function Nav(){
       <div style={{display:"flex", justifyContent:'space-between'}}>
         <span>Logo of sorts</span>
         <span>
-          <FlatButton
-            label="Wine"
-          >
-            <Link to="/shop"></Link>
-          </FlatButton>
+          <Link to="shop">
+            <FlatButton
+              label="Wine"
+            >
 
+            </FlatButton>
+          </Link>
           <SearchBox></SearchBox>
-          <FlatButton
-            label="Cart"
-            icon={<ActionShoppingCart></ActionShoppingCart>}
-          >
-            <Link to="/cart"></Link>
-          </FlatButton>
+          <Link to="/cart">
+            <FlatButton
+              label="Cart"
+              icon={<ActionShoppingCart></ActionShoppingCart>}
+            >
+            </FlatButton>
+          </Link>
         </span>
       </div>
     </div>

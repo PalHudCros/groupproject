@@ -37,3 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
       reactNode
   );
 })
+/***
+  *
+  *  Why is this here? - Joseph
+  *
+***/
