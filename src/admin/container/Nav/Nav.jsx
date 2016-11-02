@@ -9,7 +9,6 @@ import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 export class Nav extends Component {
   constructor(props) {
     super(props);
-    console.log( props );
 
     this.state = {
       tabs: []
@@ -30,18 +29,14 @@ export class Nav extends Component {
         />
     );
   } );
-  console.log( howManyTabs );
   this.setState({tabs: howManyTabs});
-  console.log( this.state.tabs );
   }
 
   componentWillMount(props) {
-    console.log( this.props );
     this.getTabTitles(this.props);
   }
 
   componentWillReceiveProps(props) {
-    console.log("Received props:", props)
     this.getTabTitles(props);
   }
 
