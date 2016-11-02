@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import SearchBar from "../../container/SearchBar/SearchBar.jsx";
 import InventoryTable from "../../container/InventoryTable/InventoryTable.jsx";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import WineList from '../../container/WineList/WineList';
 
 export default function InventoryContent(props) {
 
@@ -33,8 +34,6 @@ export default function InventoryContent(props) {
         </MuiThemeProvider>
 
     </div>
-
-
   );
 
 }
