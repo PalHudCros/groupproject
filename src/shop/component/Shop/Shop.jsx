@@ -1,5 +1,6 @@
 import './Shop.scss'
 import React from 'react';
+<<<<<<< HEAD
 import Navbar from '../Navbar/Navbar.jsx'
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -7,6 +8,10 @@ import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+=======
+import Navbar from '../Navbar/Navbar.jsx';
+import Store from "../Store/Store.jsx";
+>>>>>>> 5c1e96b779030b35cc060c6566f61677f862a7af
 
 export default class Shop extends React.Component {
   constructor(props){
