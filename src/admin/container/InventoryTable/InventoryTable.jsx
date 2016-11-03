@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import CircularProgress from 'material-ui/CircularProgress';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import {getInventory, addWine} from "../../ducks/inventoryDuck";
+import {getWinesFromAPI, addWineToDistribution} from "../../ducks/inventoryDuck";
 
 
 class InventoryTable extends Component {
@@ -17,18 +17,17 @@ class InventoryTable extends Component {
   }
 
   componentWillMount() {
-    // this.props.dispatch(getInventory());
+    // this.props.dispatch(getWinesFromAPI());
   }
 
   componentWillReceiveProps(props) {
-    console.log(props);
      const wineList = props.inventory.wines.map(wine => {
-        wine.labelImage = wine.Labels[0].Url;
-        wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";
+        wine.LabelImage = wine.Labels[0].Url;
+        wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
         return (
           <div key={wine.Id} className="row inventory-row admin">
               <div className="col-xs-4">
-                <img height="150" src={wine.bottleImage} alt=""/>
+                <img height="150" src={wine.BottleImage} alt=""/>
               </div>
               <div className="col-xs-4">
                 <h2>{wine.Name}</h2>
@@ -45,7 +44,7 @@ class InventoryTable extends Component {
   }
 
   addItemToInventory(wine) {
-    this.props.dispatch(addWine(wine));
+    this.props.dispatch(addWineToDistribution(wine));
   }
 
   render() {
