@@ -18,4 +18,13 @@ module.exports = {
             return res.status(500).json(error);
           })
     }
+
+    , addWine(req, res) {
+        console.log(req.body);
+        Wine.create(req.body, (err, wine) => {
+          if (err) return res.status(500).json(err);          
+          return res.status(200).json(wine);
+        })
+          
+    }
 }
