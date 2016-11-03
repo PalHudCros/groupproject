@@ -22,7 +22,7 @@ class Store extends Component{
           wine.labelImage = wine.Labels[0].Url;
           wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";
           return (
-            <WineStoreCard key={wine.Id} wineId={wine.wineId} bottleImage={wine.bottleImage}></WineStoreCard>
+            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.bottleImage}></WineStoreCard>
           )
       });
       this.setState({wines: wines})
