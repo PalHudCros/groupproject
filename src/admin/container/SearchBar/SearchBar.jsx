@@ -15,7 +15,7 @@ class SearchBar extends Component {
   }
 
   componentWillMount() {
-    const wineCategories = this.props.inventory.categories.map(category => category);
+    const wineCategories = this.props.distribution.categories.map(category => category);
     this.setState({wineCategories: wineCategories});
   }
 
@@ -23,7 +23,7 @@ class SearchBar extends Component {
   }
 
   handleNewRequest(item) {
-    this.props.dispatch(getWinesFromAPI(item.id));    
+    this.props.dispatch(getWinesFromAPI(item.id));
   }
 
   render() {

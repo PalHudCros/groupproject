@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import WineList from '../../container/WineList/WineList';
 import ApiWineStage from "../../container/ApiWineStage/ApiWineStage";
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import Refresh from 'material-ui/svg-icons/navigation/refresh';
 import {getWinesFromAPI} from "../../ducks/inventoryDuck";
 
 export class InventoryContent extends Component {
@@ -44,7 +44,7 @@ export class InventoryContent extends Component {
               <MuiThemeProvider>
 
                 <FloatingActionButton style={{margin: 0}} onClick={this.fetchWinesFromAPI.bind(this)}>
-                  <ContentAdd />
+                  <Refresh />
                 </FloatingActionButton>
               </MuiThemeProvider>
             </div>

@@ -8,6 +8,8 @@ const ADD_WINE_PROCESS = "inventory/ADD_WINE_PROCESS";
 const ADD_WINE_SUCCESS = "inventory/ADD_WINE_SUCCESS";
 const ADD_WINE_FAILURE = "inventory/ADD_WINE_FAILURE";
 
+const SEND_WINE_TO_API_STAGE = "inventory/SEND_WINE_TO_API_STAGE";
+
 
 const initialState = {
     wines: []
@@ -95,6 +97,8 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, newState, {status: "Wine Added!"});
         case ADD_WINE_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
+        case SEND_WINE_TO_API_STAGE:
+            return Object.assign({}, state, {status: "Wine added to API stage", wine: action.wine } )
         default:
             return state;
     }
@@ -122,6 +126,10 @@ function addWineSuccess(wine) {
 
 function addWineFailure(error) {
     return {type: ADD_WINE_FAILURE, error}
+}
+
+function sendWineToApiStage( wine ) {
+  return {type: SEND_WINE_TO_API_STAGE, wine}
 }
 
 export function getWinesFromAPI(itemId) {

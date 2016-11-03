@@ -18,7 +18,7 @@ export class RecentlyAdded extends Component {
   }
 
   componentWillReceiveProps(props) {
-    const categories = props.inventory.wines.map(category => (
+    const categories = props.distribution.wines.map(category => (
         <div className="stage-wine-row-wrapper">
 
           <div key={ wine.id } className="row stage-wine-row admin">

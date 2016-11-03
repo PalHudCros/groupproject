@@ -9,9 +9,9 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch ( action.type ) {
         case SET_TAB_TITLES:
-          return { titles: action.titles, whichTab: state.whichTab };
+          return Object.assign({}, state, { titles: action.titles });
         case WHICH_TAB_IS_ACTIVE:
-          return { titles: state.titles, whichTab: action.tabNum };
+          return Object.assign({}, state, { whichTab: action.tabNum });
         default:
           return state;
     }

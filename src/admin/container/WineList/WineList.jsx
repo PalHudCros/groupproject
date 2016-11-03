@@ -14,9 +14,9 @@ class WineList extends React.Component {
         this.props.dispatch(getInventory())
     }
     componentWillReceiveProps(props) {
-        const wines = props.inventory.wines.map(wine=> {
+        const wines = props.distribution.wines.map(wine=> {
             wine.labelImage = wine.Labels[0].Url;
-            wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";            
+            wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";
             return (
                     <div key={wine.Id}>
                         <h2>{wine.Name}</h2>
@@ -28,11 +28,11 @@ class WineList extends React.Component {
 
                     </div>
             )
-        }); 
+        });
         this.setState({wines: wines})
     }
 
-    render() {      
+    render() {
         return (
             <div>
                 {this.state.wines}
