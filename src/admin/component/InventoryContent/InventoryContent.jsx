@@ -10,7 +10,6 @@ import CategoryCount from "../../container/CategoryCount/CategoryCount";
 export class InventoryContent extends Component {
   constructor(props) {
     super(props);
-    // console.log( "INV CONTENT", props );
 
     this.state = {
 
