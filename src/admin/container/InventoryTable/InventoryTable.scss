@@ -1,7 +1,7 @@
 .inventory-table-wrapper.admin {
   height: 80%;
   width: 100%;
-  background-color: green;
+  // background-color: green;
   text-align: center;
   overflow: hidden;
 }
@@ -18,7 +18,15 @@
 }
 
 .inventory-row.admin {
+  color: black;
   height: 150px;
   width: 100%;
-  background: radial-gradient(red, yellow, green);
+  // background: radial-gradient(red, yellow, green);
+}
+
+.progress-container {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
