@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import CircularProgress from 'material-ui/CircularProgress';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import {getWinesFromAPI, addWineToDistribution} from "../../ducks/inventoryDuck";
+import {addWineToDistribution} from "../../ducks/inventoryDuck";
 
 
 class InventoryTable extends Component {
@@ -16,8 +16,12 @@ class InventoryTable extends Component {
     };
   }
 
+  addWineToStage( wine ) {
+    this.props.dispatch(addWineToApiStage( wine ));
+  }
+
   componentWillMount() {
-    this.props.dispatch(getWinesFromAPI());
+
   }
 
   componentWillReceiveProps(props) {
@@ -34,7 +38,7 @@ class InventoryTable extends Component {
                 <h3>{wine.Varietal.Name} {wine.Vintage}</h3>
               </div>
               <div className="col-xs-4">
-                <FloatingActionButton style={{margin: 0}} onClick={this.addItemToInventory.bind(this, wine)}>
+                <FloatingActionButton style={{margin: 0}} onClick={this.addWineToStage.bind(this, wine)}>
                   <ContentAdd />
                 </FloatingActionButton>
               </div>

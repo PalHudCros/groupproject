@@ -4,6 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import Hamburger from 'material-ui/svg-icons/navigation/menu';
 import Avatar from 'material-ui/svg-icons/action/face';
 import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
 
 export default class ProfileMenu extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ export default class ProfileMenu extends Component {
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
         >
         <MenuItem primaryText="Settings" />
+        <Divider />
         <MenuItem primaryText="Back to Store Front" />
         <MenuItem primaryText="Sign out" />
       </IconMenu>

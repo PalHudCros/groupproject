@@ -135,7 +135,7 @@ export function getWinesFromAPI(itemId) {
             })
             .catch(error => {
                 dispatch(inventoryFailure(error))
-            })  
+            })
         }
 }
 
@@ -144,10 +144,10 @@ export function addWineToDistribution(wine) {
         dispatch(addWineProcess());
          return axios.post("/api/wines/distribution", wine)
             .then(results => {
-                dispatch(addWineSuccess(results.data));            
+                dispatch(addWineSuccess(results.data));
             })
-            .catch(error => {   
+            .catch(error => {
                 dispatch(addWineFailure(error))
-            })  
+            })
         }
 }
