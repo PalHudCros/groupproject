@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import CircularProgress from 'material-ui/CircularProgress';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import {getInventory, addWine} from "../../ducks/inventoryDuck";
+import {getWinesFromAPI, addWineToDistribution} from "../../ducks/inventoryDuck";
 
 
 class InventoryTable extends Component {
@@ -44,7 +44,7 @@ class InventoryTable extends Component {
   }
 
   addItemToInventory(wine) {
-    this.props.dispatch(addWine(wine));
+    this.props.dispatch(addWineToDistribution(wine));
   }
 
   render() {
