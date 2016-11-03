@@ -33,11 +33,13 @@ const Wine = new mongoose.Schema({
     }
     , Vineyard: { 
         Id: {type: Number}
-        , Name: {type: String}                                                                                                                                                                                   , Url: {type: String}                                                                                                                                                           
+        , Name: {type: String}
+        , Url: {type: String}
         , ImageUrl: {type: String}
         , GeoLocation: { 
             Latitude: {type: Number}
-            , Longitude: {type: Number}                                                                                                                                                                          , Url: {type: String}
+            , Longitude: {type: Number}
+            , Url: {type: String}
         }
     }                                                                                                                                                           
     , Vintage: {type: String}
