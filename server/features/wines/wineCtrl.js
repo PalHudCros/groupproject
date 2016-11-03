@@ -9,7 +9,6 @@ module.exports = {
       let query = "";
       if (req.query.filter) query += '&filter=' + req.query.filter;      
       else query += "rating(85%7C100)";
-      console.log(baseUrl + query);  
         axios.get(baseUrl + query)
           .then(result => {
             return res.status(200).json(result.data);
@@ -20,10 +19,7 @@ module.exports = {
     }
 
     , addWine(req, res) {
-        console.log(req.body);
         new Wine(req.body).save((err, wine) => {
-          console.log("Mongoose Error: ", err);
-          console.log("Added Wine: ", wine)
           if (err) return res.status(500).json(err);          
           return res.status(200).json(wine);
         })
