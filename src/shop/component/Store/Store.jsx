@@ -1,9 +1,10 @@
 import React from "react";
+import WineList from "../../container/WineList/WineList";
 
 export default function Store() {
     return (
         <div>
-            <h1>Store</h1>
+            <WineList />
         </div>
     )
 }

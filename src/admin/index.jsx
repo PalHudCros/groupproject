@@ -17,7 +17,7 @@ import DashboardContent from './component/DashboardContent/DashboardContent.jsx'
 import InventoryContent from './component/InventoryContent/InventoryContent.jsx';
 import DriversContent from './component/DriversContent/DriversContent.jsx';
 import CustomersContent from './component/CustomersContent/CustomersContent.jsx';
-
+import Error from './component/Error/Error.jsx'
 // Store
 import store from "./store.js";
 
@@ -29,16 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
     <Provider store={ store }>
     <Router history={ browserHistory }>
       <Route component={ Dashboard } path="/">
-
-      <IndexRoute component={ DashboardContent }></IndexRoute>
-
-      <Route component={ InventoryContent } path="inventory">
+        <IndexRoute component={ DashboardContent }></IndexRoute>
+        <Route component={ InventoryContent } path="inventory">
+        </Route>
+        <Route component={ DriversContent } path="drivers">
+        </Route>
+        <Route component={ CustomersContent } path="customers">
+        </Route>
+        <Route component={Error} path="*"></Route>
       </Route>
-      <Route component={ DriversContent } path="drivers">
-      </Route>
-      <Route component={ CustomersContent } path="customers">
-      </Route>
-    </Route>
 
     </Router>
     </Provider>

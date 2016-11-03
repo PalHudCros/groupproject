@@ -1,7 +1,7 @@
 // Driver Index
 
 // Styles
-import "../styles/all.scss"
+import "../styles/all.scss";
 
 // Modules
 import React from 'react';
@@ -16,6 +16,7 @@ import Dashboard from './component/Dashboard/Dashboard.jsx';
 import QueueContent from './component/QueueContent/QueueContent.jsx';
 import OrdersContent from './component/OrdersContent/OrdersContent.jsx';
 import MapContent from './component/MapContent/MapContent.jsx';
+import Error from './component/Error/Error.jsx'
 
 // Store
 import store from './store.js';
@@ -24,17 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const reactNode = document.getElementById('react-node');
 
   ReactDOM.render(
-  <Provider store={ store }>
-  <Router history={ browserHistory }>
-    <Route component={ Dashboard } path="/">
-    <IndexRoute component={ QueueContent }></IndexRoute>
-    <Route component={ OrdersContent } path="orders"></Route>
-    <Route component={ MapContent } path="map"></Route>
-    </Route>
+    <Provider store={ store }>
+    <Router history={ browserHistory }>
+      <Route component={ Dashboard } path="/">
+        <IndexRoute component={ QueueContent }></IndexRoute>
+        <Route component={ OrdersContent } path="orders"></Route>
+        <Route component={ MapContent } path="map"></Route>
+        <Route component={Error} path="*"></Route>
+      </Route>
+    </Router>
 
-  </Router>
-
-  </Provider>
-  ,  reactNode
-  )
+    </Provider>
+    ,  reactNode
+  );
 } )

@@ -7,12 +7,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from "react-router";
 import { Provider } from "react-redux";
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 //Components
 import App from "./component/App/App";
 import Shop from "./component/Shop/Shop";
 import Home from "./component/Home/Home";
 import Cart from "./component/Cart/Cart";
-import Checkout from "./component/Checkout/Checkout.jsx";
+import Checkout from "./component/Checkout/Checkout";
+import Error from "./component/Error/Error"
 //Store
 import store from "./store";
 
@@ -31,12 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
           <Route component={ Shop } path="shop"></Route>
           <Route component={ Cart } path="cart"></Route>
           <Route component={ Checkout } path="checkout"></Route>
+          <Route component={ Error } path="*"></Route>
         </Route>
       </Router>
     </Provider>
     ,
       reactNode
   );
-  console.log('document', document);
-  console.log('document', document.cookie[0]);
 })
