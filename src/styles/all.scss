@@ -19,17 +19,18 @@ $pal-footer-icons: #727786;
 * {
   font-family: "Roboto", sans-serif !important;
 }
-
+//SHOP==========================================================================
 @import "../shop/component/Home/Home.scss";
 @import "../shop/component/Nav/Nav.scss";
 @import "../shop/component/Navbar/Navbar.scss";
 @import "../shop/component/Shop/Shop.scss";
-@import "../shop/component/Store/Store.scss";
 @import "../shop/component/SuperNav/SuperNav.scss";
 @import "../shop/component/Home/Home.scss";
 @import "../shop/container/AddressIcon/AddressIcon.scss";
 @import "../shop/container/SearchBox/SearchBox.scss";
+@import "../shop/container/Store/Store.scss";
 @import "../shop/container/UserIcon/UserIcon.scss";
+//ADMIN=========================================================================
 @import "../admin/component/CustomersContent/CustomersContent.scss";
 @import "../admin/component/Dashboard/Dashboard.scss";
 @import "../admin/component/DashboardContent/DashboardContent.scss";
@@ -43,6 +44,7 @@ $pal-footer-icons: #727786;
 @import "../admin/container/SearchBar/SearchBar.scss";
 @import "../admin/container/SidebarDrawer/SidebarDrawer.scss";
 @import "../admin/container/WineList/WineList.scss";
+//DRIVER========================================================================
 @import "../driver/component/Dashboard/Dashboard.scss";
 @import "../driver/component/MapContent/MapContent.scss";
 @import "../driver/component/Navbar/Navbar.scss";
