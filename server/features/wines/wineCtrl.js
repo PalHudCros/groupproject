@@ -29,7 +29,6 @@ module.exports = {
           if (wine) {
             Wine.findOneAndUpdate({Id: wine.Id}, { $set: { Quantity: wine.Quantity + 1 }}, (err, success) => {
               if (err) return res.status(500).json(err);
-              console.log("Wine Update: ", success)
               return res.status(200).json(success);
             }) 
           }
