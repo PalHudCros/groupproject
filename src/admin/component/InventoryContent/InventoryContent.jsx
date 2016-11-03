@@ -1,39 +1,67 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {Link} from 'react-router';
 import SearchBar from "../../container/SearchBar/SearchBar.jsx";
 import InventoryTable from "../../container/InventoryTable/InventoryTable.jsx";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import WineList from '../../container/WineList/WineList';
 import CategoryCount from "../../container/CategoryCount/CategoryCount";
 
-export default function InventoryContent(props) {
+export class InventoryContent extends Component {
+  constructor(props) {
+    super(props);
+    console.log( "INV CONTENT", props );
 
-  return (
+    this.state = {
 
-    <div className="inventory-content-wrapper admin">
+    };
+  }
 
-      {/*<header className="row header-wrapper admin">
 
-        <div className="col-xs-offset-4 col-xs-4 h1-wrapper admin">
-          <h1>Manage Inventory</h1>
+  render() {
+
+    return (
+
+        <div>
+        {
+         this.props.tabs.whichTab === 1
+         ?
+        <div className="inventory-content-wrapper admin">
+          <CategoryCount />
+          <div className="row searchbar-wrapper admin">
+            <div className="col-xs-4 admin">
+              <MuiThemeProvider>
+                <SearchBar></SearchBar>
+              </MuiThemeProvider>
+            </div>
+
+          </div>
+
+            <MuiThemeProvider>
+              <InventoryTable></InventoryTable>
+            </MuiThemeProvider>
         </div>
-        
-      </header> */}
-      <CategoryCount />
-      <div className="row searchbar-wrapper admin">
-        <div className="col-xs-4 admin">
-          <MuiThemeProvider>
-            <SearchBar></SearchBar>
-          </MuiThemeProvider>
-        </div>
-
+          :
+          this.props.tabs.whichTab === 2
+          ?
+          <div className="inventory-content-wrapper admin">
+            <h2>TWO TWO TWO TWO</h2>
+          </div>
+          :
+          this.props.tabs.whichTab === 3
+          ?
+          <div className="inventory-content-wrapper admin">
+            <h2>THREE THREE THREE THREE</h2>
+          </div>
+          :
+          ""
+        }
       </div>
-
-        <MuiThemeProvider>
-          <InventoryTable></InventoryTable>
-        </MuiThemeProvider>
-
-    </div>
-  );
+    );
+  }
 
 }
+
+export default connect( state => {
+  return { tabs: state.tabs };
+} )( InventoryContent );

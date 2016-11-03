@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {setTabTitles} from "../../ducks/tabsDuck.jsx";
+import {whichTabIsActive} from "../../ducks/tabsDuck.jsx";
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Link} from 'react-router';
 import FontIcon from 'material-ui/FontIcon';
@@ -12,15 +13,17 @@ export class Nav extends Component {
 
     this.state = {
       tabs: []
+      , whichTab: 1
     };
   }
 
-  getTabTitles(props) {
+  howManyTabTitles(props) {
     const howManyTabs = props.tabs.titles.map( ( tabTitle, index ) => {
 
       return (
         <Tab key={ index }
         label={ tabTitle }
+        onActive={ this.handleActiveTab.bind(this, index + 1) }
         style={{color: "#484d56"}}
         />
     );
@@ -28,12 +31,18 @@ export class Nav extends Component {
   this.setState({tabs: howManyTabs});
   }
 
+  handleActiveTab(tabNum) {
+    console.log( "Active Tab: ", tabNum );
+    this.props.dispatch( whichTabIsActive(tabNum) );
+  }
+
   componentWillMount(props) {
 
   }
 
   componentWillReceiveProps(props) {
-    this.getTabTitles(props);
+    console.log( "HMMM", props );
+    this.howManyTabTitles(props);
   }
 
 

@@ -17,14 +17,14 @@ class InventoryTable extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getInventory());
+    // this.props.dispatch(getInventory());
   }
 
   componentWillReceiveProps(props) {
     console.log(props);
      const wineList = props.inventory.wines.map(wine => {
         wine.labelImage = wine.Labels[0].Url;
-        wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";            
+        wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";
         return (
           <div key={wine.Id} className="row inventory-row admin">
               <div className="col-xs-4">
@@ -36,7 +36,7 @@ class InventoryTable extends Component {
               </div>
               <div className="col-xs-4">
                 <FloatingActionButton style={{margin: 0}} onClick={this.addItemToInventory.bind(this, wine)}>
-                  <ContentAdd /> 
+                  <ContentAdd />
                 </FloatingActionButton>
               </div>
           </div>
