@@ -23,12 +23,12 @@ class InventoryTable extends Component {
   componentWillReceiveProps(props) {
     console.log(props);
      const wineList = props.inventory.wines.map(wine => {
-        wine.labelImage = wine.Labels[0].Url;
-        wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";            
+        wine.LabelImage = wine.Labels[0].Url;
+        wine.BottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";            
         return (
           <div key={wine.Id} className="row inventory-row admin">
               <div className="col-xs-4">
-                <img height="150" src={wine.bottleImage} alt=""/>
+                <img height="150" src={wine.BottleImage} alt=""/>
               </div>
               <div className="col-xs-4">
                 <h2>{wine.Name}</h2>
