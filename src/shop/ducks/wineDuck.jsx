@@ -18,8 +18,8 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, {wines: action.wines, selectedWine: {}}, {status: "fetched"})
         case FAILURE:
             return Object.assign({}, state, {status: "error"});
-        case SELECT: 
-            return Object.assign({}, state, {selecedWine: action.selectedWine})
+        case SELECT:
+            return Object.assign({}, state, {selecedWine: action.selectedWine});
         default:
             return state;
     }
@@ -46,10 +46,10 @@ export function getWines() {
         dispatch(process());
         return axios.get("/api/wines")
             .then(results => {
-                dispatch(success(results.data.Products.List));            
+                dispatch(success(results.data.Products.List));
             })
-            .catch(error => {   
+            .catch(error => {
                 dispatch(failure(error))
-            })  
+            })
         }
 }

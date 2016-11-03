@@ -135,7 +135,7 @@ export function getInventory(itemId) {
             })
             .catch(error => {
                 dispatch(inventoryFailure(error))
-            })  
+            })
         }
 }
 
@@ -144,10 +144,10 @@ export function addWine(wine) {
         dispatch(addWineProcess());
          return axios.post("/api/wines", wine)
             .then(results => {
-                dispatch(addWineSuccess(results.data));            
+                dispatch(addWineSuccess(results.data));
             })
-            .catch(error => {   
+            .catch(error => {
                 dispatch(addWineFailure(error))
-            })  
+            })
         }
 }

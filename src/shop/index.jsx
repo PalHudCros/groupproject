@@ -17,7 +17,7 @@ import Home from "./component/Home/Home";
 import Cart from "./component/Cart/Cart";
 import Checkout from "./component/Checkout/Checkout";
 import Error from "./component/Error/Error";
-import SingleWine from "./component/SingleWine/SingleWine";
+import SingleWine from "./container/SingleWine/SingleWine";
 
 //Store
 import store from "./store";
@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <Router history={ browserHistory }>
         <Route component={ App } path="/">
           <IndexRoute component={ Home }></IndexRoute>
-          <Route component={ Shop } path="shop"></Route>
           <Route component={SingleWine} path="shop/:wineId"></Route>
+          <Route component={ Shop } path="shop"></Route>
           <Route component={ Cart } path="cart"></Route>
           <Route component={ Checkout } path="checkout"></Route>
           <Route component={ Error } path="*"></Route>
