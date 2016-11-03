@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 export class CategoryCount extends Component {
   constructor(props) {
     super(props);
-    console.log( props );
 
     this.state = {
         categories: []

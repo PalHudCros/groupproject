@@ -18,7 +18,6 @@ export class Nav extends Component {
   }
 
   handleActiveTab(tabNum) {
-    console.log( "Active Tab: ", tabNum );
     this.props.dispatch( whichTabIsActive(tabNum) );
   }
 
@@ -43,7 +42,6 @@ export class Nav extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log( "HMMM", props );
     this.howManyTabTitles(props);
   }
 
