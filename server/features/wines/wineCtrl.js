@@ -21,7 +21,7 @@ module.exports = {
 
     , addWine(req, res) {
         console.log("Endpoint: ", req.body);
-        Wine.create(req.body, (err, wine) => {
+        new Wine(req.body).save((err, wine) => {
           if (err) return res.status(500).json(err);          
           return res.status(200).json(wine);
         })
