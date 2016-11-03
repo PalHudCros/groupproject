@@ -20,8 +20,10 @@ module.exports = {
     }
 
     , addWine(req, res) {
-        console.log("Endpoint: ", req.body);
+        console.log(req.body);
         new Wine(req.body).save((err, wine) => {
+          console.log("Mongoose Error: ", err);
+          console.log("Added Wine: ", wine)
           if (err) return res.status(500).json(err);          
           return res.status(200).json(wine);
         })

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const Wine = new mongoose.Schema({
-    Id: {type: Number, required: true}
-    , Name: {type: Number, required: true}
+    Id: {type: Number}
+    , Name: {type: String}
     , Url: {type: String}
     , Appellation: {
         Id: {type: Number}
@@ -16,7 +16,7 @@ const Wine = new mongoose.Schema({
         }
     }
     , Labels: [{
-            Id: {type: Number}
+            Id: {type: String}
             , Name: {type: String}
             , Url: {type: String}
     }]
