@@ -17,6 +17,11 @@ export class Nav extends Component {
     };
   }
 
+  handleActiveTab(tabNum) {
+    console.log( "Active Tab: ", tabNum );
+    this.props.dispatch( whichTabIsActive(tabNum) );
+  }
+
   howManyTabTitles(props) {
     const howManyTabs = props.tabs.titles.map( ( tabTitle, index ) => {
 
@@ -25,16 +30,13 @@ export class Nav extends Component {
         label={ tabTitle }
         onActive={ this.handleActiveTab.bind(this, index + 1) }
         style={{color: "#484d56"}}
+        className="nav-tab admin"
         />
     );
   } );
   this.setState({tabs: howManyTabs});
   }
 
-  handleActiveTab(tabNum) {
-    console.log( "Active Tab: ", tabNum );
-    this.props.dispatch( whichTabIsActive(tabNum) );
-  }
 
   componentWillMount(props) {
 
@@ -50,10 +52,8 @@ export class Nav extends Component {
 
   return (
     <Tabs
-      inkBarStyle={{backgroundColor: "#ec423d"}}
-      contentContainerStyle={{color: "blue"}}
-      tabItemContainerStyle={{backgroundColor: "#ffffff"}}
-      tabTemplateStyle={{color: "green"}}
+      className="nav-tab-container admin"
+      tabItemContainerStyle={{backgroundColor: "#ffffff", height: "95%"}}
       >
     { this.state.tabs }
     </Tabs>
