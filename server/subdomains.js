@@ -37,7 +37,7 @@ driverRouter.get('/init.js',
     (req, res)=>{ res.sendFile('driver.js.map', {root:`${__dirname}/../dist/chunks`}) }
   )
   .get('*',
-    (req, res)=>{ res.sendFile('index.html', {root:`${__dirname}/../dist/shop`}) }
+    (req, res)=>{ res.sendFile('index.html', {root:`${__dirname}/../dist/driver`}) }
   );
 
 app.get('/init.js',
