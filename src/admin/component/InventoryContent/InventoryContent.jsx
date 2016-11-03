@@ -21,7 +21,6 @@ export default function InventoryContent(props) {
       </header> */}
       <CategoryCount />
       <div className="row searchbar-wrapper admin">
-
         <div className="col-xs-4 admin">
           <MuiThemeProvider>
             <SearchBar></SearchBar>

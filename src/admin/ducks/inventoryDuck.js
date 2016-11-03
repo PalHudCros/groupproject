@@ -140,21 +140,14 @@ export function getInventory(itemId) {
 }
 
 export function addWine(wine) {
-    const filter = "&filter=product(" + wine.Id + ")";
     return dispatch => {
         dispatch(addWineProcess());
-        return axios.get("/api/wines" + filter)
+         return axios.post("/api/wines", wine)
             .then(results => {
-                console.log(results);
+                dispatch(addWineSuccess(results.data));            
+            })
+            .catch(error => {   
+                dispatch(addWineFailure(error))
             })  
         }
-
-        // return axios.post("/api/wines", wine)
-        //     .then(results => {
-        //         dispatch(addWineSuccess(results.data));            
-        //     })
-        //     .catch(error => {   
-        //         dispatch(addWineFailure(error))
-        //     })  
-        // }
 }

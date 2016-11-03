@@ -18,7 +18,7 @@ class CategoryCount extends Component {
 
   render() {
     const categories = this.props.inventory.categories.map(category => (
-        <div className="col-xs-3">
+        <div key = {category.id} className="col-xs-3">
             <div className="col-xs-8">{category.varietal}</div>
             <div className="col-xs-4">{category.qty}</div>
         </div>
