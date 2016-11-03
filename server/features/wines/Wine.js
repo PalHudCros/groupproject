@@ -80,6 +80,7 @@ const Wine = new mongoose.Schema({
     }
     , LabelImage: {type: String}
     , BottleImage: {type: String}
+    , Quantity: {type: Number}
 });
 
 module.exports = mongoose.model('Wine', Wine);
