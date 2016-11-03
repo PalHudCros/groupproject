@@ -1,5 +1,10 @@
+import WineStoreCard from "./"
+//Modules
 import React from "react";
 import {connect} from "react-redux";
+// Components/Containers
+import WineStoreCard from "../../component/WineStoreCard/WineStoreCard"
+//Async Action
 import {getWines} from "../../ducks/wineDuck";
 
 class WineList extends React.Component {
@@ -16,7 +21,7 @@ class WineList extends React.Component {
     componentWillReceiveProps(props) {
         const wines = props.wines.wines.map(wine=> {
             wine.labelImage = wine.Labels[0].Url;
-            wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";            
+            wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";
             return (
                     <div key={wine.Id}>
                         <h2>{wine.Name}</h2>
@@ -25,15 +30,14 @@ class WineList extends React.Component {
                         <img src={wine.bottleImage} alt=""/>
                         <h4>Vineyard: {wine.Vineyard.Name}</h4>
                         <img src={wine.Vineyard.ImageUrl} alt=""/>
-
                     </div>
             )
-        }); 
+        });
         this.setState({wines: wines})
     }
 
-    render() {      
-        
+    render() {
+
         return (
             <div>
                 {this.state.wines}
