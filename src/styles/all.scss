@@ -16,10 +16,12 @@ $pal-footer-icons: #727786;
 @import "./base/bootstrap";
 @import "./base/mixins";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-* {
+html {
   font-family: "Roboto", sans-serif !important;
 }
 
+// SHOP
+// Component
 @import "../shop/component/Home/Home.scss";
 @import "../shop/component/Nav/Nav.scss";
 @import "../shop/component/Navbar/Navbar.scss";
@@ -27,9 +29,15 @@ $pal-footer-icons: #727786;
 @import "../shop/component/Store/Store.scss";
 @import "../shop/component/SuperNav/SuperNav.scss";
 @import "../shop/component/Home/Home.scss";
+
+// SHOP
+// Container
 @import "../shop/container/AddressIcon/AddressIcon.scss";
 @import "../shop/container/SearchBox/SearchBox.scss";
 @import "../shop/container/UserIcon/UserIcon.scss";
+
+// ADMIN
+// Component
 @import "../admin/component/CustomersContent/CustomersContent.scss";
 @import "../admin/component/Dashboard/Dashboard.scss";
 @import "../admin/component/DashboardContent/DashboardContent.scss";
@@ -37,16 +45,27 @@ $pal-footer-icons: #727786;
 @import "../admin/component/InventoryContent/InventoryContent.scss";
 @import "../admin/component/Navbar/Navbar.scss";
 @import "../admin/component/Sidebar/Sidebar.scss";
+
+// ADMIN
+// Container
+@import "../admin/container/CategoryCount/CategoryCount.scss";
 @import "../admin/container/InventoryTable/InventoryTable.scss";
 @import "../admin/container/Nav/Nav.scss";
 @import "../admin/container/ProfileMenu/ProfileMenu.scss";
 @import "../admin/container/SearchBar/SearchBar.scss";
 @import "../admin/container/SidebarDrawer/SidebarDrawer.scss";
 @import "../admin/container/WineList/WineList.scss";
+
+// DRIVER
+// Component
 @import "../driver/component/Dashboard/Dashboard.scss";
+@import "../driver/component/Error/Error.scss";
 @import "../driver/component/MapContent/MapContent.scss";
 @import "../driver/component/Navbar/Navbar.scss";
 @import "../driver/component/OrdersContent/OrdersContent.scss";
 @import "../driver/component/QueueContent/QueueContent.scss";
+
+// DRIVER
+// Container
 @import "../driver/container/Nav/Nav.scss";
 @import "../driver/container/Userbar/Userbar.scss";

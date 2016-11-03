@@ -2,6 +2,7 @@ const SET_TAB_TITLES = "admin/SET_TAB_TITLES";
 
 const initialState = {
     titles: []
+    , whichTab: 1
 }
 
 export default function reducer(state = initialState, action) {

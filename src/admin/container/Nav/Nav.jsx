@@ -20,10 +20,6 @@ export class Nav extends Component {
 
       return (
         <Tab key={ index }
-          icon={<FontIcon
-            style={{color: "#484d56"}}
-            className="material-icons">phone</FontIcon>
-        }
         label={ tabTitle }
         style={{color: "#484d56"}}
         />
@@ -33,7 +29,7 @@ export class Nav extends Component {
   }
 
   componentWillMount(props) {
-    this.getTabTitles(this.props);
+
   }
 
   componentWillReceiveProps(props) {
