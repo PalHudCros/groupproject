@@ -15,8 +15,8 @@ import App from "./component/App/App";
 import Shop from "./component/Shop/Shop";
 import Home from "./component/Home/Home";
 import Cart from "./component/Cart/Cart";
-import Checkout from "./component/Checkout/Checkout.jsx";
-
+import Checkout from "./component/Checkout/Checkout";
+import Error from "./component/Error/Error"
 //Store
 import store from "./store";
 
@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <Route component={ Shop } path="shop"></Route>
           <Route component={ Cart } path="cart"></Route>
           <Route component={ Checkout } path="checkout"></Route>
+          <Route component={ Error } path="*"></Route>
         </Route>
       </Router>
     </Provider>
