@@ -10,7 +10,7 @@ import CategoryCount from "../../container/CategoryCount/CategoryCount";
 export class InventoryContent extends Component {
   constructor(props) {
     super(props);
-    console.log( "INV CONTENT", props );
+    // console.log( "INV CONTENT", props );
 
     this.state = {
 
@@ -22,11 +22,11 @@ export class InventoryContent extends Component {
 
     return (
 
-        <div>
+        <div className="inventory-content-outer-wrapper admin">
         {
          this.props.tabs.whichTab === 1
          ?
-        <div className="inventory-content-wrapper admin">
+        <div className="inventory-content-inner-wrapper admin">
           <CategoryCount />
           <div className="row searchbar-wrapper admin">
             <div className="col-xs-4 admin">

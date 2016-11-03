@@ -17,7 +17,7 @@ class InventoryTable extends Component {
   }
 
   componentWillMount() {
-    // this.props.dispatch(getWinesFromAPI());
+    this.props.dispatch(getWinesFromAPI());
   }
 
   componentWillReceiveProps(props) {

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 
-class CategoryCount extends Component {
+export class CategoryCount extends Component {
   constructor(props) {
     super(props);
+    console.log( props );
 
     this.state = {
         categories: []
@@ -11,6 +12,7 @@ class CategoryCount extends Component {
   }
 
   componentWillMount() {
+
   }
 
   componentWillReceiveProps(props) {
@@ -26,7 +28,7 @@ class CategoryCount extends Component {
   render() {
     return (
         <div className="row">
-            {this.state.categories};
+            {this.state.categories}
         </div>
     );
 
