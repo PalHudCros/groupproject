@@ -124,14 +124,16 @@ function addWineFailure(error) {
     return {type: ADD_WINE_FAILURE, error}
 }
 
-export function getInventory() {
+export function getInventory(itemId) {
+    let filter = "";
+    if (itemId) filter += "?filter=categories(" + itemId + ")"
     return dispatch => {
         dispatch(inventoryProcess());
-        return axios.get("/api/wines")
+        return axios.get("/api/wines" + filter)
             .then(results => {
-                dispatch(inventorySuccess(results.data.Products.List));            
+                dispatch(inventorySuccess(results.data.Products.List));
             })
-            .catch(error => {   
+            .catch(error => {
                 dispatch(inventoryFailure(error))
             })  
         }

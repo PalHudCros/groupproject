@@ -1,14 +1,29 @@
 import React, {Component} from 'react';
 import {Link} from "react-router";
+import {connect} from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
+import {getInventory} from "../../ducks/inventoryDuck"
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-
+      wineCategories: []
+      , wineCategoriesConfig: {text: "varietal", value: "id"}
     };
+  }
+
+  componentWillMount() {
+    const wineCategories = this.props.inventory.categories.map(category => category);
+    this.setState({wineCategories: wineCategories});
+  }
+
+  componentWillReceiveProps(props) {
+  }
+
+  handleNewRequest(item) {
+    this.props.dispatch(getInventory(item.id));    
   }
 
   render() {
@@ -18,8 +33,10 @@ export default class SearchBar extends Component {
         <AutoComplete
           floatingLabelText="Search Inventory"
           filter={AutoComplete.fuzzyFilter}
-          dataSource={ wineCategories }
+          dataSource={ this.state.wineCategories }
+          dataSourceConfig={ this.state.wineCategoriesConfig }
           maxSearchResults={5}
+          onNewRequest={this.handleNewRequest.bind(this)}
         />
       </div>
 
@@ -27,5 +44,4 @@ export default class SearchBar extends Component {
   }
 
 }
-
-const wineCategories = [ "Cabernet Sauvignon", "Chardonnay", "Pinot Noir", "White Blends", "Red Blends", "Sauvignon Blanc", "Merlot", "Syrah", "Shiraz", "Pinot Grigio", "Pinot Gris", "Riesling", "Malbec", "Dessert", "Sherry", "Port", "Moscato", "Zinfandel", "Primitivo", "Sangiovese", "Red", "White", "Rose", "Sparkling", "Champagne" ];
+export default connect(state => ( { inventory: state.inventory } ) )( SearchBar );
