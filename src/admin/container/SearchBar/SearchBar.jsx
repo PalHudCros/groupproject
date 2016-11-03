@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router";
 import {connect} from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
-import {getInventory} from "../../ducks/inventoryDuck"
+import {getWinesFromAPI} from "../../ducks/inventoryDuck"
 
 class SearchBar extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class SearchBar extends Component {
   }
 
   handleNewRequest(item) {
-    this.props.dispatch(getInventory(item.id));    
+    this.props.dispatch(getWinesFromAPI(item.id));    
   }
 
   render() {
@@ -31,7 +31,7 @@ class SearchBar extends Component {
     return (
       <div>
         <AutoComplete
-          floatingLabelText="Search Inventory"
+          floatingLabelText="Search API"
           filter={AutoComplete.fuzzyFilter}
           dataSource={ this.state.wineCategories }
           dataSourceConfig={ this.state.wineCategoriesConfig }
