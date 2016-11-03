@@ -140,6 +140,7 @@ export function getInventory(itemId) {
 }
 
 export function addWine(wine) {
+    console.log("Hellow from Inventory Duck add Wine: ", wine);
     return dispatch => {
         dispatch(addWineProcess());
          return axios.post("/api/wines", wine)
