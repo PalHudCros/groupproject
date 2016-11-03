@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import {connect} from "react-redux";
-import {getInventory} from "../../ducks/inventoryDuck";
+import CircularProgress from 'material-ui/CircularProgress';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import {getInventory, addWine} from "../../ducks/inventoryDuck";
+
 
 class InventoryTable extends Component {
   constructor(props) {
@@ -30,10 +34,18 @@ class InventoryTable extends Component {
                 <h2>{wine.Name}</h2>
                 <h3>{wine.Varietal.Name} {wine.Vintage}</h3>
               </div>
-
+              <div className="col-xs-4">
+                <FloatingActionButton style={{margin: 0}} onClick={this.addItemToInventory.bind(this, wine)}>
+                  <ContentAdd /> 
+                </FloatingActionButton>
+              </div>
           </div>
       )});
       this.setState({wineList: wineList})
+  }
+
+  addItemToInventory(wine) {
+    this.props.dispatch(addWine(wine));
   }
 
   render() {
@@ -54,7 +66,15 @@ class InventoryTable extends Component {
           </div>
         </div>
         <div className="inventory-rows-wrapper admin">
-            {this.state.wineList}     
+            {
+              this.props.inventory.status === "Fetching Inventory"
+              ?
+              <div className="progress-container">
+                <CircularProgress size={80} thickness={5} />
+              </div>
+              :
+              this.state.wineList
+            }
         </div>
       </div>
     );
