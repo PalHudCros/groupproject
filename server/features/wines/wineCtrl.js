@@ -28,20 +28,24 @@ module.exports = {
     }
 
     , addWineToDistribution(req, res) {
-         Wine.findOne({Id: req.body.Id}, (err, wine) => {
-          if (err) {
-              new Wine(req.body).save((err, wine) => {
-              if (err) return res.status(500).json(err);
-              return res.status(200).json(wine);
-            })
-          }
-          if (wine) {
-            Wine.findOneAndUpdate({Id: wine.Id}, { $inc: { Quantity: 1 }}, (err, success) => {
-              if (err) return res.status(500).json(err);
-              return res.status(200).json(success);
-            }) 
-          }
-        });          
+         Wine.findOneAndUpdate({Id: req.body.Id}, {$inc: {Quantity: 1}}, {upsert: true}, (err, wine) => {
+            if (err) return res.status(500).json(err);
+            return res.status(200).json(wine);
+         })
+        //  Wine.findOne({Id: req.body.Id}, (err, wine) => {
+        //   if (err) {
+        //       new Wine(req.body).save((err, wine) => {
+        //       if (err) return res.status(500).json(err);
+        //       return res.status(200).json(wine);
+        //     })
+        //   }
+        //   if (wine) {
+        //     Wine.findOneAndUpdate({Id: wine.Id}, { $inc: { Quantity: 1 }}, (err, success) => {
+        //       if (err) return res.status(500).json(err);
+        //       return res.status(200).json(success);
+        //     }) 
+        //   }
+        // });          
     }
 
     , addWineToInventory(req, res) {
