@@ -23,7 +23,7 @@ class InventoryTable extends Component {
   componentWillReceiveProps(props) {
      const wineList = props.inventory.wines.map(wine => {
         wine.LabelImage = wine.Labels[0].Url;
-        wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";            
+        wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
         return (
           <div key={wine.Id} className="row inventory-row admin">
               <div className="col-xs-4">
@@ -35,7 +35,7 @@ class InventoryTable extends Component {
               </div>
               <div className="col-xs-4">
                 <FloatingActionButton style={{margin: 0}} onClick={this.addItemToInventory.bind(this, wine)}>
-                  <ContentAdd /> 
+                  <ContentAdd />
                 </FloatingActionButton>
               </div>
           </div>

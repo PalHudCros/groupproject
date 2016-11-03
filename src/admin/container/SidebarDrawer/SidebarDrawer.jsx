@@ -46,7 +46,7 @@ export class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Inventory"
-          onTouchTap={this.handleToggle.bind(this, ["Distributor", "Inventory Yo"])}
+          onTouchTap={this.handleToggle.bind(this, ["Add from API", "Add from Distributor", "In-stock Inventory"])}
         >
           <InventoryIcon></InventoryIcon>
         </IconButton></Link>
