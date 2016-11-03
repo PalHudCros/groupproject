@@ -1,6 +1,6 @@
 import wineCtrl from './wineCtrl';
 
 module.exports = app => {
-    app.get('/api/wines', wineCtrl.getWines);
-    app.post('/api/wines', wineCtrl.addWine);
+    app.get('/api/wines/global', wineCtrl.getWinesFromAPI);
+    app.post('/api/wines/distribution', wineCtrl.addWineToDistribution);
 }

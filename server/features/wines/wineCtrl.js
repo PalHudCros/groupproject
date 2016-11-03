@@ -5,7 +5,7 @@ import Wine from './Wine';
 const baseUrl = 'http://services.wine.com/api/beta/service.svc/json/catalog?offset=0&size=100&apikey=' + config.wineAPI.key + '&sort=popularity%7Cascending&state=TX'
 
 module.exports = {
-    getWines(req, res) {
+    getWinesFromAPI(req, res) {
       let query = "";
       if (req.query.filter) query += '&filter=' + req.query.filter;      
       else query += "rating(85%7C100)";
@@ -18,7 +18,7 @@ module.exports = {
           })
     }
 
-    , addWine(req, res) {
+    , addWineToDistribution(req, res) {
         new Wine(req.body).save((err, wine) => {
           if (err) return res.status(500).json(err);          
           return res.status(200).json(wine);

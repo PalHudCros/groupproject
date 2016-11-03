@@ -17,11 +17,10 @@ class InventoryTable extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getInventory());
+    this.props.dispatch(getWinesFromAPI());
   }
 
   componentWillReceiveProps(props) {
-    console.log(props);
      const wineList = props.inventory.wines.map(wine => {
         wine.LabelImage = wine.Labels[0].Url;
         wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";            

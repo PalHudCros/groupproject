@@ -124,12 +124,12 @@ function addWineFailure(error) {
     return {type: ADD_WINE_FAILURE, error}
 }
 
-export function getInventory(itemId) {
+export function getWinesFromAPI(itemId) {
     let filter = "";
     if (itemId) filter += "?filter=categories(" + itemId + ")"
     return dispatch => {
         dispatch(inventoryProcess());
-        return axios.get("/api/wines" + filter)
+        return axios.get("/api/wines/global" + filter)
             .then(results => {
                 dispatch(inventorySuccess(results.data.Products.List));
             })
@@ -139,11 +139,11 @@ export function getInventory(itemId) {
         }
 }
 
-export function addWine(wine) {
+export function addWineToDistribution(wine) {
     console.log("Hellow from Inventory Duck add Wine: ", wine);
     return dispatch => {
         dispatch(addWineProcess());
-         return axios.post("/api/wines", wine)
+         return axios.post("/api/wines/distribution", wine)
             .then(results => {
                 dispatch(addWineSuccess(results.data));            
             })
