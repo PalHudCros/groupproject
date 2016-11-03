@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router";
 import {connect} from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
-import {getInventory} from "../../ducks/inventoryDuck"
+import {getWinesFromAPI} from "../../ducks/inventoryDuck"
 
 class SearchBar extends Component {
   constructor(props) {

@@ -76,7 +76,7 @@ export default function reducer(state = initialState, action) {
         case INVENTORY_PROCESS:
             return Object.assign({}, state, {status: "Fetching Inventory"});
         case INVENTORY_SUCCESS:
-            return Object.assign({}, state, {wines: action.wines}, {status: "Success!"})
+            return Object.assign({}, state, {wines: action.wines}, {status: "Inventory Received!"})
         case INVENTORY_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case ADD_WINE_PROCESS:
@@ -92,7 +92,7 @@ export default function reducer(state = initialState, action) {
                 }
             }
             newState.inventoryList.push(action.wine);
-            return newState;
+            return Object.assign({}, newState, {status: "Wine Added!"});
         case ADD_WINE_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         default:
@@ -116,8 +116,8 @@ function addWineProcess() {
     return {type: ADD_WINE_PROCESS};
 }
 
-function addWineSuccess(inventoryList) {
-    return {type: ADD_WINE_SUCCESS, inventoryList};
+function addWineSuccess(wine) {
+    return {type: ADD_WINE_SUCCESS, wine};
 }
 
 function addWineFailure(error) {
@@ -140,7 +140,6 @@ export function getWinesFromAPI(itemId) {
 }
 
 export function addWineToDistribution(wine) {
-    console.log("Hellow from Inventory Duck add Wine: ", wine);
     return dispatch => {
         dispatch(addWineProcess());
          return axios.post("/api/wines/distribution", wine)
