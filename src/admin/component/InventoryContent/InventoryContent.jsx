@@ -4,6 +4,7 @@ import SearchBar from "../../container/SearchBar/SearchBar.jsx";
 import InventoryTable from "../../container/InventoryTable/InventoryTable.jsx";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import WineList from '../../container/WineList/WineList';
+import CategoryCount from "../../container/CategoryCount/CategoryCount";
 
 export default function InventoryContent(props) {
 
@@ -11,14 +12,14 @@ export default function InventoryContent(props) {
 
     <div className="inventory-content-wrapper admin">
 
-      <header className="row header-wrapper admin">
+      {/*<header className="row header-wrapper admin">
 
         <div className="col-xs-offset-4 col-xs-4 h1-wrapper admin">
           <h1>Manage Inventory</h1>
         </div>
-
-      </header>
-
+        
+      </header> */}
+      <CategoryCount />
       <div className="row searchbar-wrapper admin">
 
         <div className="col-xs-4 admin">
