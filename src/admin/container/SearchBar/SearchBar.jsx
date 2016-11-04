@@ -3,6 +3,8 @@ import {Link} from "react-router";
 import {connect} from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
 import {getWinesFromAPI} from "../../ducks/distributionDuck";
+import {getWinesFromInventory} from "../../ducks/inventoryDuck";
+
 
 class SearchBar extends Component {
   constructor(props) {
@@ -15,15 +17,30 @@ class SearchBar extends Component {
   }
 
   componentWillMount() {
-    this.setState({wineCategories: this.props.distribution.categories});
+    if (this.props.tabs.whichTab === 1) {
+      this.setState({wineCategories: this.props.distribution.categories});
+    } else if (this.props.tabs.whichTab === 2) {
+      this.setState({wineCategories: this.props.inventory.categories});      
+    }
   }
 
   componentWillReceiveProps(props) {
-    this.setState({wineCategories: props.distribution.categories})
+    if (props.tabs.whichTab === 1) {
+      this.setState({wineCategories: props.distribution.categories});
+    } else if (props.tabs.whichTab === 2) {
+      this.setState({wineCategories: props.inventory.categories});      
+    }
   }
 
   handleNewRequest(item) {
-    this.props.dispatch(getWinesFromAPI(item._id));    
+    console.log("This Tab: ", this.props.tabs.whichTab)
+    if (this.props.tabs.whichTab === 1) {
+      this.props.dispatch(getWinesFromAPI(item._id));
+    } else if (this.props.tabs.whichTab === 2) {
+      this.props.dispatch(getWinesFromInventory(item._id));     
+    }
+
+        
   }
 
   render() {
@@ -44,4 +61,4 @@ class SearchBar extends Component {
   }
 
 }
-export default connect(state => ( { inventory: state.inventory, distribution: state.distribution } ) )( SearchBar );
+export default connect(state => ( { inventory: state.inventory, distribution: state.distribution, tabs: state.tabs } ) )( SearchBar );
