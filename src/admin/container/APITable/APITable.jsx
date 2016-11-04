@@ -21,10 +21,7 @@ class APITable extends Component {
   }
 
   componentWillReceiveProps(props) {
-     const wineList = props.distribution.wines.map(wine => {
-        wine.LabelImage = wine.Labels[0].Url;
-        wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
-        return (
+     const wineList = props.distribution.wines.map(wine => (
           <div key={wine.Id} className="row inventory-row admin">
               <div className="col-xs-4">
                 <img height="150" src={wine.BottleImage} alt=""/>
@@ -39,7 +36,7 @@ class APITable extends Component {
                 </FloatingActionButton>
               </div>
           </div>
-      )});
+      ));
       this.setState({wineList: wineList})
   }
 
