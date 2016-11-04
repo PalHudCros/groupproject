@@ -1,19 +1,23 @@
 import axios from "axios";
 
-const INVENTORY_PROCESS = "inventory/INVENTORY_PROCESS";
-const INVENTORY_SUCCESS = "inventory/INVENTORY_SUCCESS";
-const INVENTORY_FAILURE = "inventory/INVENTORY_FAILURE";
+const DISTRIBUTION_PROCESS = "distribution/DISTRIBUTION_PROCESS";
+const DISTRIBUTION_SUCCESS = "distribution/DISTRIBUTION_SUCCESS";
+const DISTRIBUTION_FAILURE = "distribution/DISTRIBUTION_FAILURE";
 
-const ADD_WINE_PROCESS = "inventory/ADD_WINE_PROCESS";
-const ADD_WINE_SUCCESS = "inventory/ADD_WINE_SUCCESS";
-const ADD_WINE_FAILURE = "inventory/ADD_WINE_FAILURE";
+const ADD_WINE_PROCESS = "distribution/ADD_WINE_PROCESS";
+const ADD_WINE_SUCCESS = "distribution/ADD_WINE_SUCCESS";
+const ADD_WINE_FAILURE = "distribution/ADD_WINE_FAILURE";
 
-const SEND_WINE_TO_API_STAGE = "inventory/SEND_WINE_TO_API_STAGE";
+const GET_COUNTS_PROCESS = "distribution/GET_COUNTS_PROCESS";
+const GET_COUNTS_SUCCESS = "distribution/GET_COUNTS_SUCCESS";
+const GET_COUNTS_FAILURE = "distribution/GET_COUNTS_FAILURE";
+
+const SEND_WINE_TO_API_STAGE = "distribution/SEND_WINE_TO_API_STAGE";
 
 
 const initialState = {
     wines: []
-    , inventoryList: []
+    , distributionList: []
     , categories: [
         {id: 124, varietal: "Red Wine", qty: 0},
         {id: 125, varietal: "White Wine", qty: 0},
@@ -76,11 +80,11 @@ const initialState = {
 
 export default function distribution(state = initialState, action) {
     switch ( action.type ) {
-        case INVENTORY_PROCESS:
-            return Object.assign({}, state, {status: "Fetching Inventory"});
-        case INVENTORY_SUCCESS:
-            return Object.assign({}, state, {wines: action.wines}, {status: "Inventory Received!"})
-        case INVENTORY_FAILURE:
+        case DISTRIBUTION_PROCESS:
+            return Object.assign({}, state, {status: "Fetching distribution"});
+        case DISTRIBUTION_SUCCESS:
+            return Object.assign({}, state, {wines: action.wines}, {status: "distribution Received!"})
+        case DISTRIBUTION_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case ADD_WINE_PROCESS:
             return Object.assign({}, state, {status: "Adding Wine"});
@@ -94,7 +98,7 @@ export default function distribution(state = initialState, action) {
                     newState.categories[i].qty++;
                 }
             }
-            newState.inventoryList.push(action.wine);
+            newState.distributionList.push(action.wine);
             return Object.assign({}, newState, {status: "Wine Added!"});
         case ADD_WINE_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
@@ -107,16 +111,16 @@ export default function distribution(state = initialState, action) {
     }
 }
 
-function inventoryProcess() {
-    return {type: INVENTORY_PROCESS};
+function distributionProcess() {
+    return {type: DISTRIBUTION_PROCESS};
 }
 
-function inventorySuccess(wines) {
-    return {type: INVENTORY_SUCCESS, wines};
+function distributionSuccess(wines) {
+    return {type: DISTRIBUTION_SUCCESS, wines};
 }
 
-function inventoryFailure(error) {
-    return {type: INVENTORY_FAILURE, error}
+function distributionFailure(error) {
+    return {type: DISTRIBUTION_FAILURE, error}
 }
 
 function addWineProcess() {
@@ -139,13 +143,13 @@ export function getWinesFromAPI(itemId) {
     let filter = "";
     if (itemId) filter += "?filter=categories(" + itemId + ")"
     return dispatch => {
-        dispatch(inventoryProcess());
+        dispatch(distributionProcess());
         return axios.get("/api/wines/global" + filter)
             .then(results => {
-                dispatch(inventorySuccess(results.data.Products.List));
+                dispatch(distributionSuccess(results.data.Products.List));
             })
             .catch(error => {
-                dispatch(inventoryFailure(error))
+                dispatch(distributionFailure(error))
             })
         }
 }
