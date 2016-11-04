@@ -5,7 +5,6 @@ import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 
-import { getUser } from "../../services/userService";
 import { login, authenticating } from "../../ducks/userDuck";
 // import store from "../../store";
 
@@ -15,10 +14,7 @@ class UserIcon extends Component{
 
   }
   componentWillMount() {
-    new Promise((resolve, reject) => {
-      getUser(resolve, reject);
-    })
-      .then(result => this.props.dispatch(login(result.data)));
+    
   }
 
   componentWillReceiveProps(props){
