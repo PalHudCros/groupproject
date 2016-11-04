@@ -16,14 +16,13 @@ export class CategoryCount extends Component {
   }
 
   componentWillReceiveProps(props) {
-      console.log(props);
-    const categories = props.distribution.categories.map(category => (
-        <div key = {category.id} className="col-xs-3">
+    const wineCategories = props.distribution.categories.map(category => (
+        <div key = {category._id} className="col-xs-3">
             <div className="col-xs-8">{category.varietal}</div>
             <div className="col-xs-4">{category.qty}</div>
         </div>
     ))
-    this.setState({categories: categories});
+    this.setState({categories: wineCategories});
   }
 
   mapCategories(categories) {
