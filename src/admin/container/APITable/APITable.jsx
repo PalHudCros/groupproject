@@ -4,11 +4,10 @@ import {connect} from "react-redux";
 import CircularProgress from 'material-ui/CircularProgress';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import {getWinesFromAPI, addWineToDistribution} from "../../ducks/distributionDuck";
 import {sendWineToApiStage} from "../../ducks/distributionDuck";
 
-
-
-export class InventoryTable extends Component {
+class APITable extends Component {
   constructor(props) {
     super(props);
 
@@ -44,7 +43,8 @@ export class InventoryTable extends Component {
                 </FloatingActionButton>
               </div>
           </div>
-      )});
+        )
+      });
       this.setState({wineList: wineList})
   }
 
@@ -67,7 +67,7 @@ export class InventoryTable extends Component {
         </div>
         <div className="inventory-rows-wrapper admin">
             {
-              this.props.distribution.status === "Fetching Inventory"
+              this.props.distribution.status === "Fetching Distribution List"
               ?
               <div className="progress-container">
                 <CircularProgress size={80} thickness={5} />
@@ -82,4 +82,4 @@ export class InventoryTable extends Component {
   }
 
 }
-export default connect(state => ( { distribution: state.distribution } ) )( InventoryTable );
+export default connect(state => ( { distribution: state.distribution } ) )( APITable );

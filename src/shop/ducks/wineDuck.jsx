@@ -41,12 +41,14 @@ export function selectWine(wine) {
     return {type: SELECT, selectedWine: wine}
 }
 
-export function getWines() {
+export function getWines(itemId) {
+    let filter = "";
+    if (itemId) filter += "?Varietal.Id=" + itemId;
     return dispatch => {
         dispatch(process());
-        return axios.get("/api/wines/global")
+        return axios.get("/api/wines/inventory" + filter)
             .then(results => {
-                dispatch(success(results.data.Products.List));
+                dispatch(success(results.data));
             })
             .catch(error => {
                 dispatch(failure(error))

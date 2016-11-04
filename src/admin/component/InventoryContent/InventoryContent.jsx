@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link} from 'react-router';
 import SearchBar from "../../container/SearchBar/SearchBar.jsx";
-import InventoryTable from "../../container/InventoryTable/InventoryTable.jsx";
+import APITable from "../../container/APITable/APITable.jsx";
+import DistributorTable from "../../container/DistributorTable/DistributorTable.jsx";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import WineList from '../../container/WineList/WineList';
 import ApiWineStage from "../../container/ApiWineStage/ApiWineStage";
@@ -36,9 +37,9 @@ export class InventoryContent extends Component {
           <ApiWineStage />
           <div className="row searchbar-wrapper admin">
             <div className="col-xs-4 admin">
-              <MuiThemeProvider>
+ {/*             <MuiThemeProvider>
                 <SearchBar></SearchBar>
-              </MuiThemeProvider>
+              </MuiThemeProvider> */}
             </div>
             <div className="col-xs-offset-4 col-xs-4 admin">
               <MuiThemeProvider>
@@ -52,15 +53,36 @@ export class InventoryContent extends Component {
           </div>
 
             <MuiThemeProvider>
-              <InventoryTable></InventoryTable>
+              <APITable />
             </MuiThemeProvider>
         </div>
           :
           this.props.tabs.whichTab === 2
           ?
-          <div className="inventory-content-inner-wrapper admin">
-            <h2>TWO TWO TWO TWO</h2>
+        <div className="inventory-content-inner-wrapper admin">
+          <ApiWineStage />
+          <div className="row searchbar-wrapper admin">
+            <div className="col-xs-4 admin">
+{/*              <MuiThemeProvider>
+                <SearchBar></SearchBar>
+              </MuiThemeProvider> */}
+            </div>
+            <div className="col-xs-offset-4 col-xs-4 admin">
+              <MuiThemeProvider>
+
+                <FloatingActionButton style={{margin: 0}} onClick={this.fetchWinesFromAPI.bind(this)}>
+                  <Refresh />
+                </FloatingActionButton>
+              </MuiThemeProvider>
+            </div>
+
           </div>
+
+            <MuiThemeProvider>
+              <DistributorTable />
+            </MuiThemeProvider>
+        </div>
+          
           :
           this.props.tabs.whichTab === 3
           ?

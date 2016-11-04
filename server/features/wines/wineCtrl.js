@@ -1,6 +1,8 @@
 import axios from 'axios';
 import config from '../../../config/config';
 import Wine from './Wine';
+import InventoryItem from './InventoryItem';
+
 
 const baseUrl = 'http://services.wine.com/api/beta/service.svc/json/catalog?offset=0&size=100&apikey=' + config.wineAPI.key + '&sort=popularity%7Cascending&state=TX'
 
@@ -18,20 +20,56 @@ module.exports = {
           })
     }
 
+    , getWinesFromDistribution(req, res) {
+        DistributionWine.find(req.query, (err, result) => {
+          if (err) return res.status(500).json(err);
+          return res.status(200).json(result);
+        })
+    }
+
+    , getWinesFromInventory(req, res) {
+        InventoryItem.find(req.query, (err, result) => {
+          if (err) return res.status(500).json(err);
+          return res.status(200).json(result);
+        })
+    }
     , addWineToDistribution(req, res) {
-         Wine.findOne({Id: req.body.Id}, (err, wine) => {
-          if (err) {
-              new Wine(req.body).save((err, wine) => {
+        Wine.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: 1 }}, (err, newWine) => {
+          if (err) return res.status(500).json(err);
+          else if (newWine) return res.status(200).json(newWine);
+          else {
+            new Wine(req.body).save((err, wine) => {
               if (err) return res.status(500).json(err);
-              return res.status(200).json(wine);
+              return res.status(200).json(wine);            
             })
           }
-          if (wine) {
-            Wine.findOneAndUpdate({Id: wine.Id}, { $set: { Quantity: wine.Quantity + 1 }}, (err, success) => {
+        })      
+    }
+
+    , addWineToInventory(req, res) {
+        InventoryItem.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: 1 }}, (err, newWine) => {
+          if (err) return res.status(500).json(err);
+          else if (newWine) return res.status(200).json(newWine);
+          else {
+            new InventoryItem(req.body).save((err, wine) => {
               if (err) return res.status(500).json(err);
-              return res.status(200).json(success);
-            }) 
+              return res.status(200).json(wine);            
+            })
           }
-        });          
+        })      
+    }
+
+    , getDistributionCategoryCounts(req, res) {
+        Wine.aggregate([{$group: {_id: "$Varietal.Id", varietal: {$first: "$Varietal.Name"}, qty: {$sum: "$Quantity"}}}], (err, results) => {
+            if (err) return res.status(500).json(err);
+            return res.status(200).json(results);
+          });
+    }
+
+    , getInventoryCategoryCounts(req, res) {
+        InventoryItem.aggregate([{$group: {_id: "$Varietal.Id", varietal: {$first: "$Varietal.Name"}, qty: {$sum: "$Quantity"}}}], (err, results) => {
+            if (err) return res.status(500).json(err);
+            return res.status(200).json(results);
+          });
     }
 }
