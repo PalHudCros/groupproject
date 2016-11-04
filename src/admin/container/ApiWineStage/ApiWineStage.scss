@@ -1,5 +1,5 @@
 .api-wines-stage-wrapper.admin {
-  height: 30%;
+  height: 31%;
 }
 
 .stage-title-wrapper.admin {
@@ -15,22 +15,37 @@
 
 .stage-wine-row.admin {
   height: 40px;
+  width: 100%;
 }
 
 .stage-wine-image.admin {
+  display: inline-block;
   height: 100%;
+  width: 4%;
 }
 
 .stage-wine-name.admin {
+  display: inline-block;
   height: 100%;
+  width: 47%;
+}
+
+.stage-wine-varietal-vintage.admin {
+  display: inline-block;
+  height: 100%;
+  width: 17%;
 }
 
 .stage-wine-qty.admin {
+  display: inline-block;
   height: 100%;
+  width: 17%;
 }
 
 .stage-wine-remove-button.admin {
+  display: inline-block;
   height: 100%;
+  width: 15%;
 }
 
 .stage-list-wrapper.admin {

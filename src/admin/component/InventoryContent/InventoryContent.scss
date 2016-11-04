@@ -19,9 +19,26 @@
     margin: 0;
   }
 
+.searchbar-filters-button-wrapper.admin {
+  position: relative;
+  height: 9%;
+  width: 100%;
+}
+
 .searchbar-wrapper.admin {
-  height: 10%;
+  display: inline-block;
+  height: 100%;
+  width: 30%;
   text-align: center;
+}
+
+.refresh-button-wrapper.admin {
+  display: inline-block;
+  position: absolute;
+  right: 0px;
+  top: 26px;
+  height: 100%;
+  width: 7%;
 }
 
 .refresh-table-button.admin {

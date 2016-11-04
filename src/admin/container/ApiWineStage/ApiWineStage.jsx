@@ -28,18 +28,21 @@ export class ApiWineStage extends Component {
       return (
 
         <div key={ wine.Id } className="row stage-wine-row admin">
-          <div className="col-xs-3 stage-wine-image admin">
+          <div className="stage-wine-image admin">
 
-            <img height="100%" src={ wine.BottleImage } alt=""/>
+            <img height="100%" src={ wine.BottleImage } alt={ wine.Name} />
           </div>
-          <div className="col-xs-5 stage-wine-name admin">
-            <h2>{ wine.Name }</h2>
+          <div className="stage-wine-name admin">
+
+              <h2>{ wine.Name }</h2>
+          </div>
+          <div className="stage-wine-varietal-vintage admin">
             <h3>{ wine.Varietal.Name } ({ wine.Vintage })</h3>
           </div>
-          <div className="col-xs-2 stage-wine-qty admin">
+          <div className="stage-wine-qty admin">
             01
           </div>
-          <div className="col-xs-2 stage-wine-remove-button admin">
+          <div className="stage-wine-remove-button admin">
             -
           </div>
         </div>
@@ -62,7 +65,7 @@ export class ApiWineStage extends Component {
     return (
         <div className="api-wines-stage-wrapper admin">
           <div className="stage-title-wrapper admin">
-            <h1>Order These Wines From API</h1>
+            <h1>Vineyard Purchase Order</h1>
           </div>
 
           <div className="stage-list-wrapper admin">

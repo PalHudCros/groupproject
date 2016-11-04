@@ -7,8 +7,7 @@ import DistributorTable from "../../container/DistributorTable/DistributorTable.
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import WineList from '../../container/WineList/WineList';
 import ApiWineStage from "../../container/ApiWineStage/ApiWineStage";
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import Refresh from 'material-ui/svg-icons/navigation/refresh';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import {getWinesFromAPI} from "../../ducks/distributionDuck";
 
 export class InventoryContent extends Component {
@@ -16,18 +15,20 @@ export class InventoryContent extends Component {
     super(props);
 
     this.state = {
-      refreshButtonState: false
+      refreshButtonState: "ready"
     };
   }
 
   fetchWinesFromAPI() {
-    this.setState( { refreshButtonState: true } );
-    this.props.dispatch(getWinesFromAPI());
+    if ( this.state.refreshButtonState !== "loading" ) {
+      this.setState( { refreshButtonState: "loading" } );
+      this.props.dispatch(getWinesFromAPI());
+    }
   }
 
   componentWillReceiveProps(props) {
     if ( props.distribution.status === "distribution Received!" || props.distribution.status === "Error" ) {
-      this.setState( { refreshButtonState: false } );
+      this.setState( { refreshButtonState: "ready" } );
     }
   }
 
@@ -42,23 +43,24 @@ export class InventoryContent extends Component {
          ?
         <div className="inventory-content-inner-wrapper admin">
           <ApiWineStage />
-          <div className="row searchbar-wrapper admin">
-            <div className="col-xs-4 admin">
+          <div className="searchbar-filters-button-wrapper admin">
+            <div className="searchbar-wrapper admin">
               <MuiThemeProvider>
                 <SearchBar></SearchBar>
               </MuiThemeProvider>
             </div>
-            <div className="col-xs-offset-4 col-xs-4 admin">
+            <div className="refresh-button-wrapper admin">
               <MuiThemeProvider>
 
-                <FloatingActionButton
-                  style={{margin: 0, height: "50%"}}
-                  disabled={this.state.refreshButtonState}
-                  className="refresh-table-button admin"
+                <RefreshIndicator
                   onClick={this.fetchWinesFromAPI.bind(this)}
-                  >
-                  <Refresh />
-                </FloatingActionButton>
+                  status={this.state.refreshButtonState}
+                  left={0}
+                  top={0}
+                  size={40}
+                  percentage={80}
+                  color="#17d6b2"
+                  />
               </MuiThemeProvider>
             </div>
 

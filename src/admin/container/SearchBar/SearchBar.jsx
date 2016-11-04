@@ -48,6 +48,7 @@ export class SearchBar extends Component {
           dataSourceConfig={ {text: "varietal", value: "_id"} }
           maxSearchResults={5}
           onNewRequest={this.handleNewRequest.bind(this)}
+          textFieldStyle={{ className: "fuck" }}
         />
       </div>
 
