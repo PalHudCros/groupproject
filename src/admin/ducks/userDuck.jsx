@@ -7,7 +7,7 @@ const initialState = {
     , loggedIn: false
 }
 
-export default function reducer(state = initialState, action) {
+export default function user(state = initialState, action) {
     switch ( action.type ) {
         case LOGIN:
             return Object.assign({}, action.user, {loggedIn: true});

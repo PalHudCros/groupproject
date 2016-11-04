@@ -8,6 +8,8 @@ const ADD_WINE_PROCESS = "inventory/ADD_WINE_PROCESS";
 const ADD_WINE_SUCCESS = "inventory/ADD_WINE_SUCCESS";
 const ADD_WINE_FAILURE = "inventory/ADD_WINE_FAILURE";
 
+const SEND_WINE_TO_API_STAGE = "inventory/SEND_WINE_TO_API_STAGE";
+
 
 const initialState = {
     wines: []
@@ -69,9 +71,10 @@ const initialState = {
         {id: 221, varietal: "Bordeaux White Blends", qty: 0},
         {id: 10113, varietal: "Rhône White Blends", qty: 0}
       ]
+      , stagedWines: []
 }
 
-export default function reducer(state = initialState, action) {
+export default function distribution(state = initialState, action) {
     switch ( action.type ) {
         case INVENTORY_PROCESS:
             return Object.assign({}, state, {status: "Fetching Inventory"});
@@ -95,6 +98,10 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, newState, {status: "Wine Added!"});
         case ADD_WINE_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
+        case SEND_WINE_TO_API_STAGE:
+            let updatedStagedWines = state.stagedWines.slice();
+            updatedStagedWines.push( action.wine );
+            return Object.assign({}, state, {status: "Wine added to API stage", stagedWines: updatedStagedWines } );
         default:
             return state;
     }
@@ -124,6 +131,10 @@ function addWineFailure(error) {
     return {type: ADD_WINE_FAILURE, error}
 }
 
+export function sendWineToApiStage( wine ) {
+  return {type: SEND_WINE_TO_API_STAGE, wine}
+}
+
 export function getWinesFromAPI(itemId) {
     let filter = "";
     if (itemId) filter += "?filter=categories(" + itemId + ")"
@@ -135,7 +146,7 @@ export function getWinesFromAPI(itemId) {
             })
             .catch(error => {
                 dispatch(inventoryFailure(error))
-            })  
+            })
         }
 }
 
@@ -144,10 +155,10 @@ export function addWineToDistribution(wine) {
         dispatch(addWineProcess());
          return axios.post("/api/wines/distribution", wine)
             .then(results => {
-                dispatch(addWineSuccess(results.data));            
+                dispatch(addWineSuccess(results.data));
             })
-            .catch(error => {   
+            .catch(error => {
                 dispatch(addWineFailure(error))
-            })  
+            })
         }
 }

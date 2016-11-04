@@ -79,8 +79,8 @@ export class SidebarDrawer extends Component {
               <Close></Close>
             </IconButton>
           </div>
-          <MenuItem>All Drivers</MenuItem>
-          <MenuItem>One Driver</MenuItem>
+          <MenuItem>Wakka wakka</MenuItem>
+          <MenuItem>Flaco Taco</MenuItem>
         </Drawer>
       </div>
     );

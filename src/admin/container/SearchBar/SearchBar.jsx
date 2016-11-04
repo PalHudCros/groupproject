@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Link} from "react-router";
 import {connect} from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
-import {getWinesFromAPI} from "../../ducks/inventoryDuck"
+import {getWinesFromAPI} from "../../ducks/distributionDuck"
 
-class SearchBar extends Component {
+export class SearchBar extends Component {
   constructor(props) {
     super(props);
 
@@ -14,8 +14,8 @@ class SearchBar extends Component {
     };
   }
 
-  componentWillMount() {
-    const wineCategories = this.props.inventory.categories.map(category => category);
+  componentWillMount(props) {
+    const wineCategories = this.props.distribution.categories.map(category => category);
     this.setState({wineCategories: wineCategories});
   }
 
@@ -23,7 +23,7 @@ class SearchBar extends Component {
   }
 
   handleNewRequest(item) {
-    this.props.dispatch(getWinesFromAPI(item.id));    
+    this.props.dispatch(getWinesFromAPI(item.id));
   }
 
   render() {
@@ -44,4 +44,4 @@ class SearchBar extends Component {
   }
 
 }
-export default connect(state => ( { inventory: state.inventory } ) )( SearchBar );
+export default connect(state => ( { distribution: state.distribution } ) )( SearchBar );
