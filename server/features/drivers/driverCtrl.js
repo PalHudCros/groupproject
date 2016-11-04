@@ -37,7 +37,9 @@ module.exports = {
 
   , getDrivers( req, res ) {
     // GET /api/driver
-    Driver.find( {}, ( err, drivers ) => {
+    Driver.find( {} )
+      .populate( "orders" )
+      .exec( ( err, drivers ) => {
       if ( err ) {
         return res.status( 500 ).json( err );
       }
@@ -69,10 +71,7 @@ module.exports = {
 
   , updateDriver( req, res ) {
     // PUT /api/driver/:id
-    // Send an object like this { key: nameOfKeyToChange, value: valueOfChange }
-    let key = req.body.key;
-    let value = req.body.value;
-    Driver.findByIdAndUpdate( req.params.id, { $set: { key: value } }, ( err, driverUpdated ) => {
+    Driver.findByIdAndUpdate( req.params.id, req.body, ( err, driverUpdated ) => {
       if ( err ) {
         return res.status( 500 ).json( err );
       }
@@ -90,9 +89,19 @@ module.exports = {
     } );
   }
 
+  , removeAllOrdersFromDriver( req, res ) {
+    // DELETE '/api/driver/order/all'
+    Driver.findByIdAndUpdate( req.body._id, { $set: { orders: "" } }, ( err, allOrdersRemoved ) => {
+      if ( err ) {
+        return res.status( 500 ).json( err );
+      }
+      return res.status( 200 ).json( allOrdersRemoved );
+    } );
+  }
+
   , removeDriver( req, res ) {
-    // DELETE /api/driver
-    Driver.findByIdAndRemove( req.body._id, ( err, driverDeleted ) => {
+    // DELETE /api/driver/:id
+    Driver.findByIdAndRemove( req.params.id, ( err, driverDeleted ) => {
       if ( err ) {
         return res.status( 500 ).json( err );
       }

@@ -6,6 +6,9 @@ module.exports = app => {
     .get( driverCtrl.getOneOrderOnDriver )
     .delete( driverCtrl.removeOrderFromDriver );
 
+  app.route( '/api/driver/order/all' )
+    .delete( driverCtrl.removeAllOrdersFromDriver );
+
   app.route( '/api/driver/:driverId/order' )
     .post( driverCtrl.addOrderToDriver );
 
