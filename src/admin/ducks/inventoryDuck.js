@@ -140,6 +140,7 @@ export function getWinesFromAPI(itemId) {
 }
 
 export function addWineToDistribution(wine) {
+    console.log("Wine from Duck: ", wine);
     return dispatch => {
         dispatch(addWineProcess());
          return axios.post("/api/wines/distribution", wine)
