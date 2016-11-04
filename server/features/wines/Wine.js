@@ -1,32 +1,86 @@
 import mongoose from 'mongoose';
 
 const Wine = new mongoose.Schema({
-    id: {type: Number, required: true}
-    , name: {type: String, required: true}
-    , description: {type: String}
-    , GeoLocation: {
-        latitude: {type: Number}
-        , longitude: {type: Number}
-        , url: {type: String}
-    }
-    , year: {type: String}
-    , appellation: {
-        id: {type: String}
-        , name: {type: String} 
-    }
-    , varietal : {
-        id: {type: Number}
-        , name: {type: String}
-        , wineType: {
-            id: {type: String}
-            , name: {type: String}
+    Id: {type: Number}
+    , Name: {type: String}
+    , Url: {type: String}
+    , Appellation: {
+        Id: {type: Number}
+        , Name: {type: String}
+        , Url: {type: String}
+        , Region: {
+            Id: {type: Number}
+            , Name: {type: String}
+            , Url: {type: String}
+            , Area: {type: String}
         }
     }
-    , vineyard: {
-        id: {type: Number}
-        , name: {type: String}
+    , Labels: [{
+            Id: {type: String}
+            , Name: {type: String}
+            , Url: {type: String}
+    }]
+    , Type: {type: String}
+    , Varietal: {
+        Id: {type: Number}
+        , Name: {type: String}
+        , Url: {type: String}
+        , WineType: {
+            Id: {type: Number}
+            , Name: {type: String}
+            , Url: {type: String} 
+        }
     }
-    , productAttributes: [{type: String}]
+    , Vineyard: { 
+        Id: {type: Number}
+        , Name: {type: String}                                                                                                                                                                                   , Url: {type: String}                                                                                                                                                           
+        , ImageUrl: {type: String}
+        , GeoLocation: { 
+            Latitude: {type: Number}
+            , Longitude: {type: Number}                                                                                                                                                                          , Url: {type: String}
+        }
+    }                                                                                                                                                           
+    , Vintage: {type: String}
+    , Community: {
+        Reviews: {
+            HighestScore: {type: Number}
+            // , List: [{type: String}]
+            , Url: {type: String}
+        }
+        , Url: {type: String}
+    }                                                                                                                                                                                                     
+    , Description: {type: String}
+    , GeoLocation: {
+        Latitude: {type: Number}
+        , Longitude: {type: Number}
+        , Url: {type: String}
+    }                                                                                                                                                                                                   
+    , PriceMax: {type: Number}
+    , PriceMin: {type: Number}
+    , PriceRetail: {type: Number}
+    , ProductAttributes:[{ 
+        Id: {type: Number}
+        , Name: {type: String}
+        , Url: {type: String}
+        , ImageUrl: {type: String} 
+    }]
+    , Ratings: { 
+        HighestScore: {type: Number}
+        // , List: [{}] 
+    }
+    , Retail:{ 
+        InStock: {type: Boolean}
+        , Price: {type: Number}
+        , Sku: {type: String}
+        , State: {type: String}
+        , Url: {type: String}
+    }
+    , Vintages: { 
+        List: [{type: String}] 
+    }
+    , LabelImage: {type: String}
+    , BottleImage: {type: String}
+    , Quantity: {type: Number}
 });
 
 module.exports = mongoose.model('Wine', Wine);

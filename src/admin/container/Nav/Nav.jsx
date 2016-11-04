@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {setTabTitles} from "../../ducks/tabsDuck.jsx";
+import {whichTabIsActive} from "../../ducks/tabsDuck.jsx";
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Link} from 'react-router';
 import FontIcon from 'material-ui/FontIcon';
@@ -12,32 +13,36 @@ export class Nav extends Component {
 
     this.state = {
       tabs: []
+      , whichTab: 1
     };
   }
 
-  getTabTitles(props) {
+  handleActiveTab(tabNum) {
+    this.props.dispatch( whichTabIsActive(tabNum) );
+  }
+
+  howManyTabTitles(props) {
     const howManyTabs = props.tabs.titles.map( ( tabTitle, index ) => {
 
       return (
         <Tab key={ index }
-          icon={<FontIcon
-            style={{color: "#484d56"}}
-            className="material-icons">phone</FontIcon>
-        }
         label={ tabTitle }
+        onActive={ this.handleActiveTab.bind(this, index + 1) }
         style={{color: "#484d56"}}
+        className="nav-tab admin"
         />
     );
   } );
   this.setState({tabs: howManyTabs});
   }
 
+
   componentWillMount(props) {
-    this.getTabTitles(this.props);
+
   }
 
   componentWillReceiveProps(props) {
-    this.getTabTitles(props);
+    this.howManyTabTitles(props);
   }
 
 
@@ -45,10 +50,8 @@ export class Nav extends Component {
 
   return (
     <Tabs
-      inkBarStyle={{backgroundColor: "#ec423d"}}
-      contentContainerStyle={{color: "blue"}}
-      tabItemContainerStyle={{backgroundColor: "#ffffff"}}
-      tabTemplateStyle={{color: "green"}}
+      className="nav-tab-container admin"
+      tabItemContainerStyle={{backgroundColor: "#ffffff", height: "95%"}}
       >
     { this.state.tabs }
     </Tabs>
