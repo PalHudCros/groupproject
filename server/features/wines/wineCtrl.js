@@ -28,38 +28,28 @@ module.exports = {
     }
 
     , addWineToDistribution(req, res) {
-         Wine.findOne({Id: req.body.Id}, (err, wine) => {
-          if (err) {
-            return res.status(500).json(err);
-          } else if (!wine) {
-              new Wine(req.body).save((err, wine) => {
+        Wine.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: 1 }}, (err, newWine) => {
+          if (err) return res.status(500).json(err);
+          else if (newWine) return res.status(200).json(newWine);
+          else {
+            new Wine(req.body).save((err, wine) => {
               if (err) return res.status(500).json(err);
-              return res.status(200).json(wine);
+              return res.status(200).json(wine);            
             })
-          } else if (wine) {
-            Wine.findOneAndUpdate({Id: wine.Id}, { $inc: { Quantity: 1 }}, (err, success) => {
-              if (err) return res.status(500).json(err);
-              return res.status(200).json(success);
-            }) 
           }
-        });          
+        })      
     }
 
     , addWineToInventory(req, res) {
-         DistributionWine.findOne({Id: req.body.Id}, (err, wine) => {
-          if (err) {
-            return res.status(500).json(err);
-          } else if(!wine) {
-              new Wine(req.body).save((err, wine) => {
+        DistributionWine.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: 1 }}, (err, newWine) => {
+          if (err) return res.status(500).json(err);
+          else if (newWine) return res.status(200).json(newWine);
+          else {
+            new DistributionWine(req.body).save((err, wine) => {
               if (err) return res.status(500).json(err);
-              return res.status(200).json(wine);
+              return res.status(200).json(wine);            
             })
-          } else if (wine) {
-            DistributionWine.findOneAndUpdate({Id: wine.Id}, { $inc: { Quantity: 1 }}, (err, success) => {
-              if (err) return res.status(500).json(err);
-              return res.status(200).json(success);
-            }) 
           }
-        });                  
+        })      
     }
 }
