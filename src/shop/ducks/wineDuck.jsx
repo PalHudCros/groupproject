@@ -43,11 +43,9 @@ export function selectWine(wine) {
 
 export function getWines() {
     return dispatch => {
-      console.log('process');
         dispatch(process());
-        return axios.get("/api/wines")
+        return axios.get("/api/wines/global")
             .then(results => {
-              console.log('return');
                 dispatch(success(results.data.Products.List));
             })
             .catch(error => {
