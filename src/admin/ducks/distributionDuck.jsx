@@ -93,10 +93,10 @@ export default function reducer(state = initialState, action) {
         case ADD_WINE_SUCCESS:
             const newState = state;
             for (let i = 0; i < newState.categories.length; i++) {
-                if (action.wine.Varietal.Id === newState.categories[i].id) {
+                if (action.wine.Varietal.Id === newState.categories[i]._id) {
                     newState.categories[i].qty++;
                 }
-                if (action.wine.Varietal.WineType.Id === newState.categories[i].id) {
+                if (action.wine.Varietal.WineType.Id === newState.categories[i]._id) {
                     newState.categories[i].qty++;
                 }
             }
@@ -133,8 +133,8 @@ function addWineFailure(error) {
     return {type: ADD_WINE_FAILURE, error}
 }
 
-function getCountsSuccess() {
-    return {type: GET_COUNTS_SUCCESS}
+function getCountsProcess() {
+    return {type: GET_COUNTS_PROCESS}
 }
 
 function getCountsSuccess(counts) {
@@ -175,10 +175,9 @@ export function addWineToDistribution(wine) {
 
 export function getCategoryCounts() {
     return dispatch => {
-        dispatch(getCountsSuccess());
+        dispatch(getCountsProcess());
         return axios.get("/api/wines/distribution/counts")
             .then(results => {
-                console.log(results)
                 dispatch(getCountsSuccess(results.data));
             })
             .catch(error => {
