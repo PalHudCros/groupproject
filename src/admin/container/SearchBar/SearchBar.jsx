@@ -5,8 +5,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import {getWinesFromAPI} from "../../ducks/distributionDuck";
 import {getWinesFromInventory} from "../../ducks/inventoryDuck";
 
-
-class SearchBar extends Component {
+export class SearchBar extends Component {
   constructor(props) {
     super(props);
 
@@ -33,14 +32,11 @@ class SearchBar extends Component {
   }
 
   handleNewRequest(item) {
-    console.log("This Tab: ", this.props.tabs.whichTab)
     if (this.props.tabs.whichTab === 1) {
       this.props.dispatch(getWinesFromAPI(item._id));
     } else if (this.props.tabs.whichTab === 2) {
       this.props.dispatch(getWinesFromInventory(item._id));     
     }
-
-        
   }
 
   render() {

@@ -5,7 +5,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {getWinesFromAPI, addWineToDistribution} from "../../ducks/distributionDuck";
-
+import {sendWineToApiStage} from "../../ducks/distributionDuck";
 
 class APITable extends Component {
   constructor(props) {
@@ -16,12 +16,19 @@ class APITable extends Component {
     };
   }
 
+  addWineToStage( wine ) {
+    this.props.dispatch(sendWineToApiStage( wine ));
+  }
+
   componentWillMount() {
-    this.props.dispatch(getWinesFromAPI());
+
   }
 
   componentWillReceiveProps(props) {
-     const wineList = props.distribution.wines.map(wine => (
+     const wineList = props.distribution.wines.map(wine => {
+        wine.LabelImage = wine.Labels[0].Url;
+        wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
+        return (
           <div key={wine.Id} className="row inventory-row admin">
               <div className="col-xs-4">
                 <img height="150" src={wine.BottleImage} alt=""/>
@@ -31,17 +38,14 @@ class APITable extends Component {
                 <h3>{wine.Varietal.Name} {wine.Vintage}</h3>
               </div>
               <div className="col-xs-4">
-                <FloatingActionButton style={{margin: 0}} onClick={this.addItemToInventory.bind(this, wine)}>
+                <FloatingActionButton style={{margin: 0}} onClick={this.addWineToStage.bind(this, wine)}>
                   <ContentAdd />
                 </FloatingActionButton>
               </div>
           </div>
-      ));
+        )
+      });
       this.setState({wineList: wineList})
-  }
-
-  addItemToInventory(wine) {
-    this.props.dispatch(addWineToDistribution(wine));
   }
 
   render() {

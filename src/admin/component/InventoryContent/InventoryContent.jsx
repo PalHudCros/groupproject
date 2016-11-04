@@ -6,7 +6,10 @@ import APITable from "../../container/APITable/APITable.jsx";
 import DistributorTable from "../../container/DistributorTable/DistributorTable.jsx";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import WineList from '../../container/WineList/WineList';
-import CategoryCount from "../../container/CategoryCount/CategoryCount";
+import ApiWineStage from "../../container/ApiWineStage/ApiWineStage";
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Refresh from 'material-ui/svg-icons/navigation/refresh';
+import {getWinesFromAPI} from "../../ducks/distributionDuck";
 
 export class InventoryContent extends Component {
   constructor(props) {
@@ -15,6 +18,10 @@ export class InventoryContent extends Component {
     this.state = {
 
     };
+  }
+
+  fetchWinesFromAPI() {
+    this.props.dispatch(getWinesFromAPI());
   }
 
 
@@ -27,11 +34,19 @@ export class InventoryContent extends Component {
          this.props.tabs.whichTab === 1
          ?
         <div className="inventory-content-inner-wrapper admin">
-          <CategoryCount />
+          <ApiWineStage />
           <div className="row searchbar-wrapper admin">
             <div className="col-xs-4 admin">
               <MuiThemeProvider>
                 <SearchBar></SearchBar>
+              </MuiThemeProvider>
+            </div>
+            <div className="col-xs-offset-4 col-xs-4 admin">
+              <MuiThemeProvider>
+
+                <FloatingActionButton style={{margin: 0}} onClick={this.fetchWinesFromAPI.bind(this)}>
+                  <Refresh />
+                </FloatingActionButton>
               </MuiThemeProvider>
             </div>
 
@@ -45,11 +60,19 @@ export class InventoryContent extends Component {
           this.props.tabs.whichTab === 2
           ?
         <div className="inventory-content-inner-wrapper admin">
-          <CategoryCount />
+          <ApiWineStage />
           <div className="row searchbar-wrapper admin">
             <div className="col-xs-4 admin">
               <MuiThemeProvider>
                 <SearchBar></SearchBar>
+              </MuiThemeProvider>
+            </div>
+            <div className="col-xs-offset-4 col-xs-4 admin">
+              <MuiThemeProvider>
+
+                <FloatingActionButton style={{margin: 0}} onClick={this.fetchWinesFromAPI.bind(this)}>
+                  <Refresh />
+                </FloatingActionButton>
               </MuiThemeProvider>
             </div>
 
@@ -58,10 +81,12 @@ export class InventoryContent extends Component {
             <MuiThemeProvider>
               <DistributorTable />
             </MuiThemeProvider>
-        </div>          :
+        </div>
+          
+          :
           this.props.tabs.whichTab === 3
           ?
-          <div className="inventory-content-wrapper admin">
+          <div className="inventory-content-inner-wrapper admin">
             <h2>THREE THREE THREE THREE</h2>
           </div>
           :
