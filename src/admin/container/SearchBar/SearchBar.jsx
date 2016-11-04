@@ -20,11 +20,10 @@ class SearchBar extends Component {
 
   componentWillReceiveProps(props) {
     this.setState({wineCategories: props.distribution.categories})
-    console.log("Categories: ", props.distribution.categories)
   }
 
   handleNewRequest(item) {
-    this.props.dispatch(getWinesFromAPI(item.id));    
+    this.props.dispatch(getWinesFromAPI(item._id));    
   }
 
   render() {
