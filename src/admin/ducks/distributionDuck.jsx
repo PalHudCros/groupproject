@@ -135,6 +135,18 @@ function addWineFailure(error) {
     return {type: ADD_WINE_FAILURE, error}
 }
 
+function getCountsProcess() {
+    return {type: GET_COUNTS_PROCESS}
+}
+
+function getCountsSuccess(counts) {
+    return {type: GET_COUNTS_SUCCESS, counts}
+}
+
+function getCountsFailure(err) {
+    return {type: GET_COUNTS_FAILURE, err}
+}
+
 export function sendWineToApiStage( wine ) {
   return {type: SEND_WINE_TO_API_STAGE, wine}
 }
@@ -165,4 +177,17 @@ export function addWineToDistribution(wine) {
                 dispatch(addWineFailure(error))
             })
         }
+}
+
+export function getCategoryCounts() {
+    return dispatch => {
+        dispatch(getCountsProcess());
+        return axios.get("/api/wines/distribution/counts")
+            .then(results => {
+                dispatch(getCountsSuccess(results.data));
+            })
+            .catch(error => {
+                dispatch(getCountsFailure(error));
+            })
+    }
 }
