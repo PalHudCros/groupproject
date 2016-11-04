@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Link} from "react-router";
 import {connect} from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
-import {getWinesFromAPI} from "../../ducks/distributionDuck"
+import {getWinesFromAPI} from "../../ducks/distributionDuck";
+import {getWinesFromInventory} from "../../ducks/inventoryDuck";
 
 export class SearchBar extends Component {
   constructor(props) {
@@ -10,20 +11,32 @@ export class SearchBar extends Component {
 
     this.state = {
       wineCategories: []
-      , wineCategoriesConfig: {text: "varietal", value: "id"}
+      , wineCategoriesConfig: {text: "varietal", value: "_id"}
     };
   }
 
-  componentWillMount(props) {
-    const wineCategories = this.props.distribution.categories.map(category => category);
-    this.setState({wineCategories: wineCategories});
+  componentWillMount() {
+    if (this.props.tabs.whichTab === 1) {
+      this.setState({wineCategories: this.props.distribution.categories});
+    } else if (this.props.tabs.whichTab === 2) {
+      this.setState({wineCategories: this.props.inventory.categories});      
+    }
   }
 
   componentWillReceiveProps(props) {
+    if (props.tabs.whichTab === 1) {
+      this.setState({wineCategories: props.distribution.categories});
+    } else if (props.tabs.whichTab === 2) {
+      this.setState({wineCategories: props.inventory.categories});      
+    }
   }
 
   handleNewRequest(item) {
-    this.props.dispatch(getWinesFromAPI(item.id));
+    if (this.props.tabs.whichTab === 1) {
+      this.props.dispatch(getWinesFromAPI(item._id));
+    } else if (this.props.tabs.whichTab === 2) {
+      this.props.dispatch(getWinesFromInventory(item._id));     
+    }
   }
 
   render() {
@@ -44,4 +57,4 @@ export class SearchBar extends Component {
   }
 
 }
-export default connect(state => ( { distribution: state.distribution } ) )( SearchBar );
+export default connect(state => ( { inventory: state.inventory, distribution: state.distribution, tabs: state.tabs } ) )( SearchBar );
