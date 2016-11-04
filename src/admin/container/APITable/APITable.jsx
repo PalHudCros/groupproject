@@ -7,7 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import {getWinesFromAPI, addWineToDistribution} from "../../ducks/distributionDuck";
 
 
-class InventoryTable extends Component {
+class APITable extends Component {
   constructor(props) {
     super(props);
 
@@ -81,4 +81,4 @@ class InventoryTable extends Component {
   }
 
 }
-export default connect(state => ( { inventory: state.inventory, distribution: state.distribution } ) )( InventoryTable );
+export default connect(state => ( { distribution: state.distribution } ) )( APITable );
