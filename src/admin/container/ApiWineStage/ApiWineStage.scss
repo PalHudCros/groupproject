@@ -3,7 +3,7 @@
 }
 
 .stage-title-wrapper.admin {
-  height: 20%;
+  height: 10%;
 }
   h1 {
     font-size: 100%;
@@ -31,4 +31,9 @@
 
 .stage-wine-remove-button.admin {
   height: 100%;
+}
+
+.stage-list-wrapper.admin {
+  height: 90%;
+  background-color: orange;
 }

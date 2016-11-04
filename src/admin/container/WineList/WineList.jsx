@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {getInventory} from "../../ducks/inventoryDuck";
+import {getInventory} from "../../ducks/distributionDuck";
 
 class WineList extends React.Component {
     constructor(props) {
@@ -41,4 +41,4 @@ class WineList extends React.Component {
     }
 }
 
-export default connect(state => ( { inventory: state.inventory } ) )( WineList );
+export default connect(state => ( { distribution: state.distribution } ) )( WineList );

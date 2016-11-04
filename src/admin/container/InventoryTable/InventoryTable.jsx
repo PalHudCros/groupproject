@@ -8,7 +8,7 @@ import {sendWineToApiStage} from "../../ducks/distributionDuck";
 
 
 
-class InventoryTable extends Component {
+export class InventoryTable extends Component {
   constructor(props) {
     super(props);
 
@@ -82,4 +82,4 @@ class InventoryTable extends Component {
   }
 
 }
-export default connect(state => ( { inventory: state.inventory } ) )( InventoryTable );
+export default connect(state => ( { distribution: state.distribution } ) )( InventoryTable );

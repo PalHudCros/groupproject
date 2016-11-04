@@ -8,7 +8,7 @@ import WineList from '../../container/WineList/WineList';
 import ApiWineStage from "../../container/ApiWineStage/ApiWineStage";
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Refresh from 'material-ui/svg-icons/navigation/refresh';
-import {getWinesFromAPI} from "../../ducks/inventoryDuck";
+import {getWinesFromAPI} from "../../ducks/distributionDuck";
 
 export class InventoryContent extends Component {
   constructor(props) {

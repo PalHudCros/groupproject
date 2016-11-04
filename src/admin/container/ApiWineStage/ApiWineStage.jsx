@@ -1,46 +1,61 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import Divider from 'material-ui/Divider';
-import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-export class RecentlyAdded extends Component {
+export class ApiWineStage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-        addedWines: []
+      wines: []
     };
   }
 
-  componentWillMount() {
+  checkStagedWines( context ) {
+    let props;
 
+    if ( context ) {
+      props = context;
+    } else {
+      props = this.props;
+    }
+
+    const stagedWines = props.distribution.stagedWines.map(wine => {
+      wine.LabelImage = wine.Labels[0].Url;
+      wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
+
+      return (
+
+        <div key={ wine.Id } className="row stage-wine-row admin">
+          <div className="col-xs-3 stage-wine-image admin">
+
+            <img height="100%" src={ wine.BottleImage } alt=""/>
+          </div>
+          <div className="col-xs-5 stage-wine-name admin">
+            <h2>{ wine.Name }</h2>
+            <h3>{ wine.Varietal.Name } ({ wine.Vintage })</h3>
+          </div>
+          <div className="col-xs-2 stage-wine-qty admin">
+            01
+          </div>
+          <div className="col-xs-2 stage-wine-remove-button admin">
+            -
+          </div>
+        </div>
+
+      )});
+      this.setState( {wines: stagedWines });
+  }
+
+  componentWillMount() {
+    if ( this.props.distribution.stagedWines[0] ) {
+      this.checkStagedWines();
+    }
   }
 
   componentWillReceiveProps(props) {
-    const categories = props.distribution.wines.map(category => (
-        <div className="stage-wine-row-wrapper">
-
-          <div key={ wine.id } className="row stage-wine-row admin">
-            <div className="col-xs-3 stage-wine-image admin">
-
-              <img height="100%" src={ wine.BottleImage } alt=""/>
-            </div>
-            <div className="col-xs-5 stage-wine-name admin">
-              <h2>{ wine.Name }</h2>
-              <h3>{ wine.Varietal.Name } ({ wine.Vintage })</h3>
-            </div>
-            <div className="col-xs-2 stage-wine-qty admin">
-
-            </div>
-            <div className="col-xs-2 stage-wine-remove-button admin">
-
-            </div>
-          </div>
-          <Divider />
-        </div>
-    ));
-    this.setState({addedWines: categories});
+    this.checkStagedWines(props);
   }
 
   render() {
@@ -49,12 +64,13 @@ export class RecentlyAdded extends Component {
           <div className="stage-title-wrapper admin">
             <h1>Order These Wines From API</h1>
           </div>
-          <MuiThemeProvider>
-            <Paper zDepth={2}>
-              {this.state.addedWines}
-            </Paper>
 
-          </MuiThemeProvider>
+          <div className="stage-list-wrapper admin">
+
+              { this.state.wines }
+
+          </div>
+
         </div>
     );
 
@@ -62,4 +78,4 @@ export class RecentlyAdded extends Component {
 
 }
 
-export default connect(state => ( { inventory: state.inventory } ) )( RecentlyAdded );
+export default connect(state => ( { distribution: state.distribution } ) )( ApiWineStage );

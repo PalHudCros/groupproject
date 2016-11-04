@@ -6,7 +6,7 @@ const initialState = {
     , whichTab: 1
 }
 
-export default function reducer(state = initialState, action) {
+export default function tabs(state = initialState, action) {
     switch ( action.type ) {
         case SET_TAB_TITLES:
           return Object.assign({}, state, { titles: action.titles });
