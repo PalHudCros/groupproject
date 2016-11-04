@@ -11,11 +11,10 @@ export default function Nav(){
       <div style={{display:"flex", justifyContent:'space-between'}}>
         <span>Logo of sorts</span>
         <span>
-          <Link to="shop">
+          <Link to="/shop">
             <FlatButton
               label="Wine"
             >
-
             </FlatButton>
           </Link>
           <SearchBox></SearchBox>
