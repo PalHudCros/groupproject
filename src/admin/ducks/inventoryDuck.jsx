@@ -8,6 +8,9 @@ const ADD_WINE_PROCESS = "inventory/ADD_WINE_PROCESS";
 const ADD_WINE_SUCCESS = "inventory/ADD_WINE_SUCCESS";
 const ADD_WINE_FAILURE = "inventory/ADD_WINE_FAILURE";
 
+const GET_COUNTS_PROCESS = "inventory/GET_COUNTS_PROCESS";
+const GET_COUNTS_SUCCESS = "inventory/GET_COUNTS_SUCCESS";
+const GET_COUNTS_FAILURE = "inventory/GET_COUNTS_FAILURE";
 
 const initialState = {
     wines: []
@@ -79,15 +82,21 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, {wines: action.wines}, {status: "Inventory Received!"})
         case INVENTORY_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
+        case GET_COUNTS_PROCESS:
+            return Object.assign({}, state, {status: "Fetching Counts"});
+        case GET_COUNTS_SUCCESS:
+            return Object.assign({}, state, {categories: action.counts}, {status: "Counts Received!"})
+        case GET_COUNTS_FAILURE:
+            return Object.assign({}, state, {status: "Error", error: action.error});
         case ADD_WINE_PROCESS:
             return Object.assign({}, state, {status: "Adding Wine"});
         case ADD_WINE_SUCCESS:
             const newState = state;
             for (let i = 0; i < newState.categories.length; i++) {
-                if (action.wine.Varietal.Id === newState.categories[i].id) {
+                if (action.wine.Varietal.Id === newState.categories[i]._id) {
                     newState.categories[i].qty++;
                 }
-                if (action.wine.Varietal.WineType.Id === newState.categories[i].id) {
+                if (action.wine.Varietal.WineType.Id === newState.categories[i]._id) {
                     newState.categories[i].qty++;
                 }
             }
@@ -124,12 +133,24 @@ function addWineFailure(error) {
     return {type: ADD_WINE_FAILURE, error}
 }
 
-export function getWinesFromAPI(itemId) {
+function getCountsProcess() {
+    return {type: GET_COUNTS_PROCESS}
+}
+
+function getCountsSuccess(counts) {
+    return {type: GET_COUNTS_SUCCESS, counts}
+}
+
+function getCountsFailure(err) {
+    return {type: GET_COUNTS_FAILURE, err}
+}
+
+export function getWinesFromInventory(itemId) {
     let filter = "";
-    if (itemId) filter += "?filter=categories(" + itemId + ")"
+    if (itemId) filter += "?Varietal.Id=" + itemId;
     return dispatch => {
         dispatch(inventoryProcess());
-        return axios.get("/api/wines/global" + filter)
+        return axios.get("/api/wines/inventory" + filter)
             .then(results => {
                 dispatch(inventorySuccess(results.data.Products.List));
             })
@@ -139,11 +160,11 @@ export function getWinesFromAPI(itemId) {
         }
 }
 
-export function addWineToDistribution(wine) {
+export function addWineToInventory(wine) {
     console.log("Wine from Duck: ", wine);
     return dispatch => {
         dispatch(addWineProcess());
-         return axios.post("/api/wines/distribution", wine)
+         return axios.post("/api/wines/inventory", wine)
             .then(results => {
                 dispatch(addWineSuccess(results.data));            
             })
@@ -151,4 +172,17 @@ export function addWineToDistribution(wine) {
                 dispatch(addWineFailure(error))
             })  
         }
+}
+
+export function getCategoryCounts() {
+    return dispatch => {
+        dispatch(getCountsProcess());
+        return axios.get("/api/wines/inventory/counts")
+            .then(results => {
+                dispatch(getCountsSuccess(results.data));
+            })
+            .catch(error => {
+                dispatch(getCountsFailure(error));
+            })
+    }
 }
