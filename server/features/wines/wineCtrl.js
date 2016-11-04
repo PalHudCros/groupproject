@@ -27,6 +27,12 @@ module.exports = {
         })
     }
 
+    , getWinesFromInventory(req, res) {
+        InventoryItem.find(req.query, (err, result) => {
+          if (err) return res.status(500).json(err);
+          return res.status(200).json(result);
+        })
+    }
     , addWineToDistribution(req, res) {
         Wine.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: 1 }}, (err, newWine) => {
           if (err) return res.status(500).json(err);
