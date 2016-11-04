@@ -9,15 +9,16 @@ class SingleWine extends Component{
       currentWine: {},
       wines: {}
     }
-    console.log(props)
+    // console.log(props)
   }
   componentWillMount(){
-    const wines = this.props.wines.wines
-    console.log(wines)//wine is still fetching...
-    this.setState({wines:wines})
-    const currentWine = this.props.wines.wines.filter(ele => ele.Id == this.props.params.wineId)[0];
-    console.log(currentWine)//undefined when reload
-    this.setState({currentWine: currentWine})
+
+    if (this.props.wines.wines.length > 0){
+        const wines = this.props.wines.wines
+        this.setState({wines:wines})
+        const currentWine = this.props.wines.wines.filter(ele => ele.Id == this.props.params.wineId)[0];
+        this.setState({currentWine: currentWine})
+    }
 
   }
 
