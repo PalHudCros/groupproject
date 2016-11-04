@@ -54,8 +54,7 @@ module.exports = {
     }
 
     , getCategoryCounts(req, res) {
-        InventoryItem.aggregate.group({_id: "$Varietal.Id", varietal: {$first: "$Varietal.Name"}, qty: {$sum: "$Quantity"}})
-          .then((err, results) => {
+        Wine.aggregate([{$group: {_id: "$Varietal.Id", varietal: {$first: "$Varietal.Name"}, qty: {$sum: "$Quantity"}}}], (err, results) => {
             if (err) return res.status(500).json(err);
             return res.status(200).json(results);
           });
