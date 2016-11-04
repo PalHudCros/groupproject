@@ -2,13 +2,11 @@ import driverCtrl from './driverCtrl.js';
 
 module.exports = app => {
 
-  app.route( '/api/driver/order/:id' )
+  app.route( '/api/driver/:driverId/order/:orderId' )
     .get( driverCtrl.getOneOrderOnDriver )
-    .put( driverCtrl.updateOrderOnDriver )
     .delete( driverCtrl.removeOrderFromDriver );
 
-  app.route( '/api/driver/order' )
-    .get( driverCtrl.getOrdersOnDriver )
+  app.route( '/api/driver/:driverId/order' )
     .post( driverCtrl.addOrderToDriver );
 
   app.route( '/api/driver/:id' )

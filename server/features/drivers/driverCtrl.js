@@ -1,25 +1,38 @@
 import axios from 'axios';
 import config from '../../../config/config';
 import Driver from './Driver.js';
+// import Order from '../orders/Order.js';
 
 module.exports = {
 
   getOneOrderOnDriver( req, res ) {
-    // GET /api/driver/order/:id
-  }
+    // GET /api/driver/:driverId/order/:orderId
+    Driver.findById( req.params.driverId )
+      .populate( "orders" )
+      .exec( ( err, driver ) => {
+        if ( err ) {
+          return res.status( 500 ).json( err );
+        }
 
-  , getOrdersOnDriver( req, res ) {
-    // GET /api/driver/order
+        let order = driver.orders.filter( order => {
+          return order._id === req.params.orderId;
+        } );
+        order = order[0];
+
+        return res.status( 200 ).json( order );
+      } );
   }
 
   , getOneDriver( req, res ) {
     // GET /api/driver/:id
-    Driver.findOne( { _id: req.params.id }, ( err, response ) => {
-      if ( err ) {
-        return res.status( 500 ).json( err );
-      }
-      return res.status( 200 ).json( response );
-    } );
+    Driver.findById( req.params.id )
+      .populate( "orders" )
+      .exec( ( err, driver ) => {
+        if ( err ) {
+          return res.status( 500 ).json( err );
+        }
+        return res.status( 200 ).json( driver );
+      } );
   }
 
   , getDrivers( req, res ) {
@@ -33,36 +46,59 @@ module.exports = {
   }
 
   , addOrderToDriver( req, res ) {
-    // POST /api/driver/order
+    // POST '/api/driver/:driverId/order'
+    // Pass the order object from front-end
+    Driver.findByIdAndUpdate( req.params.driverId, { $push: { orders: req.body._id } }, ( err, orderAdded ) => {
+      if ( err ) {
+        return res.status( 500 ).json( err );
+      }
+      return res.status( 200 ).json( orderAdded );
+    } );
   }
 
 
   , addDriver( req, res ) {
     // POST /api/driver
-    new Driver( req.body ).save( ( err, response ) => {
+    new Driver( req.body ).save( ( err, driverCreated ) => {
       if ( err ) {
         return res.status( 500 ).json( err );
       }
-      return res.status( 201 ).json( response );
+      return res.status( 201 ).json( driverCreated );
     } );
-  }
-
-  , updateOrderOnDriver( req, res ) {
-    // PUT /api/driver/order/:id
   }
 
   , updateDriver( req, res ) {
     // PUT /api/driver/:id
-
+    // Send an object like this { key: nameOfKeyToChange, value: valueOfChange }
+    let key = req.body.key;
+    let value = req.body.value;
+    Driver.findByIdAndUpdate( req.params.id, { $set: { key: value } }, ( err, driverUpdated ) => {
+      if ( err ) {
+        return res.status( 500 ).json( err );
+      }
+      return res.status( 200 ).json( driverUpdated );
+    } );
   }
 
   , removeOrderFromDriver( req, res ) {
-    // DELETE /api/driver/order/:id
+    // DELETE /api/driver/:driverId/order/:orderId
+    Driver.findByIdAndUpdate( req.params.driverId, { $pull: { orders: req.params.orderId } }, ( err, orderRemoved ) => {
+      if ( err ) {
+        return res.status( 500 ).json( err );
+      }
+      return res.status( 200 ).json( orderRemoved );
+    } );
   }
 
   , removeDriver( req, res ) {
     // DELETE /api/driver
+    Driver.findByIdAndRemove( req.body._id, ( err, driverDeleted ) => {
+      if ( err ) {
+        return res.status( 500 ).json( err );
+      }
+      return res.status( 200 ).json( driverDeleted );
+    } );
 
   }
 
-}
+};

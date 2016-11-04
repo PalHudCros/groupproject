@@ -12,7 +12,7 @@ const Driver = new mongoose.Schema( {
   }
   , address: {
     type: String
-    , default: "Dallas, Texas"
+    , default: "Dallas, TX"
   }
   , vehicle: {
     type: String
