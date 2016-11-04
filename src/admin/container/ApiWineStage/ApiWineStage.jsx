@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import Divider from 'material-ui/Divider';
+import TextField from 'material-ui/TextField';
+import AddBox from 'material-ui/svg-icons/content/add-box';
+import MinusBox from 'material-ui/svg-icons/toggle/indeterminate-check-box';
+import RaisedButton from 'material-ui/RaisedButton';
+import CashSymbol from 'material-ui/svg-icons/editor/monetization-on';
+import Close from 'material-ui/svg-icons/navigation/close';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export class ApiWineStage extends Component {
@@ -27,10 +33,10 @@ export class ApiWineStage extends Component {
 
       return (
 
-        <div key={ wine.Id } className="row stage-wine-row admin">
+        <div key={ wine.Id } className="stage-wine-row admin">
           <div className="stage-wine-image admin">
 
-            <img height="100%" src={ wine.BottleImage } alt={ wine.Name} />
+            <img height="100%" src={ wine.BottleImage } />
           </div>
           <div className="stage-wine-name admin">
 
@@ -40,10 +46,31 @@ export class ApiWineStage extends Component {
             <h3>{ wine.Varietal.Name } ({ wine.Vintage })</h3>
           </div>
           <div className="stage-wine-qty admin">
-            01
+            <div className="stage-counter-field-wrapper admin">
+              <MuiThemeProvider>
+                <TextField
+                  hintText="Qty"
+                  className="stage-counter-field admin"
+                  />
+              </MuiThemeProvider>
+            </div>
+            <div className="stage-counter-incrementors admin">
+              <div className="stage-increment-up admin">
+                <MuiThemeProvider>
+                  <AddBox></AddBox>
+                </MuiThemeProvider>
+              </div>
+              <div className="stage-increment-down admin">
+                <MuiThemeProvider>
+                  <MinusBox></MinusBox>
+                </MuiThemeProvider>
+              </div>
+            </div>
           </div>
           <div className="stage-wine-remove-button admin">
-            -
+            <MuiThemeProvider>
+              <Close></Close>
+            </MuiThemeProvider>
           </div>
         </div>
 
@@ -64,8 +91,22 @@ export class ApiWineStage extends Component {
   render() {
     return (
         <div className="api-wines-stage-wrapper admin">
-          <div className="stage-title-wrapper admin">
-            <h1>Vineyard Purchase Order</h1>
+          <div className="stage-title-order-button-wrapper admin">
+            <div className="stage-title admin">
+              <h1>Vineyard Purchase Order</h1>
+            </div>
+            <div className="stage-order-button admin">
+              <MuiThemeProvider>
+                <RaisedButton
+                  label="Send Order"
+                  labelPosition="before"
+                  primary={true}
+                  icon={<CashSymbol
+                      style={{ height: "25%", width: "25%"}}
+                    />}
+                  />
+              </MuiThemeProvider>
+            </div>
           </div>
 
           <div className="stage-list-wrapper admin">

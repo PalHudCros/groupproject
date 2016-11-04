@@ -2,53 +2,99 @@
   height: 31%;
 }
 
-.stage-title-wrapper.admin {
-  height: 10%;
+.stage-title-order-button-wrapper.admin {
+  height: 15%;
 }
   h1 {
-    font-size: 100%;
+    font-size: 24px;
   }
 
-.stage-wine-row-wrapper.admin {
+.stage-title.admin {
+  display: inline-block;
   height: 100%;
+  width: 83%;
+}
+
+.stage-order-button.admin {
+  display: inline-block;
+  height: 80%;
+  width: 17%;
+}
+
+.stage-list-wrapper.admin {
+  background-color: $pal-white;
+  height: 85%;
+  width: 100%;
+  overflow: scroll;
 }
 
 .stage-wine-row.admin {
-  height: 40px;
+  display: flex;
+  height: 48px;
   width: 100%;
 }
 
 .stage-wine-image.admin {
-  display: inline-block;
+  display: flex;
+  justify-content: flex-start;
   height: 100%;
   width: 4%;
 }
 
 .stage-wine-name.admin {
-  display: inline-block;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   height: 100%;
-  width: 47%;
+  width: 66%;
 }
 
 .stage-wine-varietal-vintage.admin {
-  display: inline-block;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   height: 100%;
   width: 17%;
 }
 
 .stage-wine-qty.admin {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
-  width: 17%;
+  width: 8%;
+}
+
+.stage-counter-field-wrapper.admin {
+  height: 100%;
+  width: 60%;
+}
+
+.stage-counter-field.admin {
+  width: 100% !important;
+}
+
+.stage-counter-incrementors.admin {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 40%;
+}
+
+.stage-increment-up.admin {
+  height: 50%;
+  width: 100%;
+}
+
+.stage-increment-down.admin {
+  height: 50%;
+  width: 100%;
 }
 
 .stage-wine-remove-button.admin {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
-  width: 15%;
-}
-
-.stage-list-wrapper.admin {
-  height: 90%;
-  background-color: orange;
+  width: 5%;
 }
