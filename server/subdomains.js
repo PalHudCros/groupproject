@@ -40,7 +40,7 @@ driverRouter.get('/init.js',
     (req, res)=>{ res.sendFile('index.html', {root:`${__dirname}/../dist/driver`}) }
   );
 
-app.get('/*/bundle.js',
+app.get('/*/init.js',
     (req, res)=>{ res.sendFile('init.js', {root:`${__dirname}/../dist/chunks`}) }
   )
   .get('/*/init.js.map',
