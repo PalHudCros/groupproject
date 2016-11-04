@@ -4,18 +4,16 @@ import Driver from './Driver.js';
 
 module.exports = {
 
-  getDrivers( req, res ) {
-    // GET /api/drivers
-    Driver.find( {}, ( err, drivers ) => {
-      if ( err ) {
-        return res.status( 500 ).json( err );
-      }
-      return res.status( 200 ).json( drivers );
-    } );
+  getOneOrderOnDriver( req, res ) {
+    // GET /api/driver/order/:id
+  }
+
+  , getOrdersOnDriver( req, res ) {
+    // GET /api/driver/order
   }
 
   , getOneDriver( req, res ) {
-    // GET /api/drivers/:id
+    // GET /api/driver/:id
     Driver.findOne( { _id: req.params.id }, ( err, response ) => {
       if ( err ) {
         return res.status( 500 ).json( err );
@@ -24,8 +22,23 @@ module.exports = {
     } );
   }
 
+  , getDrivers( req, res ) {
+    // GET /api/driver
+    Driver.find( {}, ( err, drivers ) => {
+      if ( err ) {
+        return res.status( 500 ).json( err );
+      }
+      return res.status( 200 ).json( drivers );
+    } );
+  }
+
+  , addOrderToDriver( req, res ) {
+    // POST /api/driver/order
+  }
+
+
   , addDriver( req, res ) {
-    // POST /api/drivers
+    // POST /api/driver
     new Driver( req.body ).save( ( err, response ) => {
       if ( err ) {
         return res.status( 500 ).json( err );
@@ -34,14 +47,22 @@ module.exports = {
     } );
   }
 
+  , updateOrderOnDriver( req, res ) {
+    // PUT /api/driver/order/:id
+  }
+
   , updateDriver( req, res ) {
-    // PUT /api/drivers
+    // PUT /api/driver/:id
 
   }
 
+  , removeOrderFromDriver( req, res ) {
+    // DELETE /api/driver/order/:id
+  }
+
   , removeDriver( req, res ) {
-    // DELETE /api/drivers
-    
+    // DELETE /api/driver
+
   }
 
 }
