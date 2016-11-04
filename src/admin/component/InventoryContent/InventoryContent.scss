@@ -23,3 +23,14 @@
   height: 10%;
   text-align: center;
 }
+
+.refresh-table-button.admin {
+
+}
+  & > button {
+    background-color: $pal-green !important;
+  }
+
+.refresh-table-button-icon.admin {
+  color: $pal-green;
+}

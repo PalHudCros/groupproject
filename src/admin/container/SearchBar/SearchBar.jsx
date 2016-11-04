@@ -19,7 +19,7 @@ export class SearchBar extends Component {
     if (this.props.tabs.whichTab === 1) {
       this.setState({wineCategories: this.props.distribution.categories});
     } else if (this.props.tabs.whichTab === 2) {
-      this.setState({wineCategories: this.props.inventory.categories});      
+      this.setState({wineCategories: this.props.inventory.categories});
     }
   }
 
@@ -27,7 +27,7 @@ export class SearchBar extends Component {
     if (props.tabs.whichTab === 1) {
       this.setState({wineCategories: props.distribution.categories});
     } else if (props.tabs.whichTab === 2) {
-      this.setState({wineCategories: props.inventory.categories});      
+      this.setState({wineCategories: props.inventory.categories});
     }
   }
 
@@ -35,7 +35,7 @@ export class SearchBar extends Component {
     if (this.props.tabs.whichTab === 1) {
       this.props.dispatch(getWinesFromAPI(item._id));
     } else if (this.props.tabs.whichTab === 2) {
-      this.props.dispatch(getWinesFromInventory(item._id));     
+      this.props.dispatch(getWinesFromInventory(item._id));
     }
   }
 
@@ -50,6 +50,10 @@ export class SearchBar extends Component {
           dataSourceConfig={ this.state.wineCategoriesConfig }
           maxSearchResults={5}
           onNewRequest={this.handleNewRequest.bind(this)}
+          style={{ backgroundColor: "orange" }}
+          textFieldStyle={{ backgroundColor: "red" }}
+          listStyle={{ backgroundColor: "pink" }}
+          menuStyle={{ backgroundColor: "green" }}
         />
       </div>
 

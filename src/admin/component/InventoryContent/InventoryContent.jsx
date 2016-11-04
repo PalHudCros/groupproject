@@ -16,12 +16,19 @@ export class InventoryContent extends Component {
     super(props);
 
     this.state = {
-
+      refreshButtonState: false
     };
   }
 
   fetchWinesFromAPI() {
+    this.setState( { refreshButtonState: false } );
     this.props.dispatch(getWinesFromAPI());
+  }
+
+  componentWillReceiveProps(props) {
+    if ( props.distribution.status === "distribution Received!" || props.distribution.status === "Error" ) {
+      this.setState( { refreshButtonState: true } );
+    }
   }
 
 
@@ -44,8 +51,13 @@ export class InventoryContent extends Component {
             <div className="col-xs-offset-4 col-xs-4 admin">
               <MuiThemeProvider>
 
-                <FloatingActionButton style={{margin: 0}} onClick={this.fetchWinesFromAPI.bind(this)}>
-                  <Refresh />
+                <FloatingActionButton
+                  style={{margin: 0}}
+                  disabled={this.state.refreshButtonState}
+                  className="refresh-table-button admin"
+                  iconClassName="muidocs-icon-navigation-refresh"
+                  onClick={this.fetchWinesFromAPI.bind(this)}
+                  >
                 </FloatingActionButton>
               </MuiThemeProvider>
             </div>
@@ -82,7 +94,7 @@ export class InventoryContent extends Component {
               <DistributorTable />
             </MuiThemeProvider>
         </div>
-          
+
           :
           this.props.tabs.whichTab === 3
           ?
