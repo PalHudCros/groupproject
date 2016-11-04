@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Wine from "./Wine";
 
-const DistributionWine = new mongoose.Schema({
+const InventoryItem = new mongoose.Schema({
     Id: {type: Number}
     , Name: {type: String}
     , Url: {type: String}
@@ -82,6 +82,6 @@ const DistributionWine = new mongoose.Schema({
     , LabelImage: {type: String}
     , BottleImage: {type: String}
     , Quantity: {type: Number, default: 1}
-});
+}, {collection: "inventory"});
 
-module.exports = mongoose.model('DistributionWine', DistributionWine);
+module.exports = mongoose.model('InventoryItem', InventoryItem);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../../../config/config';
 import Wine from './Wine';
-import DistributionWine from './DistributionWine';
+import InventoryItem from './InventoryItem';
 
 
 const baseUrl = 'http://services.wine.com/api/beta/service.svc/json/catalog?offset=0&size=100&apikey=' + config.wineAPI.key + '&sort=popularity%7Cascending&state=TX'
@@ -41,11 +41,11 @@ module.exports = {
     }
 
     , addWineToInventory(req, res) {
-        DistributionWine.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: 1 }}, (err, newWine) => {
+        InventoryItem.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: 1 }}, (err, newWine) => {
           if (err) return res.status(500).json(err);
           else if (newWine) return res.status(200).json(newWine);
           else {
-            new DistributionWine(req.body).save((err, wine) => {
+            new InventoryItem(req.body).save((err, wine) => {
               if (err) return res.status(500).json(err);
               return res.status(200).json(wine);            
             })
