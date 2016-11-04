@@ -46,7 +46,6 @@ const Wine = new mongoose.Schema({
     , Community: {
         Reviews: {
             HighestScore: {type: Number}
-            // , List: [{type: String}]
             , Url: {type: String}
         }
         , Url: {type: String}
@@ -68,7 +67,6 @@ const Wine = new mongoose.Schema({
     }]
     , Ratings: { 
         HighestScore: {type: Number}
-        // , List: [{}] 
     }
     , Retail:{ 
         InStock: {type: Boolean}
