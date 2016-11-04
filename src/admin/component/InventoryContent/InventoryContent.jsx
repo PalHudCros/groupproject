@@ -21,13 +21,13 @@ export class InventoryContent extends Component {
   }
 
   fetchWinesFromAPI() {
-    this.setState( { refreshButtonState: false } );
+    this.setState( { refreshButtonState: true } );
     this.props.dispatch(getWinesFromAPI());
   }
 
   componentWillReceiveProps(props) {
     if ( props.distribution.status === "distribution Received!" || props.distribution.status === "Error" ) {
-      this.setState( { refreshButtonState: true } );
+      this.setState( { refreshButtonState: false } );
     }
   }
 
@@ -52,12 +52,12 @@ export class InventoryContent extends Component {
               <MuiThemeProvider>
 
                 <FloatingActionButton
-                  style={{margin: 0}}
+                  style={{margin: 0, height: "50%"}}
                   disabled={this.state.refreshButtonState}
                   className="refresh-table-button admin"
-                  iconClassName="muidocs-icon-navigation-refresh"
                   onClick={this.fetchWinesFromAPI.bind(this)}
                   >
+                  <Refresh />
                 </FloatingActionButton>
               </MuiThemeProvider>
             </div>
@@ -82,7 +82,7 @@ export class InventoryContent extends Component {
             <div className="col-xs-offset-4 col-xs-4 admin">
               <MuiThemeProvider>
 
-                <FloatingActionButton style={{margin: 0}} onClick={this.fetchWinesFromAPI.bind(this)}>
+                <FloatingActionButton style={{margin: 0, height: "20%"}} onClick={this.fetchWinesFromAPI.bind(this)}>
                   <Refresh />
                 </FloatingActionButton>
               </MuiThemeProvider>
@@ -111,5 +111,5 @@ export class InventoryContent extends Component {
 }
 
 export default connect( state => {
-  return { tabs: state.tabs };
+  return { tabs: state.tabs, distribution: state.distribution };
 } )( InventoryContent );

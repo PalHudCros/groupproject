@@ -7,7 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import {getWinesFromAPI, addWineToDistribution} from "../../ducks/distributionDuck";
 import {sendWineToApiStage} from "../../ducks/distributionDuck";
 
-class APITable extends Component {
+export class APITable extends Component {
   constructor(props) {
     super(props);
 
