@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import {getCategoryCounts} from "../../ducks/distributionDuck";
 
 export class CategoryCount extends Component {
   constructor(props) {
@@ -11,11 +12,12 @@ export class CategoryCount extends Component {
   }
 
   componentWillMount() {
-
+    this.props.dispatch(getCategoryCounts());    
   }
 
   componentWillReceiveProps(props) {
-    const categories = props.inventory.categories.map(category => (
+      console.log(props);
+    const categories = props.distribution.categories.map(category => (
         <div key = {category.id} className="col-xs-3">
             <div className="col-xs-8">{category.varietal}</div>
             <div className="col-xs-4">{category.qty}</div>
@@ -24,6 +26,9 @@ export class CategoryCount extends Component {
     this.setState({categories: categories});
   }
 
+  mapCategories(categories) {
+      
+  }
   render() {
     return (
         <div className="row">
@@ -34,4 +39,4 @@ export class CategoryCount extends Component {
   }
 
 }
-export default connect(state => ( { inventory: state.inventory } ) )( CategoryCount );
+export default connect(state => ( { inventory: state.inventory, distribution: state.distribution } ) )( CategoryCount );

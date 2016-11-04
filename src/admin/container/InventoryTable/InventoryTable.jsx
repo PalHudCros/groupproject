@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import CircularProgress from 'material-ui/CircularProgress';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import {getWinesFromAPI, addWineToDistribution} from "../../ducks/inventoryDuck";
+import {getWinesFromAPI, addWineToDistribution} from "../../ducks/distributionDuck";
 
 
 class InventoryTable extends Component {
@@ -21,7 +21,7 @@ class InventoryTable extends Component {
   }
 
   componentWillReceiveProps(props) {
-     const wineList = props.inventory.wines.map(wine => {
+     const wineList = props.distribution.wines.map(wine => {
         wine.LabelImage = wine.Labels[0].Url;
         wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
         return (
@@ -66,7 +66,7 @@ class InventoryTable extends Component {
         </div>
         <div className="inventory-rows-wrapper admin">
             {
-              this.props.inventory.status === "Fetching Inventory"
+              this.props.distribution.status === "Fetching Distribution List"
               ?
               <div className="progress-container">
                 <CircularProgress size={80} thickness={5} />
@@ -81,4 +81,4 @@ class InventoryTable extends Component {
   }
 
 }
-export default connect(state => ( { inventory: state.inventory } ) )( InventoryTable );
+export default connect(state => ( { inventory: state.inventory, distribution: state.distribution } ) )( InventoryTable );
