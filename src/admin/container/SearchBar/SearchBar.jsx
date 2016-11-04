@@ -11,14 +11,12 @@ export class SearchBar extends Component {
 
     this.state = {
       wineCategories: props.distribution.categories
-      , wineCategoriesConfig: {text: "varietal", value: "_id"}
     };
   }
 
   componentWillMount() {
     if (this.props.tabs.whichTab === 1) {
       this.setState({wineCategories: this.props.distribution.categories});
-      console.log(this.state.wineCategories);
     } else if (this.props.tabs.whichTab === 2) {
       this.setState({wineCategories: this.props.inventory.categories});      
     }
@@ -41,14 +39,13 @@ export class SearchBar extends Component {
   }
 
   render() {
-
     return (
       <div>
         <AutoComplete
           floatingLabelText="Search API"
           filter={AutoComplete.fuzzyFilter}
           dataSource={ this.state.wineCategories }
-          dataSourceConfig={ this.state.wineCategoriesConfig }
+          dataSourceConfig={ {text: "varietal", value: "_id"} }
           maxSearchResults={5}
           onNewRequest={this.handleNewRequest.bind(this)}
         />
