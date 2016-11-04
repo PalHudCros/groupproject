@@ -44,9 +44,9 @@ export class InventoryContent extends Component {
           <ApiWineStage />
           <div className="row searchbar-wrapper admin">
             <div className="col-xs-4 admin">
- {/*             <MuiThemeProvider>
+              <MuiThemeProvider>
                 <SearchBar></SearchBar>
-              </MuiThemeProvider> */}
+              </MuiThemeProvider>
             </div>
             <div className="col-xs-offset-4 col-xs-4 admin">
               <MuiThemeProvider>
@@ -75,9 +75,9 @@ export class InventoryContent extends Component {
           <ApiWineStage />
           <div className="row searchbar-wrapper admin">
             <div className="col-xs-4 admin">
-{/*              <MuiThemeProvider>
+              <MuiThemeProvider>
                 <SearchBar></SearchBar>
-              </MuiThemeProvider> */}
+              </MuiThemeProvider>
             </div>
             <div className="col-xs-offset-4 col-xs-4 admin">
               <MuiThemeProvider>

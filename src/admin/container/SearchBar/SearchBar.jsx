@@ -10,8 +10,7 @@ export class SearchBar extends Component {
     super(props);
 
     this.state = {
-      wineCategories: []
-      , wineCategoriesConfig: {text: "varietal", value: "_id"}
+      wineCategories: props.distribution.categories
     };
   }
 
@@ -40,14 +39,13 @@ export class SearchBar extends Component {
   }
 
   render() {
-
     return (
       <div>
         <AutoComplete
           floatingLabelText="Search API"
           filter={AutoComplete.fuzzyFilter}
           dataSource={ this.state.wineCategories }
-          dataSourceConfig={ this.state.wineCategoriesConfig }
+          dataSourceConfig={ {text: "varietal", value: "_id"} }
           maxSearchResults={5}
           onNewRequest={this.handleNewRequest.bind(this)}
           style={{ backgroundColor: "orange" }}
