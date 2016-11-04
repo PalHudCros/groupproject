@@ -10,7 +10,7 @@ export class SearchBar extends Component {
     super(props);
 
     this.state = {
-      wineCategories: []
+      wineCategories: props.distribution.categories
       , wineCategoriesConfig: {text: "varietal", value: "_id"}
     };
   }
@@ -18,6 +18,7 @@ export class SearchBar extends Component {
   componentWillMount() {
     if (this.props.tabs.whichTab === 1) {
       this.setState({wineCategories: this.props.distribution.categories});
+      console.log(this.state.wineCategories);
     } else if (this.props.tabs.whichTab === 2) {
       this.setState({wineCategories: this.props.inventory.categories});      
     }
