@@ -152,7 +152,7 @@ export function getWinesFromInventory(itemId) {
         dispatch(inventoryProcess());
         return axios.get("/api/wines/inventory" + filter)
             .then(results => {
-                dispatch(inventorySuccess(results.data.Products.List));
+                dispatch(inventorySuccess(results.data));
             })
             .catch(error => {
                 dispatch(inventoryFailure(error))
