@@ -14,28 +14,26 @@ class Store extends Component{
   }
 
   componentWillMount() {
-      this.props.dispatch(getWines())
-  }
+      const wines = this.props.wines.wines.map((wine, ind)=> {
+          wine.labelImage = wine.Labels[0].Url;
+          wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";
+          return (
+            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.bottleImage}></WineStoreCard>
+          )
+      });
+      this.setState({wines: wines})
+    }
 
   componentWillReceiveProps(props) {
       const wines = props.wines.wines.map((wine, ind)=> {
           wine.labelImage = wine.Labels[0].Url;
           wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";
           return (
-            <WineStoreCard key={wine.Id} wineId={wine.wineId} bottleImage={wine.bottleImage}></WineStoreCard>
+            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.bottleImage}></WineStoreCard>
           )
       });
       this.setState({wines: wines})
   }
-
-  // <div key={wine.Id}>
-  //     <h2>{wine.Name}</h2>
-  //     <h3>{wine.Varietal.Name} {wine.Vintage}</h3>
-  //     <img src={wine.labelImage} alt=""/>
-  //     <img src={wine.bottleImage} alt=""/>
-  //     <h4>Vineyard: {wine.Vineyard.Name}</h4>
-  //     <img src={wine.Vineyard.ImageUrl} alt=""/>
-  // </div>
 
   render(){
     return (
@@ -46,12 +44,3 @@ class Store extends Component{
   }
 }
 export default connect(state => ( { wines: state.wines } ) )( Store );
-
-
-// export default function Store() {
-//     return (
-//         <div>
-//             <WineList />
-//         </div>
-//     )
-// }
