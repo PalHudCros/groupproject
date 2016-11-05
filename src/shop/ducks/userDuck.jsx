@@ -84,7 +84,7 @@ export default function userReducer(state = initialState, action) {
     case LOCK_ERROR:
         return Object.assign({}, state, {status: action.err})
     case LOGOUT_SUCCESS:
-        return 
+        return initialState 
     default:
         return state
   }
