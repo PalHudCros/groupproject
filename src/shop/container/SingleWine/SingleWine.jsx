@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 class SingleWine extends Component{
   constructor(props){
@@ -61,7 +62,8 @@ class SingleWine extends Component{
                    <h3>{`Price: ${this.state.currentWine.Retail.Price}`}</h3>
                    <h3>{`Qty: ${this.state.currentWine.Quantity}`}</h3>
                    <CardActions>
-                     <FlatButton label="Add" onClick={this.handleAddToInventory()}/>
+                    <TextField type="number" min="1" defaultValue="1"></TextField>
+                    <FlatButton label="Add" onClick={this.handleAddToInventory()}/>
                    </CardActions>
                 </div>
               </div>
