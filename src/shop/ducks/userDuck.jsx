@@ -1,10 +1,6 @@
 // Initial state
 const initialState = {
-    username: ""
-    , isAuthenticated: false
-    , profile: {}
-    , token: ""
-    , status: {}
+    status: {}
 }
 
 // Actions
@@ -31,12 +27,11 @@ function showLock(){
   }
 }
 
-function lockSuccess(profile, token){
+function lockSuccess(profile){
   return {
     type: LOCK_SUCCESS,
     isAuthenticated: true,
-    profile,
-    token
+    profile
   }
 }
 
@@ -85,7 +80,7 @@ export default function userReducer(state = initialState, action) {
     case SHOW_LOCK:
         return Object.assign({}, state, {status: "Logging In"})
     case LOCK_SUCCESS:
-        return Object.assign({}, state, action.profile, action.isAuthenticated)
+        return Object.assign({}, state, action.profile, {status: "Logged In"})
     case LOCK_ERROR:
         return Object.assign({}, state, {status: action.err})
     case LOGOUT_SUCCESS:
