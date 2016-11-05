@@ -18,6 +18,7 @@ const SEND_WINE_TO_API_STAGE = "distribution/SEND_WINE_TO_API_STAGE";
 const initialState = {
     wines: []
     , distributionList: []
+    , status: ""
     , categories: [
         {_id: 124, varietal: "Red Wine", qty: 0},
         {_id: 125, varietal: "White Wine", qty: 0},
@@ -81,7 +82,7 @@ const initialState = {
 export default function distribution(state = initialState, action) {
     switch ( action.type ) {
         case DISTRIBUTION_PROCESS:
-            return Object.assign({}, state, {status: "Fetching distribution"});
+            return Object.assign({}, state, {status: "Fetching Distribution List"});
         case DISTRIBUTION_SUCCESS:
             return Object.assign({}, state, {wines: action.wines}, {status: "distribution Received!"})
         case DISTRIBUTION_FAILURE:
