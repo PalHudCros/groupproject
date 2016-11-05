@@ -12,9 +12,13 @@ class SingleWine extends Component{
   constructor(props){
     super(props)
     this.state = {
-      currentWine: {},
-      wines: {},
-      iframe:{}
+      currentWine: {
+        Retail:{Price:0}
+      },
+      wines: {
+
+      }
+
     }
   }
 
@@ -31,34 +35,41 @@ class SingleWine extends Component{
     this.setState({wines: props.wines.wines})
     const currentWine = props.wines.wines.filter(ele => ele.Id == props.params.wineId)[0];
     this.setState({currentWine: currentWine})
-
-
+  }
+  handleAddToInventory(){
 
   }
 
   render(){
+    console.log(this.state.currentWine);
     return (
       <div className="container">
         <h1>{this.state.currentWine.Id}</h1>
-        <div className="row">
           <MuiThemeProvider>
-          <Card className='clearfix'>
-            <CardHeader
-              title={this.state.currentWine.Name}
-            />
-
-          <CardMedia>
-            <div className="single-bottle-img">
-              <img src={this.state.currentWine.BottleImage} style={{height:200}} />
+          <Card style={{display:'flex', justifyContent:'center'}}>
+            <div className="row">
+              <div className="col-xs-6">
+                <CardMedia>
+                  <div className="single-bottle-img">
+                    <img src={this.state.currentWine.BottleImage} style={{height:200}} />
+                  </div>
+                </CardMedia>
+              </div>
+              <div className="col-xs-6">
+                <CardTitle title={this.state.currentWine.Name} />
+                <div style={{paddingLeft:16, paddingRight:16}}>
+                   <h3>{`Price: ${this.state.currentWine.Retail.Price}`}</h3>
+                   <h3>{`Qty: ${this.state.currentWine.Quantity}`}</h3>
+                   <CardActions>
+                     <FlatButton label="Add" onClick={this.handleAddToInventory()}/>
+                   </CardActions>
+                </div>
+              </div>
             </div>
-          </CardMedia>
-            <CardTitle title="Card title" subtitle="Card subtitle" />
-              <CardActions>
-                <FlatButton label="Action2" />
-              </CardActions>
+
+
           </Card>
           </MuiThemeProvider>
-        </div>
       </div>
     )
   }
