@@ -33,7 +33,8 @@ export class ApiWineStage extends Component {
 
       return (
 
-        <div key={ wine.Id } className="stage-wine-row admin">
+        <div key={ wine.Id } className="stage-wine-row-wrapper admin">
+        <div className="stage-wine-row admin">
           <div className="stage-wine-image admin">
 
             <img height="100%" src={ wine.BottleImage } />
@@ -50,7 +51,9 @@ export class ApiWineStage extends Component {
               <MuiThemeProvider>
                 <TextField
                   hintText="Qty"
+                  hintStyle={{ marginLeft: "24%" }}
                   className="stage-counter-field admin"
+                  type="number"
                   />
               </MuiThemeProvider>
             </div>
@@ -73,6 +76,10 @@ export class ApiWineStage extends Component {
             </MuiThemeProvider>
           </div>
         </div>
+        <MuiThemeProvider>
+          <Divider />
+        </MuiThemeProvider>
+      </div>
 
       )});
       this.setState( {wines: stagedWines });
@@ -101,9 +108,7 @@ export class ApiWineStage extends Component {
                   label="Send Order"
                   labelPosition="before"
                   primary={true}
-                  icon={<CashSymbol
-                      style={{ height: "25%", width: "25%"}}
-                    />}
+                  icon={<CashSymbol />}
                   />
               </MuiThemeProvider>
             </div>

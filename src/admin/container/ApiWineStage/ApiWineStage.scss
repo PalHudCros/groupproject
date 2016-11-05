@@ -2,27 +2,38 @@
   height: 31%;
 }
 
+.stage-wine-row-wrapper.admin {
+  height: 22%;
+  width: 100%;
+}
+
 .stage-title-order-button-wrapper.admin {
+  display: flex;
   height: 15%;
 }
   h1 {
     font-size: 24px;
+    margin-left: 1%;
   }
 
 .stage-title.admin {
-  display: inline-block;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   height: 100%;
   width: 83%;
 }
 
 .stage-order-button.admin {
-  display: inline-block;
-  height: 80%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
   width: 17%;
 }
 
 .stage-list-wrapper.admin {
-  background-color: $pal-white;
+  background-color: #ffffff;
   height: 85%;
   width: 100%;
   overflow: scroll;
