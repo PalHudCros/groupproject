@@ -18,7 +18,6 @@ class UserIcon extends Component{
   }
 
   componentWillReceiveProps(props){
-
   }
 
   handleAuthClick() {
@@ -34,14 +33,14 @@ class UserIcon extends Component{
         {
           this.props.user.picture
           ?
-          <Avatar src={this.props.user.picture} size={25} />
+          <Avatar src={this.props.user.picture} size={20} />
           :
           <AccountCircle></AccountCircle>
         }
           <span className="signIn shop">
           {
-            this.props.user.isAuthenticated
-            ?
+            this.props.user.user_id
+             ?
             "Sign Out"
             :
             "Sign In"
