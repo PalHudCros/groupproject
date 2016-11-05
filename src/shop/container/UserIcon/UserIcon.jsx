@@ -5,16 +5,16 @@ import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 
-import { login, authenticating } from "../../ducks/userDuck";
+import { login, doAuthentication } from "../../ducks/userDuck";
 // import store from "../../store";
 
 class UserIcon extends Component{
-  constructor(){
-    super();
-
+  constructor(props){
+    super(props);
+    this.props.dispatch(doAuthentication());
   }
   componentWillMount() {
-    
+
   }
 
   componentWillReceiveProps(props){
@@ -22,25 +22,25 @@ class UserIcon extends Component{
   }
 
   handleAuthClick() {
-    this.props.dispatch(authenticating());
+    this.props.dispatch(login());
   }
 
   render(){
     return(
-      <a onClick={this.handleAuthClick.bind(this)} href="/auth/facebook">
+      <a onClick={this.handleAuthClick.bind(this)}>
         <span
           className="UserIcon shop"
         >
         {
-          this.props.user.photo
+          this.props.user.picture
           ?
-          <Avatar src={this.props.user.photo} size={25} />
+          <Avatar src={this.props.user.picture} size={25} />
           :
           <AccountCircle></AccountCircle>
         }
           <span className="signIn shop">
           {
-            this.props.user.loggedIn
+            this.props.user.isAuthenticated
             ?
             "Sign Out"
             :
