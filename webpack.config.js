@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const DotenvPlugin = require('webpack-dotenv-plugin');
 
 module.exports = {
   entry: { shop: "./src/shop/index.jsx", driver: "./src/driver/index.jsx", admin:"./src/admin/index.jsx" }
@@ -35,6 +36,9 @@ module.exports = {
           filename: 'init.js',
           minChunks: 3,
           chunks:['shop', 'driver', 'admin']
+        })
+        , new DotenvPlugin({
+        path: './.env'
         })
     ]
 }

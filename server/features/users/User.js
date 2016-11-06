@@ -1,10 +1,17 @@
 import mongoose from "mongoose";
 
 const User = new mongoose.Schema({
-  facebook_id: {type: String, required: true, unique: true}
-  , name: {type: String, required: true}
+  sub: {type: String, required: true, unique: true}
+  , family_name: {type: String}
+  , given_name: {type: String}
+  , name: {type: String}
+  , nickname: {type: String}
+  , gender: {type: String}
   , email: {type: String}
-  , photo: {type: String, default: 'http://www.clker.com/cliparts/m/3/I/C/c/2/grey-silhouette-of-man.svg'}
+  , email_verified: {type: Boolean}
+  , picture: {type: String, default: 'http://www.clker.com/cliparts/m/3/I/C/c/2/grey-silhouette-of-man.svg'}
+  , created_at: {type: Date}
+  , updated_at: {type: Date}
 });
 
 module.exports = mongoose.model("User", User);
