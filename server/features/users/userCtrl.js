@@ -3,8 +3,6 @@ import User from "./User";
 module.exports = {
 	getUser(req, res, next) {
 		User.findOne({sub: req.body.user_id}, (err, user) => {
-			console.log("Error in getUser: ", err)
-			console.log("User in getUser: ", user)
 			if (err) return res.status(500).json(err);
 			if (user) return res.status(200).json(user)
 			next();
