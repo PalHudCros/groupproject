@@ -20,7 +20,8 @@ class SingleWine extends Component{
         Retail:{Price:0}
       },
       wines: {
-      }
+      },
+      quantity:1
     }
   }
 
@@ -38,9 +39,21 @@ class SingleWine extends Component{
     const currentWine = props.wines.wines.filter(ele => ele.Id == props.params.wineId)[0];
     this.setState({currentWine: currentWine})
   }
+
+  handleChange(event){
+    this.setState({
+      quantity: event.target.value
+    });
+  }
+
   handleAddToInventory(){
-    console.log('handleAddToInventory', this.props)
-    this.props.dispatch(postCart())
+    console.log('handleAddToInventory', this.state.quantity)
+    let wine = {
+      item: this.state.currentWine._id
+      , quantity: this.state.quantity
+      , price: this.state.currentWine.Retail.Price
+    }
+    this.props.dispatch(postCart(wine))
   }
 
   render(){
@@ -64,7 +77,7 @@ class SingleWine extends Component{
                    <h3>{`Price: ${this.state.currentWine.Retail.Price}`}</h3>
                    <h3>{`Qty: ${this.state.currentWine.Quantity}`}</h3>
                    <CardActions>
-                    <TextField type="number" min="1" defaultValue="1" id="numberToCart"></TextField>
+                    <TextField type="number" min="1" id="numberToCart" value={this.state.quantity} onChange={this.handleChange.bind(this)}></TextField>
                     <FlatButton label="Add" onClick={this.handleAddToInventory.bind(this)}/>
                    </CardActions>
                 </div>

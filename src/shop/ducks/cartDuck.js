@@ -63,13 +63,44 @@ export function checkoutFailure(error) {
 // 	}
 // }
 
-export function postCart(){
-	console.log("Post Cart");
+export function postCart(wine){
 	return dispatch => {
 		dispatch(addProductProcess())
-		console.log('post start ..is this a thing?');
+		console.log('wine', wine);
 
-		return axios.post('/api/cart', {})
+		if (!localStorage.getItem('profile')){
+			localStorage.setItem('profile', {cart:wine})
+		} else {
+			let profile = JSON.parse(localStorage.getItem('profile'))
+				if (!profile.cart){
+					let newProfile = Object.assign({}, profile, {cart:[wine]})
+					localStorage.removeItem('profile')
+					localStorage.setItem('profile', JSON.stringify(newProfile))
+				} else {
+					console.log(profile.cart)
+					profile.cart.push(wine)
+					localStorage.setItem('profile', JSON.stringify(profile))
+				}
+		}
+
+
+	if (!localStorage.getItem('id_token')){
+
+		let wineCart = JSON.parse(localStorage.getItem('profile')).cart
+		dispatch(addProductSuccess(wineCart))
+
+	} else {
+		const idToken = localStorage.getItem('id_token')
+		const config = {
+			headers:{
+			'Accept': 'application/json'
+			, 'Content-Type': 'application/json'
+			, 'Authorization': `Bearer ${idToken}`
+		}}
+
+		let wineCart = JSON.parse(localStorage.getItem('profile')).cart
+
+		return axios.post('/api/cart', wineCart, config)
 			.then(results => {
 				console.log(ADD_PRODUCT_SUCCESS, results.data);
 				dispatch(addProductSuccess(results.data))
@@ -78,6 +109,10 @@ export function postCart(){
 				console.log(ADD_PRODUCT_FAILURE, error)
 				dispatch(addProductFailure(error))
 			})
+	}
+
+
+
 	}
 }
 

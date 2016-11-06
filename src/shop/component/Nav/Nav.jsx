@@ -3,9 +3,10 @@ import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import SearchBox from "../../container/SearchBox/SearchBox";
 import ActionShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
-import {Link} from "react-router";
+import {Link, browserHistory} from "react-router";
 
 export default function Nav(){
+
   return(
     <div className="col-xs-10 col-xs-offset-1 shop">
       <div style={{display:"flex", justifyContent:'space-between'}}>
