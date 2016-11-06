@@ -1,15 +1,14 @@
-import passport from 'passport';
-import ensure from 'connect-ensure-login';
+import jwt from 'express-jwt' 
+import config from '../../../config/config'
 import userCtrl from './userCtrl';
 
-module.exports = app => {
-  // Passport authentication routes
-  app.get('/auth/facebook', passport.authenticate('facebook'));
-  app.get('/auth/facebook/callback', passport.authenticate('facebook',
-    {successReturnToOrRedirect: '/', failureRedirect: '/'})
-  );
-  app.get('/auth/facebook/checkUser', userCtrl.checkUser);
-  app.get('/api/user', userCtrl.isAuthed, userCtrl.getUser);
-  app.get('/api/logout', userCtrl.logoutUser);
 
+module.exports = app => {
+  app.post('/api/user', jwt({
+      secret: new Buffer(config.auth0.secret, 'base64')
+      , audience: config.auth0.audience  
+    }), (req, res, next) => {
+      next()
+    },  
+    userCtrl.getUser, userCtrl.saveUser)
 }

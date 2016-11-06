@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // Initial state
 const initialState = {
     status: {}
@@ -27,11 +29,11 @@ function showLock(){
   }
 }
 
-function lockSuccess(profile){
+function lockSuccess(user){
   return {
     type: LOCK_SUCCESS,
     isAuthenticated: true,
-    profile
+    user
   }
 }
 
@@ -63,12 +65,27 @@ export function doAuthentication(){
   return dispatch => {
     lock.on('authenticated', function(authResult){
       lock.getProfile(authResult.idToken, function(err, profile){
-        if (err) {
-          return dispacth(lockError(err))
-        }
-        localStorage.setItem('profile', JSON.stringify(profile))
-        localStorage.setItem('id_token', authResult.idToken)
-        return dispatch(lockSuccess(profile))
+          // Handle auth error
+          if (err) {
+            return dispatch(lockError(err))
+          }
+          // Handle auth success
+          // Set token and profile in local storage
+          localStorage.setItem('profile', JSON.stringify(profile))
+          localStorage.setItem('id_token', authResult.idToken)
+          // Set headers for authentication
+          const config = {
+            headers:{
+            'Accept': 'application/json'
+            , 'Content-Type': 'application/json'
+            , 'Authorization': `Bearer ${authResult.idToken}`
+          }}
+          // Send user profile to database for user
+          return axios.post('/api/user', profile, config)
+            .then(results => {
+              console.log(results);              
+              dispatch(lockSuccess(results.data))
+            })
       })
     })
   }
@@ -80,7 +97,7 @@ export default function userReducer(state = initialState, action) {
     case SHOW_LOCK:
         return Object.assign({}, state, {status: "Logging In"})
     case LOCK_SUCCESS:
-        return Object.assign({}, state, action.profile, {status: "Logged In"})
+        return Object.assign({}, state, action.user, {status: "Logged In"})
     case LOCK_ERROR:
         return Object.assign({}, state, {status: action.err})
     case LOGOUT_SUCCESS:

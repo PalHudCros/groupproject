@@ -20,7 +20,7 @@ class UserIcon extends Component{
   }
 
   handleAuthClick() {
-    if (this.props.user.user_id) {
+    if (this.props.user.sub) {
       this.props.dispatch(logout());
     } else {
     this.props.dispatch(login());
@@ -42,7 +42,7 @@ class UserIcon extends Component{
         }
           <span className="signIn shop">
           {
-            this.props.user.user_id
+            this.props.user.sub
              ?
             "Sign Out"
             :
