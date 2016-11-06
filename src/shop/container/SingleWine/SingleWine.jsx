@@ -9,6 +9,9 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
+//Async functions
+import {postCart} from '../../ducks/cartDuck'
+
 class SingleWine extends Component{
   constructor(props){
     super(props)
@@ -17,9 +20,7 @@ class SingleWine extends Component{
         Retail:{Price:0}
       },
       wines: {
-
       }
-
     }
   }
 
@@ -38,7 +39,8 @@ class SingleWine extends Component{
     this.setState({currentWine: currentWine})
   }
   handleAddToInventory(){
-
+    console.log('handleAddToInventory', this.props)
+    this.props.dispatch(postCart())
   }
 
   render(){
@@ -62,8 +64,8 @@ class SingleWine extends Component{
                    <h3>{`Price: ${this.state.currentWine.Retail.Price}`}</h3>
                    <h3>{`Qty: ${this.state.currentWine.Quantity}`}</h3>
                    <CardActions>
-                    <TextField type="number" min="1" defaultValue="1"></TextField>
-                    <FlatButton label="Add" onClick={this.handleAddToInventory()}/>
+                    <TextField type="number" min="1" defaultValue="1" id="numberToCart"></TextField>
+                    <FlatButton label="Add" onClick={this.handleAddToInventory.bind(this)}/>
                    </CardActions>
                 </div>
               </div>
@@ -77,4 +79,4 @@ class SingleWine extends Component{
   }
 }
 
-export default connect(state => ({wines: state.wines}))(SingleWine)
+export default connect(state => ({wines: state.wines, cart:state.cart}))(SingleWine)
