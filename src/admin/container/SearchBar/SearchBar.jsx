@@ -10,8 +10,7 @@ export class SearchBar extends Component {
     super(props);
 
     this.state = {
-      wineCategories: []
-      , wineCategoriesConfig: {text: "varietal", value: "_id"}
+      wineCategories: props.distribution.categories
     };
   }
 
@@ -19,7 +18,7 @@ export class SearchBar extends Component {
     if (this.props.tabs.whichTab === 1) {
       this.setState({wineCategories: this.props.distribution.categories});
     } else if (this.props.tabs.whichTab === 2) {
-      this.setState({wineCategories: this.props.inventory.categories});      
+      this.setState({wineCategories: this.props.inventory.categories});
     }
   }
 
@@ -27,7 +26,7 @@ export class SearchBar extends Component {
     if (props.tabs.whichTab === 1) {
       this.setState({wineCategories: props.distribution.categories});
     } else if (props.tabs.whichTab === 2) {
-      this.setState({wineCategories: props.inventory.categories});      
+      this.setState({wineCategories: props.inventory.categories});
     }
   }
 
@@ -35,21 +34,21 @@ export class SearchBar extends Component {
     if (this.props.tabs.whichTab === 1) {
       this.props.dispatch(getWinesFromAPI(item._id));
     } else if (this.props.tabs.whichTab === 2) {
-      this.props.dispatch(getWinesFromInventory(item._id));     
+      this.props.dispatch(getWinesFromInventory(item._id));
     }
   }
 
   render() {
-
     return (
       <div>
         <AutoComplete
           floatingLabelText="Search API"
           filter={AutoComplete.fuzzyFilter}
           dataSource={ this.state.wineCategories }
-          dataSourceConfig={ this.state.wineCategoriesConfig }
+          dataSourceConfig={ {text: "varietal", value: "_id"} }
           maxSearchResults={5}
           onNewRequest={this.handleNewRequest.bind(this)}
+          textFieldStyle={{ className: "fuck" }}
         />
       </div>
 
