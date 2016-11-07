@@ -11,7 +11,7 @@ export default function WineStoreCard(props){
       <MuiThemeProvider>
         <Paper style={{display:'flex', justifyContent:"center"}}>
           <img src={props.bottleImage} alt="" style={{height:200}}/>
-          <Link to={`shop/${props.wineId}`}>Params test</Link>
+          <Link to={`/${props.wineId}`}>Params test</Link>
         </Paper>
       </MuiThemeProvider>
     </div>
