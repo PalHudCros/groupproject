@@ -10,6 +10,7 @@ const SHOW_LOCK = 'SHOWLOCK'
 const LOCK_SUCCESS = 'LOCK_SUCCESS'
 const LOCK_ERROR = 'LOCK_ERROR'
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+console.log( process.env )
 
 // Auth0 Config
 const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, options);
