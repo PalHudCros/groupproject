@@ -64,7 +64,13 @@ module.exports = {
 
   , addDriver( req, res ) {
     // POST /api/driver
-    new Driver( req.body ).save( ( err, driverCreated ) => {
+    const driver = {
+      sub: req.body.user_id
+      , name: req.body.name
+      , picture: req.body.picture
+      , updated_at: req.body.updated_at
+    }
+    new Driver( driver ).save( ( err, driverCreated ) => {
       console.log("Add Driver Error: ", err)
       
       console.log("Add Driver Success: ", driverCreated)
