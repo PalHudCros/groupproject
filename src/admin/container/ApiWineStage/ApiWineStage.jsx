@@ -37,7 +37,7 @@ export class ApiWineStage extends Component {
         <div className="stage-wine-row admin">
           <div className="stage-wine-image admin">
 
-            <img height="100%" src={ wine.BottleImage } />
+            <img height="100%" src={ wine.BottleImage } alt={ wine.Name } />
           </div>
           <div className="stage-wine-name admin">
 
@@ -54,6 +54,7 @@ export class ApiWineStage extends Component {
                   hintStyle={{ marginLeft: "24%" }}
                   className="stage-counter-field admin"
                   type="number"
+                  min="0"
                   />
               </MuiThemeProvider>
             </div>
