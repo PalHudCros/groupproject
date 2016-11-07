@@ -56,4 +56,5 @@ export class SearchBar extends Component {
   }
 
 }
+
 export default connect(state => ( { inventory: state.inventory, distribution: state.distribution, tabs: state.tabs } ) )( SearchBar );

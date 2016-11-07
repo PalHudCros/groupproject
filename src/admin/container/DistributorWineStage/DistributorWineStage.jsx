@@ -8,9 +8,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CashSymbol from 'material-ui/svg-icons/editor/monetization-on';
 import Close from 'material-ui/svg-icons/navigation/close';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {removeOneWineFromAPIStage} from "../../ducks/distributionDuck";
+import {removeOneWineFromDistributorStage} from "../../ducks/inventoryDuck";
 
-export class ApiWineStage extends Component {
+export class DistributorWineStage extends Component {
   constructor(props) {
     super(props);
 
@@ -28,7 +28,8 @@ export class ApiWineStage extends Component {
       props = this.props;
     }
 
-    const stagedWines = props.distribution.stagedWines.map(wine => {
+
+    const stagedWines = props.inventory.stagedWines.map(wine => {
       wine.LabelImage = wine.Labels[0].Url;
       wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
 
@@ -91,11 +92,11 @@ export class ApiWineStage extends Component {
   }
 
   removeWineFromStage( wine ) {
-    this.props.dispatch( removeOneWineFromAPIStage( wine ) );
+    this.props.dispatch( removeOneWineFromDistributorStage( wine ) );
   }
 
   componentWillMount() {
-    if ( this.props.distribution.stagedWines[0] ) {
+    if ( this.props.inventory.stagedWines[0] ) {
       this.checkStagedWines();
     }
   }
@@ -109,7 +110,7 @@ export class ApiWineStage extends Component {
         <div className="api-wines-stage-wrapper admin">
           <div className="stage-title-order-button-wrapper admin">
             <div className="stage-title admin">
-              <h1>Vineyard Purchase Order</h1>
+              <h1>Distributor Purchase Order</h1>
             </div>
             <div className="stage-order-button admin">
               <MuiThemeProvider>
@@ -136,4 +137,4 @@ export class ApiWineStage extends Component {
 
 }
 
-export default connect(state => ( { distribution: state.distribution } ) )( ApiWineStage );
+export default connect(state => ( { inventory: state.inventory } ) )( DistributorWineStage );
