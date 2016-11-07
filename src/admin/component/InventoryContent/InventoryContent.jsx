@@ -5,10 +5,13 @@ import SearchBar from "../../container/SearchBar/SearchBar.jsx";
 import APITable from "../../container/APITable/APITable.jsx";
 import DistributorTable from "../../container/DistributorTable/DistributorTable.jsx";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import WineList from '../../container/WineList/WineList';
 import ApiWineStage from "../../container/ApiWineStage/ApiWineStage";
+import DistributorWineStage from "../../container/DistributorWineStage/DistributorWineStage";
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import {getWinesFromAPI} from "../../ducks/distributionDuck";
+import {getWinesFromInventory} from "../../ducks/inventoryDuck";
 
 export class InventoryContent extends Component {
   constructor(props) {
@@ -26,8 +29,18 @@ export class InventoryContent extends Component {
     }
   }
 
+  fetchWinesFromInventory() {
+    if ( this.state.refreshButtonState !== "loading" ) {
+      this.setState( { refreshButtonState: "loading" } );
+      this.props.dispatch( getWinesFromInventory() );
+    }
+  }
+
   componentWillReceiveProps(props) {
-    if ( props.distribution.status === "distribution Received!" || props.distribution.status === "Error" ) {
+    if ( props.distribution.status === "Distribution Received!" || props.distribution.status === "Error" ) {
+      this.setState( { refreshButtonState: "ready" } );
+    }
+    if ( props.inventory.status === "Distributor Inventory Received!" || props.inventory.status === "Error" ) {
       this.setState( { refreshButtonState: "ready" } );
     }
   }
@@ -73,29 +86,35 @@ export class InventoryContent extends Component {
           :
           this.props.tabs.whichTab === 2
           ?
-        <div className="inventory-content-inner-wrapper admin">
-          <ApiWineStage />
-          <div className="row searchbar-wrapper admin">
-            <div className="col-xs-4 admin">
-              <MuiThemeProvider>
-                <SearchBar></SearchBar>
-              </MuiThemeProvider>
-            </div>
-            <div className="col-xs-offset-4 col-xs-4 admin">
-              <MuiThemeProvider>
+          <div className="inventory-content-inner-wrapper admin">
+            <DistributorWineStage />
+            <div className="searchbar-filters-button-wrapper admin">
+              <div className="searchbar-wrapper admin">
+                <MuiThemeProvider>
+                  <SearchBar></SearchBar>
+                </MuiThemeProvider>
+              </div>
+              <div className="refresh-button-wrapper admin">
+                <MuiThemeProvider>
 
-                <FloatingActionButton style={{margin: 0, height: "20%"}} onClick={this.fetchWinesFromAPI.bind(this)}>
-                  <Refresh />
-                </FloatingActionButton>
-              </MuiThemeProvider>
+                  <RefreshIndicator
+                    onClick={this.fetchWinesFromInventory.bind(this)}
+                    status={this.state.refreshButtonState}
+                    left={0}
+                    top={0}
+                    size={40}
+                    percentage={80}
+                    color="#17d6b2"
+                    />
+                </MuiThemeProvider>
+              </div>
+
             </div>
 
+              <MuiThemeProvider>
+                <DistributorTable />
+              </MuiThemeProvider>
           </div>
-
-            <MuiThemeProvider>
-              <DistributorTable />
-            </MuiThemeProvider>
-        </div>
 
           :
           this.props.tabs.whichTab === 3
@@ -113,5 +132,5 @@ export class InventoryContent extends Component {
 }
 
 export default connect( state => {
-  return { tabs: state.tabs, distribution: state.distribution };
+  return { tabs: state.tabs, distribution: state.distribution, inventory: state.inventory };
 } )( InventoryContent );

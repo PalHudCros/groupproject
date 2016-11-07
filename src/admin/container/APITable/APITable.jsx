@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import {connect} from "react-redux";
+import Divider from 'material-ui/Divider';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CircularProgress from 'material-ui/CircularProgress';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -29,21 +31,26 @@ export class APITable extends Component {
         wine.LabelImage = wine.Labels[0].Url;
         wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
         return (
-          <div key={wine.Id} className="row inventory-row admin">
-              <div className="col-xs-4">
-                <img height="150" src={wine.BottleImage} alt=""/>
+          <div key={wine.Id} className="inventory-table-row-wrapper admin">
+          <div className="row inventory-table-row admin">
+              <div className="col-xs-2 inventory-table-column-image admin">
+                <img src={wine.BottleImage} alt={ wine.Name }/>
               </div>
-              <div className="col-xs-4">
+              <div className="col-xs-8 inventory-table-column-name admin">
                 <h2>{wine.Name}</h2>
                 <h3>{wine.Varietal.Name} {wine.Vintage}</h3>
               </div>
-              <div className="col-xs-4">
+              <div className="col-xs-2 inventory-table-column-button admin">
                 <FloatingActionButton style={{margin: 0}} onClick={this.addWineToStage.bind(this, wine)}>
                   <ContentAdd />
                 </FloatingActionButton>
               </div>
           </div>
-        )
+          <MuiThemeProvider>
+            <Divider />
+          </MuiThemeProvider>
+        </div>
+        );
       });
       this.setState({wineList: wineList})
   }
@@ -67,7 +74,7 @@ export class APITable extends Component {
         </div>
         <div className="inventory-rows-wrapper admin">
             {
-              this.props.distribution.status === "Fetching Distribution List"
+              this.props.distribution.status === "Fetching API List"
               ?
               <div className="progress-container">
                 <CircularProgress size={80} thickness={5} />

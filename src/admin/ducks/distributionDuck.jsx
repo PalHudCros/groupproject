@@ -14,6 +14,7 @@ const GET_COUNTS_SUCCESS = "distribution/GET_COUNTS_SUCCESS";
 const GET_COUNTS_FAILURE = "distribution/GET_COUNTS_FAILURE";
 
 const SEND_WINE_TO_API_STAGE = "distribution/SEND_WINE_TO_API_STAGE";
+const REMOVE_ONE_WINE_FROM_API_STAGE = "distribution/REMOVE_ONE_WINE_FROM_API_STAGE";
 
 
 const initialState = {
@@ -83,9 +84,9 @@ const initialState = {
 export default function distribution(state = initialState, action) {
     switch ( action.type ) {
         case DISTRIBUTION_PROCESS:
-            return Object.assign({}, state, {status: "Fetching Distribution List"});
+            return Object.assign({}, state, {status: "Fetching API List"});
         case DISTRIBUTION_SUCCESS:
-            return Object.assign({}, state, {wines: action.wines}, {status: "distribution Received!"})
+            return Object.assign({}, state, {wines: action.wines}, {status: "Distribution Received!"})
         case DISTRIBUTION_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case ADD_WINE_PROCESS:
@@ -108,6 +109,14 @@ export default function distribution(state = initialState, action) {
             let updatedStagedWines = state.stagedWines.slice();
             updatedStagedWines.push( action.wine );
             return Object.assign({}, state, {status: "Wine added to API stage", stagedWines: updatedStagedWines } );
+        case REMOVE_ONE_WINE_FROM_API_STAGE:
+            updatedStagedWines = state.stagedWines.slice();
+            for ( let i = 0; i < updatedStagedWines.length; i++ ) {
+              if ( updatedStagedWines[i].Id === action.wine.Id ) {
+                updatedStagedWines.splice( i, 1 );
+              }
+            }
+            return Object.assign( {}, state, {status: "Wine removed from API stage", stagedWines: updatedStagedWines } );
         default:
             return state;
     }
@@ -151,6 +160,10 @@ function getCountsFailure(err) {
 
 export function sendWineToApiStage( wine ) {
   return {type: SEND_WINE_TO_API_STAGE, wine}
+}
+
+export function removeOneWineFromAPIStage( wine ) {
+  return {type: REMOVE_ONE_WINE_FROM_API_STAGE, wine};
 }
 
 export function getWinesFromAPI(itemId) {
