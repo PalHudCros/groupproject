@@ -9,7 +9,7 @@ const baseUrl = 'http://services.wine.com/api/beta/service.svc/json/catalog?offs
 module.exports = {
     getWinesFromAPI(req, res) {
       let query = "";
-      if (req.query.filter) query += '&filter=' + req.query.filter;      
+      if (req.query.filter) query += '&filter=' + req.query.filter;
       else query += "rating(85%7C100)";
         axios.get(baseUrl + query)
           .then(result => {
@@ -40,10 +40,10 @@ module.exports = {
           else {
             new Wine(req.body).save((err, wine) => {
               if (err) return res.status(500).json(err);
-              return res.status(200).json(wine);            
+              return res.status(200).json(wine);
             })
           }
-        })      
+        })
     }
 
     , addWineToInventory(req, res) {
@@ -53,10 +53,10 @@ module.exports = {
           else {
             new InventoryItem(req.body).save((err, wine) => {
               if (err) return res.status(500).json(err);
-              return res.status(200).json(wine);            
+              return res.status(200).json(wine);
             })
           }
-        })      
+        })
     }
 
     , getDistributionCategoryCounts(req, res) {

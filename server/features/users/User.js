@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Cart from '../carts/Cart'
 
 const User = new mongoose.Schema({
   sub: {type: String, required: true, unique: true}
@@ -8,6 +9,7 @@ const User = new mongoose.Schema({
   , nickname: {type: String}
   , gender: {type: String}
   , email: {type: String}
+  , cart: [Cart]
   , email_verified: {type: Boolean}
   , picture: {type: String, default: 'http://www.clker.com/cliparts/m/3/I/C/c/2/grey-silhouette-of-man.svg'}
   , created_at: {type: Date}
