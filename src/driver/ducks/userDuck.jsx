@@ -86,6 +86,9 @@ export function doAuthentication(){
             .then(results => {
               dispatch(lockSuccess(results.data))
             })
+            .catch(error => {
+              dispatch(lockError(error))
+            }) 
       })
     })
   }
