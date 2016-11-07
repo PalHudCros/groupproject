@@ -71,8 +71,19 @@ export function doAuthentication(){
           }
           // Handle auth success
           // Set token and profile in local storage
-          localStorage.setItem('profile', JSON.stringify(profile))
+          // localStorage.setItem('profile', JSON.stringify(profile))
           localStorage.setItem('id_token', authResult.idToken)
+
+          if (!localStorage.getItem('profile')){
+            console.log('there is no profile');
+      			localStorage.setItem('profile', JSON.stringify(profile))
+      		} else {
+      			let oldProfile = JSON.parse(localStorage.getItem(profile))
+      			let newProfile = Object.assign({}, profile, oldProfile)
+      					localStorage.removeItem('profile')
+      					localStorage.setItem('profile', JSON.stringify(newProfile))
+      		}
+
           // Set headers for authentication
           const config = {
             headers:{
@@ -100,7 +111,7 @@ export default function userReducer(state = initialState, action) {
     case LOCK_ERROR:
         return Object.assign({}, state, {status: action.err})
     case LOGOUT_SUCCESS:
-        return initialState 
+        return initialState
     default:
         return state
   }
