@@ -94,7 +94,6 @@ export function doAuthentication(){
           // Send user profile to database for user
           return axios.post('/api/user', profile, config)
             .then(results => {
-              console.log(results);
               dispatch(lockSuccess(results.data))
             })
       })
