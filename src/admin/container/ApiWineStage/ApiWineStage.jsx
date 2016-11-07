@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CashSymbol from 'material-ui/svg-icons/editor/monetization-on';
 import Close from 'material-ui/svg-icons/navigation/close';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {removeOneWineFromAPIStage} from "../../ducks/distributionDuck";
 
 export class ApiWineStage extends Component {
   constructor(props) {
@@ -73,7 +74,10 @@ export class ApiWineStage extends Component {
           </div>
           <div className="stage-wine-remove-button admin">
             <MuiThemeProvider>
-              <Close></Close>
+              <Close
+                onClick={ this.removeWineFromStage.bind(this, wine) }
+                style={{ cursor: "pointer" }}
+                ></Close>
             </MuiThemeProvider>
           </div>
         </div>
@@ -84,6 +88,10 @@ export class ApiWineStage extends Component {
 
       )});
       this.setState( {wines: stagedWines });
+  }
+
+  removeWineFromStage( wine ) {
+    this.props.dispatch( removeOneWineFromAPIStage( wine ) );
   }
 
   componentWillMount() {

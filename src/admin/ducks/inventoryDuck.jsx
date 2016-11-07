@@ -13,6 +13,7 @@ const GET_COUNTS_SUCCESS = "inventory/GET_COUNTS_SUCCESS";
 const GET_COUNTS_FAILURE = "inventory/GET_COUNTS_FAILURE";
 
 const SEND_WINE_TO_DISTRIBUTOR_STAGE = "inventory/SEND_WINE_TO_DISTRIBUTOR_STAGE";
+const REMOVE_ONE_WINE_FROM_DISTRIBUTOR_STAGE = "inventory/REMOVE_ONE_WINE_FROM_DISTRIBUTOR_STAGE";
 
 const initialState = {
     wines: []
@@ -110,7 +111,15 @@ export default function reducer(state = initialState, action) {
         case SEND_WINE_TO_DISTRIBUTOR_STAGE:
           let updatedStagedWines = state.stagedWines.slice();
           updatedStagedWines.push( action.wine );
-          return Object.assign({}, state, {status: "Wine added to distributor stage", stagedWines: updatedStagedWines } );
+          return Object.assign( {}, state, {status: "Wine added to distributor stage", stagedWines: updatedStagedWines } );
+        case REMOVE_ONE_WINE_FROM_DISTRIBUTOR_STAGE:
+          updatedStagedWines = state.stagedWines.slice();
+          for ( let i = 0; i < updatedStagedWines.length; i++ ) {
+            if ( updatedStagedWines[i].Id === action.wine.Id ) {
+              updatedStagedWines.splice( i, 1 );
+            }
+          }
+          return Object.assign( {}, state, {status: "Wine removed from distributor stage", stagedWines: updatedStagedWines } );
         default:
             return state;
     }
@@ -153,7 +162,11 @@ function getCountsFailure(err) {
 }
 
 export function sendWineToDistributorStage( wine ) {
-  return {type: SEND_WINE_TO_DISTRIBUTOR_STAGE, wine}
+  return {type: SEND_WINE_TO_DISTRIBUTOR_STAGE, wine};
+}
+
+export function removeOneWineFromDistributorStage( wine ) {
+  return {type: REMOVE_ONE_WINE_FROM_DISTRIBUTOR_STAGE, wine};
 }
 
 export function getWinesFromInventory(itemId) {

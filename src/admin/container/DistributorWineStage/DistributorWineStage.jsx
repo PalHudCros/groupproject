@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CashSymbol from 'material-ui/svg-icons/editor/monetization-on';
 import Close from 'material-ui/svg-icons/navigation/close';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {removeOneWineFromDistributorStage} from "../../ducks/inventoryDuck";
 
 export class DistributorWineStage extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export class DistributorWineStage extends Component {
     } else {
       props = this.props;
     }
+
 
     const stagedWines = props.inventory.stagedWines.map(wine => {
       wine.LabelImage = wine.Labels[0].Url;
@@ -73,7 +75,10 @@ export class DistributorWineStage extends Component {
           </div>
           <div className="stage-wine-remove-button admin">
             <MuiThemeProvider>
-              <Close></Close>
+              <Close
+                onClick={ this.removeWineFromStage.bind(this, wine) }
+                style={{ cursor: "pointer" }}
+                ></Close>
             </MuiThemeProvider>
           </div>
         </div>
@@ -84,6 +89,10 @@ export class DistributorWineStage extends Component {
 
       )});
       this.setState( {wines: stagedWines });
+  }
+
+  removeWineFromStage( wine ) {
+    this.props.dispatch( removeOneWineFromDistributorStage( wine ) );
   }
 
   componentWillMount() {
