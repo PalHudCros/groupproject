@@ -23,7 +23,9 @@ class ProfileMenu extends Component {
 
    componentWillMount() {
     this.props.dispatch(doAuthentication());
-    const token = localStorage.getItem('driver_id_token');
+    const token = localStorage.getItem('admin_id_token');
+    console.log(token);
+    if (token) isTokenExpired(token)
     if (!token || isTokenExpired(token)) {
       this.props.dispatch(login());
     }
