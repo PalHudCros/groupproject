@@ -89,6 +89,8 @@ export function doAuthentication(){
               dispatch(lockSuccess(results.data))
             })
             .catch(error => {
+              localStorage.removeItem('admin_profile');
+              localStorage.removeItem('admin_id_token')
               dispatch(lockError(error))
             }) 
       })
