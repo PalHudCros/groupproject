@@ -28,10 +28,10 @@ export default class Shop extends Component {
       <div>
         <div className="container shop">
           <div className="row shop">
-            <div className="col-sm-4 col-xs-5 col-md-2 ctrlPnl-container shop">
+            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 ctrlPnl-container shop" style={{maxWidth:241}}>
               <ShopSideBar></ShopSideBar>
             </div>
-            <div className="col-sm-8 col-xs-5 store-container shop" style={{width: '83%', paddingLeft:10, marginTop:10, overflowY:'scroll', height:'841px'}}>
+            <div className="col-xs-9 col-sm-8 col-md-9 col-lg-9 store-container shop" style={{paddingLeft:10, marginTop:10, overflowY:'scroll', height:'841px'}}>
               <Store></Store>
             </div>
           </div>
