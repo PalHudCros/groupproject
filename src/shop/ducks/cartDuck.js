@@ -62,6 +62,18 @@ export function checkoutFailure(error) {
 // 			})
 // 	}
 // }
+function searchCartAddToExistingWine(profile, newWine){
+	let found = false;
+	profile.cart.forEach(ele=>{
+		if (ele.item === newWine.item){
+			found = true;
+			ele.quantity += newWine.quantity
+		}
+	});
+	if (!found) profile.cart.push(newWine);
+	return profile
+}
+
 
 export function postCart(wine){
 	return dispatch => {
@@ -75,8 +87,8 @@ export function postCart(wine){
 					localStorage.removeItem('profile')
 					localStorage.setItem('profile', JSON.stringify(newProfile))
 				} else {
-					profile.cart.push(wine)
-					localStorage.setItem('profile', JSON.stringify(profile))
+					let addedCartOnProfile = searchCartAddToExistingWine(profile, wine)
+					localStorage.setItem('profile', JSON.stringify(addedCartOnProfile))
 				}
 		}
 
