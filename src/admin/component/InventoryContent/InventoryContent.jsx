@@ -16,6 +16,7 @@ import {getWinesFromInventory} from "../../ducks/inventoryDuck";
 export class InventoryContent extends Component {
   constructor(props) {
     super(props);
+    console.log( props );
 
     this.state = {
       refreshButtonState: "ready"
