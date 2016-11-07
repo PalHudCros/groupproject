@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import Hamburger from 'material-ui/svg-icons/navigation/menu';
@@ -6,13 +8,25 @@ import Avatar from 'material-ui/svg-icons/action/face';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
-export default class ProfileMenu extends Component {
+import { login, doAuthentication, logout, hideLock } from "../../ducks/userDuck";
+import { isTokenExpired } from "../../../utils/jwtHelper.js"
+
+
+class ProfileMenu extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
 
     };
+  }
+
+   componentWillMount() {
+    this.props.dispatch(doAuthentication());
+    const token = localStorage.getItem('driver_id_token');
+    if (!token || isTokenExpired(token)) {
+      this.props.dispatch(login());
+    }
   }
 
   render() {
@@ -27,7 +41,7 @@ export default class ProfileMenu extends Component {
           iconStyle={{width: 60, height: 60, color: "#727786"}}
           style={{width: 120, height: 120, padding: 0}}
                           >
-          <Hamburger /><Avatar/></IconButton>}
+          <Hamburger /><Avatar src={this.props.user.picture}/></IconButton>}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
         >
@@ -43,3 +57,4 @@ export default class ProfileMenu extends Component {
   }
 
 }
+export default connect(state => ( { user: state.user } ) )( ProfileMenu );
