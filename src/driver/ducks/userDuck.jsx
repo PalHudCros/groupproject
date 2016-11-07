@@ -12,14 +12,16 @@ const LOCK_ERROR = 'LOCK_ERROR'
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
 // Auth0 Config
-const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, options);
 const options = {
       allowedConnections: ['Username-Password-Authentication']
+    , closable: false
     , theme: {
-        logo: 'https://example.com/assets/logo.png',
-        primaryColor: 'red'
+        logo: 'http://i3.kym-cdn.com/photos/images/original/000/073/120/20745_1184056969280_1463924314_3042.jpg',
+        primaryColor: '#ec423d'
     }
 };
+const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, options);
+lock.on('authenticated', () => {lock.hide()})
 
 // Action Creators
 // Synchronous Action Creators
@@ -72,8 +74,8 @@ export function doAuthentication(){
           }
           // Handle auth success
           // Set token and profile in local storage
-          localStorage.setItem('profile', JSON.stringify(profile))
-          localStorage.setItem('id_token', authResult.idToken)
+          localStorage.setItem('driver_profile', JSON.stringify(profile))
+          localStorage.setItem('driver_id_token', authResult.idToken)
           // Set headers for authentication
           const config = {
             headers:{
