@@ -50,7 +50,7 @@ export class APITable extends Component {
             <Divider />
           </MuiThemeProvider>
         </div>
-        )
+        );
       });
       this.setState({wineList: wineList})
   }
@@ -74,7 +74,7 @@ export class APITable extends Component {
         </div>
         <div className="inventory-rows-wrapper admin">
             {
-              this.props.distribution.status === "Fetching Distribution List"
+              this.props.distribution.status === "Fetching API List"
               ?
               <div className="progress-container">
                 <CircularProgress size={80} thickness={5} />

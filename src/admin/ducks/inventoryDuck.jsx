@@ -77,9 +77,9 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch ( action.type ) {
         case INVENTORY_PROCESS:
-            return Object.assign({}, state, {status: "Fetching Inventory"});
+            return Object.assign({}, state, {status: "Fetching Distributor Inventory"});
         case INVENTORY_SUCCESS:
-            return Object.assign({}, state, {wines: action.wines}, {status: "Inventory Received!"})
+            return Object.assign({}, state, {wines: action.wines}, {status: "Distributor Inventory Received!"})
         case INVENTORY_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case GET_COUNTS_PROCESS:
@@ -156,7 +156,7 @@ export function getWinesFromInventory(itemId) {
             })
             .catch(error => {
                 dispatch(inventoryFailure(error))
-            })  
+            })
         }
 }
 
@@ -166,11 +166,11 @@ export function addWineToInventory(wine) {
         dispatch(addWineProcess());
          return axios.post("/api/wines/inventory", wine)
             .then(results => {
-                dispatch(addWineSuccess(results.data));            
+                dispatch(addWineSuccess(results.data));
             })
-            .catch(error => {   
+            .catch(error => {
                 dispatch(addWineFailure(error))
-            })  
+            })
         }
 }
 

@@ -82,9 +82,9 @@ const initialState = {
 export default function distribution(state = initialState, action) {
     switch ( action.type ) {
         case DISTRIBUTION_PROCESS:
-            return Object.assign({}, state, {status: "Fetching Distribution List"});
+            return Object.assign({}, state, {status: "Fetching API List"});
         case DISTRIBUTION_SUCCESS:
-            return Object.assign({}, state, {wines: action.wines}, {status: "distribution Received!"})
+            return Object.assign({}, state, {wines: action.wines}, {status: "Distribution Received!"})
         case DISTRIBUTION_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case ADD_WINE_PROCESS:

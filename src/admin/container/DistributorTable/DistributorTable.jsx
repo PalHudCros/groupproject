@@ -3,8 +3,10 @@ import { Link } from 'react-router';
 import {connect} from "react-redux";
 import CircularProgress from 'material-ui/CircularProgress';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Divider from 'material-ui/Divider';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import {getWinesFromInventory, addWineToInventory} from "../../ducks/inventoryDuck";
+import {addWineToInventory} from "../../ducks/inventoryDuck";
 
 
 class DistributorTable extends Component {
@@ -17,26 +19,33 @@ class DistributorTable extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getWinesFromInventory());
+
   }
 
   componentWillReceiveProps(props) {
-     const wineList = props.inventory.wines.map(wine => (
-          <div key={wine.Id} className="row inventory-row admin">
-              <div className="col-xs-4">
-                <img height="150" src={wine.BottleImage} alt=""/>
-              </div>
-              <div className="col-xs-4">
-                <h2>{wine.Name}</h2>
-                <h3>{wine.Varietal.Name} {wine.Vintage}</h3>
-              </div>
-              <div className="col-xs-4">
-                <FloatingActionButton style={{margin: 0}} onClick={this.addItemToInventory.bind(this, wine)}>
-                  <ContentAdd />
-                </FloatingActionButton>
-              </div>
-          </div>
-      ));
+      const wineList = props.inventory.wines.map(wine => {
+         return (
+           <div key={wine.Id} className="inventory-table-row-wrapper admin">
+           <div className="row inventory-table-row admin">
+               <div className="col-xs-2 inventory-table-column-image admin">
+                 <img src={wine.BottleImage} alt={ wine.Name }/>
+               </div>
+               <div className="col-xs-8 inventory-table-column-name admin">
+                 <h2>{wine.Name}</h2>
+                 <h3>{wine.Varietal.Name} {wine.Vintage}</h3>
+               </div>
+               <div className="col-xs-2 inventory-table-column-button admin">
+                 <FloatingActionButton style={{margin: 0}} onClick={this.addItemToInventory.bind(this, wine)}>
+                   <ContentAdd />
+                 </FloatingActionButton>
+               </div>
+           </div>
+           <MuiThemeProvider>
+             <Divider />
+           </MuiThemeProvider>
+         </div>
+         );
+       });
       this.setState({wineList: wineList})
   }
 
@@ -63,7 +72,7 @@ class DistributorTable extends Component {
         </div>
         <div className="inventory-rows-wrapper admin">
             {
-              this.props.inventory.status === "Fetching Distribution List"
+              this.props.inventory.status === "Fetching Distributor Inventory"
               ?
               <div className="progress-container">
                 <CircularProgress size={80} thickness={5} />
