@@ -12,6 +12,8 @@ const GET_COUNTS_PROCESS = "inventory/GET_COUNTS_PROCESS";
 const GET_COUNTS_SUCCESS = "inventory/GET_COUNTS_SUCCESS";
 const GET_COUNTS_FAILURE = "inventory/GET_COUNTS_FAILURE";
 
+const SEND_WINE_TO_DISTRIBUTOR_STAGE = "inventory/SEND_WINE_TO_DISTRIBUTOR_STAGE";
+
 const initialState = {
     wines: []
     , inventoryList: []
@@ -72,6 +74,7 @@ const initialState = {
         {_id: 221, varietal: "Bordeaux White Blends", qty: 0},
         {_id: 10113, varietal: "Rhône White Blends", qty: 0}
       ]
+      , stagedWines: []
 }
 
 export default function reducer(state = initialState, action) {
@@ -104,6 +107,10 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, newState, {status: "Wine Added!"});
         case ADD_WINE_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
+        case SEND_WINE_TO_DISTRIBUTOR_STAGE:
+          let updatedStagedWines = state.stagedWines.slice();
+          updatedStagedWines.push( action.wine );
+          return Object.assign({}, state, {status: "Wine added to distributor stage", stagedWines: updatedStagedWines } );
         default:
             return state;
     }
@@ -143,6 +150,10 @@ function getCountsSuccess(counts) {
 
 function getCountsFailure(err) {
     return {type: GET_COUNTS_FAILURE, err}
+}
+
+export function sendWineToDistributorStage( wine ) {
+  return {type: SEND_WINE_TO_DISTRIBUTOR_STAGE, wine}
 }
 
 export function getWinesFromInventory(itemId) {

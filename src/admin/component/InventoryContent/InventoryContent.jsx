@@ -8,6 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import WineList from '../../container/WineList/WineList';
 import ApiWineStage from "../../container/ApiWineStage/ApiWineStage";
+import DistributorWineStage from "../../container/DistributorWineStage/DistributorWineStage";
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import {getWinesFromAPI} from "../../ducks/distributionDuck";
 import {getWinesFromInventory} from "../../ducks/inventoryDuck";
@@ -86,7 +87,7 @@ export class InventoryContent extends Component {
           this.props.tabs.whichTab === 2
           ?
           <div className="inventory-content-inner-wrapper admin">
-            <ApiWineStage />
+            <DistributorWineStage />
             <div className="searchbar-filters-button-wrapper admin">
               <div className="searchbar-wrapper admin">
                 <MuiThemeProvider>

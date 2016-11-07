@@ -7,6 +7,7 @@ import Divider from 'material-ui/Divider';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {addWineToInventory} from "../../ducks/inventoryDuck";
+import {sendWineToDistributorStage} from "../../ducks/inventoryDuck";
 
 
 class DistributorTable extends Component {
@@ -35,7 +36,7 @@ class DistributorTable extends Component {
                  <h3>{wine.Varietal.Name} {wine.Vintage}</h3>
                </div>
                <div className="col-xs-2 inventory-table-column-button admin">
-                 <FloatingActionButton style={{margin: 0}} onClick={this.addItemToInventory.bind(this, wine)}>
+                 <FloatingActionButton style={{margin: 0}} onClick={this.addWineToStage.bind(this, wine)}>
                    <ContentAdd />
                  </FloatingActionButton>
                </div>
@@ -47,6 +48,10 @@ class DistributorTable extends Component {
          );
        });
       this.setState({wineList: wineList})
+  }
+
+  addWineToStage( wine ) {
+    this.props.dispatch(sendWineToDistributorStage( wine ));
   }
 
   addItemToInventory(wine) {
