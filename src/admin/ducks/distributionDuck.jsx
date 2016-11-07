@@ -64,7 +64,7 @@ const initialState = {
         {_id: 10084, varietal: "Primitivo", qty: 0},
         {_id: 155, varietal: "Port", qty: 0},
         {_id: 153, varietal: "Riesling", qty: 0},
-        {_id: 147, <variet></variet>al: "Rosé", qty: 0},
+        {_id: 147, varietal: "Rosé", qty: 0},
         {_id: 157, varietal: "Sherry", qty: 0},
         {_id: 177, varietal: "Semillon", qty: 0},
         {_id: 169, varietal: "Tempranillo", qty: 0},
