@@ -23,16 +23,19 @@ module.exports = {
       } );
   }
 
-  , getOneDriver( req, res ) {
+  , getOneDriver( req, res, next ) {
     // GET /api/driver/:id
-    Driver.findById( req.params.id )
+		Driver.findOne({sub: req.body.user_id})
       .populate( "orders" )
       .exec( ( err, driver ) => {
         if ( err ) {
           return res.status( 500 ).json( err );
         }
-        return res.status( 200 ).json( driver );
-      } );
+        if ( driver ) {
+          return res.status( 200 ).json( driver );
+        } 
+        next();
+      });
   }
 
   , getDrivers( req, res ) {
@@ -62,6 +65,10 @@ module.exports = {
   , addDriver( req, res ) {
     // POST /api/driver
     new Driver( req.body ).save( ( err, driverCreated ) => {
+      console.log("Add Driver Error: ", err)
+      
+      console.log("Add Driver Success: ", driverCreated)
+
       if ( err ) {
         return res.status( 500 ).json( err );
       }

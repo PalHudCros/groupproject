@@ -1,3 +1,5 @@
+import jwt from 'express-jwt' 
+import config from '../../../config/config'
 import driverCtrl from './driverCtrl.js';
 
 module.exports = app => {
@@ -19,6 +21,11 @@ module.exports = app => {
 
   app.route( '/api/driver/' )
     .get( driverCtrl.getDrivers )
-    .post( driverCtrl.addDriver );
+    .post( jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience})
+      , (req, res, next) => {
+          console.log("Driver: ", req.body);
+          next()
+        }
+      , driverCtrl.getOneDriver, driverCtrl.addDriver);
 
 };
