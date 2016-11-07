@@ -82,7 +82,7 @@ export function doAuthentication(){
             , 'Authorization': `Bearer ${authResult.idToken}`
           }}
           // Send user profile to database for user
-          return axios.post('/api/user', profile, config)
+          return axios.post('/api/driver', profile, config)
             .then(results => {
               dispatch(lockSuccess(results.data))
             })
