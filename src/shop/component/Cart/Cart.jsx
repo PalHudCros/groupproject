@@ -1,40 +1,26 @@
 import React from 'react';
-import {Link} from "react-router";
+import { Link } from "react-router";
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import CartDetails from '../../container/CartDetails/CartDetails.jsx';
+import ShoppingCart from '../../container/ShoppingCart/ShoppingCart';
 
 export default function Cart(){
   return(
     <div className="container">
-      <h2>Cart</h2>
       <div className="row">
         <div className="col-sm-8">
           <MuiThemeProvider>
             <Paper style={style}>
-              is there anything inside of this
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
+              <ShoppingCart></ShoppingCart>
             </Paper>
           </MuiThemeProvider>
         </div>
         <div className="col-sm-4" style={{paddingLeft:10}}>
           <MuiThemeProvider>
             <Paper style={style}>
-              is there anything inside of this
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
+              <CartDetails></CartDetails>
             </Paper>
           </MuiThemeProvider>
         </div>
