@@ -1,12 +1,17 @@
 import mongoose from 'mongoose';
 
 const Driver = new mongoose.Schema( {
-  name: {
+  sub: {
+    type: String
+    , required: true
+    , unique: true
+  }
+  , name: {
     type: String
     , required: true
     , trim: true
   }
-  , photo: {
+  , picture: {
     type: String
     , default: 'http://www.clker.com/cliparts/m/3/I/C/c/2/grey-silhouette-of-man.svg'
   }
@@ -27,6 +32,7 @@ const Driver = new mongoose.Schema( {
     , ref: "Order"
     , default: ""
   } ]
+  , updated_at: {type: Date}
 } );
 
 module.exports = mongoose.model( "Driver", Driver );
