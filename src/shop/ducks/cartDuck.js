@@ -67,7 +67,7 @@ function searchCartAddToExistingWine(profile, newWine){
 	profile.cart.forEach(ele=>{
 		if (ele.item === newWine.item){
 			found = true;
-			ele.quantity += newWine.quantity
+			ele.quantity = parseInt(ele.quantity) + parseInt(newWine.quantity)
 		}
 	});
 	if (!found) profile.cart.push(newWine);
