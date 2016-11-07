@@ -24,7 +24,7 @@ module.exports = {
 			, updated_at: req.body.updated_at
 		}).save((err, user) => {
 			if (err) return res.status(700).json(err);
-			return res.status(200).json(user);
+			return res.status(201).json(user);
 		})
 	}
 }
