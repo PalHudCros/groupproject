@@ -1,14 +1,14 @@
 import axios from 'axios';
 import config from '../../../config/config';
 import Driver from './Driver.js';
-// import Order from '../orders/Order.js';
+import Order from '../orders/Order.js'
 
 module.exports = {
 
   getOneOrderOnDriver( req, res ) {
     // GET /api/driver/:driverId/order/:orderId
     Driver.findById( req.params.driverId )
-      .populate( "orders" )
+      // .populate( "orders" )
       .exec( ( err, driver ) => {
         if ( err ) {
           return res.status( 500 ).json( err );
@@ -24,7 +24,6 @@ module.exports = {
   }
 
   , getOneDriver( req, res, next ) {
-    // GET /api/driver/:id
 		Driver.findOne({sub: req.body.user_id})
       .populate( "orders" )
       .exec( ( err, driver ) => {
