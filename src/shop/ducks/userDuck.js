@@ -78,7 +78,7 @@ export function doAuthentication(){
             console.log('there is no profile');
       			localStorage.setItem('profile', JSON.stringify(profile))
       		} else {
-      			let oldProfile = localStorage.getItem(JSON.parse(profile))
+      			let oldProfile = JSON.parse(localStorage.getItem(profile))
       			let newProfile = Object.assign({}, profile, oldProfile)
       					localStorage.removeItem('profile')
       					localStorage.setItem('profile', JSON.stringify(newProfile))

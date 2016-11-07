@@ -66,10 +66,8 @@ export function checkoutFailure(error) {
 export function postCart(wine){
 	return dispatch => {
 		dispatch(addProductProcess())
-		console.log('wine', wine);
-
 		if (!localStorage.getItem('profile')){
-			localStorage.setItem('profile', {cart:wine})
+			localStorage.setItem('profile', JSON.stringify({cart:[wine]}))
 		} else {
 			let profile = JSON.parse(localStorage.getItem('profile'))
 				if (!profile.cart){
@@ -77,7 +75,6 @@ export function postCart(wine){
 					localStorage.removeItem('profile')
 					localStorage.setItem('profile', JSON.stringify(newProfile))
 				} else {
-					console.log(profile.cart)
 					profile.cart.push(wine)
 					localStorage.setItem('profile', JSON.stringify(profile))
 				}
@@ -86,8 +83,8 @@ export function postCart(wine){
 
 	if (!localStorage.getItem('id_token')){
 
-		let wineCart = JSON.parse(localStorage.getItem('profile')).cart
-		dispatch(addProductSuccess(wineCart))
+		let wineCart = JSON.parse(localStorage.getItem('profile'))
+		dispatch(addProductSuccess(wineCart.cart))
 
 	} else {
 		const idToken = localStorage.getItem('id_token')
@@ -102,11 +99,9 @@ export function postCart(wine){
 
 		return axios.post('/api/cart', wineCart, config)
 			.then(results => {
-				console.log(ADD_PRODUCT_SUCCESS, results.data);
 				dispatch(addProductSuccess(results.data))
 			})
 			.catch(error => {
-				console.log(ADD_PRODUCT_FAILURE, error)
 				dispatch(addProductFailure(error))
 			})
 	}
@@ -124,11 +119,9 @@ const initialState = {
 
 // Reducer
 export default function cartReducer(state = initialState, action) {
-	console.log(action);
 	switch (action.type) {
 		case 'ADD_PRODUCT_PROCESS':
 		const body = Object.assign({}, state, action.isFetching)
-		console.log(body);
 			return body;
 		case ADD_PRODUCT_SUCCESS:
 			return state
