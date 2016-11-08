@@ -185,7 +185,6 @@ export function getWinesFromInventory(itemId) {
 }
 
 export function addWineToInventory(wine) {
-    console.log("Wine from Duck: ", wine);
     return dispatch => {
         dispatch(addWineProcess());
          return axios.post("/api/wines/inventory", wine)
