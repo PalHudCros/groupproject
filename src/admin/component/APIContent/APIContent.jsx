@@ -7,7 +7,7 @@ import ApiWineStage from "../../container/ApiWineStage/ApiWineStage";
 import APITable from "../../container/APITable/APITable.jsx";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
-import {getWinesFromAPI} from "../../ducks/distributionDuck";
+import { getWinesFromAPI } from "../../ducks/distributionDuck";
 
 
 export class APIContent extends Component {
@@ -17,6 +17,19 @@ export class APIContent extends Component {
     this.state = {
       refreshButtonState: "ready"
     };
+  }
+
+  fetchWinesFromAPI() {
+    if ( this.state.refreshButtonState !== "loading" ) {
+      this.setState( { refreshButtonState: "loading" } );
+      this.props.dispatch( getWinesFromAPI() );
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    if ( props.distribution.status === "Distribution Received!" || props.distribution.status === "Error" ) {
+      this.setState( { refreshButtonState: "ready" } );
+    }
   }
 
   render() {
@@ -59,5 +72,5 @@ export class APIContent extends Component {
 }
 
 export default connect( state => {
-  return { tabs: state.tabs, distribution: state.distribution, inventory: state.inventory };
+  return { tabs: state.tabs, distribution: state.distribution };
 } )( APIContent );

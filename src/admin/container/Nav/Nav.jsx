@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {setTabTitles} from "../../ducks/tabsDuck.jsx";
-import {whichTabIsActive} from "../../ducks/tabsDuck.jsx";
 import {Tabs, Tab} from 'material-ui/Tabs';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 import FontIcon from 'material-ui/FontIcon';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 
@@ -17,22 +16,27 @@ export class Nav extends Component {
     };
   }
 
-  handleActiveTab(tabNum) {
-    this.props.dispatch( whichTabIsActive(tabNum) );
+  handleActiveTab(tab) {
+    browserHistory.push( tab.props['data-route'] );
   }
 
   howManyTabTitles(props) {
-    const howManyTabs = props.tabs.titles.map( ( tabTitle, index ) => {
+    console.log( props );
 
-      return (
-        <Tab key={ index }
-        label={ tabTitle }
-        onActive={ this.handleActiveTab.bind(this, index + 1) }
+    const howManyTabs = [];
+
+    for ( let i = 0; i < props.tabs.titles.length; i++ ) {
+      howManyTabs.push( (
+        <Tab key={ i }
+        label={ props.tabs.titles[i] }
+        onActive={ this.handleActiveTab.bind(this) }
+        data-route={ props.tabs.routes[i] }
         style={{color: "#484d56"}}
         className="nav-tab admin"
         />
-    );
-  } );
+      ) );
+    }
+
   this.setState({tabs: howManyTabs});
   }
 

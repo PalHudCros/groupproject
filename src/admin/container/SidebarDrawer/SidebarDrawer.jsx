@@ -21,13 +21,21 @@ export class SidebarDrawer extends Component {
     };
   }
 
-  handleToggle( tabsToLoad ) {
+  handleToggle( tabsToLoad, tabRoutes, tabName ) {
     if ( tabsToLoad ) {
-      this.props.dispatch( setTabTitles( tabsToLoad ) );
+      this.props.dispatch( setTabTitles( tabsToLoad, tabRoutes, tabName ) );
     }
     this.setState({
       openDrawer: !this.state.openDrawer
     });
+  }
+
+  populateDrawer(props) {
+    
+  }
+
+  componentWillReceiveProps(props) {
+    this.populateDrawer( props );
   }
 
   render() {
@@ -42,11 +50,11 @@ export class SidebarDrawer extends Component {
         >
           <DashboardIcon></DashboardIcon>
         </IconButton></Link>
-        <Link to="/inventory"><IconButton
+      <Link to="/inventory/"><IconButton
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Inventory"
-          onTouchTap={this.handleToggle.bind(this, ["Add from API", "Add from Distributor", "In-stock Inventory"])}
+          onTouchTap={this.handleToggle.bind(this, ["Add from API", "Add from Distributor", "In-stock Inventory"], [ "/inventory/api", "/inventory/distributor", "/inventory/instock"], "Inventory")}
         >
           <InventoryIcon></InventoryIcon>
         </IconButton></Link>

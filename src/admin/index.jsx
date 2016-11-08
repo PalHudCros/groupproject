@@ -15,6 +15,9 @@ injectTapEventPlugin();
 import AdminPanel from './component/AdminPanel/AdminPanel.jsx';
 import Dashboard from './component/Dashboard/Dashboard.jsx';
 import Inventory from './component/Inventory/Inventory.jsx';
+import APIContent from './component/APIContent/APIContent.jsx';
+import DistributorContent from './component/DistributorContent/DistributorContent.jsx';
+import InStockContent from './component/InStockContent/InStockContent.jsx';
 import Drivers from './component/Drivers/Drivers.jsx';
 import Customers from './component/Customers/Customers.jsx';
 import Error from './component/Error/Error.jsx'
@@ -31,10 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
       <Route component={ AdminPanel } path="/">
         <IndexRoute component={ Dashboard }></IndexRoute>
         <Route component={ Inventory } path="inventory/">
-          <IndexRoute component={ ApiContent } path="api"></IndexRoute>
-          <Route component={ DistributorContent } path="distributor">
-          </Route>
-          <Route component={ InStockContent } path="in-stock">
+          <Route component={ APIContent } path="api"></Route>
+          <Route component={ DistributorContent } path="distributor"></Route>
+          <Route component={ InStockContent } path="instock">
           </Route>
         </Route>
         <Route component={ Drivers } path="drivers">
