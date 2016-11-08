@@ -85,9 +85,9 @@ const initialState = {
 export default function distribution(state = initialState, action) {
     switch ( action.type ) {
         case DISTRIBUTION_PROCESS:
-            return Object.assign({}, state, {status: "Fetching API List"});
+            return Object.assign({}, state, {status: "Fetching API list"});
         case DISTRIBUTION_SUCCESS:
-            return Object.assign({}, state, {wines: action.wines}, {status: "Distribution Received!"})
+            return Object.assign({}, state, {wines: action.wines}, {status: "API request fulfilled"})
         case DISTRIBUTION_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case ADD_WINE_PROCESS:
@@ -110,7 +110,7 @@ export default function distribution(state = initialState, action) {
             }
             return Object.assign( {}, state, { status: "Wine removed from API stage", stagedWines: updatedStagedWines } );
         case REMOVE_ALL_WINE_FROM_API_STAGE:
-            return Object.assign( {}, state, { status: "Order placed to vineyard(API)", stagedWines: []})
+            return Object.assign( {}, state, { status: "Order placed to vineyard(API)", stagedWines: []});
         default:
             return state;
     }
@@ -175,7 +175,7 @@ export function getWinesFromAPI(itemId) {
             })
             .catch(error => {
                 dispatch(distributionFailure(error))
-            })
+            });
         }
 }
 
@@ -188,7 +188,7 @@ export function sendAPIWinesToDistributor(wine) {
             })
             .catch(error => {
                 dispatch(addWineFailure(error))
-            })
+            });
         }
 }
 
@@ -201,6 +201,6 @@ export function getCategoryCounts() {
             })
             .catch(error => {
                 dispatch(getCountsFailure(error));
-            })
+            });
     }
 }

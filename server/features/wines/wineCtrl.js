@@ -33,7 +33,7 @@ module.exports = {
           return res.status(200).json(result);
         })
     }
-    , sendAPIWinesToDistributor(req, res) {
+    , addWineToDistributor(req, res) {
         Wine.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: req.body.Quantity } }, (err, updatedWine) => {
           if (err) {
             return res.status(500).json(err);
@@ -55,16 +55,24 @@ module.exports = {
     }
 
     , addWineToInventory(req, res) {
-        InventoryItem.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: 1 }}, (err, newWine) => {
-          if (err) return res.status(500).json(err);
-          else if (newWine) return res.status(200).json(newWine);
-          else {
-            new InventoryItem(req.body).save((err, wine) => {
-              if (err) return res.status(500).json(err);
-              return res.status(200).json(wine);
-            })
-          }
-        })
+      InventoryItem.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: req.body.Quantity } }, (err, updatedWine) => {
+        if (err) {
+          return res.status(500).json(err);
+        }
+        else if (updatedWine) {
+          console.log( `inv Updated ${req.body.Name.slice(0,15)}'s Quantity to ${updatedWine.Quantity + req.body.Quantity}` );
+          return res.status(200).json(updatedWine);
+        }
+        else {
+          new InventoryItem(req.body).save( (err, newWine) => {
+            if (err) {
+              return res.status(500).json(err);
+            }
+            console.log( `inv Created new wine: ${req.body.Name.slice(0,15)}` );
+            return res.status(200).json(newWine);
+          } );
+        }
+      } );
     }
 
     , getDistributionCategoryCounts(req, res) {

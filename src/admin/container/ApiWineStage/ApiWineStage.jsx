@@ -9,9 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CashSymbol from 'material-ui/svg-icons/editor/monetization-on';
 import Close from 'material-ui/svg-icons/navigation/close';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {removeOneWineFromAPIStage} from "../../ducks/distributionDuck";
-import {removeAllWineFromAPIStage} from "../../ducks/distributionDuck";
-import {sendAPIWinesToDistributor} from "../../ducks/distributionDuck";
+import {removeOneWineFromAPIStage, removeAllWineFromAPIStage, sendAPIWinesToDistributor} from "../../ducks/distributionDuck";
 
 export class ApiWineStage extends Component {
   constructor(props) {
@@ -33,7 +31,7 @@ export class ApiWineStage extends Component {
     }
 
     this.setState( { wines: props.distribution.stagedWines } );
-    const stagedWines = props.distribution.stagedWines.map( (wine, index) => {
+    const stagedWines = props.distribution.stagedWines.map(wine => {
       wine.LabelImage = wine.Labels[0].Url;
       wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
 
@@ -57,11 +55,11 @@ export class ApiWineStage extends Component {
               <MuiThemeProvider>
                 <TextField
                   hintText="Qty"
-                  hintStyle={{ marginLeft: "24%" }}
+                  hintStyle={{ marginLeft: "30%" }}
                   className="stage-counter-field admin"
                   type="number"
-                  min="0"
-                  defaultValue="1"
+                  min={0}
+                  defaultValue={ wine.Quantity }
                   onChange={ this.handleChange.bind(this, wine) }
                   />
               </MuiThemeProvider>
@@ -83,7 +81,7 @@ export class ApiWineStage extends Component {
       </div>
 
       )});
-      this.setState( { stagedWines });
+      this.setState( { stagedWines } );
   }
 
   handleChange(wine, event) {
