@@ -49,8 +49,8 @@ function lockError(err){
 
 export function logout(){
   // Clear user token and profile data from localStorage
-  localStorage.removeItem('id_token');
-  localStorage.removeItem('profile');
+  localStorage.removeItem('driver_id_token');
+  localStorage.removeItem('driver_profile');
   return {
     type: LOGOUT_SUCCESS
   }
@@ -89,8 +89,8 @@ export function doAuthentication(){
               dispatch(lockSuccess(results.data))
             })
             .catch(error => {
-              localStorage.removeItem('admin_profile');
-              localStorage.removeItem('admin_id_token')
+              localStorage.removeItem('driver_profile');
+              localStorage.removeItem('driver_id_token')
               dispatch(lockError(error))
             }) 
       })
