@@ -1,11 +1,12 @@
-
-$pal-darkgrey: #dce1e5;
 $pal-black: #414141;
-$pal-red: #ec423d;
-$pal-white: #f2f5f7;
+$pal-red: #ef4036;
+$pal-supernav-white: #f2f5f7;
+$pal-searchbar-grey: #e2e2e2;
 $pal-lightgrey: #e8e8e8;
+$pal-icon-grey: #7b7b7d;
 $pal-green: #17d6b2;
 $pal-greenhighlight: #18fbd0;
+$pal-footer-grey: #dce1e5;
 // black link font on footer
 $pal-header-footer-link: #484d56;
 // black text font on footer
@@ -24,19 +25,26 @@ $pal-header-footer-icons: #727786;
 
 // SHOP
 // Component
+@import "../shop/component/App/App.scss";
+@import "../shop/component/Cart/Cart.scss";
+@import "../shop/component/Checkout/Checkout.scss";
+@import "../shop/component/Error/Error.scss";
 @import "../shop/component/Home/Home.scss";
 @import "../shop/component/Nav/Nav.scss";
 @import "../shop/component/Navbar/Navbar.scss";
 @import "../shop/component/Shop/Shop.scss";
 @import "../shop/component/SuperNav/SuperNav.scss";
-@import "../shop/component/Home/Home.scss";
+@import "../shop/component/WineStoreCard/WineStoreCard.scss";
 
 // SHOP
 // Container
 @import "../shop/container/AddressIcon/AddressIcon.scss";
 @import "../shop/container/SearchBox/SearchBox.scss";
+@import "../shop/container/ShopSideBar/ShopSideBar.scss";
+@import "../shop/container/SingleWine/SingleWine.scss";
 @import "../shop/container/Store/Store.scss";
 @import "../shop/container/UserIcon/UserIcon.scss";
+@import "../shop/container/WineList/WineList.scss";
 
 // ADMIN
 // Component
