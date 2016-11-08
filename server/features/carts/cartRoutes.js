@@ -5,10 +5,6 @@ import config from '../../../config/config';
 export default function(app) {
  app.route('/api/cart')
   .get(cartCtrl.getCartSession, jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}), cartCtrl.getCart)
-  // .all(jwt({
-  //   secret: new Buffer(config.auth0.secret, 'base64')
-  //   , audience: config.auth0.audience
-  // }))
   .post(cartCtrl.setCartSession, jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}), cartCtrl.updateCart, cartCtrl.getCart)
 
 }

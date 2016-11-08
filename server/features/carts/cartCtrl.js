@@ -3,9 +3,8 @@ import User from '../users/User'
 module.exports = {
   getCartSession( req, res, next ){
     console.log(req.user)
-    // if()
-    return res.status(200)
 
+    return res.status(200)
   }
   , setCartSession(req, res, next){
     if (req.session.cart) {
