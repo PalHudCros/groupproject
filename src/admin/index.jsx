@@ -33,10 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
     <Router history={ browserHistory }>
       <Route component={ AdminPanel } path="/">
         <IndexRoute component={ Dashboard }></IndexRoute>
-        <Route component={ Inventory } path="inventory/">
-          <Route component={ APIContent } path="api"></Route>
-          <Route component={ DistributorContent } path="distributor"></Route>
-          <Route component={ InStockContent } path="instock">
+        <Route component={ Inventory } path="/inventory/api">
+          <IndexRoute component={ APIContent }></IndexRoute>
+          <Route component={ DistributorContent } path="/inventory/distributor"></Route>
+          <Route component={ InStockContent } path="/inventory/instock">
           </Route>
         </Route>
         <Route component={ Drivers } path="drivers">
