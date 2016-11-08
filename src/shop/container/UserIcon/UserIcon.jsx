@@ -5,7 +5,7 @@ import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 
-import { login, doAuthentication, logout } from "../../ducks/userDuck";
+import { login, doAuthentication, getExistingUser, logout } from "../../ducks/userDuck";
 // import store from "../../store";
 
 class UserIcon extends Component{
@@ -14,6 +14,11 @@ class UserIcon extends Component{
     this.props.dispatch(doAuthentication());
   }
   componentWillMount() {
+    let token = localStorage.getItem('id_token');
+    if (token) {
+      let profile = localStorage.getItem('profile');
+      this.props.dispatch(getExistingUser(token, profile));
+    } 
   }
 
   componentWillReceiveProps(props){
