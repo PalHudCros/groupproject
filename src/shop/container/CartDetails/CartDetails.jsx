@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import {getCart} from '../../ducks/cartDuck.js';
+
 class CartDetails extends Component{
   constructor(props){
     super(props)
     this.state = {
-      cart: []
+      cart: {
+        cart:[],
+        runningTotal:0
+      }
     }
+    // this.props.dispatch(getCart())
   }
 
   componentWillReceiveProps(props){
-    thist.setState(
-      {cart:props.cart}
-    )
+    this.setState({
+      cart:props.cart
+    })
   }
 
   render(){

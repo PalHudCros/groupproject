@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getCart } from '../../ducks/cartDuck.js'
+import Link from 'valuelink';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import TextField from 'material-ui/TextField';
+
+import { getCart, putCart  } from '../../ducks/cartDuck.js';
 
 class ShoppingCart extends Component{
   constructor(props){
     super(props)
     this.state = {
-      cart: []
+      cart: {
+        cart:[],
+        runningTotal:0
+      }
     }
   }
 
@@ -16,14 +24,56 @@ class ShoppingCart extends Component{
   }
 
   componentWillReceiveProps(props){
-    this.setState(
-      {cart:props.cart}
-    )
+    this.setState({
+      cart:props.cart
+    })
+
+  }
+
+  handleQuantityUpdate(wineItem, index,  event){
+
+    const deepLink = Link.state( this, 'cart' ).at( 'cart' ).at(index).at( 'quantity' );
+    let something = event.target.value/1
+    deepLink.set( something, ()=>{  } );
+
+    setTimeout(()=>{
+      this.props.dispatch(putCart({cart:this.state.cart.cart}))
+    }, 200)
+
   }
 
   render(){
+
+    let currentCart = this.state.cart.cart.map((ele, index) => {
+      return (
+          <TableRow key={ele.item}>
+            <TableRowColumn style={{width:'60%'}}>{ele.name}</TableRowColumn>
+            <TableRowColumn style={{width:'20%'}}>{ele.price}</TableRowColumn>
+            <TableRowColumn style={{width:'20%'}}>
+              <TextField
+                key={index}
+                value={ele.quantity}
+                type="number"
+                min="0"
+                style={{width:'100%'}}
+                onChange={this.handleQuantityUpdate.bind(this, ele.item, index )}
+              >
+              </TextField>
+              </TableRowColumn>
+          </TableRow>
+
+      )
+    })
     return(
-      <div>ShoppingCart</div>
+      <div>
+        <div>Shopping Cart</div>
+        <Table selectable={false} multiSelecable={false}>
+          <TableBody displayRowCheckbox={false}>
+            {currentCart}
+          </TableBody>
+        </Table>
+
+      </div>
     )
   }
 }

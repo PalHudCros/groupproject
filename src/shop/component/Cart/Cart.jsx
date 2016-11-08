@@ -6,7 +6,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CartDetails from '../../container/CartDetails/CartDetails.jsx';
 import ShoppingCart from '../../container/ShoppingCart/ShoppingCart';
 
-export default function Cart(){
+
+
+export default function Cart(props){
   return(
     <div className="container">
       <div className="row">
@@ -30,7 +32,7 @@ export default function Cart(){
   )
 }
 const style = {
-  height: 100,
+  height: 'auto',
   marginTop:20,
   width:'100%',
   textAlign: 'center',

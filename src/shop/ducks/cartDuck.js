@@ -5,9 +5,9 @@ const ADD_PRODUCT_PROCESS = 'ADD_PRODUCT_PROCESS';
 const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
 const ADD_PRODUCT_FAILURE = 'ADD_PRODUCT_FAILURE';
 
-const REMOVE_PRODUCT_PROCESS = 'REMOVE_PRODUCT_PROCESS';
-const REMOVE_PRODUCT_SUCCESS = 'REMOVE_PRODUCT_SUCCESS';
-const REMOVE_PRODUCT_FAILURE = 'REMOVE_PRODUCT_FAILURE';
+const UPDATE_PRODUCT_PROCESS = 'REMOVE_PRODUCT_PROCESS';
+const UPDATE_PRODUCT_SUCCESS = 'REMOVE_PRODUCT_SUCCESS';
+const UPDATE_PRODUCT_FAILURE = 'REMOVE_PRODUCT_FAILURE';
 
 const CHECKOUT_PROCESS = 'CHECKOUT_PROCESS';
 const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
@@ -28,14 +28,14 @@ export function addProductFailure(error) {
   return { type: ADD_PRODUCT_FAILURE, isFetching: false, error };
 }
 
-export function removeProductProcess() {
-  return { type: REMOVE_PRODUCT_PROCESS, isFetching: true  };
+export function updateProductProcess(cart) {
+  return { type: UPDATE_PRODUCT_PROCESS, isFetching: true, cart  };
 }
-export function removeProductSuccess(cart) {
-  return { type: REMOVE_PRODUCT_SUCCESS, isFetching: false, cart:cart.cart };
+export function updateProductSuccess(cart) {
+  return { type: UPDATE_PRODUCT_SUCCESS, isFetching: false, cart };
 }
-export function removeProductFailure(error) {
-  return { type: REMOVE_PRODUCT_FAILURE, isFetching: false, error };
+export function updateProductFailure(error) {
+  return { type: UPDATE_PRODUCT_FAILURE, isFetching: false, error };
 }
 
 export function checkoutProcess() {
@@ -66,14 +66,18 @@ export function getCart(){
 		var location = '/api/cart'
 	} else {
 	 	var location = '/api/cart/session'
-
 	}
-	console.log(location);
+	const idToken = localStorage.getItem('id_token')
+	const config = {
+		headers:{
+		'Accept': 'application/json'
+		, 'Content-Type': 'application/json'
+		, 'Authorization': `Bearer ${idToken}`
+	}}
 	return dispatch => {
 		dispatch(getCartProcess())
-		return axios.get(location)
+		return axios.get(location, config)
 			.then(results => {
-				console.log(results.data)
 				dispatch(getCartSuccess(results.data))
 			})
 			.catch(error => {
@@ -88,7 +92,6 @@ export function postCart(wine){
 	} else {
 		var location = '/api/cart/session'
 	}
-	console.log(location);
 	return dispatch => {
 		dispatch(addProductProcess())
 		const idToken = localStorage.getItem('id_token')
@@ -110,6 +113,33 @@ export function postCart(wine){
 	}
 }
 
+export function putCart(cart){
+	if (localStorage.getItem('id_token')){
+		var location = '/api/cart'
+	} else {
+		var location = '/api/cart/session'
+	}
+	return dispatch => {
+		dispatch(updateProductProcess(cart))
+		const idToken = localStorage.getItem('id_token')
+
+		const config = {
+			headers:{
+			'Accept': 'application/json'
+			, 'Content-Type': 'application/json'
+			, 'Authorization': `Bearer ${idToken}`
+		}}
+
+		return axios.put(location, cart, config)
+			.then(results => {
+				dispatch(updateProductSuccess(results.data))
+			})
+			.catch(error => {
+				dispatch(updateProductFailure(error))
+			})
+	}
+}
+
 // Inital State
 const initialState = {
 	cart: []
@@ -122,28 +152,30 @@ export default function cartReducer(state = initialState, action) {
 		case ADD_PRODUCT_PROCESS:
 			return Object.assign({}, state, action.isFetching)
 		case ADD_PRODUCT_SUCCESS:
-			const runningTotal = action.cart.reduce( (total, sum) => (Math.round(total + (sum.price * sum.quantity)*100)/100), 0)
+			const runningTotal = action.cart.reduce( (total, sum) => (Math.round(total + (sum.price * sum.quantity)*100)/100), 0);
 			return Object.assign({}, state, action.isFetching, action.cart, {runningTotal})
 		case ADD_PRODUCT_FAILURE:
 			return Object.assign({}, state, action.error)
-		case REMOVE_PRODUCT_PROCESS:
-			return Object.assign({}, state, action.isFetching)
-		case REMOVE_PRODUCT_SUCCESS:
-			return state
-		case REMOVE_PRODUCT_FAILURE:
+		case UPDATE_PRODUCT_PROCESS:
+			return Object.assign({}, state, action.isFetching, action.cart)
+		case UPDATE_PRODUCT_SUCCESS:
+			return Object.assign({}, state, action.isFetching, action.cart)
+		case UPDATE_PRODUCT_FAILURE:
 			return Object.assign({}, state, action.error)
 		case CHECKOUT_PROCESS:
 			return Object.assign({}, state, action.isFetching)
 		case CHECKOUT_SUCCESS:
-			const bob = Object.assign({}, state, action.isFetching, action.cart)
-			console.log(bob);
+			const bob = Object.assign({}, state, action.isFetching)
 			return bob
 		case CHECKOUT_FAILURE:
 			return Object.assign({}, state, action.error)
 		case GET_CART_PROCESS:
 			return Object.assign({}, state, action.isFetching)
 		case GET_CART_SUCCESS:
-			return state
+			const runningTotalGet = action.cart.reduce( (total, sum) => (Math.round(total + (sum.price * sum.quantity)*100)/100), 0)
+				let steve = Object.assign({}, state, action.isFetching,  {cart:action.cart}, {runningTotal:runningTotalGet});
+			return steve
+
 		case GET_CART_FAILURE:
 			return Object.assign({}, state, action.error)
     default: return state;
