@@ -2,11 +2,11 @@ import User from '../users/User'
 
 module.exports = {
   getCartSession( req, res, next ){
-    console.log(req.user)
-
-    return res.status(200)
+console.log('getcarsession');
+    return res.status(200).json(req.session.cart)
   }
-  , setCartSession(req, res, next){
+  ,setCart( req, res, next){
+    // validate the object...
     if (req.session.cart) {
       req.session.cart = searchCartAddToExistingWine(req.session.cart, req.body);
     } else {
@@ -15,9 +15,21 @@ module.exports = {
     }
     next();
   }
+  , setCartSession(req, res){
+    // validate the object...
+    if (req.session.cart) {
+      req.session.cart = searchCartAddToExistingWine(req.session.cart, req.body);
+    } else {
+      req.session.cart = [];
+      req.session.cart.push(req.body)
+    }
+    console.log(req.session.cart);
+    return res.status(200).json(req.session.cart)
+  }
   , updateCart(req, res, next){
       User.findOneAndUpdate({sub: req.user.sub}, {cart:req.session.cart}, {new:true}, (err, user) => {
         if (err) return res.status(500).json(err);
+        console.log(user);
         next();
       })
   }

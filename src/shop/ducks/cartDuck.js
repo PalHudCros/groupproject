@@ -62,9 +62,16 @@ export function getCartFailure(error){
 
 // Async Actions
 export function getCart(){
+	if (localStorage.getItem('id_token')){
+		var location = '/api/cart'
+	} else {
+	 	var location = '/api/cart/session'
+
+	}
+	console.log(location);
 	return dispatch => {
 		dispatch(getCartProcess())
-		return axios.get('/api/cart')
+		return axios.get(location)
 			.then(results => {
 				console.log(results.data)
 				dispatch(getCartSuccess(results.data))
@@ -76,9 +83,16 @@ export function getCart(){
 }
 
 export function postCart(wine){
+	if (localStorage.getItem('id_token')){
+		var location = '/api/cart'
+	} else {
+		var location = '/api/cart/session'
+	}
+	console.log(location);
 	return dispatch => {
 		dispatch(addProductProcess())
 		const idToken = localStorage.getItem('id_token')
+
 		const config = {
 			headers:{
 			'Accept': 'application/json'
@@ -86,7 +100,7 @@ export function postCart(wine){
 			, 'Authorization': `Bearer ${idToken}`
 		}}
 
-		return axios.post('/api/cart', wine, config)
+		return axios.post(location, wine, config)
 			.then(results => {
 				dispatch(addProductSuccess(results.data))
 			})
