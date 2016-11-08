@@ -18,43 +18,43 @@ function getDriversProcess() {
     return {type: GET_DRIVERS_PROCESS}
 }
 
-function getDriversSuccess(driver) {
-    return {type: GET_DRIVERS_SUCCESS, driver}
+function getDriversSuccess(drivers) {
+    return {type: GET_DRIVERS_SUCCESS, drivers}
 }
 
 function getDriversError(err) {
-    retury {type: GET_DRIVER_ERROR, err}
+    return {type: GET_DRIVERS_ERROR, err}
 }
 
 function createDriverProcess() {
-    return {type: GET_DRIVERS_PROCESS}
+    return {type: CREATE_DRIVER_PROCESS}
 }
 
 function createDriverSuccess(driver) {
-    return {type: GET_DRIVERS_SUCCESS, driver}
+    return {type: CREATE_DRIVER_SUCCESS, driver}
 }
 
 function createDriverError(err) {
-    retury {type: GET_DRIVER_ERROR, err}
+    return {type: CREATE_DRIVER_ERROR, err}
 }
 
 function deleteDriverProcess() {
-    return {type: GET_DRIVERS_PROCESS}
+    return {type: DELETE_DRIVER_PROCESS}
 }
 
 function deleteDriverSuccess(driver) {
-    return {type: GET_DRIVERS_SUCCESS, driver}
+    return {type: DELETE_DRIVER_SUCCESS, driver}
 }
 
 function deleteDriverError(err) {
-    retury {type: GET_DRIVER_ERROR, err}
+    return {type: DELETE_DRIVER_ERROR, err}
 }
 
 // Async Action Creators 
 export function getDrivers() {
     return dispatch => {
        dispatch(getDriversProcess());
-       return axios.get("/api/admin/drivers")
+       return axios.get("/api/driver/")
             .then(results => {
                 dispatch(getDriversSuccess(results.data));
             })
@@ -64,7 +64,7 @@ export function getDrivers() {
     }
 }
 
-export function createDriver(email, password) {
+export function createDriver(first_name, last_name, email, password) {
     return dispatch => {
        dispatch(createDriverProcess());
        return axios.post("/api/admin/drivers", {})
@@ -77,10 +77,10 @@ export function createDriver(email, password) {
     }
 } 
 
-export function deleteDriver(email, password) {
+export function deleteDriver(driverId) {
     return dispatch => {
        dispatch(deleteDriverProcess());
-       return axios.delete("/api/admin/drivers", {})
+       return axios.delete("/api/admin/drivers/" + driverId)
             .then(results => {
                 dispatch(deleteDriverSuccess(results.data));
             })
@@ -92,7 +92,7 @@ export function deleteDriver(email, password) {
 
 // Initial State
 const initialState = {
-    drivers: []
+    driverList: []
 }
 
 // Reducer
@@ -101,7 +101,7 @@ export default function adminDriver(state = initialState, action) {
         case GET_DRIVERS_PROCESS:
             return Object.assign({}, state, {status: "Fetching Drivers"});
         case GET_DRIVERS_SUCCESS:
-            return Object.assign({}, state, {drivers: action.drivers}, {status: "Drivers Received!"})
+            return Object.assign({}, state, {driverList: action.drivers}, {status: "Drivers Received!"})
         case GET_DRIVERS_ERROR:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case CREATE_DRIVER_PROCESS:
@@ -113,7 +113,7 @@ export default function adminDriver(state = initialState, action) {
         case DELETE_DRIVER_PROCESS:
             return Object.assign({}, state, {status: "Deleting Driver"});
         case DELETE_DRIVER_SUCCESS:
-            return Object.assign({}, state, {drivers: action.drivers}, {status: "Driver Deleted!"})
+            return Object.assign({}, state, {driverList: action.drivers}, {status: "Driver Deleted!"})
         case DELETE_DRIVER_ERROR:
             return Object.assign({}, state, {status: "Error", error: action.error});
         default:
