@@ -13,7 +13,7 @@ import RefreshIndicator from 'material-ui/RefreshIndicator';
 import {getWinesFromAPI} from "../../ducks/distributionDuck";
 import {getWinesFromInventory} from "../../ducks/inventoryDuck";
 
-export class InventoryContent extends Component {
+export class Inventory extends Component {
   constructor(props) {
     super(props);
 
@@ -133,4 +133,4 @@ export class InventoryContent extends Component {
 
 export default connect( state => {
   return { tabs: state.tabs, distribution: state.distribution, inventory: state.inventory };
-} )( InventoryContent );
+} )( Inventory );

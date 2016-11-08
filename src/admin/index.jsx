@@ -12,11 +12,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // Components
+import AdminPanel from './component/AdminPanel/AdminPanel.jsx';
 import Dashboard from './component/Dashboard/Dashboard.jsx';
-import DashboardContent from './component/DashboardContent/DashboardContent.jsx';
-import InventoryContent from './component/InventoryContent/InventoryContent.jsx';
-import DriversContent from './component/DriversContent/DriversContent.jsx';
-import CustomersContent from './component/CustomersContent/CustomersContent.jsx';
+import Inventory from './component/Inventory/Inventory.jsx';
+import Drivers from './component/Drivers/Drivers.jsx';
+import Customers from './component/Customers/Customers.jsx';
 import Error from './component/Error/Error.jsx'
 // Store
 import store from "./store.js";
@@ -28,13 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <Provider store={ store }>
     <Router history={ browserHistory }>
-      <Route component={ Dashboard } path="/">
-        <IndexRoute component={ DashboardContent }></IndexRoute>
-        <Route component={ InventoryContent } path="inventory">
+      <Route component={ AdminPanel } path="/">
+        <IndexRoute component={ Dashboard }></IndexRoute>
+        <Route component={ Inventory } path="inventory/">
+          <IndexRoute component={ ApiContent } path="api"></IndexRoute>
+          <Route component={ DistributorContent } path="distributor">
+          </Route>
+          <Route component={ InStockContent } path="in-stock">
+          </Route>
         </Route>
-        <Route component={ DriversContent } path="drivers">
+        <Route component={ Drivers } path="drivers">
         </Route>
-        <Route component={ CustomersContent } path="customers">
+        <Route component={ Customers } path="customers">
         </Route>
         <Route component={Error} path="*"></Route>
       </Route>
