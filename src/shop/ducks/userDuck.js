@@ -73,16 +73,7 @@ export function doAuthentication(){
           // Set token and profile in local storage
           // localStorage.setItem('profile', JSON.stringify(profile))
           localStorage.setItem('id_token', authResult.idToken)
-
-          if (!localStorage.getItem('profile')){
-            console.log('there is no profile');
-      			localStorage.setItem('profile', JSON.stringify(profile))
-      		} else {
-      			let oldProfile = JSON.parse(localStorage.getItem('profile'))
-      			let newProfile = Object.assign({}, profile, oldProfile)
-      					localStorage.removeItem('profile')
-      					localStorage.setItem('profile', JSON.stringify(newProfile))
-      		}
+          localStorage.setItem('profile', JSON.stringify(profile))
 
           // Set headers for authentication
           const config = {
