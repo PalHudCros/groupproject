@@ -3,18 +3,19 @@ const WHICH_TAB_IS_ACTIVE = "admin/WHICH_TAB_IS_ACTIVE";
 
 const initialState = {
     titles: []
-    , whichTab: 1
+    , routes: []
+    , sectionName: ""
 }
 
 export default function tabs(state = initialState, action) {
     switch ( action.type ) {
         case SET_TAB_TITLES:
-          return Object.assign({}, state, { titles: action.titles, routes: action.routes, tabName: action.tabName });
+          return Object.assign({}, state, { titles: action.titles, routes: action.routes, sectionName: action.sectionName });
         default:
           return state;
     }
 }
 
-export function setTabTitles( titles, routes, tabName ) {
-    return {type: SET_TAB_TITLES, titles, routes, tabName};
+export function setTabTitles( titles, routes, sectionName ) {
+    return {type: SET_TAB_TITLES, titles, routes, sectionName };
 }

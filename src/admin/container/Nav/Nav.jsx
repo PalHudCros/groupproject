@@ -21,7 +21,6 @@ export class Nav extends Component {
   }
 
   howManyTabTitles(props) {
-    console.log( props );
 
     const howManyTabs = [];
 
@@ -38,11 +37,6 @@ export class Nav extends Component {
     }
 
   this.setState({tabs: howManyTabs});
-  }
-
-
-  componentWillMount(props) {
-
   }
 
   componentWillReceiveProps(props) {
