@@ -39,7 +39,6 @@ module.exports = {
   }
   , updateCart(req, res, next){
 
-    console.log('not session',req.body);
     req.session.cart = req.body.cart
 
     User.findOneAndUpdate({sub: req.user.sub}, {cart:req.session.cart}, {new:true}, (err, user) => {
@@ -53,7 +52,7 @@ module.exports = {
 
     req.session.cart = req.body.cart
 
-    return res.send(200).json(req.session.cart)
+    return res.status(200).json(req.session.cart)
   }
 }
 
