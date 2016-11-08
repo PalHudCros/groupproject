@@ -16,7 +16,7 @@ const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN
 const options = {
     theme: {
         logo: 'https://example.com/assets/logo.png',
-        primaryColor: 'red'
+        primaryColor: '#ec423d'
     }
 };
 
@@ -71,7 +71,6 @@ export function doAuthentication(){
           }
           // Handle auth success
           // Set token and profile in local storage
-          // localStorage.setItem('profile', JSON.stringify(profile))
           localStorage.setItem('id_token', authResult.idToken)
 
           if (!localStorage.getItem('profile')){
@@ -83,21 +82,32 @@ export function doAuthentication(){
       					localStorage.removeItem('profile')
       					localStorage.setItem('profile', JSON.stringify(newProfile))
       		}
-
+          const user = localStorage.getItem('profile');
+          dispatch(getExistingUser(authResult.idToken, user));
           // Set headers for authentication
-          const config = {
-            headers:{
-            'Accept': 'application/json'
-            , 'Content-Type': 'application/json'
-            , 'Authorization': `Bearer ${authResult.idToken}`
-          }}
-          // Send user profile to database for user
-          return axios.post('/api/user', profile, config)
-            .then(results => {
-              dispatch(lockSuccess(results.data))
-            })
       })
     })
+  }
+}
+
+export function getExistingUser(token, profile) {
+  return dispatch => {
+    const config = {
+      headers:{
+      'Accept': 'application/json'
+      , 'Content-Type': 'application/json'
+      , 'Authorization': `Bearer ${token}`
+    }}
+    // Send user profile to database for user
+    return axios.post('/api/user', profile, config)
+      .then(results => {
+        dispatch(lockSuccess(results.data))
+      })
+      .catch(error => {
+        localStorage.removeItem('id_token')
+        localStorage.removeItem('profile')
+        dispatch(lockError(error));
+      })
   }
 }
 
