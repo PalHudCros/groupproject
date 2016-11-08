@@ -10,7 +10,7 @@ export class DriverMap extends Component {
     super(props);
 
     this.state = {
-      center: { lat: 40.74135, lng: -73.99802 }
+      center: { lat: 32.7826722, lng: -96.79759519999999 }
     };
   }
 
