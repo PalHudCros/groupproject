@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {setTabTitles} from "../../ducks/tabsDuck.jsx";
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Link, browserHistory} from 'react-router';
 import FontIcon from 'material-ui/FontIcon';
@@ -12,7 +11,6 @@ export class Nav extends Component {
 
     this.state = {
       tabs: []
-      , whichTab: 1
     };
   }
 

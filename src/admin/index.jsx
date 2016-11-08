@@ -15,9 +15,9 @@ injectTapEventPlugin();
 import AdminPanel from './component/AdminPanel/AdminPanel.jsx';
 import Dashboard from './component/Dashboard/Dashboard.jsx';
 import Inventory from './component/Inventory/Inventory.jsx';
-import APIContent from './component/APIContent/APIContent.jsx';
-import DistributorContent from './component/DistributorContent/DistributorContent.jsx';
-import InStockContent from './component/InStockContent/InStockContent.jsx';
+import APIContent from './container/APIContent/APIContent.jsx';
+import DistributorContent from './container/DistributorContent/DistributorContent.jsx';
+import InStockContent from './container/InStockContent/InStockContent.jsx';
 import Drivers from './component/Drivers/Drivers.jsx';
 import Customers from './component/Customers/Customers.jsx';
 import Error from './component/Error/Error.jsx'

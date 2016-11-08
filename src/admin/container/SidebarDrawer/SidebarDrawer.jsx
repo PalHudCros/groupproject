@@ -34,7 +34,6 @@ export class SidebarDrawer extends Component {
 
   componentWillReceiveProps( props ) {
 
-    console.log( props );
     if ( props.tabs.sectionName === "Dashboard" ) {
 
       this.setState( { drawerContent: (
