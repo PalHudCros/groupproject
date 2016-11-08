@@ -40,11 +40,11 @@ $pal-footer-icons: #727786;
 
 // ADMIN
 // Component
-@import "../admin/component/CustomersContent/CustomersContent.scss";
+@import "../admin/component/Customers/Customers.scss";
+@import "../admin/component/AdminPanel/AdminPanel.scss";
 @import "../admin/component/Dashboard/Dashboard.scss";
-@import "../admin/component/DashboardContent/DashboardContent.scss";
-@import "../admin/component/DriversContent/DriversContent.scss";
-@import "../admin/component/InventoryContent/InventoryContent.scss";
+@import "../admin/component/Drivers/Drivers.scss";
+@import "../admin/component/Inventory/Inventory.scss";
 @import "../admin/component/Navbar/Navbar.scss";
 @import "../admin/component/Sidebar/Sidebar.scss";
 

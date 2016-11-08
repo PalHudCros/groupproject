@@ -1,24 +1,18 @@
 //Admin
 
-import React, {Component} from "react";
-import Navbar from '../Navbar/Navbar.jsx';
-import Sidebar from '../Sidebar/Sidebar.jsx';
-import { Link } from "react-router";
+import React from 'react';
+import { Link } from 'react-router';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-export default function Dashboard(props) {
+export default function DashboardContent(props) {
 
   return (
-      <div>
+      <nav className="row dashboardcontent admin">
+        <MuiThemeProvider>
+          <h1>Admin Dashboard Route</h1>
+        </MuiThemeProvider>
 
-        <Navbar></Navbar>
-        <Sidebar></Sidebar>
+      </nav>
+  );
 
-        <div className="container-fluid admin">
-
-            {props.children}
-
-        </div>
-
-      </div>
-    );
 }

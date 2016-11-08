@@ -10,7 +10,8 @@ import InventoryIcon from 'material-ui/svg-icons/device/storage';
 import DriversIcon from 'material-ui/svg-icons/notification/drive-eta';
 import CustomersIcon from 'material-ui/svg-icons/social/people'
 import Close from 'material-ui/svg-icons/navigation/close';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export class SidebarDrawer extends Component {
   constructor(props) {
@@ -21,13 +22,71 @@ export class SidebarDrawer extends Component {
     };
   }
 
-  handleToggle( tabsToLoad ) {
+  handleToggle( tabsToLoad, tabRoutes, sectionName ) {
     if ( tabsToLoad ) {
-      this.props.dispatch( setTabTitles( tabsToLoad ) );
+      this.props.dispatch( setTabTitles( tabsToLoad, tabRoutes, sectionName ) );
     }
     this.setState({
       openDrawer: !this.state.openDrawer
+      , drawerContent: ""
     });
+  }
+
+  componentWillReceiveProps( props ) {
+
+    if ( props.tabs.sectionName === "Dashboard" ) {
+
+      this.setState( { drawerContent: (
+        <div className="drawer-content admin">
+          <MuiThemeProvider>
+            <DashboardIcon
+              style={{width: 80, height: 80, color: "#ec423d"}}
+              ></DashboardIcon>
+          </MuiThemeProvider>
+          <h1>Dashboard</h1>
+        </div>
+      ) } );
+    }
+    else if ( props.tabs.sectionName === "Inventory" ) {
+
+      this.setState( { drawerContent: (
+        <div className="drawer-content admin">
+          <MuiThemeProvider>
+            <InventoryIcon
+              style={{width: 80, height: 80, color: "#ec423d"}}
+              ></InventoryIcon>
+          </MuiThemeProvider>
+          <h1>Inventory</h1>
+        </div>
+      ) } );
+    }
+    else if ( props.tabs.sectionName === "Drivers" ) {
+
+      this.setState( { drawerContent: (
+        <div className="drawer-content admin">
+          <MuiThemeProvider>
+            <DriversIcon
+              style={{width: 80, height: 80, color: "#ec423d"}}
+              ></DriversIcon>
+          </MuiThemeProvider>
+          <h1>Drivers</h1>
+        </div>
+      ) } );
+    }
+    else if ( props.tabs.sectionName === "Customers" ) {
+
+      this.setState( { drawerContent: (
+        <div className="drawer-content admin">
+          <MuiThemeProvider>
+            <CustomersIcon
+              style={{width: 80, height: 80, color: "#ec423d"}}
+              ></CustomersIcon>
+          </MuiThemeProvider>
+          <h1>Customers</h1>
+        </div>
+      ) } );
+    }
+
   }
 
   render() {
@@ -38,15 +97,15 @@ export class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Dashboard"
-          onTouchTap={this.handleToggle.bind(this, ["Tab 1", "Tab 2"])}
+          onTouchTap={this.handleToggle.bind(this, ["Tab 1", "Tab 2"], [""], "Dashboard")}
         >
           <DashboardIcon></DashboardIcon>
         </IconButton></Link>
-        <Link to="/inventory"><IconButton
+      <Link to="/inventory/"><IconButton
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Inventory"
-          onTouchTap={this.handleToggle.bind(this, ["Add from API", "Add from Distributor", "In-stock Inventory"])}
+          onTouchTap={this.handleToggle.bind(this, ["Add from API", "Add from Distributor", "In-stock Inventory"], [ "/inventory/api", "/inventory/distributor", "/inventory/instock"], "Inventory")}
         >
           <InventoryIcon></InventoryIcon>
         </IconButton></Link>
@@ -54,7 +113,7 @@ export class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Drivers"
-          onClick={this.handleToggle.bind(this, ["Tab 1", "TABBY", "Tab 2"])}
+          onClick={this.handleToggle.bind(this, ["Tab 1", "TABBY", "Tab 2"], [""], "Drivers")}
         >
           <DriversIcon></DriversIcon>
         </IconButton></Link>
@@ -62,7 +121,7 @@ export class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Customers"
-          onTouchTap={this.handleToggle.bind(this, ["Tab 1", "Tab 2"])}
+          onTouchTap={this.handleToggle.bind(this, ["Tab 1", "Tab 2"], [""], "Customers")}
         >
           <CustomersIcon></CustomersIcon>
         </IconButton></Link>
@@ -79,8 +138,9 @@ export class SidebarDrawer extends Component {
               <Close></Close>
             </IconButton>
           </div>
-          <MenuItem>Wakka wakka</MenuItem>
-          <MenuItem>Flaco Taco</MenuItem>
+
+          { this.state.drawerContent }
+
         </Drawer>
       </div>
     );
