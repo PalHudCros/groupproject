@@ -13,7 +13,15 @@ export class DriverMap extends Component {
       center: { lat: 40.74135, lng: -73.99802 }
     };
   }
-
+  componentWillMount() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          console.log(position)
+          let newCenter = {lat: position.coords.latitude, lng: position.coords.longitude}
+          this.setState({center, newCenter});
+        });
+    } 
+  }
   render() {
 
   const mapContainer = ( <div style={{height: "100%", width: "100%"}}></div> );
