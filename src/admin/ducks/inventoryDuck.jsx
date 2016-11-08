@@ -182,7 +182,6 @@ export function getWinesFromInventory(itemId) {
 }
 
 export function sendDistributorWinesToInventoryItems(wine) {
-    console.log("Wine from Inv: ", wine);
     return dispatch => {
         dispatch(addWineProcess());
          return axios.post("/api/wines/inventory", wine)

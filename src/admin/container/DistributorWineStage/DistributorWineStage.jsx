@@ -91,7 +91,6 @@ export class DistributorWineStage extends Component {
       if ( newWines[i].Id === wine.Id ) {
         newWines.splice( i, 1, wine );
         this.setState( { wines: newWines } );
-        console.log( this.state.wines );
       }
     }
   }
@@ -118,8 +117,6 @@ export class DistributorWineStage extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log( props );
-    console.log( this.state.wines );
     this.checkStagedWines(props);
   }
 
