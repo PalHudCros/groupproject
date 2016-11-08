@@ -10,7 +10,6 @@ const SHOW_LOCK = 'SHOWLOCK'
 const LOCK_SUCCESS = 'LOCK_SUCCESS'
 const LOCK_ERROR = 'LOCK_ERROR'
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
-console.log( process.env )
 
 // Auth0 Config
 const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, options);
@@ -74,16 +73,7 @@ export function doAuthentication(){
           // Set token and profile in local storage
           // localStorage.setItem('profile', JSON.stringify(profile))
           localStorage.setItem('id_token', authResult.idToken)
-
-          if (!localStorage.getItem('profile')){
-            console.log('there is no profile');
-      			localStorage.setItem('profile', JSON.stringify(profile))
-      		} else {
-      			let oldProfile = JSON.parse(localStorage.getItem('profile'))
-      			let newProfile = Object.assign({}, profile, oldProfile)
-      					localStorage.removeItem('profile')
-      					localStorage.setItem('profile', JSON.stringify(newProfile))
-      		}
+          localStorage.setItem('profile', JSON.stringify(profile))
 
           // Set headers for authentication
           const config = {

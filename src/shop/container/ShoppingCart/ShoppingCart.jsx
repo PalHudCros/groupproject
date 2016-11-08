@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { getCart } from '../../ducks/cartDuck.js'
+
 class ShoppingCart extends Component{
   constructor(props){
     super(props)
@@ -9,8 +11,12 @@ class ShoppingCart extends Component{
     }
   }
 
+  componentWillMount(){
+    this.props.dispatch(getCart())
+  }
+
   componentWillReceiveProps(props){
-    thist.setState(
+    this.setState(
       {cart:props.cart}
     )
   }

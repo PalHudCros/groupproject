@@ -47,7 +47,6 @@ class SingleWine extends Component{
   }
 
   handleAddToInventory(){
-    console.log('handleAddToInventory', this.state.quantity)
     let wine = {
       item: this.state.currentWine._id
       , quantity: this.state.quantity
@@ -57,7 +56,6 @@ class SingleWine extends Component{
   }
 
   render(){
-    console.log(this.state.currentWine);
     return (
       <div className="container">
         <h1>{this.state.currentWine.Id}</h1>
