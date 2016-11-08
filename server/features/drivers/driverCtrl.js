@@ -1,14 +1,14 @@
 import axios from 'axios';
 import config from '../../../config/config';
 import Driver from './Driver.js';
-// import Order from '../orders/Order.js';
+import Order from '../orders/Order.js'
 
 module.exports = {
 
   getOneOrderOnDriver( req, res ) {
     // GET /api/driver/:driverId/order/:orderId
     Driver.findById( req.params.driverId )
-      .populate( "orders" )
+      // .populate( "orders" )
       .exec( ( err, driver ) => {
         if ( err ) {
           return res.status( 500 ).json( err );
@@ -23,16 +23,18 @@ module.exports = {
       } );
   }
 
-  , getOneDriver( req, res ) {
-    // GET /api/driver/:id
-    Driver.findById( req.params.id )
+  , getOneDriver( req, res, next ) {
+		Driver.findOne({sub: req.body.user_id})
       .populate( "orders" )
       .exec( ( err, driver ) => {
         if ( err ) {
           return res.status( 500 ).json( err );
         }
-        return res.status( 200 ).json( driver );
-      } );
+        if ( driver ) {
+          return res.status( 200 ).json( driver );
+        } 
+        next();
+      });
   }
 
   , getDrivers( req, res ) {
@@ -61,7 +63,17 @@ module.exports = {
 
   , addDriver( req, res ) {
     // POST /api/driver
-    new Driver( req.body ).save( ( err, driverCreated ) => {
+    const driver = {
+      sub: req.body.user_id
+      , name: req.body.name
+      , picture: req.body.picture
+      , updated_at: req.body.updated_at
+    }
+    new Driver( driver ).save( ( err, driverCreated ) => {
+      console.log("Add Driver Error: ", err)
+      
+      console.log("Add Driver Success: ", driverCreated)
+
       if ( err ) {
         return res.status( 500 ).json( err );
       }

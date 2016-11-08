@@ -1,16 +1,16 @@
-import User from "./User";
+import Admin from "./Admin";
 
 module.exports = {
-	getUser(req, res, next) {
-		User.findOne({sub: req.body.user_id}, (err, user) => {
+	getAdmin(req, res, next) {
+		Admin.findOne({sub: req.body.user_id}, (err, user) => {
 			if (err) return res.status(500).json(err);
 			if (user) return res.status(200).json(user)
 			next();
 		})
 	}
 
-	, saveUser(req, res) {
-		new User({
+	, saveAdmin(req, res) {
+		new Admin({
 			sub: req.body.user_id
 			, family_name: req.body.family_name
 			, given_name: req.body.given_name

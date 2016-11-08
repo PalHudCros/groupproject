@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Actions
 const DISTRIBUTION_PROCESS = "distribution/DISTRIBUTION_PROCESS";
 const DISTRIBUTION_SUCCESS = "distribution/DISTRIBUTION_SUCCESS";
 const DISTRIBUTION_FAILURE = "distribution/DISTRIBUTION_FAILURE";
