@@ -50,6 +50,11 @@
   justify-content: flex-start;
   height: 100%;
   width: 4%;
+  img {
+    height: 95%;
+    min-height: 95%;
+    max-width: 90%;
+  }
 }
 
 .stage-wine-name.admin {
@@ -79,6 +84,16 @@
 .stage-counter-field-wrapper.admin {
   height: 100%;
   width: 60%;
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance:textfield;
+    text-align: center;
+  }
 }
 
 .stage-counter-field.admin {
