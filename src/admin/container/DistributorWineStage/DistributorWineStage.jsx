@@ -76,7 +76,7 @@ export class DistributorWineStage extends Component {
           <div className="stage-wine-remove-button admin">
             <MuiThemeProvider>
               <Close
-                onClick={ this.removeWineFromStage.bind(this, wine) }
+                onClick={ this.removeOneWineFromStage.bind(this, wine) }
                 style={{ cursor: "pointer" }}
                 ></Close>
             </MuiThemeProvider>
@@ -91,7 +91,7 @@ export class DistributorWineStage extends Component {
       this.setState( {wines: stagedWines });
   }
 
-  removeWineFromStage( wine ) {
+  removeOneWineFromStage( wine ) {
     this.props.dispatch( removeOneWineFromDistributorStage( wine ) );
   }
 
@@ -102,6 +102,7 @@ export class DistributorWineStage extends Component {
   }
 
   componentWillReceiveProps(props) {
+    console.log( props );
     this.checkStagedWines(props);
   }
 

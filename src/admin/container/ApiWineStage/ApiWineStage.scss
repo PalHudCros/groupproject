@@ -21,7 +21,15 @@
   justify-content: flex-start;
   align-items: center;
   height: 100%;
-  width: 83%;
+  width: 66%;
+}
+
+.stage-clear-button.admin {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  width: 17%;
 }
 
 .stage-order-button.admin {
@@ -83,38 +91,20 @@
 
 .stage-counter-field-wrapper.admin {
   height: 100%;
-  width: 60%;
+  width: 100%;
   input[type=number]::-webkit-outer-spin-button,
   input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+    font-size: 48px;
   }
 
   input[type=number] {
-    -moz-appearance:textfield;
+    height: 100%;
     text-align: center;
   }
 }
 
 .stage-counter-field.admin {
   width: 100% !important;
-}
-
-.stage-counter-incrementors.admin {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 40%;
-}
-
-.stage-increment-up.admin {
-  height: 50%;
-  width: 100%;
-}
-
-.stage-increment-down.admin {
-  height: 50%;
-  width: 100%;
 }
 
 .stage-wine-remove-button.admin {

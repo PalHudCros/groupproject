@@ -7,6 +7,6 @@ module.exports = app => {
     app.get('/api/wines/distribution/counts', wineCtrl.getDistributionCategoryCounts);
     app.get('/api/wines/inventory/counts', wineCtrl.getInventoryCategoryCounts);
 
-    app.post('/api/wines/distribution', wineCtrl.addWineToDistribution);
+    app.post('/api/wines/distribution', wineCtrl.sendAPIWinesToDistributor);
     app.post('/api/wines/inventory', wineCtrl.addWineToInventory);
 }

@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CircularProgress from 'material-ui/CircularProgress';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import {getWinesFromAPI, addWineToDistribution} from "../../ducks/distributionDuck";
+import {getWinesFromAPI, sendAPIWinesToDistributor} from "../../ducks/distributionDuck";
 import {sendWineToApiStage} from "../../ducks/distributionDuck";
 
 export class APITable extends Component {
