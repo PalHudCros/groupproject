@@ -5,36 +5,37 @@ const ADD_PRODUCT_PROCESS = 'ADD_PRODUCT_PROCESS';
 const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
 const ADD_PRODUCT_FAILURE = 'ADD_PRODUCT_FAILURE';
 
-const REMOVE_PRODUCT_PROCESS = 'REMOVE_PRODUCT_PROCESS';
-const REMOVE_PRODUCT_SUCCESS = 'REMOVE_PRODUCT_SUCCESS';
-const REMOVE_PRODUCT_FAILURE = 'REMOVE_PRODUCT_FAILURE';
+const UPDATE_PRODUCT_PROCESS = 'REMOVE_PRODUCT_PROCESS';
+const UPDATE_PRODUCT_SUCCESS = 'REMOVE_PRODUCT_SUCCESS';
+const UPDATE_PRODUCT_FAILURE = 'REMOVE_PRODUCT_FAILURE';
 
 const CHECKOUT_PROCESS = 'CHECKOUT_PROCESS';
 const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
+const GET_CART_PROCESS = 'GET_CART_PROCESS';
+const GET_CART_SUCCESS = 'GET_CART_SUCCESS';
+const GET_CART_FAILURE = 'GET_CART_FAILURE';
 
 // Action Creators
 export function addProductProcess() {
-	console.log('process');
   return { type: ADD_PRODUCT_PROCESS, isFetching: true };
 }
-export function addProductSuccess(product) {
-	console.log('success', product);
-  return { type: ADD_PRODUCT_SUCCESS, isFetching: false, product };
+export function addProductSuccess(result) {
+  return { type: ADD_PRODUCT_SUCCESS, isFetching: false, cart:result.cart };
 }
 export function addProductFailure(error) {
   return { type: ADD_PRODUCT_FAILURE, isFetching: false, error };
 }
 
-export function removeProductProcess() {
-  return { type: REMOVE_PRODUCT_PROCESS, isFetching: true  };
+export function updateProductProcess(cart) {
+  return { type: UPDATE_PRODUCT_PROCESS, isFetching: true, cart  };
 }
-export function removeProductSuccess(product) {
-  return { type: REMOVE_PRODUCT_SUCCESS, isFetching: false, product };
+export function updateProductSuccess(cart) {
+  return { type: UPDATE_PRODUCT_SUCCESS, isFetching: false, cart };
 }
-export function removeProductFailure(error) {
-  return { type: REMOVE_PRODUCT_FAILURE, isFetching: false, error };
+export function updateProductFailure(error) {
+  return { type: UPDATE_PRODUCT_FAILURE, isFetching: false, error };
 }
 
 export function checkoutProcess() {
@@ -47,59 +48,54 @@ export function checkoutFailure(error) {
   return { type: CHECKOUT_PRODUCT_FAILURE, isFetching: false, error };
 }
 
-
-
-// Async Actions
-// export function getCart(){
-// 	return dispatch => {
-// 		dispatch(process())
-// 		return axios.get('/api/cart')
-// 			.then(results => {
-//
-// 			})
-// 			.catch(error => {
-//
-// 			})
-// 	}
-// }
-function searchCartAddToExistingWine(profile, newWine){
-	let found = false;
-	profile.cart.forEach(ele=>{
-		if (ele.item === newWine.item){
-			found = true;
-			ele.quantity = parseInt(ele.quantity) + parseInt(newWine.quantity)
-		}
-	});
-	if (!found) profile.cart.push(newWine);
-	return profile
+export function getCartProcess(){
+return { type: GET_CART_PROCESS, isFetching: true }
+}
+export function getCartSuccess(result){
+	return { type: GET_CART_SUCCESS, isFetching: false, cart:result.cart  }
+}
+export function getCartFailure(error){
+	return { type: GET_CART_FAILURE, isFetching: true, error }
 }
 
 
+
+// Async Actions
+export function getCart(){
+	if (localStorage.getItem('id_token')){
+		var location = '/api/cart'
+	} else {
+	 	var location = '/api/cart/session'
+	}
+	const idToken = localStorage.getItem('id_token')
+	const config = {
+		headers:{
+		'Accept': 'application/json'
+		, 'Content-Type': 'application/json'
+		, 'Authorization': `Bearer ${idToken}`
+	}}
+	return dispatch => {
+		dispatch(getCartProcess())
+		return axios.get(location, config)
+			.then(results => {
+				dispatch(getCartSuccess(results.data))
+			})
+			.catch(error => {
+				dispatch(getCartFailure(error))
+			})
+	}
+}
+
 export function postCart(wine){
+	if (localStorage.getItem('id_token')){
+		var location = '/api/cart'
+	} else {
+		var location = '/api/cart/session'
+	}
 	return dispatch => {
 		dispatch(addProductProcess())
-		if (!localStorage.getItem('profile')){
-			localStorage.setItem('profile', JSON.stringify({cart:[wine]}))
-		} else {
-			let profile = JSON.parse(localStorage.getItem('profile'))
-				if (!profile.cart){
-					let newProfile = Object.assign({}, profile, {cart:[wine]})
-					localStorage.removeItem('profile')
-					localStorage.setItem('profile', JSON.stringify(newProfile))
-				} else {
-					let addedCartOnProfile = searchCartAddToExistingWine(profile, wine)
-					localStorage.setItem('profile', JSON.stringify(addedCartOnProfile))
-				}
-		}
-
-
-	if (!localStorage.getItem('id_token')){
-
-		let wineCart = JSON.parse(localStorage.getItem('profile'))
-		dispatch(addProductSuccess(wineCart.cart))
-
-	} else {
 		const idToken = localStorage.getItem('id_token')
+
 		const config = {
 			headers:{
 			'Accept': 'application/json'
@@ -107,9 +103,7 @@ export function postCart(wine){
 			, 'Authorization': `Bearer ${idToken}`
 		}}
 
-		let wineCart = JSON.parse(localStorage.getItem('profile')).cart
-
-		return axios.post('/api/cart', wineCart, config)
+		return axios.post(location, wine, config)
 			.then(results => {
 				dispatch(addProductSuccess(results.data))
 			})
@@ -117,40 +111,73 @@ export function postCart(wine){
 				dispatch(addProductFailure(error))
 			})
 	}
+}
 
+export function putCart(cart){
+	if (localStorage.getItem('id_token')){
+		var location = '/api/cart'
+	} else {
+		var location = '/api/cart/session'
+	}
+	return dispatch => {
+		dispatch(updateProductProcess(cart))
+		const idToken = localStorage.getItem('id_token')
 
+		const config = {
+			headers:{
+			'Accept': 'application/json'
+			, 'Content-Type': 'application/json'
+			, 'Authorization': `Bearer ${idToken}`
+		}}
 
+		return axios.put(location, cart, config)
+			.then(results => {
+				dispatch(updateProductSuccess(results.data))
+			})
+			.catch(error => {
+				dispatch(updateProductFailure(error))
+			})
 	}
 }
 
 // Inital State
 const initialState = {
-	productsInCart: []
+	cart: []
 	, runningTotal: 0
 }
 
 // Reducer
 export default function cartReducer(state = initialState, action) {
 	switch (action.type) {
-		case 'ADD_PRODUCT_PROCESS':
-		const body = Object.assign({}, state, action.isFetching)
-			return body;
+		case ADD_PRODUCT_PROCESS:
+			return Object.assign({}, state, action.isFetching)
 		case ADD_PRODUCT_SUCCESS:
-			return state
+			const runningTotal = action.cart.reduce( (total, sum) => (Math.round(total + (sum.price * sum.quantity)*100)/100), 0);
+			return Object.assign({}, state, action.isFetching, action.cart, {runningTotal})
 		case ADD_PRODUCT_FAILURE:
-			return state
-		case REMOVE_PRODUCT_PROCESS:
-			return state
-		case REMOVE_PRODUCT_SUCCESS:
-			return state
-		case REMOVE_PRODUCT_FAILURE:
-			return state
+			return Object.assign({}, state, action.error)
+		case UPDATE_PRODUCT_PROCESS:
+			return Object.assign({}, state, action.isFetching, action.cart)
+		case UPDATE_PRODUCT_SUCCESS:
+			return Object.assign({}, state, action.isFetching, action.cart)
+		case UPDATE_PRODUCT_FAILURE:
+			return Object.assign({}, state, action.error)
 		case CHECKOUT_PROCESS:
-			return state
+			return Object.assign({}, state, action.isFetching)
 		case CHECKOUT_SUCCESS:
-			return state
+			const bob = Object.assign({}, state, action.isFetching)
+			return bob
 		case CHECKOUT_FAILURE:
-			return state
+			return Object.assign({}, state, action.error)
+		case GET_CART_PROCESS:
+			return Object.assign({}, state, action.isFetching)
+		case GET_CART_SUCCESS:
+			const runningTotalGet = action.cart.reduce( (total, sum) => (Math.round(total + (sum.price * sum.quantity)*100)/100), 0)
+				let steve = Object.assign({}, state, action.isFetching,  {cart:action.cart}, {runningTotal:runningTotalGet});
+			return steve
+
+		case GET_CART_FAILURE:
+			return Object.assign({}, state, action.error)
     default: return state;
   }
 }
