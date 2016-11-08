@@ -24,7 +24,8 @@ class ProfileMenu extends Component {
    componentWillMount() {
     this.props.dispatch(doAuthentication());
     const token = localStorage.getItem('admin_id_token');
-    if (token) let expired = isTokenExpired(token)
+    let expired;
+    if (token) expired = isTokenExpired(token)
     if (!token || expired) {
       this.props.dispatch(login());
     }
