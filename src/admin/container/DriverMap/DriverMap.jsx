@@ -20,15 +20,23 @@ export class DriverMap extends Component {
 
 
     return (
-      <GoogleMapLoader
-        containerElement= { mapContainer }
-        googleMapElement= {
-          <GoogleMap
-            defaultZoom={15}
-            defaultCenter={this.state.center}
-            options={{streetViewControl: false, mapTypeControl: false}}
-            >
-          </GoogleMap>
+      <div>
+        <MuiThemeProvider>
+          <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver}/>
+        </MuiThemeProvider>
+        <MuiThemeProvider>
+          <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver}/>
+        </MuiThemeProvider>
+        <GoogleMapLoader
+          containerElement= { mapContainer }
+          googleMapElement= {
+            <GoogleMap
+              defaultZoom={15}
+              defaultCenter={this.state.center}
+              options={{streetViewControl: false, mapTypeControl: false}}
+              >
+            </GoogleMap>
+      </div>
         } />
     );
   }
