@@ -4,11 +4,12 @@ import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import AddBox from 'material-ui/svg-icons/content/add-box';
 import MinusBox from 'material-ui/svg-icons/toggle/indeterminate-check-box';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import CashSymbol from 'material-ui/svg-icons/editor/monetization-on';
 import Close from 'material-ui/svg-icons/navigation/close';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {removeOneWineFromDistributorStage} from "../../ducks/inventoryDuck";
+import {removeOneWineFromDistributorStage, removeAllWineFromDistributorStage, sendDistributorWinesToInventoryItems} from "../../ducks/inventoryDuck";
 
 export class DistributorWineStage extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export class DistributorWineStage extends Component {
 
     this.state = {
       wines: []
+      , stagedWines: []
     };
   }
 
@@ -28,7 +30,7 @@ export class DistributorWineStage extends Component {
       props = this.props;
     }
 
-
+    this.setState( { wines: props.inventory.stagedWines } );
     const stagedWines = props.inventory.stagedWines.map(wine => {
       wine.LabelImage = wine.Labels[0].Url;
       wine.BottleImage = wine.LabelImage.substring(0, wine.LabelImage.length-5) + "d.jpg";
@@ -53,30 +55,21 @@ export class DistributorWineStage extends Component {
               <MuiThemeProvider>
                 <TextField
                   hintText="Qty"
-                  hintStyle={{ marginLeft: "24%" }}
+                  hintStyle={{ marginLeft: "30%" }}
                   className="stage-counter-field admin"
                   type="number"
-                  min="0"
+                  min={0}
+                  defaultValue={ wine.Quantity }
+                  onChange={ this.handleChange.bind(this, wine) }
                   />
               </MuiThemeProvider>
             </div>
-            <div className="stage-counter-incrementors admin">
-              <div className="stage-increment-up admin">
-                <MuiThemeProvider>
-                  <AddBox></AddBox>
-                </MuiThemeProvider>
-              </div>
-              <div className="stage-increment-down admin">
-                <MuiThemeProvider>
-                  <MinusBox></MinusBox>
-                </MuiThemeProvider>
-              </div>
-            </div>
+
           </div>
           <div className="stage-wine-remove-button admin">
             <MuiThemeProvider>
               <Close
-                onClick={ this.removeWineFromStage.bind(this, wine) }
+                onClick={ this.removeOneWineFromStage.bind(this, wine) }
                 style={{ cursor: "pointer" }}
                 ></Close>
             </MuiThemeProvider>
@@ -88,10 +81,33 @@ export class DistributorWineStage extends Component {
       </div>
 
       )});
-      this.setState( {wines: stagedWines });
+      this.setState( { stagedWines } );
   }
 
-  removeWineFromStage( wine ) {
+  handleChange(wine, event) {
+    wine.Quantity = parseInt( event.target.value );
+    const newWines = this.state.wines;
+    for (var i = 0; i < newWines.length; i++) {
+      if ( newWines[i].Id === wine.Id ) {
+        newWines.splice( i, 1, wine );
+        this.setState( { wines: newWines } );
+        console.log( this.state.wines );
+      }
+    }
+  }
+
+  clearOrder() {
+    this.props.dispatch( removeAllWineFromDistributorStage() );
+  }
+
+  orderWinesFromDistributor() {
+    for (var i = 0; i < this.state.wines.length; i++) {
+      this.props.dispatch( sendDistributorWinesToInventoryItems( this.state.wines[i] ) );
+    }
+    this.props.dispatch( removeAllWineFromDistributorStage() );
+  }
+
+  removeOneWineFromStage( wine ) {
     this.props.dispatch( removeOneWineFromDistributorStage( wine ) );
   }
 
@@ -102,6 +118,8 @@ export class DistributorWineStage extends Component {
   }
 
   componentWillReceiveProps(props) {
+    console.log( props );
+    console.log( this.state.wines );
     this.checkStagedWines(props);
   }
 
@@ -112,6 +130,14 @@ export class DistributorWineStage extends Component {
             <div className="stage-title admin">
               <h1>Distributor Purchase Order</h1>
             </div>
+            <div className="stage-clear-button admin">
+              <MuiThemeProvider>
+                <FlatButton
+                  label="Clear Order"
+                  onClick={ this.clearOrder.bind(this) }
+                  />
+              </MuiThemeProvider>
+            </div>
             <div className="stage-order-button admin">
               <MuiThemeProvider>
                 <RaisedButton
@@ -119,6 +145,7 @@ export class DistributorWineStage extends Component {
                   labelPosition="before"
                   primary={true}
                   icon={<CashSymbol />}
+                  onClick={ this.orderWinesFromDistributor.bind(this) }
                   />
               </MuiThemeProvider>
             </div>
@@ -126,7 +153,7 @@ export class DistributorWineStage extends Component {
 
           <div className="stage-list-wrapper admin">
 
-              { this.state.wines }
+              { this.state.stagedWines }
 
           </div>
 
