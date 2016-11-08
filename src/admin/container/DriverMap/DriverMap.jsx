@@ -8,7 +8,7 @@ import Avatar from 'material-ui/Avatar'
 
 
 import config from "../../../../config/config.js";
-import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps } from 'react-google-maps';
+import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps, Circle } from 'react-google-maps';
 
 export class DriverMap extends Component {
   constructor(props) {
@@ -25,7 +25,6 @@ export class DriverMap extends Component {
   componentWillMount() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
-          console.log(position)
           let newCenter = {lat: position.coords.latitude, lng: position.coords.longitude}
           this.setState({center: newCenter});
         });
@@ -43,7 +42,7 @@ export class DriverMap extends Component {
   render() {
 
   const mapContainer = ( <div style={{height: "100%", width: "100%"}}></div> );
-  
+  const infoViewContainer = (<MuiThemeProvider><Avatar /></MuiThemeProvider>)  
 
     return (
       <GoogleMapLoader
@@ -54,8 +53,13 @@ export class DriverMap extends Component {
             defaultCenter={this.state.center}
             options={{streetViewControl: false, mapTypeControl: false}}
             >
+            <Circle
+              center={this.state.center}
+              radius={10} 
+            />            
+            <InfoWindow>{infoViewContainer}
+            </InfoWindow>
             
-            <MuiThemeProvider><Avatar /></MuiThemeProvider>
           </GoogleMap>
         } />
     );
@@ -67,13 +71,3 @@ export default connect( state => ( {
   distribution: state.distribution
 } ) )( DriverMap );
 
-// ref={ (map) => {
-//   if (this.state.map !== null )
-//     return
-//
-//   this.setState( {
-//     map: map
-//   } );
-//
-// }}
-// onDragend={this.mapMoved.bind(this)}
