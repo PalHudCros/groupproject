@@ -36,8 +36,8 @@ export class DriverMap extends Component {
               options={{streetViewControl: false, mapTypeControl: false}}
               >
             </GoogleMap>
-      </div>
         } />
+      </div>
     );
   }
 
