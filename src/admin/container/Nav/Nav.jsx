@@ -48,6 +48,7 @@ export class Nav extends Component {
     <Tabs
       className="nav-tab-container admin"
       tabItemContainerStyle={{backgroundColor: "#ffffff", height: "95%"}}
+      inkBarStyle={{ backgroundColor: "#ec423d" }}
       >
     { this.state.tabs }
     </Tabs>

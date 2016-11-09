@@ -1,6 +1,8 @@
-.SuperNav.shop {
-  height: 25px
+.row.supernav.shop {
+  background-color: $pal-supernav-white;
 }
-.Nav.shop {
-  background-color: #e8e8e8;
+
+.nav.shop {
+  background-color: #ffffff;
+  border-bottom: 3px solid $pal-lightgrey;
 }
