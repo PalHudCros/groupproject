@@ -6,7 +6,6 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Divider from 'material-ui/Divider';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import {addWineToInventory} from "../../ducks/inventoryDuck";
 import {sendWineToDistributorStage} from "../../ducks/inventoryDuck";
 
 
@@ -54,10 +53,6 @@ class DistributorTable extends Component {
     this.props.dispatch(sendWineToDistributorStage( wine ));
   }
 
-  addItemToInventory(wine) {
-    this.props.dispatch(addWineToInventory(wine));
-  }
-
   render() {
     return (
       <div className="inventory-table-wrapper admin">
@@ -77,7 +72,7 @@ class DistributorTable extends Component {
         </div>
         <div className="inventory-rows-wrapper admin">
             {
-              this.props.inventory.status === "Fetching Distributor Inventory"
+              this.props.inventory.status === "Fetching distributor inventory"
               ?
               <div className="progress-container">
                 <CircularProgress size={80} thickness={5} />

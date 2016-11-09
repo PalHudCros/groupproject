@@ -27,7 +27,7 @@ export class DistributorContent extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if ( props.inventory.status === "Distributor Inventory Received!" || props.inventory.status === "Error" ) {
+    if ( props.inventory.status === "Distributor inventory received" || props.inventory.status === "Error" ) {
       this.setState( { refreshButtonState: "ready" } );
     }
   }

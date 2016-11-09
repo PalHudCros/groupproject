@@ -49,8 +49,8 @@ function lockError(err){
 
 export function logout(){
   // Clear user token and profile data from localStorage
-  localStorage.removeItem('id_token');
-  localStorage.removeItem('profile');
+  localStorage.removeItem('admin_id_token');
+  localStorage.removeItem('admin_profile');
   return {
     type: LOGOUT_SUCCESS
   }

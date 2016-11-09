@@ -22,7 +22,11 @@ export default function Nav(){
           <Link to="/cart">
             <FlatButton
               label="Cart"
-              icon={<ActionShoppingCart></ActionShoppingCart>}
+              labelStyle={{ color: "#7b7b7d" }}
+              icon={<ActionShoppingCart
+                color="#7b7b7d"
+                hoverColor="#7b7b7d"
+                ></ActionShoppingCart>}
             >
             </FlatButton>
           </Link>

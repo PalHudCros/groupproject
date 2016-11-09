@@ -25,7 +25,7 @@ class App extends Component{
       <div className='conatiner-fluid shop'>
         <Navbar></Navbar>
         {this.props.children}
-        <footer style={{marginTop:20,backgroundColor:'#e8e8e8'}}>
+        <footer className="footer shop">
           <br/>
           <br/>
           <br/>
