@@ -10,6 +10,7 @@ import Avatar from 'material-ui/Avatar'
 import config from "../../../../config/config.js";
 import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps, Circle } from 'react-google-maps';
 import InfoBox from "react-google-maps/lib/addons/InfoBox"
+import MarkerMap from "./MarkerMap";
 
 export class DriverMap extends Component {
   constructor(props) {
@@ -17,8 +18,26 @@ export class DriverMap extends Component {
 
     this.state = {
       center: { lat: 32.7826722, lng: -96.79759519999999 }
-      , marker: {}
-      , displayInfo: false 
+      , markers: [
+          {
+            key: 1, position: { lat: 32.7826722, lng: -96.79759519999999 }
+            , icon: "https://scontent.xx.fbcdn.net/v/l/t1.0-1/p50x50/14068075_106277423158854_6736404234612019223_n.jpg?oh=db0a3e6dad0916cd95e1ea1c40d1a204&oe=58964EEF"
+            , info: "Hi there"
+            , showInfo: false
+          }
+          , {
+            key: 2, position: { lat: 32.7726733, lng: -96.78769519999999 }
+            , icon: "https://scontent.xx.fbcdn.net/v/l/t1.0-1/p50x50/14068075_106277423158854_6736404234612019223_n.jpg?oh=db0a3e6dad0916cd95e1ea1c40d1a204&oe=58964EEF"
+            , info: "Hey back"
+            , showInfo: false          
+          }
+          , {
+            key: 3, position: { lat: 32.7926733, lng: -96.80779519899999 }
+            , icon: "https://scontent.xx.fbcdn.net/v/l/t1.0-1/p50x50/14068075_106277423158854_6736404234612019223_n.jpg?oh=db0a3e6dad0916cd95e1ea1c40d1a204&oe=58964EEF"
+            , info: "Howdy"
+            , showInfo: false
+          }
+        ]
     }
 }
     
@@ -31,37 +50,46 @@ export class DriverMap extends Component {
         });
     }
   }
+  handleMapClick(e) {
+    console.log(e);
+  }
+  handleMarkerClick() {
 
-  handleMarkerClick(marker) {
-    this.setState({displayInfo: !this.state.displayInfo})
   }
   render() {
   const mapContainer = ( <div style={{height: "100%", width: "100%"}}></div> );
-  const infoViewContainer = (<MuiThemeProvider><Avatar /></MuiThemeProvider>)
-
+  console.log()
     return (
-      <GoogleMapLoader
-        containerElement= {mapContainer}
-        googleMapElement= {
-          <GoogleMap
-            defaultZoom={15}
-            center={this.state.center}
-            options={{streetViewControl: false, mapTypeControl: false}}            
-            >
-            <Marker  
-                position={this.state.center}
-                onClick={this.handleMarkerClick.bind(this)}
-                icon={"https://scontent.xx.fbcdn.net/v/l/t1.0-1/p50x50/14068075_106277423158854_6736404234612019223_n.jpg?oh=db0a3e6dad0916cd95e1ea1c40d1a204&oe=58964EEF"}
+     <GoogleMapLoader
+        containerElement={mapContainer}
+        googleMapElement={
+            <GoogleMap
+                ref={(map) => console.log(map)}
+                defaultZoom={15}
+                center={this.state.center}
+                options={{streetViewControl: false, mapTypeControl: false}}
                 >
-                { this.state.displayInfo && ( 
-                  
-                  <InfoWindow>
-                    <h1>Hello</h1>
-                  </InfoWindow>
-                )}
-            </Marker>
-          </GoogleMap>
-        } />
+                {this.props.drivers.driverList.map((driver, index)=> (
+                <Marker
+                    style={{height: "10px", width: "10px", overflow: "hidden"}}
+                    key={index}
+                    position={this.state.center}
+                    onClick={this.handleMarkerClick.bind(this)}
+                    icon={<Circle/>}
+                    >
+                    { driver.showInfo && ( 
+                    
+                    <InfoWindow>
+                        <MuiThemeProvider><Avatar src={driver.picture}/></MuiThemeProvider>
+                        {driver.name}
+                        {driver.age}
+                    </InfoWindow>
+                    )}
+                </Marker>
+                ))}
+            </GoogleMap>
+        }
+        />
     );
   }
 
