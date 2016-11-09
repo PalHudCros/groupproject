@@ -33,8 +33,9 @@ export class DriverList extends Component {
   }
 
   componentWillReceiveProps(props) {
+      console.log(props.drivers.driverList);
       const drivers = props.drivers.driverList.map(driver => (
-            <MuiThemeProvider key={driver.sub}>
+            <MuiThemeProvider key={driver._id}>
                 <Chip
                     onTouchTap={this.viewDriver.bind(this, driver.sub)}
                     >

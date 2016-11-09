@@ -13,6 +13,10 @@ const DELETE_DRIVER_PROCESS = "driver/DELETE_DRIVER_PROCESS";
 const DELETE_DRIVER_SUCCESS = "driver/DELETE_DRIVER_SUCCESS";
 const DELETE_DRIVER_ERROR = "driver/DELETE_DRIVER_ERROR";
 
+const SHOW_DRIVER = "driver/SHOW_DRIVER";
+const UPDATE_DRIVER_POSITIONS = "driver/UPDATE_DRIVER_POSITIONS"
+
+
 // Action Creators
 function getDriversProcess() {
     return {type: GET_DRIVERS_PROCESS}
@@ -48,6 +52,14 @@ function deleteDriverSuccess(driver) {
 
 function deleteDriverError(err) {
     return {type: DELETE_DRIVER_ERROR, err}
+}
+
+export function showDriverInfo(driverId) {
+    return {type: SHOW_DRIVER, driverId}
+}
+
+export function updateDriverPositions() {
+    return {type: UPDATE_DRIVER_POSITIONS}
 }
 
 // Async Action Creators 
@@ -101,7 +113,7 @@ export default function adminDriver(state = initialState, action) {
         case GET_DRIVERS_PROCESS:
             return Object.assign({}, state, {status: "Fetching Drivers"});
         case GET_DRIVERS_SUCCESS:
-            return Object.assign({}, state, {driverList: action.drivers}, {status: "Drivers Received!"})
+            return Object.assign({}, state, {driverList: action.drivers}, {status: "DriversFetched!"})
         case GET_DRIVERS_ERROR:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case CREATE_DRIVER_PROCESS:
@@ -113,9 +125,17 @@ export default function adminDriver(state = initialState, action) {
         case DELETE_DRIVER_PROCESS:
             return Object.assign({}, state, {status: "Deleting Driver"});
         case DELETE_DRIVER_SUCCESS:
-            return Object.assign({}, state, {driverList: action.drivers}, {status: "Driver Deleted!"})
+        // Check to see what is coming back
+            return Object.assign({}, state, action.driver, {status: "Driver Deleted"})
         case DELETE_DRIVER_ERROR:
             return Object.assign({}, state, {status: "Error", error: action.error});
+        case SHOW_DRIVER:
+            const showDriverList = state.driverList.map(driver => {
+                driver.showInfo = false;
+                if (driver._id === action.driverId) driver.showInfo = !driver.showInfo;
+                return driver;
+            })
+            return Object.assign({}, state, {driverList: showDriverList}, {status: "Driver Updated"})
         default:
             return state;
     }
