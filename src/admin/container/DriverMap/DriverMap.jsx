@@ -10,7 +10,7 @@ export class DriverMap extends Component {
     super(props);
 
     this.state = {
-      center: { lat: 40.74135, lng: -73.99802 }
+      center: { lat: 32.7826722, lng: -96.79759519999999 }
     };
   }
 
@@ -20,16 +20,24 @@ export class DriverMap extends Component {
 
 
     return (
-      <GoogleMapLoader
-        containerElement= { mapContainer }
-        googleMapElement= {
-          <GoogleMap
-            defaultZoom={15}
-            defaultCenter={this.state.center}
-            options={{streetViewControl: false, mapTypeControl: false}}
-            >
-          </GoogleMap>
+      <div>
+        <MuiThemeProvider>
+          <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver}/>
+        </MuiThemeProvider>
+        <MuiThemeProvider>
+          <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver}/>
+        </MuiThemeProvider>
+        <GoogleMapLoader
+          containerElement= { mapContainer }
+          googleMapElement= {
+            <GoogleMap
+              defaultZoom={15}
+              defaultCenter={this.state.center}
+              options={{streetViewControl: false, mapTypeControl: false}}
+              >
+            </GoogleMap>
         } />
+      </div>
     );
   }
 
