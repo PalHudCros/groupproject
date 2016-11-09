@@ -1,3 +1,12 @@
+.shop-container.shop {
+  height: 100%;
+  width: 100%;
+}
+
+.shop-burrito.shop {
+  @include blur( 3px );
+}
+
 .footer.shop {
   background-color: $pal-footer-grey;
   margin-top: 20px;

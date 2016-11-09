@@ -11,3 +11,9 @@
   background: -moz-linear-gradient(right, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) ) !important;
   background: linear-gradient(to right, rgba( $color1a, $color1b, $color1c, $color1d ), rgba( $color2a, $color2b, $color2c, $color2d ) ) !important;
 }
+
+@mixin blur( $amount ) {
+  filter: blur( $amount );
+  -webkit-filter: blur( $amount );
+  -o-filter: blur( $amount );
+}
