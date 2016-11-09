@@ -25,7 +25,7 @@ class App extends Component{
     return(
       <div className="shop-container shop">
         <AgeVerification></AgeVerification>
-        <div className='shop-burrito shop'>
+        <div className='shop-wrapper shop'>
           <Navbar></Navbar>
           {this.props.children}
           <footer className="footer shop">

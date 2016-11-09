@@ -13,12 +13,21 @@ class UserIcon extends Component{
     super(props);
     this.props.dispatch(doAuthentication());
   }
-  componentWillMount() {
+
+  componentDidMount() {
     let token = localStorage.getItem('id_token');
     if (token) {
       let profile = localStorage.getItem('profile');
       this.props.dispatch(getExistingUser(token, profile));
-    } 
+    } else {
+      setTimeout( () => {
+        $(".shop-wrapper.shop").addClass("blur");
+      }, 1 );
+      $(".age-verification-wrapper.shop").css("display", "block");
+      setTimeout( () => {
+        $(".age-verification-wrapper.shop").css("opacity", "1");
+      }, 1 );
+    }
   }
 
   componentWillReceiveProps(props){

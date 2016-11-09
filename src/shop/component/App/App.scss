@@ -3,7 +3,11 @@
   width: 100%;
 }
 
-.shop-burrito.shop {
+.shop-wrapper.shop {
+  @include transition(all, 1.5s, linear, 0s);
+}
+
+.blur.shop {
   @include blur( 3px );
 }
 

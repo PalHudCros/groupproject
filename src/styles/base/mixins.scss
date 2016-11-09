@@ -17,3 +17,9 @@
   -webkit-filter: blur( $amount );
   -o-filter: blur( $amount );
 }
+
+@mixin transition($prop, $duration, $style, $delay) {
+  -webkit-transition: $prop $duration $style $delay;
+  -moz-transition: $prop $duration $style $delay;
+  transition: $prop $duration $style $delay;
+}

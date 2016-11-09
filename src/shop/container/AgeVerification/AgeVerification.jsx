@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 import DatePicker from 'material-ui/DatePicker';
 import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -10,14 +11,13 @@ let yearPrep = nowPrep.getFullYear();
 nowPrep = new Date( yearPrep, monthPrep, dayPrep );
 const now = nowPrep;
 
-export default class AgeCheck extends Component {
+export class AgeVerification extends Component {
   constructor( props ) {
     super( props );
 
     this.state = {
       date: now
       , showEvaluation: false
-      , oldEnough: false
     };
   }
 
@@ -26,7 +26,24 @@ export default class AgeCheck extends Component {
     let month = date.getMonth();
     let year = date.getFullYear();
     let newDate = new Date( year, month, day );
-    this.setState( { checkAge: !this.state.checkAge, date: newDate } );
+    this.setState( { date: newDate, showEvaluation: true } );
+    setTimeout( () => {
+      if ( now.getTime() - this.state.date.getTime() >= 662752800000 ) {
+        setTimeout( () => {
+          $(".shop-wrapper.shop").removeClass("blur");
+          $(".age-verification-wrapper.shop").css("opacity", "0");
+          setTimeout( () => {
+            $(".age-verification-wrapper.shop").css("display", "none");
+          }, 1500 );
+        }, 1000);
+      }
+    }, 50);
+  }
+
+  handleShow() {
+    if ( this.state.showEvaluation === true ) {
+      this.setState( { showEvaluation: false } );
+    }
   }
 
   formatDate( date ) {
@@ -35,15 +52,17 @@ export default class AgeCheck extends Component {
     return formattedDate;
   }
 
-  showEvaluation() {
-    this.setState( { showEvaluation: true } );
+  componentWillReceiveProps(props) {
+    console.log( props.user );
   }
+
 
   render() {
 
     return (
       <div className="age-verification-wrapper shop">
         <div className="age-verification-box shop">
+          <div className="age-verification-logo shop"><h1>LOGO</h1></div>
           <h1>Please enter your age</h1>
           <MuiThemeProvider>
             <DatePicker
@@ -52,7 +71,7 @@ export default class AgeCheck extends Component {
               formatDate={ this.formatDate.bind(this) }
               maxDate={ now }
               onChange={ this.handleChange.bind(this) }
-              onShow={ this.showEvaluation.bind(this) }
+              onShow={ this.handleShow.bind(this) }
               />
           </MuiThemeProvider>
           {
@@ -62,9 +81,9 @@ export default class AgeCheck extends Component {
             :
             now.getTime() - this.state.date.getTime() >= 662752800000
             ?
-            <p>Age verified, welcome!</p>
+            <h1>Age verified, welcome!</h1>
             :
-            <p>You're too young kid, go home!</p>
+            <h3>You're too young kid, go home!</h3>
             /*<MuiThemeProvider>
               <CircularProgress>
               </CircularProgress>
@@ -76,3 +95,7 @@ export default class AgeCheck extends Component {
   }
 
 }
+
+export default connect( state => {
+  return { user: state.user }
+} )(AgeVerification);
