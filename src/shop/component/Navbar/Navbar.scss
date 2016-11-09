@@ -1,8 +1,11 @@
-.row.supernav.shop {
+.navbar-wrapper.shop {
+  border-bottom: 3px solid $pal-supernav-white;
+}
+
+.supernav-wrapper.shop {
   background-color: $pal-supernav-white;
 }
 
-.nav.shop {
+.nav-wrapper.shop {
   background-color: #ffffff;
-  border-bottom: 3px solid $pal-lightgrey;
 }

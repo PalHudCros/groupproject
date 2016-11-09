@@ -1,7 +1,8 @@
 //Modules
 import React, { Component } from "react";
-import Navbar from "../Navbar/Navbar"
-import { connect } from 'react-redux'
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
+import { connect } from 'react-redux';
 
 //Async Actions
 import {getWines} from "../../ducks/wineDuck";
@@ -16,26 +17,15 @@ class App extends Component{
   }
 
   componentWillMount(){
-
-    this.props.dispatch(getWines())
+    this.props.dispatch(getWines());
   }
 
   render(){
     return(
-      <div className='conatiner-fluid shop'>
+      <div className='container-fluid shop'>
         <Navbar></Navbar>
         {this.props.children}
-        <footer className="footer shop">
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-        </footer>
+        <Footer></Footer>
       </div>
     )
   }

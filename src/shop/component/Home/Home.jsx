@@ -6,30 +6,71 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default function Home(props){
   return(
-    <div className="container-fluid shop">
-      <div className="container shop">
+      <div className="home-wrapper shop">
 
         <div className="row shop">
-          <MuiThemeProvider>
-            <Paper className="col-xs-12 shop" style={style} zDepth={1} rounded={false}/>
-          </MuiThemeProvider>
+          <div className="col-md-12 shop">
+            <MuiThemeProvider>
+              <Paper
+                style={styles.jumbtron}
+                zDepth={1}
+                rounded={false}
+                >
+                <h1>Welcome to WineApp</h1>
+              </Paper>
+            </MuiThemeProvider>
+          </div>
         </div>
 
-        <MuiThemeProvider>
           <div className="row shop">
-              <Paper className="featured-span col-xs-12 col-sm-12 col-md-4 shop" style={style} zDepth={1} rounded={false}>first</Paper>
-              <Paper className="featured-span col-xs-12 col-sm-12 col-md-4 shop" style={style} zDepth={1} rounded={false}>second</Paper>
-              <Paper className="featured-span col-xs-12 col-sm-12 col-md-4 shop" style={style} zDepth={1} rounded={false}>third</Paper>
+            <div className="featured-span col-xs-12 col-sm-12 col-md-4 shop">
+              <MuiThemeProvider>
+              <Paper
+                style={styles.card}
+                zDepth={1}
+                rounded={false}
+                >
+                <h2>Reds</h2>
+                </Paper>
+              </MuiThemeProvider>
+
+            </div>
+            <div className="featured-span col-xs-12 col-sm-12 col-md-4 shop">
+              <MuiThemeProvider>
+              <Paper
+                style={styles.card}
+                zDepth={1}
+                rounded={false}
+                >
+                <h2>Whites</h2>
+                </Paper>
+              </MuiThemeProvider>
+
+            </div>
+            <div className="featured-span col-xs-12 col-sm-12 col-md-4 shop">
+              <MuiThemeProvider>
+              <Paper
+                style={styles.card}
+                zDepth={1}
+                rounded={false}
+                >
+                <h2>Champagne</h2>
+                </Paper>
+              </MuiThemeProvider>
+            </div>
           </div>
-        </MuiThemeProvider>
       </div>
-    </div>
   );
 }
 
-const style = {
-  height: 100,
-  marginTop:20,
-  textAlign: 'center',
-  display: 'inline-block',
+const styles = {
+
+  jumbotron: {
+    height: "200px"
+  }
+  , cards: {
+    height: "100px"
+    , marginTop: "20px"
+  }
+
 };
