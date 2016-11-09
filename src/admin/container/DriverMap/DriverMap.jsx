@@ -36,6 +36,10 @@ export class DriverMap extends Component {
               options={{streetViewControl: false, mapTypeControl: false}}
               >
             </GoogleMap>
+<<<<<<< HEAD
+=======
+      </div>
+>>>>>>> master
         } />
       </div>
     );
