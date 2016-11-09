@@ -101,7 +101,7 @@ export class SidebarDrawer extends Component {
         >
           <DashboardIcon></DashboardIcon>
         </IconButton></Link>
-      <Link to="/inventory/"><IconButton
+      <Link to="/inventory/api"><IconButton
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Inventory"

@@ -14,6 +14,7 @@ const GET_COUNTS_FAILURE = "inventory/GET_COUNTS_FAILURE";
 
 const SEND_WINE_TO_DISTRIBUTOR_STAGE = "inventory/SEND_WINE_TO_DISTRIBUTOR_STAGE";
 const REMOVE_ONE_WINE_FROM_DISTRIBUTOR_STAGE = "inventory/REMOVE_ONE_WINE_FROM_DISTRIBUTOR_STAGE";
+const REMOVE_ALL_WINE_FROM_DISTRIBUTOR_STAGE = "inventory/REMOVE_ALL_WINE_FROM_DISTRIBUTOR_STAGE";
 
 const initialState = {
     wines: []
@@ -81,9 +82,9 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch ( action.type ) {
         case INVENTORY_PROCESS:
-            return Object.assign({}, state, {status: "Fetching Distributor Inventory"});
+            return Object.assign({}, state, {status: "Fetching distributor inventory"});
         case INVENTORY_SUCCESS:
-            return Object.assign({}, state, {wines: action.wines}, {status: "Distributor Inventory Received!"})
+            return Object.assign({}, state, {wines: action.wines}, {status: "Distributor inventory received"})
         case INVENTORY_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case GET_COUNTS_PROCESS:
@@ -93,19 +94,9 @@ export default function reducer(state = initialState, action) {
         case GET_COUNTS_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case ADD_WINE_PROCESS:
-            return Object.assign({}, state, {status: "Adding Wine"});
+            return Object.assign({}, state, {status: "Sending order to inventory"});
         case ADD_WINE_SUCCESS:
-            const newState = state;
-            for (let i = 0; i < newState.categories.length; i++) {
-                if (action.wine.Varietal.Id === newState.categories[i]._id) {
-                    newState.categories[i].qty++;
-                }
-                if (action.wine.Varietal.WineType.Id === newState.categories[i]._id) {
-                    newState.categories[i].qty++;
-                }
-            }
-            newState.inventoryList.push(action.wine);
-            return Object.assign({}, newState, {status: "Wine Added!"});
+            return Object.assign({}, state, {status: "Order received by inventory"});
         case ADD_WINE_FAILURE:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case SEND_WINE_TO_DISTRIBUTOR_STAGE:
@@ -120,6 +111,8 @@ export default function reducer(state = initialState, action) {
             }
           }
           return Object.assign( {}, state, {status: "Wine removed from distributor stage", stagedWines: updatedStagedWines } );
+        case REMOVE_ALL_WINE_FROM_DISTRIBUTOR_STAGE:
+            return Object.assign( {}, state, { status: "Order placed to distributor(MongoDB)", stagedWines: []});
         default:
             return state;
     }
@@ -134,7 +127,7 @@ function inventorySuccess(wines) {
 }
 
 function inventoryFailure(error) {
-    return {type: INVENTORY_FAILURE, error}
+    return {type: INVENTORY_FAILURE, error};
 }
 
 function addWineProcess() {
@@ -146,19 +139,19 @@ function addWineSuccess(wine) {
 }
 
 function addWineFailure(error) {
-    return {type: ADD_WINE_FAILURE, error}
+    return {type: ADD_WINE_FAILURE, error};
 }
 
 function getCountsProcess() {
-    return {type: GET_COUNTS_PROCESS}
+    return {type: GET_COUNTS_PROCESS};
 }
 
 function getCountsSuccess(counts) {
-    return {type: GET_COUNTS_SUCCESS, counts}
+    return {type: GET_COUNTS_SUCCESS, counts};
 }
 
 function getCountsFailure(err) {
-    return {type: GET_COUNTS_FAILURE, err}
+    return {type: GET_COUNTS_FAILURE, err};
 }
 
 export function sendWineToDistributorStage( wine ) {
@@ -167,6 +160,10 @@ export function sendWineToDistributorStage( wine ) {
 
 export function removeOneWineFromDistributorStage( wine ) {
   return {type: REMOVE_ONE_WINE_FROM_DISTRIBUTOR_STAGE, wine};
+}
+
+export function removeAllWineFromDistributorStage() {
+  return {type: REMOVE_ALL_WINE_FROM_DISTRIBUTOR_STAGE};
 }
 
 export function getWinesFromInventory(itemId) {
@@ -180,12 +177,11 @@ export function getWinesFromInventory(itemId) {
             })
             .catch(error => {
                 dispatch(inventoryFailure(error))
-            })
+            });
         }
 }
 
-export function addWineToInventory(wine) {
-    console.log("Wine from Duck: ", wine);
+export function sendDistributorWinesToInventoryItems(wine) {
     return dispatch => {
         dispatch(addWineProcess());
          return axios.post("/api/wines/inventory", wine)
@@ -194,7 +190,7 @@ export function addWineToInventory(wine) {
             })
             .catch(error => {
                 dispatch(addWineFailure(error))
-            })
+            });
         }
 }
 
@@ -207,6 +203,6 @@ export function getCategoryCounts() {
             })
             .catch(error => {
                 dispatch(getCountsFailure(error));
-            })
+            });
     }
 }

@@ -53,9 +53,6 @@ export class DriverMap extends Component {
   handleMapClick(e) {
     console.log(e);
   }
-  handleMarkerClick() {
-
-  }
   render() {
   const mapContainer = ( <div style={{height: "100%", width: "100%"}}></div> );
   console.log()

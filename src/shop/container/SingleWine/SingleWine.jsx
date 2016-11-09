@@ -37,19 +37,19 @@ class SingleWine extends Component{
   componentWillReceiveProps(props) {
     this.setState({wines: props.wines.wines})
     const currentWine = props.wines.wines.filter(ele => ele.Id == props.params.wineId)[0];
-    this.setState({currentWine: currentWine})
+    this.setState({currentWine:currentWine})
   }
 
   handleChange(event){
     this.setState({
-      quantity: event.target.value
+      quantity: event.target.value/1
     });
   }
 
   handleAddToInventory(){
-    console.log('handleAddToInventory', this.state.quantity)
     let wine = {
       item: this.state.currentWine._id
+      , name: this.state.currentWine.Name
       , quantity: this.state.quantity
       , price: this.state.currentWine.Retail.Price
     }
@@ -57,7 +57,6 @@ class SingleWine extends Component{
   }
 
   render(){
-    console.log(this.state.currentWine);
     return (
       <div className="container">
         <h1>{this.state.currentWine.Id}</h1>

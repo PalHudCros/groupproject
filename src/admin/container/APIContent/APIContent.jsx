@@ -27,7 +27,7 @@ export class APIContent extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if ( props.distribution.status === "Distribution Received!" || props.distribution.status === "Error" ) {
+    if ( props.distribution.status === "API request fulfilled" || props.distribution.status === "Error" ) {
       this.setState( { refreshButtonState: "ready" } );
     }
   }
