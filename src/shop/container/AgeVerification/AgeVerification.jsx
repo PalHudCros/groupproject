@@ -16,6 +16,8 @@ export default class AgeCheck extends Component {
 
     this.state = {
       date: now
+      , showEvaluation: false
+      , oldEnough: false
     };
   }
 
@@ -24,7 +26,7 @@ export default class AgeCheck extends Component {
     let month = date.getMonth();
     let year = date.getFullYear();
     let newDate = new Date( year, month, day );
-    this.setState( { date: newDate } );
+    this.setState( { checkAge: !this.state.checkAge, date: newDate } );
   }
 
   formatDate( date ) {
@@ -33,8 +35,8 @@ export default class AgeCheck extends Component {
     return formattedDate;
   }
 
-  verifyAge() {
-
+  showEvaluation() {
+    this.setState( { showEvaluation: true } );
   }
 
   render() {
@@ -49,12 +51,15 @@ export default class AgeCheck extends Component {
               value={ this.state.date }
               formatDate={ this.formatDate.bind(this) }
               maxDate={ now }
-              autoOk={ true }
               onChange={ this.handleChange.bind(this) }
-              onDismiss={ this.verifyAge.bind(this) }
+              onShow={ this.showEvaluation.bind(this) }
               />
           </MuiThemeProvider>
           {
+            !this.state.showEvaluation
+            ?
+            ""
+            :
             now.getTime() - this.state.date.getTime() >= 662752800000
             ?
             <p>Age verified, welcome!</p>
