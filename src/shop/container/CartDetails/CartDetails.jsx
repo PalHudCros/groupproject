@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
@@ -66,7 +67,9 @@ class CartDetails extends Component{
           <button>Edit Tip</button>
         </div>
         <div>
-          <button>Checkout</button>
+          <Link to="/checkout">
+            <button>Checkout</button>
+          </Link>
         </div>
 
         </div>
