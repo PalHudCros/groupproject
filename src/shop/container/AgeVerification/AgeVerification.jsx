@@ -30,7 +30,6 @@ export default class AgeCheck extends Component {
   formatDate( date ) {
     let formattedDate = date.toUTCString();
     formattedDate = formattedDate.slice(0,17);
-    console.log( formattedDate );
     return formattedDate;
   }
 
