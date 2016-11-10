@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {createHeaders, isTokenExpired} from "../../utils/jwtHelper";
 
 // Actions
 const GET_DRIVERS_PROCESS = "driver/GET_DRIVERS_PROCESS";
@@ -76,10 +77,12 @@ export function getDrivers() {
     }
 }
 
-export function createDriver(first_name, last_name, email, password) {
+export function createDriver(user) {
     return dispatch => {
        dispatch(createDriverProcess());
-       return axios.post("/api/admin/drivers", {})
+       const token = localStorage.getItem('admin_id_token')
+       const config = createHeaders(token);
+       return axios.post("/api/admin/drivers", {user}, config)
             .then(results => {
                 dispatch(createDriverSuccess(results.data));
             })
