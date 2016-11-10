@@ -15,8 +15,9 @@ class UserIcon extends Component{
   }
 
   componentDidMount() {
+    console.log( this.props.user.ofAge );
     let token = localStorage.getItem('id_token');
-    if (token) {
+    if (token || this.props.user.ofAge === true) {
       let profile = localStorage.getItem('profile');
       this.props.dispatch(getExistingUser(token, profile));
     } else {
@@ -58,7 +59,7 @@ class UserIcon extends Component{
           <span className="signIn shop">
           {
             this.props.user.sub
-             ?
+            ?
             "Sign Out"
             :
             "Sign In"

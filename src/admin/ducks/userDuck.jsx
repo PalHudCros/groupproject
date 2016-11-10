@@ -17,7 +17,7 @@ const options = {
     , closable: false
     , theme: {
         logo: 'http://i3.kym-cdn.com/photos/images/original/000/073/120/20745_1184056969280_1463924314_3042.jpg',
-        primaryColor: '#ec423d'
+        primaryColor: '#ef4036'
     }
 };
 const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, options);
@@ -92,7 +92,7 @@ export function doAuthentication(){
               localStorage.removeItem('admin_profile');
               localStorage.removeItem('admin_id_token')
               dispatch(lockError(error))
-            }) 
+            })
       })
     })
   }
@@ -108,7 +108,7 @@ export default function userReducer(state = initialState, action) {
     case LOCK_ERROR:
         return Object.assign({}, state, {status: action.err})
     case LOGOUT_SUCCESS:
-        return initialState 
+        return initialState
     default:
         return state
   }

@@ -3,6 +3,7 @@ import axios from 'axios';
 // Initial state
 const initialState = {
     status: {}
+    , ofAge: false
 }
 
 // Actions
@@ -10,13 +11,14 @@ const SHOW_LOCK = 'SHOW_LOCK'
 const LOCK_SUCCESS = 'LOCK_SUCCESS'
 const LOCK_ERROR = 'LOCK_ERROR'
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+const SET_AGE = "shop/SET_AGE"
 
 // Auth0 Config
 const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, options);
 const options = {
     theme: {
         logo: 'https://example.com/assets/logo.png',
-        primaryColor: '#ec423d'
+        primaryColor: '#ef4036'
     }
 };
 
@@ -42,6 +44,12 @@ function lockError(err){
     type: LOCK_ERROR,
     err
   }
+}
+
+export function setUserToOfAge() {
+  return {
+    type: SET_AGE
+  };
 }
 
 export function logout(){
@@ -73,6 +81,8 @@ export function doAuthentication(){
           // Set token and profile in local storage
           localStorage.setItem('id_token', authResult.idToken)
           localStorage.setItem('profile', JSON.stringify(profile))
+
+          getExistingUser( authResult.idToken, profile);
 
           // Set headers for authentication
       })
@@ -112,6 +122,8 @@ export default function userReducer(state = initialState, action) {
         return Object.assign({}, state, {status: action.err})
     case LOGOUT_SUCCESS:
         return initialState
+    case SET_AGE:
+        return Object.assign({}, state, { ofAge: true });
     default:
         return state
   }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import DatePicker from 'material-ui/DatePicker';
 import CircularProgress from 'material-ui/CircularProgress';
+import {setUserToOfAge} from "../../ducks/userDuck";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 let nowPrep = new Date();
@@ -37,7 +38,8 @@ export class AgeVerification extends Component {
           setTimeout( () => {
             $(".age-verification-wrapper.shop").css("display", "none");
           }, 700 );
-        }, 1000);
+        }, 700);
+        this.props.dispatch( setUserToOfAge());
       }
     }, 50);
   }
@@ -64,7 +66,7 @@ export class AgeVerification extends Component {
       <div className="age-verification-wrapper shop">
         <div className="age-verification-box shop">
           <div className="age-verification-logo shop"><h1>LOGO</h1></div>
-          <h1>Please enter your age</h1>
+          <h1>Please provide your age</h1>
           <MuiThemeProvider>
             <DatePicker
               hintText="Click here!"
@@ -84,7 +86,7 @@ export class AgeVerification extends Component {
             ?
             <h2>Age verified, welcome!</h2>
             :
-            <h3>You're too young kid, go home!</h3>
+            <h3>Sorry, you're too young.</h3>
           }
         </div>
       </div>
