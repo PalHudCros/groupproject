@@ -52,10 +52,10 @@ export class DriverList extends Component {
             <h2>All Drivers</h2>
             {this.state.drivers}
             <MuiThemeProvider>
-                <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver}/>
+                <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver.bind(this)}/>
             </MuiThemeProvider>
             <MuiThemeProvider>
-                <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver}/>
+                <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver.bind(this)}/>
             </MuiThemeProvider>
         </div>
     );
