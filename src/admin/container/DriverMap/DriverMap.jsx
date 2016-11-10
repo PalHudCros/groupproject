@@ -70,7 +70,7 @@ export class DriverMap extends Component {
                 ))}
             </GoogleMap>
         }
-        />
+        />            
     );
   }
 
