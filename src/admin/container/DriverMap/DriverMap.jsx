@@ -20,13 +20,6 @@ export class DriverMap extends Component {
 
 
     return (
-      <div>
-        <MuiThemeProvider>
-          <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver}/>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver}/>
-        </MuiThemeProvider>
         <GoogleMapLoader
           containerElement= { mapContainer }
           googleMapElement= {
@@ -37,7 +30,6 @@ export class DriverMap extends Component {
               >
             </GoogleMap>
         } />
-      </div>
     );
   }
 

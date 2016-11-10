@@ -97,7 +97,7 @@ export class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Dashboard"
-          onTouchTap={this.handleToggle.bind(this, ["Tab 1", "Tab 2"], [""], "Dashboard")}
+          onTouchTap={this.handleToggle.bind(this, ["Overview", "Standing Inventory"], ["/", "/"], "Dashboard")}
         >
           <DashboardIcon></DashboardIcon>
         </IconButton></Link>
@@ -113,7 +113,7 @@ export class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Drivers"
-          onClick={this.handleToggle.bind(this, ["Tab 1", "TABBY", "Tab 2"], [""], "Drivers")}
+          onClick={this.handleToggle.bind(this, ["Where Are My Drivers", "Manage Drivers"], ["/drivers", "/drivers"], "Drivers")}
         >
           <DriversIcon></DriversIcon>
         </IconButton></Link>
@@ -121,7 +121,7 @@ export class SidebarDrawer extends Component {
           iconStyle={{width: 60, height: 60, color: "#ec423d"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Customers"
-          onTouchTap={this.handleToggle.bind(this, ["Tab 1", "Tab 2"], [""], "Customers")}
+          onTouchTap={this.handleToggle.bind(this, ["Customer List", "Modify Customer Information"], ["/customers", "/customers"], "Customers")}
         >
           <CustomersIcon></CustomersIcon>
         </IconButton></Link>
