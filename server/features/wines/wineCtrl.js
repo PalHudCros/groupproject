@@ -28,9 +28,9 @@ module.exports = {
     }
 
     , getWinesFromInventory(req, res) {
-        InventoryItem.find(req.query, (err, result) => {
+        InventoryItem.find(req.query, (err, wines) => {
           if (err) return res.status(500).json(err);
-          return res.status(200).json(result);
+          return res.status(200).json(wines);
         })
     }
     , addWineToDistributor(req, res) {

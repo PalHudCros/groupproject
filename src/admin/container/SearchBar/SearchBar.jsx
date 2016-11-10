@@ -8,32 +8,24 @@ import {getWinesFromInventory} from "../../ducks/inventoryDuck";
 export class SearchBar extends Component {
   constructor(props) {
     super(props);
-
+  console.log( props );
     this.state = {
       wineCategories: props.distribution.categories
     };
   }
 
   componentWillMount() {
-    if (this.props.tabs.whichTab === 1) {
-      this.setState({wineCategories: this.props.distribution.categories});
-    } else if (this.props.tabs.whichTab === 2) {
-      this.setState({wineCategories: this.props.inventory.categories});
-    }
+
   }
 
   componentWillReceiveProps(props) {
-    if (props.tabs.whichTab === 1) {
-      this.setState({wineCategories: props.distribution.categories});
-    } else if (props.tabs.whichTab === 2) {
-      this.setState({wineCategories: props.inventory.categories});
-    }
+    
   }
 
   handleNewRequest(item) {
-    if (this.props.tabs.whichTab === 1) {
+    if ( window.location.pathname === "/inventory/api" ) {
       this.props.dispatch(getWinesFromAPI(item._id));
-    } else if (this.props.tabs.whichTab === 2) {
+    } else if ( window.location.pathname === "/inventory/distributor" ) {
       this.props.dispatch(getWinesFromInventory(item._id));
     }
   }
@@ -48,7 +40,6 @@ export class SearchBar extends Component {
           dataSourceConfig={ {text: "varietal", value: "_id"} }
           maxSearchResults={5}
           onNewRequest={this.handleNewRequest.bind(this)}
-          textFieldStyle={{ className: "fuck" }}
         />
       </div>
 
