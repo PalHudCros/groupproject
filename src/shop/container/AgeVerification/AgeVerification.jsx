@@ -36,7 +36,7 @@ export class AgeVerification extends Component {
           $(".age-verification-wrapper.shop").css("opacity", "0");
           setTimeout( () => {
             $(".age-verification-wrapper.shop").css("display", "none");
-          }, 1500 );
+          }, 700 );
         }, 1000);
       }
     }, 50);
@@ -83,13 +83,9 @@ export class AgeVerification extends Component {
             :
             now.getTime() - this.state.date.getTime() >= 662752800000
             ?
-            <h1>Age verified, welcome!</h1>
+            <h2>Age verified, welcome!</h2>
             :
             <h3>You're too young kid, go home!</h3>
-            /*<MuiThemeProvider>
-              <CircularProgress>
-              </CircularProgress>
-            </MuiThemeProvider>*/
           }
         </div>
       </div>

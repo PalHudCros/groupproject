@@ -4,7 +4,7 @@
 }
 
 .shop-wrapper.shop {
-  @include transition(all, 1.5s, linear, 0s);
+  @include transition(all, .7s, linear, 0s);
 }
 
 .blur.shop {
