@@ -31,6 +31,7 @@ class UserIcon extends Component{
   }
 
   componentWillReceiveProps(props){
+    console.log( props );
   }
 
   handleAuthClick() {

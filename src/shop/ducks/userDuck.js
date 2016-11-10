@@ -6,7 +6,7 @@ const initialState = {
 }
 
 // Actions
-const SHOW_LOCK = 'SHOWLOCK'
+const SHOW_LOCK = 'SHOW_LOCK'
 const LOCK_SUCCESS = 'LOCK_SUCCESS'
 const LOCK_ERROR = 'LOCK_ERROR'
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'

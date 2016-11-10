@@ -54,8 +54,7 @@ export class AgeVerification extends Component {
     return formattedDate;
   }
 
-  componentWillReceiveProps(props) {
-    console.log( props.user );
+  componentWillReceiveProps() {
   }
 
 
