@@ -98,15 +98,19 @@ export class ApiWineStage extends Component {
   }
 
   clearOrder() {
-    this.props.dispatch( removeAllWineFromAPIStage() );
+    if ( this.state.wines[0] ) {
+      this.props.dispatch( removeAllWineFromAPIStage() );
+    }
   }
 
   orderWinesFromAPI() {
-    this.setState( { open: true } );
-    for (var i = 0; i < this.state.wines.length; i++) {
-      this.props.dispatch( sendAPIWinesToDistributor( this.state.wines[i] ) );
+    if ( this.state.wines[0] ) {
+      this.setState( { open: true } );
+      for (var i = 0; i < this.state.wines.length; i++) {
+        this.props.dispatch( sendAPIWinesToDistributor( this.state.wines[i] ) );
+      }
+      this.props.dispatch( removeAllWineFromAPIStage() );
     }
-    this.props.dispatch( removeAllWineFromAPIStage() );
   }
 
   removeOneWineFromStage( wine ) {

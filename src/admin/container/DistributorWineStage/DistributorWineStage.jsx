@@ -98,15 +98,19 @@ export class DistributorWineStage extends Component {
   }
 
   clearOrder() {
-    this.props.dispatch( removeAllWineFromDistributorStage() );
+    if ( this.state.wines[0] ) {
+      this.props.dispatch( removeAllWineFromDistributorStage() );
+    }
   }
 
   orderWinesFromDistributor() {
-    this.setState( { open: true } );
-    for (var i = 0; i < this.state.wines.length; i++) {
-      this.props.dispatch( sendDistributorWinesToInventoryItems( this.state.wines[i] ) );
+    if ( this.state.wines[0] ) {
+      this.setState( { open: true } );
+      for (var i = 0; i < this.state.wines.length; i++) {
+        this.props.dispatch( sendDistributorWinesToInventoryItems( this.state.wines[i] ) );
+      }
+      this.props.dispatch( removeAllWineFromDistributorStage() );
     }
-    this.props.dispatch( removeAllWineFromDistributorStage() );
   }
 
   removeOneWineFromStage( wine ) {
