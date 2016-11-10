@@ -77,13 +77,19 @@ export function getDrivers() {
     }
 }
 
-export function createDriver(user) {
+export function createDriver(driver) {
     return dispatch => {
        dispatch(createDriverProcess());
-       const token = localStorage.getItem('admin_id_token')
+       const token = localStorage.getItem('admin_id_token');
        const config = createHeaders(token);
-       return axios.post("/api/admin/drivers", {user}, config)
+       let newUser = {
+            "connection": "Username-Password-Authentication"
+            , "email": driver.email
+            , "password": driver.password
+       };
+       return axios.post("/api/create_driver", newUser, config)
             .then(results => {
+                console.log(results.data);
                 dispatch(createDriverSuccess(results.data));
             })
             .catch(error => {
@@ -122,7 +128,8 @@ export default function adminDriver(state = initialState, action) {
         case CREATE_DRIVER_PROCESS:
             return Object.assign({}, state, {status: "Creating Driver"});
         case CREATE_DRIVER_SUCCESS:
-            return Object.assign({}, state, {drivers: action.drivers}, {status: "Driver Created!"})
+            let newDrivers = state.driverList.slice(0).push(action.driver);
+            return Object.assign({}, state, {driverList: newDrivers, status: "Driver Created!"})
         case CREATE_DRIVER_ERROR:
             return Object.assign({}, state, {status: "Error", error: action.error});
         case DELETE_DRIVER_PROCESS:

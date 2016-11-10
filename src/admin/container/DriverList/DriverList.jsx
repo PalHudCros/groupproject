@@ -17,12 +17,8 @@ export class DriverList extends Component {
         drivers: []
         , openCreateDialog: false
         , openDeleteDialog: false
-        , newDriver: {
-            firstName: ""
-            , lastName: ""
-            , email: ""
-            , password: ""
-        }
+        , email: ""
+        , password: ""
     };
   }
 
@@ -34,10 +30,14 @@ export class DriverList extends Component {
 
   }
 
-  addDriver(driver) {
-      this.props.dispatch(createDriver(this.state.newDriver))
+  addDriver() {
+      let driver = {
+          email: this.state.email
+          , password: this.state.password
+      }
+      this.props.dispatch(createDriver(driver))
       this.setState({
-          newDriver: {firstName: "", lastName: "", email: "", password: ""}
+          firstName: "", lastName: "", nickname: "", email: "", password: ""
           , openCreateDialog: false
         })
   }
@@ -93,21 +93,15 @@ export class DriverList extends Component {
                     onRequestClose={() => {this.setState({openCreateDialog: false})}}
                 >
                     <TextField
-                        floatingLabelText="First Name"
-                        value={this.state.newDriver.firstName}
-                        /><br />
-                    <TextField
-                        floatingLabelText="Last Name"
-                        value={this.state.newDriver.lastName}
-                        /><br />
-                    <TextField
                         floatingLabelText="Email"
-                        value={this.state.newDriver.email}
+                        value={this.state.email}
+                        onChange={(e) => {this.setState({email: e.target.value})}}
                         type="email"
                         /><br />
                     <TextField
                         floatingLabelText="Password"
-                        value={this.state.newDriver.password}
+                        value={this.state.password}
+                        onChange={(e) => {this.setState({password: e.target.value})}}
                         type="password"
                         /><br />
                     <Button
