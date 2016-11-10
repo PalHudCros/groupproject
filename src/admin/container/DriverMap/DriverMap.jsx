@@ -4,12 +4,12 @@ import {connect} from "react-redux";
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Chip from 'material-ui/Chip';
-import Avatar from 'material-ui/Avatar'
+import Avatar from 'material-ui/Avatar';
 
 
 import config from "../../../../config/config.js";
 import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps, Circle } from 'react-google-maps';
-import InfoBox from "react-google-maps/lib/addons/InfoBox"
+import InfoBox from "react-google-maps/lib/addons/InfoBox";
 
 export class DriverMap extends Component {
   constructor(props) {
@@ -40,7 +40,6 @@ export class DriverMap extends Component {
   const infoViewContainer = (<MuiThemeProvider><Avatar /></MuiThemeProvider>)
 
     return (
-<<<<<<< HEAD
       <GoogleMapLoader
         containerElement= {mapContainer}
         googleMapElement= {
@@ -62,26 +61,7 @@ export class DriverMap extends Component {
                 )}
             </Marker>
           </GoogleMap>
-=======
-      <div>
-        <MuiThemeProvider>
-          <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver}/>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver}/>
-        </MuiThemeProvider>
-        <GoogleMapLoader
-          containerElement= { mapContainer }
-          googleMapElement= {
-            <GoogleMap
-              defaultZoom={15}
-              defaultCenter={this.state.center}
-              options={{streetViewControl: false, mapTypeControl: false}}
-              >
-            </GoogleMap>
->>>>>>> master
         } />
-      </div>
     );
   }
 
@@ -90,3 +70,10 @@ export class DriverMap extends Component {
 export default connect( state => ( {
   drivers: state.drivers
 } ) )( DriverMap );
+
+/*<MuiThemeProvider>
+  <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver}/>
+</MuiThemeProvider>
+<MuiThemeProvider>
+  <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver}/>
+</MuiThemeProvider> */
