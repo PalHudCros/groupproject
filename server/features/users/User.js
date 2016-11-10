@@ -6,6 +6,7 @@ const User = new mongoose.Schema({
   , family_name: {type: String}
   , given_name: {type: String}
   , name: {type: String}
+  , ofAge: {type: Boolean, default: false}
   , nickname: {type: String}
   , gender: {type: String}
   , email: {type: String}

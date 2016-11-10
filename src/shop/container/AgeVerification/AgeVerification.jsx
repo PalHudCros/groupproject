@@ -11,6 +11,8 @@ let yearPrep = nowPrep.getFullYear();
 nowPrep = new Date( yearPrep, monthPrep, dayPrep );
 const now = nowPrep;
 
+// 662,688,000,000ms is 21 years, but needed 662,752,800,000ms to make modal work, added 18 hours.
+
 export class AgeVerification extends Component {
   constructor( props ) {
     super( props );
