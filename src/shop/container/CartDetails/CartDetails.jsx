@@ -3,29 +3,30 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-
-import {getCart} from '../../ducks/cartDuck.js';
+import {getCart, putCart} from '../../ducks/cartDuck.js';
 
 class CartDetails extends Component{
   constructor(props){
     super(props)
     this.state = {
-      cart: {
-        cart:[],
-        runningTotal:0
-      }
+      cart: props.cart
     }
 
   }
+  componentWillMount(){
+    this.props.dispatch(getCart())
+  }
 
   componentWillReceiveProps(props){
+
     this.setState({
       cart:props.cart
-    }, ()=>{console.log(this.state.cart);})
+    }, ()=>{console.log(this.state.cart)})
 
   }
 
   render(){
+
     let cartQuantity = this.state.cart.cart.reduce( (prev, curr, ind) => {
       return prev + curr.quantity
     }, 0)
@@ -34,7 +35,7 @@ class CartDetails extends Component{
     let deliveryFee = 5
     let cartTax = Math.round(((runningTotal + deliveryFee) * .0875)*100)/100;
     let cartTotal = Math.round((runningTotal + cartTip + deliveryFee + cartTax)*100)/100;
-    console.log('cartQuantity', cartQuantity);
+
     return(
       <div>
         <div>Cart Details</div>
@@ -66,12 +67,6 @@ class CartDetails extends Component{
         <div>
           <button>Edit Tip</button>
         </div>
-        <div>
-          <Link to="/checkout">
-            <button>Checkout</button>
-          </Link>
-        </div>
-
         </div>
       </div>
     )

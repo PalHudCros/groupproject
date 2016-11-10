@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Initial state
 const initialState = {
-    status: {}
+    status: 'Logged Out'
 }
 
 // Actions
@@ -105,6 +105,7 @@ export function getExistingUser(token, profile) {
 
 // Reducer
 export default function userReducer(state = initialState, action) {
+  console.log(state);
   switch(action.type) {
     case SHOW_LOCK:
         return Object.assign({}, state, {status: "Logging In"})
