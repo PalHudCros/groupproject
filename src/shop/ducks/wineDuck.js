@@ -60,6 +60,7 @@ const initialState = {
         {_id: 141, varietal: "Zinfandel", qty: 0},
         {_id: 221, varietal: "Bordeaux White Blends", qty: 0},
         {_id: 10113, varietal: "Rhône White Blends", qty: 0}
+      ]
 }
 
 // Actions
@@ -95,8 +96,9 @@ export default function wine(state = initialState, action) {
         case FAILURE:
             return Object.assign({}, state, {status: "error"});
         case SELECT:
-            return Object.assign({}, state, {selecedWine: action.selectedWine});
+            return Object.assign({}, state, {selectedWine: action.selectedWine});
         default:
+        console.log( "THING" );
             return state;
     }
 }

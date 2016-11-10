@@ -10,7 +10,8 @@ export class SearchBar extends Component {
     super(props);
   console.log( props );
     this.state = {
-      wineCategories: props.distribution.categories
+      search: ""
+      , wineCategories: props.distribution.categories
     };
   }
 
@@ -19,14 +20,21 @@ export class SearchBar extends Component {
   }
 
   componentWillReceiveProps(props) {
-    
+    console.log( props );
   }
 
-  handleNewRequest(item) {
+  handleUpdateInput( textSearch, dataSourceArr ) {
+    console.log( textSearch );
+    this.setState( { search: textSearch } );
+  }
+
+  handleNewRequest( query ) {
+    console.log( "query", typeof query );
     if ( window.location.pathname === "/inventory/api" ) {
-      this.props.dispatch(getWinesFromAPI(item._id));
+        this.props.dispatch(getWinesFromAPI(query));
     } else if ( window.location.pathname === "/inventory/distributor" ) {
-      this.props.dispatch(getWinesFromInventory(item._id));
+      this.props.dispatch(getWinesFromInventory(item));
+      //inventoryDuck
     }
   }
 
@@ -35,11 +43,15 @@ export class SearchBar extends Component {
       <div>
         <AutoComplete
           floatingLabelText="Search API"
-          filter={AutoComplete.fuzzyFilter}
+          filter={ AutoComplete.fuzzyFilter }
           dataSource={ this.state.wineCategories }
           dataSourceConfig={ {text: "varietal", value: "_id"} }
           maxSearchResults={5}
+          onUpdateInput={ this.handleUpdateInput.bind(this) }
           onNewRequest={this.handleNewRequest.bind(this)}
+          floatingLabelStyle={{ color: "#ef4036" }}
+          underlineStyle={{ borderColor: "#e2e2e2" }}
+          underlineFocusStyle={{ borderColor: "#ef4036" }}
         />
       </div>
 

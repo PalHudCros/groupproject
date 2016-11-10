@@ -7,10 +7,10 @@ import AutoComplete from 'material-ui/AutoComplete';
 export class SearchBox extends Component{
   constructor(props){
     super(props);
-
+    
     this.state = {
       search: "Search for wine"
-      , wineCategories: props.wine.categories
+      , wineCategories: this.props.wine.categories
     };
   }
   handleNewRequest(query) {
@@ -42,5 +42,5 @@ export class SearchBox extends Component{
 }
 
 export default connect( state => {
-  return { tabs: state.tabs };
+  return { wine: state.wine };
 } )( SearchBox );
