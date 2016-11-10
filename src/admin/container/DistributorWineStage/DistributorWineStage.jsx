@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CashSymbol from 'material-ui/svg-icons/editor/monetization-on';
 import Close from 'material-ui/svg-icons/navigation/close';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Snackbar from 'material-ui/Snackbar';
 import {removeOneWineFromDistributorStage, removeAllWineFromDistributorStage, sendDistributorWinesToInventoryItems} from "../../ducks/inventoryDuck";
 
 export class DistributorWineStage extends Component {
@@ -18,6 +19,7 @@ export class DistributorWineStage extends Component {
     this.state = {
       wines: []
       , stagedWines: []
+      , open: false
     };
   }
 
@@ -100,6 +102,7 @@ export class DistributorWineStage extends Component {
   }
 
   orderWinesFromDistributor() {
+    this.setState( { open: true } );
     for (var i = 0; i < this.state.wines.length; i++) {
       this.props.dispatch( sendDistributorWinesToInventoryItems( this.state.wines[i] ) );
     }
@@ -108,6 +111,14 @@ export class DistributorWineStage extends Component {
 
   removeOneWineFromStage( wine ) {
     this.props.dispatch( removeOneWineFromDistributorStage( wine ) );
+  }
+
+  handleRequestClose( reason ) {
+    if ( reason === "timeout" ) {
+      this.setState( { open: false } );
+    } else {
+      return;
+    }
   }
 
   componentWillMount() {
@@ -153,6 +164,15 @@ export class DistributorWineStage extends Component {
               { this.state.stagedWines }
 
           </div>
+
+          <MuiThemeProvider>
+            <Snackbar
+              open={ this.state.open }
+              message="Order placed with distributor! Wines delivered to store's inventory."
+              autoHideDuration={6000}
+              onRequestClose={ this.handleRequestClose.bind(this) }
+              />
+          </MuiThemeProvider>
 
         </div>
     );
