@@ -3,6 +3,8 @@ import config from '../../../config/config';
 import Driver from './Driver.js';
 import Order from '../orders/Order.js'
 
+import {createHeaders} from "../../../src/utils/jwtHelper" 
+
 module.exports = {
 
   getOneOrderOnDriver( req, res ) {
@@ -59,21 +61,29 @@ module.exports = {
       return res.status( 200 ).json( orderAdded );
     } );
   }
+                  
+	, createDriverAccount(req, res) {
+		let token = config.auth0.create_token;
+		let options = {headers: {
+      'Content-Type': 'application/json'
+      , 'Authorization': `Bearer ${token}`
+    }} 
+		return axios.post("https://hudson.auth0.com/api/v2/users", req.body, options)
+			.then(result => {
+        addDriver(result.data)
+        return result.data;
+			})
+	}
 
-
-  , addDriver( req, res ) {
+  , addDriver( driver ) {
     // POST /api/driver
-    const driver = {
+    const newDriver = {
       sub: req.body.user_id
-      , name: req.body.name
+      , email: req.body.email
       , picture: req.body.picture
       , updated_at: req.body.updated_at
     }
-    new Driver( driver ).save( ( err, driverCreated ) => {
-      console.log("Add Driver Error: ", err)
-      
-      console.log("Add Driver Success: ", driverCreated)
-
+    new Driver( newDriver ).save( ( err, driverCreated ) => {
       if ( err ) {
         return res.status( 500 ).json( err );
       }
