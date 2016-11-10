@@ -37,7 +37,7 @@ class Store extends Component{
 
   render(){
     return (
-      <div>
+      <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap'}}>
         {this.state.wines}
       </div>
     )

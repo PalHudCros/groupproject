@@ -23,7 +23,7 @@ export class DriverList extends Component {
   viewDriver(driverId) {
 
   }
-  
+
   createDriver(driver) {
 
   }
@@ -36,16 +36,16 @@ export class DriverList extends Component {
       const drivers = props.drivers.driverList.map(driver => (
             <MuiThemeProvider key={driver.sub}>
                 <Chip
-                    onTouchTap={this.viewDriver.bind(this, driver.sub)}          
+                    onTouchTap={this.viewDriver.bind(this, driver.sub)}
                     >
                     <Avatar src={driver.picture} />
                     {driver.name}
                 </Chip>
-            </MuiThemeProvider>        
+            </MuiThemeProvider>
       ))
       this.setState({drivers: drivers})
   }
-  
+
   render() {
     return (
         <div>

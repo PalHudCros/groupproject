@@ -14,6 +14,13 @@ const User = new mongoose.Schema({
   , picture: {type: String, default: 'http://www.clker.com/cliparts/m/3/I/C/c/2/grey-silhouette-of-man.svg'}
   , created_at: {type: Date}
   , updated_at: {type: Date}
+  , userAge: {type: Date}
+  , homeAddress:[
+    { street: {type:String}, city: {type:String}, state: {type:String}, country: {type:String} }
+  ]
+  , orderAddress:[
+    { street: {type:String}, city: {type:String}, state: {type:String}, country: {type:String} }
+  ]
 });
 
 module.exports = mongoose.model("User", User);

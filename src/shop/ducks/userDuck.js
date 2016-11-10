@@ -48,6 +48,8 @@ export function logout(){
   // Clear user token and profile data from localStorage
   localStorage.removeItem('id_token');
   localStorage.removeItem('profile');
+
+
   return {
     type: LOGOUT_SUCCESS
   }
@@ -72,18 +74,8 @@ export function doAuthentication(){
           // Handle auth success
           // Set token and profile in local storage
           localStorage.setItem('id_token', authResult.idToken)
+          localStorage.setItem('profile', JSON.stringify(profile))
 
-          if (!localStorage.getItem('profile')){
-            console.log('there is no profile');
-      			localStorage.setItem('profile', JSON.stringify(profile))
-      		} else {
-      			let oldProfile = JSON.parse(localStorage.getItem('profile'))
-      			let newProfile = Object.assign({}, profile, oldProfile)
-      					localStorage.removeItem('profile')
-      					localStorage.setItem('profile', JSON.stringify(newProfile))
-      		}
-          const user = localStorage.getItem('profile');
-          dispatch(getExistingUser(authResult.idToken, user));
           // Set headers for authentication
       })
     })
