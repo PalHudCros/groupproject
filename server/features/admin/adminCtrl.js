@@ -1,4 +1,6 @@
 import Admin from "./Admin";
+import axios from "axios";
+import config from "../../../config/config";
 
 module.exports = {
 	getAdmin(req, res, next) {
@@ -26,5 +28,11 @@ module.exports = {
 			if (err) return res.status(700).json(err);
 			return res.status(201).json(user);
 		})
+	}
+
+	, createDriverAccount(req, res) {
+		console.log("Creating account");
+		return axios.post( + config.wineAPI.key + '&sort=popularity%7Cascending&state=TX'
+)
 	}
 }
