@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TextField from 'material-ui/TextField';
 
-
 export default class SearchBox extends Component{
   constructor(){
     super()
@@ -10,11 +9,13 @@ export default class SearchBox extends Component{
       value: "Search"
     }
   }
+  
   handleChange(event){
     // this.setState({
     //   value: event.target.value
     // });
   }
+
   render(){
     return(
       <TextField
