@@ -43,6 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </Router>
     </Provider>
     ,
-      reactNode
+    reactNode
   );
 })

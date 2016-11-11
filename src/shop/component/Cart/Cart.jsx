@@ -23,10 +23,14 @@ export default function Cart(props){
           <MuiThemeProvider>
             <Paper style={style}>
               <CartDetails></CartDetails>
+                <div>
+                  <Link to="/checkout">
+                    <button>Checkout</button>
+                  </Link>
+                </div>
             </Paper>
           </MuiThemeProvider>
         </div>
-
       </div>
     </div>
   )

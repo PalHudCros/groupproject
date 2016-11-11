@@ -9,7 +9,12 @@ const baseUrl = 'http://services.wine.com/api/beta/service.svc/json/catalog?offs
 module.exports = {
     getWinesFromAPI(req, res) {
       let query = "";
-      if (req.query.filter) query += '&filter=' + req.query.filter;
+      let test = req.query.filter
+      if (req.query.filter) {
+        query += '&filter=' + req.query.filter;
+      } else if ( req.query.term ) {
+        query += '&term=' + req.query.term;
+      }
       else query += "rating(85%7C100)";
         axios.get(baseUrl + query)
           .then(result => {
@@ -21,16 +26,27 @@ module.exports = {
     }
 
     , getWinesFromDistribution(req, res) {
-        Wine.find(req.query, (err, result) => {
+        Wine.find(req.query, (err, wines) => {
           if (err) return res.status(500).json(err);
-          return res.status(200).json(result);
-        })
+          if (wines[0] === undefined && req.query.Name) {
+            let updatedQuery = {};
+              updatedQuery["Varietal.Name"] = req.query.Name;
+              Wine.find(req.updatedQuery, ( err, newWines ) => {
+                if ( err ) {
+                  return res.status( 500 ).json( err );
+                }
+                return res.status( 200 ).json( newWines );
+              });
+          } else {
+            return res.status(200).json(wines);
+          }
+        });
     }
 
     , getWinesFromInventory(req, res) {
-        InventoryItem.find(req.query, (err, result) => {
+        InventoryItem.find(req.query, (err, wines) => {
           if (err) return res.status(500).json(err);
-          return res.status(200).json(result);
+          return res.status(200).json(wines);
         })
     }
     , addWineToDistributor(req, res) {
