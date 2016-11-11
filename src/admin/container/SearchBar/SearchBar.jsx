@@ -3,7 +3,7 @@ import {Link} from "react-router";
 import {connect} from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
 import {getWinesFromAPI} from "../../ducks/distributionDuck";
-import {getWinesFromDistribution} from "../../ducks/inventoryDuck";
+import {getWinesFromDistributor} from "../../ducks/inventoryDuck";
 
 export class SearchBar extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ export class SearchBar extends Component {
       this.props.dispatch(getWinesFromAPI(query));
       //distributionDuck
     } else if ( window.location.pathname === "/inventory/distributor" ) {
-      this.props.dispatch(getWinesFromDistribution(query));
+      this.props.dispatch(getWinesFromDistributor(query));
       //inventoryDuck
     }
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Link } from "react-router";
 
 import Paper from 'material-ui/Paper';
@@ -17,6 +17,7 @@ export default function WineStoreCard(props){
           <Link to={`/shop/${props.wine.Id}`}>
             <h2>{props.wine.Name}</h2>
             <p>{props.wine.Retail.Price}</p>
+            <p>{props.wine.Varietal.Name}</p>
           </Link>
         </Paper>
       </MuiThemeProvider>

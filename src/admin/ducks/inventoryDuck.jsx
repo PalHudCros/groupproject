@@ -166,7 +166,7 @@ export function removeAllWineFromDistributorStage() {
   return {type: REMOVE_ALL_WINE_FROM_DISTRIBUTOR_STAGE};
 }
 
-export function getWinesFromDistribution(query) {
+export function getWinesFromDistributor(query) {
   let filter = "";
   if ( query !== null && typeof query === "object" ) {
     filter += "?Varietal.Id=" + query._id;
