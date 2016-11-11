@@ -32,12 +32,15 @@ export class DriverList extends Component {
 
   addDriver() {
       let driver = {
-          email: this.state.email
+          name: this.state.name
+          , email: this.state.email
           , password: this.state.password
+          , car: this.state.car
+          , licensePlate: this.state.licensePlate
       }
       this.props.dispatch(createDriver(driver))
       this.setState({
-          firstName: "", lastName: "", nickname: "", email: "", password: ""
+          name: "", email: "", password: "", car: "", licensePlate: "" 
           , openCreateDialog: false
         })
   }
@@ -80,8 +83,7 @@ export class DriverList extends Component {
             <h2>All Drivers</h2>
             {this.state.drivers}
             <MuiThemeProvider>
-<<<<<<< HEAD
-                <RaisedButton label="Add Driver" primary={true} onTouchTap={() => {this.setState({openCreateDialog: true})}}/>
+                <RaisedButton label="Add Driver" primary={true} onTouchTap={() => this.setState({openCreateDialog: true})}/>
             </MuiThemeProvider>
             <MuiThemeProvider>
                 <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver}/>
@@ -94,6 +96,12 @@ export class DriverList extends Component {
                     onRequestClose={() => {this.setState({openCreateDialog: false})}}
                 >
                     <TextField
+                        floatingLabelText="Name"
+                        value={this.state.name}
+                        onChange={(e) => {this.setState({name: e.target.value})}}
+                        type="text"
+                        /><br />
+                    <TextField
                         floatingLabelText="Email"
                         value={this.state.email}
                         onChange={(e) => {this.setState({email: e.target.value})}}
@@ -105,25 +113,31 @@ export class DriverList extends Component {
                         onChange={(e) => {this.setState({password: e.target.value})}}
                         type="password"
                         /><br />
+                    <TextField
+                        floatingLabelText="Car Make and Model"
+                        value={this.state.car}
+                        onChange={(e) => {this.setState({car: e.target.value})}}
+                        type="text"
+                        /><br />
+                    <TextField
+                        floatingLabelText="License Plate"
+                        value={this.state.licensePlate}
+                        onChange={(e) => {this.setState({licensePlate: e.target.value})}}
+                        type="text"
+                        /><br />
                     <Button
                         label={"Cancel"}
-                        primary={true}
-                        secondary={false}
+                        primary={false}
+                        secondary={true}
                         handler={() => {this.setState({openCreateDialog: false})}}                        
                     />
                     <Button
                         label={"Submit"}
-                        primary={false}
-                        secondary={true}
+                        primary={true}
+                        secondary={false}
                         handler={this.addDriver.bind(this)}                        
                     />
                 </Dialog>
-=======
-                <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver.bind(this)}/>
-            </MuiThemeProvider>
-            <MuiThemeProvider>
-                <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver.bind(this)}/>
->>>>>>> f01364da9264f82e6fa8e1546a567b139091826b
             </MuiThemeProvider>
         </div>
     );

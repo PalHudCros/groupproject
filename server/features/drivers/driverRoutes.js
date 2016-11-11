@@ -26,7 +26,7 @@ module.exports = app => {
   app.route( '/api/create_driver')
     .post(
       jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience})
-      , driverCtrl.createDriverAccount
+      , driverCtrl.createDriverAccount, driverCtrl.addDriver
     );
 
 };

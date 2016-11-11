@@ -62,31 +62,46 @@ module.exports = {
     } );
   }
                   
-	, createDriverAccount(req, res) {
+	, createDriverAccount(req, res, next) {
 		let token = config.auth0.create_token;
 		let options = {headers: {
       'Content-Type': 'application/json'
       , 'Authorization': `Bearer ${token}`
-    }} 
-		return axios.post("https://hudson.auth0.com/api/v2/users", req.body, options)
+    }}
+    let newDriver = {
+      "connection": "Username-Password-Authentication"
+      , "email": req.body.email
+      , "password": req.body.password
+    } 
+		axios.post("https://hudson.auth0.com/api/v2/users", newDriver, options)
 			.then(result => {
-        addDriver(result.data)
-        return result.data;
+        req.user = result.data;
+        next()
 			})
+      .catch(err => {
+        res.status(500).json(err)
+      })
 	}
 
-  , addDriver( driver ) {
+  , addDriver( req, res ) {
+    console.log("REQ: ", req)
+    console.log("RES: ", res)
     // POST /api/driver
     const newDriver = {
-      sub: req.body.user_id
+      sub: req.user.user_id
+      , name: req.body.name
       , email: req.body.email
-      , picture: req.body.picture
-      , updated_at: req.body.updated_at
+      , picture: req.user.picture
+      , vehicle: req.body.car
+      , license_plate: req.body.licensePlate
+      , updated_at: req.user.updated_at
     }
     new Driver( newDriver ).save( ( err, driverCreated ) => {
       if ( err ) {
+        console.log(err)
         return res.status( 500 ).json( err );
       }
+      console.log("Success: ", driverCreated)
       return res.status( 201 ).json( driverCreated );
     } );
   }
