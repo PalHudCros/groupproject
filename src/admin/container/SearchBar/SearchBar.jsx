@@ -29,9 +29,10 @@ export class SearchBar extends Component {
   }
 
   handleNewRequest( query ) {
-    console.log( "query", typeof query );
+    console.log( query );
     if ( window.location.pathname === "/inventory/api" ) {
         this.props.dispatch(getWinesFromAPI(query));
+        //distributionDuck
     } else if ( window.location.pathname === "/inventory/distributor" ) {
       this.props.dispatch(getWinesFromInventory(item));
       //inventoryDuck

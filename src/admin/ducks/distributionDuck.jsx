@@ -165,17 +165,17 @@ export function removeAllWineFromAPIStage() {
 }
 
 export function getWinesFromAPI(query) {
-    let filter = "";
+    let params = "";
     if ( query !== null && typeof query === "object" ) {
       console.log( "it's an object!" );
-      filter += "?filter=categories(" + query._id + ")";
-    } else if ( typeof query === "string" ) {
+      params += "?filter=categories(" + query._id + ")";
+    } else if ( typeof query === "string" && query !== "" ) {
       console.log( "it's a string!" );
-      filter += "?filter=categories(" + query + ")";
+      params += "?term=" + query;
     }
     return dispatch => {
         dispatch(distributionProcess());
-        return axios.get("/api/wines/global" + filter)
+        return axios.get("/api/wines/global" + params)
             .then(results => {
                 dispatch(distributionSuccess(results.data.Products.List));
             })

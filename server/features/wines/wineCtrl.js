@@ -9,8 +9,14 @@ const baseUrl = 'http://services.wine.com/api/beta/service.svc/json/catalog?offs
 module.exports = {
     getWinesFromAPI(req, res) {
       let query = "";
+      let test = req.query.filter
       console.log( "req.query.filter ", req.query.filter );
-      if (req.query.filter) query += '&filter=' + req.query.filter;
+      if (req.query.filter) {
+        query += '&filter=' + req.query.filter;
+      } else if ( req.query.term ) {
+        console.log( "TERM TERM TERM" );
+        query += '&term=' + req.query.term;
+      }
       else query += "rating(85%7C100)";
       console.log( "query ",query );
         axios.get(baseUrl + query)
