@@ -19,7 +19,11 @@ class Checkout extends Component{
 
 
       this.state={
-        cart:props.cart
+        cart:props.cart,
+        street:'',
+        city:'',
+        state:'',
+        zip:''
       }
 
     // if(props.user.status !== "Logged In" && !localStorage.getItem('id_token')) this.props.dispatch(login())
@@ -27,7 +31,6 @@ class Checkout extends Component{
   }
   componentWillMount(){
     this.props.dispatch(getCart())
-
   }
 
   componentWillReceiveProps(props){
@@ -44,9 +47,16 @@ class Checkout extends Component{
     const order = {
       products: this.props.cart.cart
       , totals: this.props.cart.totals
+      , orderAddress: { street:this.state.street, city:this.state.city, state:this.state.state, zip:this.state.zip }
     }
     console.log('order', order);
     this.props.dispatch(postOrder(order))
+  }
+
+  handleAddressChange(field, event){
+    this.setState({
+      [field]:event.target.value
+    })
   }
 
   render(){
@@ -74,10 +84,10 @@ class Checkout extends Component{
                           </div>
                           <div className="row">
                             <div className="col-sm-10 col-sm-offset-1" style={{display:'flex', justifyContent:'space-around'}}>
-                              <span><TextField hintText="Address" style={{width:'100%'}}/></span>
-                              <span><TextField hintText="City" style={{width:'90%'}}/></span>
-                              <span><TextField hintText="State" style={{width:'50%'}}/></span>
-                              <span><TextField hintText="Zip"style={{width:'50%'}}/></span>
+                              <span><TextField hintText="Street" onChange={this.handleAddressChange.bind(this, 'street')} style={{width:'100%'}}/></span>
+                              <span><TextField hintText="City" onChange={this.handleAddressChange.bind(this, 'city')} style={{width:'90%'}}/></span>
+                              <span><TextField hintText="State" onChange={this.handleAddressChange.bind(this, 'state')} style={{width:'50%'}}/></span>
+                              <span><TextField hintText="Zip" onChange={this.handleAddressChange.bind(this, 'zip')} style={{width:'50%'}}/></span>
                             </div>
                           </div>
                         </Paper>
