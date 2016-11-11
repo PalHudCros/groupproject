@@ -16,21 +16,17 @@ export class SearchBox extends Component{
   }
 
   componentWillReceiveProps(props) {
-    console.log( props );
     this.setState( { wineCategories: props.wines.categories } );
   }
 
   componentWillMount() {
-    console.log( this.props );
   }
 
   handleUpdateInput( textSearch, dataSourceArr ) {
     this.setState( { search: textSearch } );
-    console.log( textSearch );
   }
 
   handleNewRequest(query) {
-    console.log( query );
     if ( query ) {
       this.props.dispatch( getWines(query) );
       if ( window.location.pathname !== "/shop" ) {
