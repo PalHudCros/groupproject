@@ -16,8 +16,8 @@ export default function WineStoreCard(props){
           <img src={props.wine.bottleImage} alt={props.wine.Name} style={{height:200}}/>
           <Link to={`/shop/${props.wine.Id}`}>
             <h2>{props.wine.Name}</h2>
+            <p>{props.wine.Retail.Price}</p>
           </Link>
-          <p>{props.wine.Retail.Price}</p>
         </Paper>
       </MuiThemeProvider>
     </div>
