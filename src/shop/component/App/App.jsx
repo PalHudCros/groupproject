@@ -19,6 +19,11 @@ class App extends Component{
     this.props.dispatch( getWines() );
   }
 
+  componentWillReceiveProps(props){
+    console.log( props );
+  }
+
+
   render(){
     return(
       <div className='conatiner-fluid shop'>

@@ -6,14 +6,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 export default function WineStoreCard(props){
-  return(
+  return (
     <div className="col-lg-3 col-md-3 col-sm-4 col-xs-5" style={{padding:"10px"}}>
       <MuiThemeProvider>
-        <Paper style={{display:'flex', justifyContent:"center"}}>
-          <img src={props.bottleImage} alt="" style={{height:200}}/>
-          <Link to={`/${props.wineId}`}>Params test</Link>
+        <Paper
+          style={{display:'flex', justifyContent:"center"}}
+          zDepth={1}
+          >
+          <img src={props.wine.bottleImage} alt={props.wine.Name} style={{height:200}}/>
+          <Link to={`/shop/${props.wine.Id}`}>
+            <h2>{props.wine.Name}</h2>
+          </Link>
+          <p>{props.wine.Retail.Price}</p>
         </Paper>
       </MuiThemeProvider>
     </div>
-  )
+  );
 }

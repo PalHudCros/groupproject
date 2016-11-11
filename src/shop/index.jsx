@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <Route component={ Shop } path="shop"></Route>
           <Route component={ Cart } path="cart"></Route>
           <Route component={ Checkout } path="checkout"></Route>
-          <Route component={ SingleWine } path=":wineId"></Route>
+          <Route component={ SingleWine } path="shop/:wineId"></Route>
           <Route component={ Error } path="*"></Route>
         </Route>
       </Router>
