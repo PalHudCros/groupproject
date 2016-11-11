@@ -6,9 +6,8 @@ import mongoose from 'mongoose'
 module.exports = {
   findProductsAndSubtractFromInventory(req, res, next){
     req.body.products.forEach((ele)=>{
-        InventoryItem.findByIdAndUpdate(ele._id, {$inc: {quantity: -ele.quantity}}, (err, quantity)=>{
+        InventoryItem.findByIdAndUpdate(ele.item, {$inc: {Quantity: -ele.quantity}}, (err, quantity)=>{
           if (err) return res.status(500).json(err)
-          console.log("New Quantity: ", quantity)
         })
     })
     next();
@@ -16,7 +15,6 @@ module.exports = {
 
   , addAddressToUser(req, res, next) {
       User.findOneAndUpdate({sub: req.user.sub}, {orderAddress: req.body.orderAddress}, (err, user) => {
-        console.log("Add Address Error: ", err, "Add Address User: ", user);
         if (err) return res.status(500).json(err);
       })
     next();
@@ -43,22 +41,21 @@ module.exports = {
 
   , deleteCartAndSession(req, res, next){
       User.findOneAndUpdate({sub:req.user.sub}, {cart: []}, (err, user) => {
-        console.log("Delete Cart Error: ", err, "Delete Cart User: ", user)
         if (err) return res.status(500).json(err)
       })
       next()
   }
 
   , getOneOrder(req, res){
-      User.findOne({sub:req.user.sub}, (err, user) => {
+      User.findOne({sub: req.user.sub}, (err, user) => {
         if (err) return res.status(500).json(err)
-        Order.findOne({user:req.user._id})
-        .populate("user", "products.item")
+        Order.findOne({user:user._id})
+        .populate("user products.item")
         .exec()
-        .then((err, user) => {
-          console.log("GetOneOrder Error: ", err, "GetOneOrder User: ", user)
+        .then(( order, err ) => {
+          console.log("GetOneOrder Error: ", err, "GetOneOrder Order: ", order)
           if (err) return res.status(500).json(err);
-          return res.status(200).json(user);
+          return res.status(200).json(order);
         })
       })
   }
