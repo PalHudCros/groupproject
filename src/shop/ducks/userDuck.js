@@ -2,11 +2,11 @@ import axios from 'axios';
 
 // Initial state
 const initialState = {
-    status: {}
+    status: 'Logged Out'
 }
 
 // Actions
-const SHOW_LOCK = 'SHOWLOCK'
+const SHOW_LOCK = 'SHOW_LOCK'
 const LOCK_SUCCESS = 'LOCK_SUCCESS'
 const LOCK_ERROR = 'LOCK_ERROR'
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
@@ -75,7 +75,8 @@ export function doAuthentication(){
           // Set token and profile in local storage
           localStorage.setItem('id_token', authResult.idToken)
           localStorage.setItem('profile', JSON.stringify(profile))
-
+          dispatch()
+          dispatch(getExistingUser( authResult.idToken, profile))
           // Set headers for authentication
       })
     })
@@ -105,6 +106,7 @@ export function getExistingUser(token, profile) {
 
 // Reducer
 export default function userReducer(state = initialState, action) {
+
   switch(action.type) {
     case SHOW_LOCK:
         return Object.assign({}, state, {status: "Logging In"})
