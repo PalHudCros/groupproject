@@ -3,38 +3,37 @@ import {Link} from "react-router";
 import {connect} from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
 import {getWinesFromAPI} from "../../ducks/distributionDuck";
-import {getWinesFromInventory} from "../../ducks/inventoryDuck";
+import {getWinesFromDistribution} from "../../ducks/inventoryDuck";
 
 export class SearchBar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      wineCategories: props.distribution.categories
+      search: ""
+      , wineCategories: props.distribution.categories
     };
   }
 
   componentWillMount() {
-    if (this.props.tabs.whichTab === 1) {
-      this.setState({wineCategories: this.props.distribution.categories});
-    } else if (this.props.tabs.whichTab === 2) {
-      this.setState({wineCategories: this.props.inventory.categories});
-    }
+
   }
 
   componentWillReceiveProps(props) {
-    if (props.tabs.whichTab === 1) {
-      this.setState({wineCategories: props.distribution.categories});
-    } else if (props.tabs.whichTab === 2) {
-      this.setState({wineCategories: props.inventory.categories});
-    }
+
   }
 
-  handleNewRequest(item) {
-    if (this.props.tabs.whichTab === 1) {
-      this.props.dispatch(getWinesFromAPI(item._id));
-    } else if (this.props.tabs.whichTab === 2) {
-      this.props.dispatch(getWinesFromInventory(item._id));
+  handleUpdateInput( textSearch, dataSourceArr ) {
+    this.setState( { search: textSearch } );
+  }
+
+  handleNewRequest( query ) {
+    if ( window.location.pathname === "/inventory/api" ) {
+      this.props.dispatch(getWinesFromAPI(query));
+      //distributionDuck
+    } else if ( window.location.pathname === "/inventory/distributor" ) {
+      this.props.dispatch(getWinesFromDistribution(query));
+      //inventoryDuck
     }
   }
 
@@ -42,13 +41,16 @@ export class SearchBar extends Component {
     return (
       <div>
         <AutoComplete
-          floatingLabelText="Search API"
-          filter={AutoComplete.fuzzyFilter}
+          floatingLabelText="Search Wine"
+          filter={ AutoComplete.fuzzyFilter }
           dataSource={ this.state.wineCategories }
           dataSourceConfig={ {text: "varietal", value: "_id"} }
           maxSearchResults={5}
+          onUpdateInput={ this.handleUpdateInput.bind(this) }
           onNewRequest={this.handleNewRequest.bind(this)}
-          textFieldStyle={{ className: "fuck" }}
+          floatingLabelStyle={{ color: "#ef4036" }}
+          underlineStyle={{ borderColor: "#e2e2e2" }}
+          underlineFocusStyle={{ borderColor: "#ef4036" }}
         />
       </div>
 
