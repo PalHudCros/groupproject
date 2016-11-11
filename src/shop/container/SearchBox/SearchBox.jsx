@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { push } from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
+import { getWines } from "../../ducks/wineDuck";
+import { browserHistory } from "react-router";
 
 
 export class SearchBox extends Component{
@@ -10,15 +11,26 @@ export class SearchBox extends Component{
 
     this.state = {
       search: "Search for wine"
-      , wineCategories: this.props.wine.categories
+      , wineCategories: props.wines.categories
     };
   }
 
-  handleUpdateInput() {
-
+  componentWillReceiveProps(props) {
+    console.log( props );
+    this.setState( { wineCategories: props.wines.categories } );
   }
-  
+
+  componentWillMount() {
+    console.log( this.props );
+  }
+
+  handleUpdateInput( textSearch, dataSourceArr ) {
+    this.setState( { search: textSearch } );
+    console.log( textSearch );
+  }
+
   handleNewRequest(query) {
+    console.log( query );
     if ( query ) {
       this.props.dispatch( getWines(query) );
       if ( window.location.pathname !== "/shop" ) {
@@ -28,10 +40,10 @@ export class SearchBox extends Component{
       this.setState( { search: "Please enter a search term" } );
     }
   }
-  render(){
+  render() {
     return(
       <AutoComplete
-        floatingLabelText="Search API"
+        hintText="Search for Wines"
         filter={ AutoComplete.fuzzyFilter }
         dataSource={ this.state.wineCategories }
         dataSourceConfig={ {text: "varietal", value: "_id"} }
@@ -47,5 +59,5 @@ export class SearchBox extends Component{
 }
 
 export default connect( state => {
-  return { wine: state.wine };
+  return { wines: state.wines };
 } )( SearchBox );

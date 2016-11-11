@@ -92,7 +92,7 @@ export default function wine(state = initialState, action) {
         case PROCESS:
             return Object.assign({}, state, {status: "fetching"});
         case SUCCESS:
-            return Object.assign({}, {wines: action.wines, selectedWine: {}}, {status: "fetched"})
+            return Object.assign({}, state, {wines: action.wines, selectedWine: {}}, {status: "fetched"})
         case FAILURE:
             return Object.assign({}, state, {status: "error"});
         case SELECT:
@@ -103,9 +103,9 @@ export default function wine(state = initialState, action) {
 }
 
 // Async Actions
-export function getWines(itemId) {
+export function getWines(query) {
     let filter = "";
-    if (itemId) filter += "?Varietal.Id=" + itemId;
+    if (query) filter += "?Varietal.Id=" + query._id;
     return dispatch => {
         dispatch(process());
         return axios.get("/api/wines/inventory" + filter)
