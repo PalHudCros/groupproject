@@ -3,6 +3,8 @@ import config from '../../../config/config';
 import Driver from './Driver.js';
 import Order from '../orders/Order.js'
 
+import {createHeaders} from "../../../src/utils/jwtHelper" 
+
 module.exports = {
 
   getOneOrderOnDriver( req, res ) {
@@ -33,7 +35,6 @@ module.exports = {
         if ( driver ) {
           return res.status( 200 ).json( driver );
         } 
-        next();
       });
   }
 
@@ -59,24 +60,47 @@ module.exports = {
       return res.status( 200 ).json( orderAdded );
     } );
   }
-
+                  
+	, createDriverAccount(req, res, next) {
+		let token = config.auth0.create_token;
+		let options = {headers: {
+      'Content-Type': 'application/json'
+      , 'Authorization': `Bearer ${token}`
+    }}
+    let newDriver = {
+      "connection": "Username-Password-Authentication"
+      , "email": req.body.email
+      , "password": req.body.password
+    } 
+		axios.post("https://hudson.auth0.com/api/v2/users", newDriver, options)
+			.then(result => {
+        req.user = result.data;
+        next()
+			})
+      .catch(err => {
+        res.status(500).json(err)
+      })
+	}
 
   , addDriver( req, res ) {
+    console.log("REQ: ", req)
+    console.log("RES: ", res)
     // POST /api/driver
-    const driver = {
-      sub: req.body.user_id
+    const newDriver = {
+      sub: req.user.user_id
       , name: req.body.name
-      , picture: req.body.picture
-      , updated_at: req.body.updated_at
+      , email: req.body.email
+      , picture: req.user.picture
+      , vehicle: req.body.car
+      , license_plate: req.body.licensePlate
+      , updated_at: req.user.updated_at
     }
-    new Driver( driver ).save( ( err, driverCreated ) => {
-      console.log("Add Driver Error: ", err)
-      
-      console.log("Add Driver Success: ", driverCreated)
-
+    new Driver( newDriver ).save( ( err, driverCreated ) => {
       if ( err ) {
+        console.log(err)
         return res.status( 500 ).json( err );
       }
+      console.log("Success: ", driverCreated)
       return res.status( 201 ).json( driverCreated );
     } );
   }
