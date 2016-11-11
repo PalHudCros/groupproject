@@ -14,10 +14,8 @@ module.exports = {
     next()
   }
   , makeOrder(req, res, next){
-
     // User.findOne({sub:req.user.sub}, (err, user) => {
     //   if (err) return res.status(500).json(err)
-    //
     //   new Order({
     //     user: user._id,
     //     products:req.body.products,
