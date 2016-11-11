@@ -53,7 +53,6 @@ module.exports = {
         .populate("user products.item")
         .exec()
         .then(( order, err ) => {
-          console.log("GetOneOrder Error: ", err, "GetOneOrder Order: ", order)
           if (err) return res.status(500).json(err);
           return res.status(200).json(order);
         })
