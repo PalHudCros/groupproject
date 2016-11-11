@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // Initial state
 const initialState = {
-    status: {}
-    , ofAge: false
+  status: 'Logged Out'
+  , ofAge: false
 }
 
 // Actions
@@ -56,6 +56,8 @@ export function logout(){
   // Clear user token and profile data from localStorage
   localStorage.removeItem('id_token');
   localStorage.removeItem('profile');
+
+
   return {
     type: LOGOUT_SUCCESS
   }
@@ -82,8 +84,8 @@ export function doAuthentication(){
           localStorage.setItem('id_token', authResult.idToken)
           localStorage.setItem('profile', JSON.stringify(profile))
 
-          getExistingUser( authResult.idToken, profile);
-
+          dispatch()
+          dispatch(getExistingUser( authResult.idToken, profile))
           // Set headers for authentication
       })
     })
@@ -113,6 +115,7 @@ export function getExistingUser(token, profile) {
 
 // Reducer
 export default function userReducer(state = initialState, action) {
+
   switch(action.type) {
     case SHOW_LOCK:
         return Object.assign({}, state, {status: "Logging In"})

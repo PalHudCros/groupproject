@@ -42,7 +42,7 @@ class SingleWine extends Component{
 
   handleChange(event){
     this.setState({
-      quantity: event.target.value
+      quantity: event.target.value/1
     });
   }
 

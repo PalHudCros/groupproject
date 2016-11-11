@@ -24,21 +24,21 @@ class ShoppingCart extends Component{
   }
 
   componentWillReceiveProps(props){
+    console.log('SHOPPING CART',props.cart);
     this.setState({
       cart:props.cart
     })
-
   }
 
   handleQuantityUpdate(wineItem, index,  event){
 
     const deepLink = Link.state( this, 'cart' ).at( 'cart' ).at(index).at( 'quantity' );
-    let something = event.target.value/1
-    deepLink.set( something, ()=>{  } );
+    let something = parseInt(event.target.value)
+    deepLink.set( something );
 
     setTimeout(()=>{
       this.props.dispatch(putCart({cart:this.state.cart.cart}))
-    }, 200)
+    }, 1)
 
   }
 

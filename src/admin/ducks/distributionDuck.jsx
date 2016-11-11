@@ -164,12 +164,16 @@ export function removeAllWineFromAPIStage() {
   return {type: REMOVE_ALL_WINE_FROM_API_STAGE};
 }
 
-export function getWinesFromAPI(itemId) {
-    let filter = "";
-    if (itemId) filter += "?filter=categories(" + itemId + ")"
+export function getWinesFromAPI(query) {
+    let params = "";
+    if ( query !== null && typeof query === "object" ) {
+      params += "?filter=categories(" + query._id + ")";
+    } else if ( typeof query === "string" && query !== "" ) {
+      params += "?term=" + query;
+    }
     return dispatch => {
         dispatch(distributionProcess());
-        return axios.get("/api/wines/global" + filter)
+        return axios.get("/api/wines/global" + params)
             .then(results => {
                 dispatch(distributionSuccess(results.data.Products.List));
             })

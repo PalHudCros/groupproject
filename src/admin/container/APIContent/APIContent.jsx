@@ -44,6 +44,9 @@ export class APIContent extends Component {
               <SearchBar></SearchBar>
             </MuiThemeProvider>
           </div>
+          <div className="table-title admin">
+            <h1>Vineyard's Stock</h1>
+          </div>
           <div className="refresh-button-wrapper admin">
             <MuiThemeProvider>
 

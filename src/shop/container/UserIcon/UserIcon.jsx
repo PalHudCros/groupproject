@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 
 import { login, doAuthentication, getExistingUser, logout } from "../../ducks/userDuck";
+import {deleteCartSession} from '../../ducks/cartDuck'
 // import store from "../../store";
 
 class UserIcon extends Component{
@@ -36,8 +37,9 @@ class UserIcon extends Component{
   }
 
   handleAuthClick() {
-    if (this.props.user.sub) {
+    if (localStorage.getItem('id_token')) {
       this.props.dispatch(logout());
+      this.props.dispatch(deleteCartSession());
     } else {
     this.props.dispatch(login());
     }
@@ -50,7 +52,7 @@ class UserIcon extends Component{
           className="UserIcon shop"
         >
         {
-          this.props.user.picture
+          localStorage.getItem('id_token')
           ?
           <Avatar src={this.props.user.picture} size={20} />
           :
