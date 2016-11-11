@@ -16,8 +16,7 @@ class App extends Component{
   }
 
   componentWillMount(){
-
-    this.props.dispatch(getWines())
+    this.props.dispatch( getWines() );
   }
 
   render(){
