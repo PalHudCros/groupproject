@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import CashSymbol from 'material-ui/svg-icons/editor/monetization-on';
 import Close from 'material-ui/svg-icons/navigation/close';
+import Snackbar from 'material-ui/Snackbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {removeOneWineFromAPIStage, removeAllWineFromAPIStage, sendAPIWinesToDistributor} from "../../ducks/distributionDuck";
 
@@ -18,6 +19,7 @@ export class ApiWineStage extends Component {
     this.state = {
       wines: []
       , stagedWines: []
+      , open: false
     };
   }
 
@@ -96,18 +98,31 @@ export class ApiWineStage extends Component {
   }
 
   clearOrder() {
-    this.props.dispatch( removeAllWineFromAPIStage() );
+    if ( this.state.wines[0] ) {
+      this.props.dispatch( removeAllWineFromAPIStage() );
+    }
   }
 
   orderWinesFromAPI() {
-    for (var i = 0; i < this.state.wines.length; i++) {
-      this.props.dispatch( sendAPIWinesToDistributor( this.state.wines[i] ) );
+    if ( this.state.wines[0] ) {
+      this.setState( { open: true } );
+      for (var i = 0; i < this.state.wines.length; i++) {
+        this.props.dispatch( sendAPIWinesToDistributor( this.state.wines[i] ) );
+      }
+      this.props.dispatch( removeAllWineFromAPIStage() );
     }
-    this.props.dispatch( removeAllWineFromAPIStage() );
   }
 
   removeOneWineFromStage( wine ) {
     this.props.dispatch( removeOneWineFromAPIStage( wine ) );
+  }
+
+  handleRequestClose( reason ) {
+    if ( reason === "timeout" ) {
+      this.setState( { open: false } );
+    } else {
+      return;
+    }
   }
 
   componentWillMount() {
@@ -153,6 +168,15 @@ export class ApiWineStage extends Component {
               { this.state.stagedWines }
 
           </div>
+
+          <MuiThemeProvider>
+            <Snackbar
+              open={ this.state.open }
+              message="Order placed with vineyard! Wines delivered to distributor."
+              autoHideDuration={4000}
+              onRequestClose={ this.handleRequestClose.bind(this) }
+              />
+          </MuiThemeProvider>
 
         </div>
     );
