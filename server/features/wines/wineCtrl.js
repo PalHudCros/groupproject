@@ -10,15 +10,12 @@ module.exports = {
     getWinesFromAPI(req, res) {
       let query = "";
       let test = req.query.filter
-      console.log( "req.query.filter ", req.query.filter );
       if (req.query.filter) {
         query += '&filter=' + req.query.filter;
       } else if ( req.query.term ) {
-        console.log( "TERM TERM TERM" );
         query += '&term=' + req.query.term;
       }
       else query += "rating(85%7C100)";
-      console.log( "query ",query );
         axios.get(baseUrl + query)
           .then(result => {
             return res.status(200).json(result.data);
@@ -38,7 +35,6 @@ module.exports = {
                 if ( err ) {
                   return res.status( 500 ).json( err );
                 }
-                console.log( newWines[0] );
                 return res.status( 200 ).json( newWines );
               });
           } else {

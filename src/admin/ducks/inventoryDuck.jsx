@@ -169,10 +169,8 @@ export function removeAllWineFromDistributorStage() {
 export function getWinesFromDistribution(query) {
   let filter = "";
   if ( query !== null && typeof query === "object" ) {
-    console.log( "it's an object!" );
     filter += "?Varietal.Id=" + query._id;
   } else if ( typeof query === "string" ) {
-    console.log( "it's a string!" );
     filter += "?Name=" + query;
   }
 
@@ -180,7 +178,6 @@ export function getWinesFromDistribution(query) {
         dispatch(inventoryProcess());
         return axios.get("/api/wines/distribution" + filter)
             .then(results => {
-              console.log( results.data );
                 dispatch(inventorySuccess(results.data));
             })
             .catch(error => {

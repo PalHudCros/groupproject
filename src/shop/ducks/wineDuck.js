@@ -98,7 +98,6 @@ export default function wine(state = initialState, action) {
         case SELECT:
             return Object.assign({}, state, {selectedWine: action.selectedWine});
         default:
-        console.log( "THING" );
             return state;
     }
 }

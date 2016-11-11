@@ -8,7 +8,7 @@ import {getWinesFromDistribution} from "../../ducks/inventoryDuck";
 export class SearchBar extends Component {
   constructor(props) {
     super(props);
-  console.log( props );
+
     this.state = {
       search: ""
       , wineCategories: props.distribution.categories
@@ -20,22 +20,18 @@ export class SearchBar extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log( props );
+
   }
 
   handleUpdateInput( textSearch, dataSourceArr ) {
-    console.log( textSearch );
     this.setState( { search: textSearch } );
   }
 
   handleNewRequest( query ) {
-    console.log( typeof query, query );
     if ( window.location.pathname === "/inventory/api" ) {
-      console.log( "add from api" );
       this.props.dispatch(getWinesFromAPI(query));
       //distributionDuck
     } else if ( window.location.pathname === "/inventory/distributor" ) {
-      console.log( "add from dis" );
       this.props.dispatch(getWinesFromDistribution(query));
       //inventoryDuck
     }

@@ -167,10 +167,8 @@ export function removeAllWineFromAPIStage() {
 export function getWinesFromAPI(query) {
     let params = "";
     if ( query !== null && typeof query === "object" ) {
-      console.log( "it's an object!" );
       params += "?filter=categories(" + query._id + ")";
     } else if ( typeof query === "string" && query !== "" ) {
-      console.log( "it's a string!" );
       params += "?term=" + query;
     }
     return dispatch => {
