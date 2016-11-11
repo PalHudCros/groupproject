@@ -1,14 +1,10 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
 import {connect} from "react-redux";
-
 import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps, Circle } from 'react-google-maps';
-import InfoBox from "react-google-maps/lib/addons/InfoBox"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
-import Avatar from 'material-ui/Avatar'
-import LocalShipping from 'material-ui/svg-icons/maps/local-shipping';
-
 
 import config from "../../../../config/config.js";
 import {showDriverInfo, updateDriverPositions} from "../../ducks/driverDuck";
@@ -80,3 +76,9 @@ export default connect( state => ( {
   drivers: state.drivers
 } ) )( DriverMap );
 
+/*<MuiThemeProvider>
+  <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver}/>
+</MuiThemeProvider>
+<MuiThemeProvider>
+  <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver}/>
+</MuiThemeProvider> */

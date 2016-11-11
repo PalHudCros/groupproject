@@ -80,6 +80,7 @@ export class DriverList extends Component {
             <h2>All Drivers</h2>
             {this.state.drivers}
             <MuiThemeProvider>
+<<<<<<< HEAD
                 <RaisedButton label="Add Driver" primary={true} onTouchTap={() => {this.setState({openCreateDialog: true})}}/>
             </MuiThemeProvider>
             <MuiThemeProvider>
@@ -117,6 +118,12 @@ export class DriverList extends Component {
                         handler={this.addDriver.bind(this)}                        
                     />
                 </Dialog>
+=======
+                <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver.bind(this)}/>
+            </MuiThemeProvider>
+            <MuiThemeProvider>
+                <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver.bind(this)}/>
+>>>>>>> f01364da9264f82e6fa8e1546a567b139091826b
             </MuiThemeProvider>
         </div>
     );
