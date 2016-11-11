@@ -7,7 +7,13 @@ const Order = new Schema({
     item: {type: Schema.Types.ObjectId, ref: 'InventoryItem', required: true}
     , quantity: {type: Number, required: true, min: 1}
   }]
-  , ordered: {type: Date, default: new Date()}
+  , cartQuantity: { type: Number, required: true }
+  , subTotal: { type: Number, required: true }
+  , cartTip: { type: Number, required: true }
+  , deliveryFee: { type: Number, required: true, default: 5 }
+  , cartTax: { type: Number, required: true }
+  , cartTotal: { type: Number, required: true }
+  , ordered: {type: Date, default: new Date(), required: true }
 });
 
 module.exports = mongoose.model("Order", Order);
