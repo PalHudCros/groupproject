@@ -21,5 +21,4 @@ export default function(app) {
       jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
       cartCtrl.updateCart,
       cartCtrl.getCart )
-
 }
