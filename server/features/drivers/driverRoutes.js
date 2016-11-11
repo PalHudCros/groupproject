@@ -21,7 +21,7 @@ module.exports = app => {
 
   app.route( '/api/driver/' )
     .get( driverCtrl.getDrivers )
-    .post( driverCtrl.getOneDriver, driverCtrl.addDriver );
+    .post( driverCtrl.getOneDriver );
 
   app.route( '/api/create_driver')
     .post(

@@ -35,7 +35,6 @@ module.exports = {
         if ( driver ) {
           return res.status( 200 ).json( driver );
         } 
-        next();
       });
   }
 
