@@ -29,9 +29,14 @@ module.exports = {
     }
 
     , getWinesFromDistribution(req, res) {
-        Wine.find(req.query, (err, result) => {
+      console.log( "HAM: ", req.query );
+        Wine.find(req.query, (err, wines) => {
           if (err) return res.status(500).json(err);
-          return res.status(200).json(result);
+          if (wines === null && req.query.Name) {
+            let updatedQuery = {};
+              updatedQuery.Varietal.Name = req.query.Name;
+          }
+          return res.status(200).json(wines);
         })
     }
 

@@ -3,7 +3,7 @@ import {Link} from "react-router";
 import {connect} from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
 import {getWinesFromAPI} from "../../ducks/distributionDuck";
-import {getWinesFromInventory} from "../../ducks/inventoryDuck";
+import {getWinesFromDistribution} from "../../ducks/inventoryDuck";
 
 export class SearchBar extends Component {
   constructor(props) {
@@ -29,12 +29,14 @@ export class SearchBar extends Component {
   }
 
   handleNewRequest( query ) {
-    console.log( query );
+    console.log( typeof query, query );
     if ( window.location.pathname === "/inventory/api" ) {
-        this.props.dispatch(getWinesFromAPI(query));
-        //distributionDuck
+      console.log( "add from api" );
+      this.props.dispatch(getWinesFromAPI(query));
+      //distributionDuck
     } else if ( window.location.pathname === "/inventory/distributor" ) {
-      this.props.dispatch(getWinesFromInventory(item));
+      console.log( "add from dis" );
+      this.props.dispatch(getWinesFromDistribution(query));
       //inventoryDuck
     }
   }
@@ -43,7 +45,7 @@ export class SearchBar extends Component {
     return (
       <div>
         <AutoComplete
-          floatingLabelText="Search API"
+          floatingLabelText="Search Wine"
           filter={ AutoComplete.fuzzyFilter }
           dataSource={ this.state.wineCategories }
           dataSourceConfig={ {text: "varietal", value: "_id"} }
