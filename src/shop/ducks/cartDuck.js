@@ -198,6 +198,7 @@ export function postOrder(cart){
         dispatch(checkoutSuccess(results.data))
       })
       .catch( error => {
+				console.log("CHECKOUT ERROR: ", error);
         dispatch(checkoutFailure(error))
       })
   }
@@ -231,7 +232,8 @@ export default function cartReducer(state = initialState, action) {
 		case CHECKOUT_PROCESS:
 			return Object.assign({}, state, action.isFetching)
 		case CHECKOUT_SUCCESS:
-			return Object.assign({}, state, {order: action.order}, action.isFetching)
+			console.log("CHECKOUT_SUCCESS");
+			return Object.assign({}, initialState, {order: action.order}, action.isFetching)
 		case CHECKOUT_FAILURE:
 			return Object.assign({}, state, action.error)
 		case GET_CART_PROCESS:

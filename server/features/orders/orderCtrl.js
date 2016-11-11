@@ -1,6 +1,8 @@
 import InventoryItem from '../wines/InventoryItem'
 import Order from './Order'
 import User from '../users/User'
+import Cart from '../carts/Cart'
+
 import mongoose from 'mongoose'
 
 module.exports = {
@@ -15,14 +17,14 @@ module.exports = {
 
   , addAddressToUser(req, res, next) {
       User.findOneAndUpdate({sub: req.user.sub}, {orderAddress: req.body.orderAddress}, (err, user) => {
-        if (err) return res.status(500).json(err);
+        if (err) return res.status(501).json(err);
       })
     next();
   }
 
   , makeOrder(req, res, next){
       User.findOne({sub:req.user.sub}, (err, user) => {
-        if (err) return res.status(500).json(err)
+        if (err) return res.status(502).json(err)
         new Order({
           user: user._id,
           products:req.body.products,
@@ -33,29 +35,41 @@ module.exports = {
           cartTax: req.body.totals.cartTax,
           cartTotal:req.body.totals.cartTotal
         }).save((err, order)=> {
-          if (err) return res.status(500).json(err)
+          console.log("503: ", err);
+          if (err) return res.status(503).json(err)
         })
       })
       next()
   }
 
   , deleteCartAndSession(req, res, next){
-      User.findOneAndUpdate({sub:req.user.sub}, {cart: []}, (err, user) => {
-        if (err) return res.status(500).json(err)
+      req.session = null;
+      User.findOneAndUpdate({sub:req.user.sub}, {$set: {cart: [Cart]}}, (err, user) => {
+        console.log(user.cart)
+        if (err) return res.status(504).json(err)
       })
       next()
   }
 
   , getOneOrder(req, res){
       User.findOne({sub: req.user.sub}, (err, user) => {
-        if (err) return res.status(500).json(err)
+        if (err) return res.status(505).json(err)
         Order.findOne({user:user._id})
         .populate("user products.item")
         .exec()
         .then(( order, err ) => {
-          if (err) return res.status(500).json(err);
+          if (err) return res.status(506).json(err);
           return res.status(200).json(order);
         })
       })
+  }
+
+  , getOrders(req, res){
+    Order.find({})
+    .populate("user products.item")
+    .exec((err, orders) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json(orders)
+    })
   }
 }

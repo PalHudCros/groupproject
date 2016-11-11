@@ -15,10 +15,8 @@ class Store extends Component{
 
   componentWillMount() {
       const wines = this.props.wines.wines.map((wine, ind)=> {
-          wine.labelImage = wine.Labels[0].Url;
-          wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";
           return (
-            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.bottleImage}></WineStoreCard>
+            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.BottleImage}></WineStoreCard>
           )
       });
       this.setState({wines: wines})
@@ -26,10 +24,8 @@ class Store extends Component{
 
   componentWillReceiveProps(props) {
       const wines = props.wines.wines.map((wine, ind)=> {
-          wine.labelImage = wine.Labels[0].Url;
-          wine.bottleImage = wine.labelImage.substring(0, wine.labelImage.length-5) + "d.jpg";
           return (
-            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.bottleImage}></WineStoreCard>
+            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.BottleImage}></WineStoreCard>
           )
       });
       this.setState({wines: wines})

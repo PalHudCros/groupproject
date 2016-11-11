@@ -79,7 +79,7 @@ export class DriverList extends Component {
     }
       
     return (
-        <div>
+        <div className="col-xs-6">
             <h2>All Drivers</h2>
             {this.state.drivers}
             <MuiThemeProvider>
