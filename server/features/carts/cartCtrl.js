@@ -56,8 +56,9 @@ module.exports = {
     return res.status(200).json(req.session.cart)
   }
   , deleteCartSession(req, res){
-    req.session.cart = undefined;
-    return res.status(200).json(req.session.cart)
+      req.session.destroy(this._id, () => {
+      })
+      return res.status(200).json(req.session)
   }
 }
 

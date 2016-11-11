@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { browserHistory } from "react-router";
+
 
 // Actions
 const ADD_PRODUCT_PROCESS = 'ADD_PRODUCT_PROCESS';
@@ -45,8 +47,8 @@ export function checkoutProcess() {
   return { type: CHECKOUT_PROCESS, isFetching: true };
 }
 
-export function checkoutSuccess(cart){
-  return Object.assign({}, { type:CHECKOUT_SUCCESS, isFetching: false, cart }, createTotals(cart));
+export function checkoutSuccess(order){
+  return Object.assign({}, { type:CHECKOUT_SUCCESS, isFetching: false, order });
 }
 
 export function checkoutFailure(error) {
@@ -192,9 +194,11 @@ export function postOrder(cart){
     }}
     return axios.post('/api/order', cart, config )
       .then( results => {
+				browserHistory.push("confirmation")
         dispatch(checkoutSuccess(results.data))
       })
       .catch( error => {
+				console.log("CHECKOUT ERROR: ", error);
         dispatch(checkoutFailure(error))
       })
   }
@@ -207,6 +211,7 @@ const initialState = {
   , totals: {
     cartQuantity:0
   }
+	, order: {}
 }
 
 // Reducer
@@ -227,7 +232,8 @@ export default function cartReducer(state = initialState, action) {
 		case CHECKOUT_PROCESS:
 			return Object.assign({}, state, action.isFetching)
 		case CHECKOUT_SUCCESS:
-			return Object.assign({}, state, action.isFetching)
+			console.log("CHECKOUT_SUCCESS");
+			return Object.assign({}, initialState, {order: action.order}, action.isFetching)
 		case CHECKOUT_FAILURE:
 			return Object.assign({}, state, action.error)
 		case GET_CART_PROCESS:

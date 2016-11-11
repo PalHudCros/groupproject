@@ -13,7 +13,8 @@ const Order = new Schema({
   , deliveryFee: { type: Number, required: true, default: 5 }
   , cartTax: { type: Number, required: true }
   , cartTotal: { type: Number, required: true }
-  , ordered: {type: Date, default: new Date(), required: true }
+  , ordered: {type: Date, default: new Date() }
+  , delivered: {type: Boolean, default: false }
 });
 
 module.exports = mongoose.model("Order", Order);
