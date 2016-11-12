@@ -15,6 +15,7 @@ const Order = new Schema({
   , cartTotal: { type: Number, required: true }
   , ordered: {type: Date, default: new Date() }
   , delivered: {type: Boolean, default: false }
+  , filled: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model("Order", Order);
