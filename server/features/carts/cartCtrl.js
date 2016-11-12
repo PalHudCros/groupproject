@@ -56,8 +56,7 @@ module.exports = {
     return res.status(200).json(req.session.cart)
   }
   , deleteCartSession(req, res){
-      req.session.destroy(this._id, () => {
-      })
+      req.session.destroy()
       return res.status(200).json(req.session)
   }
 }

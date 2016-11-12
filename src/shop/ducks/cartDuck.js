@@ -74,6 +74,9 @@ export function updateTotals(totals){
 
 
 function createTotals(input){
+console.log(input);
+  if (!input) return {totals:{}}
+
   let subTotal = Math.round((input.reduce( (total, sum) => total + (sum.price/1 * sum.quantity/1), 0))*100)/100;
   let cartQuantity = input.reduce( (prev, curr) => (prev + curr.quantity), 0);
   let cartTip = Math.round((subTotal * .10897994769)*100)/100;
@@ -168,11 +171,12 @@ export function putCart(cart){
 
 export function deleteCartSession(){
  return dispatch => {
-	 dispatch(updateProductProcess())
-
+	 dispatch(updateProductProcess([]))
+   console.log('is this firing');
 	 return axios.delete('/api/cart/session')
 	 	.then( results => {
-			dispatch(updateProductSuccess(results.data))
+      console.log('does the delete session fire in the duck', results.data);
+			dispatch(updateProductSuccess([]))
 		})
 		.catch( error => {
 			dispatch(updateProductFailure(error))

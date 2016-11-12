@@ -43,9 +43,9 @@ module.exports = {
   }
 
   , deleteCartAndSession(req, res, next){
-      req.session = null;
-      User.findOneAndUpdate({sub:req.user.sub}, {$set: {cart: [Cart]}}, (err, user) => {
-        console.log(user.cart)
+      req.session.destroy();
+      User.findOneAndUpdate({sub:req.user.sub}, {$set: {cart:[]}}, {new:true}, (err, user) => {
+        console.log('find one and update',user.cart, req.session)
         if (err) return res.status(504).json(err)
       })
       next()
