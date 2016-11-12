@@ -21,7 +21,6 @@ const options = {
     }
 };
 const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, options);
-lock.on('authenticated', () => {lock.hide()})
 
 // Action Creators
 // Synchronous Action Creators
@@ -51,6 +50,7 @@ export function logout(){
   // Clear user token and profile data from localStorage
   localStorage.removeItem('driver_id_token');
   localStorage.removeItem('driver_profile');
+  lock.show();
   return {
     type: LOGOUT_SUCCESS
   }
@@ -72,10 +72,6 @@ export function doAuthentication(){
           if (err) {
             return dispatch(lockError(err))
           }
-          // Handle auth success
-          // Set token and profile in local storage
-          localStorage.setItem('driver_profile', JSON.stringify(profile))
-          localStorage.setItem('driver_id_token', authResult.idToken)
           // Set headers for authentication
           const config = {
             headers:{
@@ -83,14 +79,16 @@ export function doAuthentication(){
             , 'Content-Type': 'application/json'
             , 'Authorization': `Bearer ${authResult.idToken}`
           }}
-          // Send user profile to database for user
+          // Send user profile to database for user verification
           return axios.post('/api/driver', profile, config)
             .then(results => {
-              dispatch(lockSuccess(results.data))
+                // Set token and profile in local storage
+                lock.hide();
+                localStorage.setItem('driver_profile', JSON.stringify(profile))
+                localStorage.setItem('driver_id_token', authResult.idToken)
+                dispatch(lockSuccess(results.data))
             })
             .catch(error => {
-              localStorage.removeItem('driver_profile');
-              localStorage.removeItem('driver_id_token')
               dispatch(lockError(error))
             })
       })
@@ -108,7 +106,7 @@ export default function userReducer(state = initialState, action) {
     case LOCK_ERROR:
         return Object.assign({}, state, {status: action.err})
     case LOGOUT_SUCCESS:
-        return initialState
+        return Object.assing({}, initialState, {status: "Logged Out"}); 
     default:
         return state
   }

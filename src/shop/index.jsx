@@ -18,6 +18,7 @@ import Cart from "./component/Cart/Cart";
 import Checkout from "./component/Checkout/Checkout";
 import Error from "./component/Error/Error";
 import SingleWine from "./container/SingleWine/SingleWine";
+import Confirmation from "./component/Confirmation/Confirmation";
 
 //Store
 import store from "./store";
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <Route component={ Shop } path="shop"></Route>
           <Route component={ Cart } path="cart"></Route>
           <Route component={ Checkout } path="checkout"></Route>
+          <Route component={ Confirmation } path="confirmation"></Route>
           <Route component={ SingleWine } path=":wineId"></Route>
           <Route component={ Error } path="*"></Route>
         </Route>

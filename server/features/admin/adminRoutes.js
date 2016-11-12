@@ -1,6 +1,7 @@
 import jwt from 'express-jwt' 
 import config from '../../../config/config'
 import adminCtrl from './adminCtrl.js';
+import driverCtrl from '../drivers/driverCtrl.js'
 
 module.exports = app => {
 
@@ -11,4 +12,5 @@ module.exports = app => {
           next()
         }
       , adminCtrl.getAdmin, adminCtrl.saveAdmin);
+  
 };
