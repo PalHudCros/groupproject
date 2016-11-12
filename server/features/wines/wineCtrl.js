@@ -44,10 +44,18 @@ module.exports = {
     }
 
     , getWinesFromInventory(req, res) {
-        InventoryItem.find(req.query, (err, wines) => {
-          if (err) return res.status(500).json(err);
-          return res.status(200).json(wines);
-        })
+        let filter = {}
+        if (req.query.varietal) filter = {"Varietal.Id": req.query.varietal}
+        InventoryItem.find(filter)
+          .limit(req.query.page/1)
+          .skip(req.query.skip/1)
+          .exec((err, wines) => {
+            if (err) {
+              console.log(err);
+              return res.status(500).json(err);
+            }
+            return res.status(200).json(wines);
+          })
     }
     , addWineToDistributor(req, res) {
         Wine.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: req.body.Quantity } }, (err, updatedWine) => {
