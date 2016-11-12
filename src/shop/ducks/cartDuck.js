@@ -33,9 +33,11 @@ export function addProductFailure(error) {
 }
 
 export function updateProductProcess(cart) {
+
   return Object.assign({}, { type: UPDATE_PRODUCT_PROCESS, isFetching: true, cart }, createTotals(cart))
 }
 export function updateProductSuccess(cart) {
+
   return Object.assign({}, { type: UPDATE_PRODUCT_SUCCESS, isFetching: false, cart }, createTotals(cart))
 }
 
@@ -68,13 +70,18 @@ export function getCartFailure(error){
 }
 
 export function updateTotals(totals){
-  console.log('action creator', totals);
   return {type: UPDATE_TOTALS_SUCCESS, totals }
+}
+
+function removeItemsWithZeroQty(cart){
+  return cart.filter(ele =>{
+     return ele.quantity > 0
+   })
 }
 
 
 function createTotals(input){
-console.log(input);
+
   if (!input) return {totals:{}}
 
   let subTotal = Math.round((input.reduce( (total, sum) => total + (sum.price/1 * sum.quantity/1), 0))*100)/100;
@@ -84,7 +91,6 @@ console.log(input);
   let cartTax = Math.round(((subTotal + deliveryFee) * .0875)*100)/100;
   let cartTotal = Math.round((subTotal + cartTip + deliveryFee + cartTax)*100)/100;
 
-  console.log('input', {subTotal, cartQuantity, cartTip, deliveryFee, cartTax, cartTotal})
   return {totals:{subTotal, cartQuantity, cartTip, deliveryFee, cartTax, cartTotal}}
 }
 
@@ -149,7 +155,7 @@ export function putCart(cart){
 		var location = '/api/cart/session'
 	}
 	return dispatch => {
-		dispatch(updateProductProcess(cart.cart))
+		dispatch(updateProductProcess(removeItemsWithZeroQty(cart.cart)))
 		const idToken = localStorage.getItem('id_token')
 
 		const config = {
@@ -159,7 +165,7 @@ export function putCart(cart){
 			, 'Authorization': `Bearer ${idToken}`
 		}}
 
-		return axios.put(location, cart.cart, config)
+		return axios.put(location, removeItemsWithZeroQty(cart.cart), config)
 			.then(results => {
 				dispatch(updateProductSuccess(results.data))
 			})
@@ -172,10 +178,8 @@ export function putCart(cart){
 export function deleteCartSession(){
  return dispatch => {
 	 dispatch(updateProductProcess([]))
-   console.log('is this firing');
 	 return axios.delete('/api/cart/session')
 	 	.then( results => {
-      console.log('does the delete session fire in the duck', results.data);
 			dispatch(updateProductSuccess([]))
 		})
 		.catch( error => {
@@ -202,7 +206,6 @@ export function postOrder(cart){
         dispatch(checkoutSuccess(results.data))
       })
       .catch( error => {
-				console.log("CHECKOUT ERROR: ", error);
         dispatch(checkoutFailure(error))
       })
   }
@@ -236,7 +239,6 @@ export default function cartReducer(state = initialState, action) {
 		case CHECKOUT_PROCESS:
 			return Object.assign({}, state, action.isFetching)
 		case CHECKOUT_SUCCESS:
-			console.log("CHECKOUT_SUCCESS");
 			return Object.assign({}, initialState, {order: action.order}, action.isFetching)
 		case CHECKOUT_FAILURE:
 			return Object.assign({}, state, action.error)
