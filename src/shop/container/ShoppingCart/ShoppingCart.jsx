@@ -24,7 +24,6 @@ class ShoppingCart extends Component{
   }
 
   componentWillReceiveProps(props){
-    console.log('SHOPPING CART',props.cart);
     this.setState({
       cart:props.cart
     })
