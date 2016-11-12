@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
 import {getWines} from "../../ducks/wineDuck";
@@ -22,6 +23,16 @@ class Store extends Component{
       this.setState({wines: wines})
     }
 
+    componentDidMount() {
+        const list = ReactDOM.findDOMNode(this.refs.list)        
+        console.log(list);
+        list.addEventListener('scroll', () => {console.log("Scrolling")});
+    }
+    componentWillUnmount() {
+        const list = ReactDOM.findDOMNode(this.refs.list)
+        list.removeEventListener('scroll', this._handleScroll);
+    }
+
   componentWillReceiveProps(props) {
       const wines = props.wines.wines.map((wine, ind)=> {
           return (
@@ -31,10 +42,16 @@ class Store extends Component{
       this.setState({wines: wines})
   }
 
+  _handleScroll(e) {
+      console.log("Scrolling!")
+  }
+
   render(){
     return (
-      <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap'}}>
-        {this.state.wines}
+      <div>
+        <div style={{display:'flex', justifyContent:'center', flexWrap:'wrap'}} ref="list" onScroll={() => {console.log("Scrolling")}}>
+          {this.state.wines}
+        </div>
       </div>
     )
   }
