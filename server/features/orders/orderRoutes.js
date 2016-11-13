@@ -12,7 +12,6 @@ export default function(app) {
       , orderCtrl.deleteCartAndSession
       , orderCtrl.getOneOrder
     )
-
     .get(
       jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
       orderCtrl.getOrders
@@ -25,7 +24,7 @@ export default function(app) {
     )
     .get(
       jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
-      orderCtrl.getOrdersByDriver
+      orderCtrl.getOrderByDriver
     )
   app.route('/api/orders/unfilled')
     .get(
