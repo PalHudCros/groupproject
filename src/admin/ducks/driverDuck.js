@@ -1,5 +1,12 @@
 import axios from 'axios';
 import {createHeaders, isTokenExpired} from "../../utils/jwtHelper";
+import io from 'socket.io-client';
+import fs from 'fs';
+
+const socket = io.connect("/");
+socket.on("driverPosition", position => {
+    console.log("Admin log: ", position);
+  });
 
 // Actions
 const GET_DRIVERS_PROCESS = "driver/GET_DRIVERS_PROCESS";
@@ -109,6 +116,7 @@ export function deleteDriver(driverId) {
 // Initial State
 const initialState = {
     driverList: []
+    , enRouteList: []
 }
 
 // Reducer
