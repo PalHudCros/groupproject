@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
 import {connect} from "react-redux";
-import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps, Circle } from 'react-google-maps';
+import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps, Circle, DirectionsRenderer } from 'react-google-maps';
 import io from 'socket.io-client';
 import fs from 'fs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -20,7 +20,12 @@ export class DriverMap extends Component {
 
     this.state = {
       map: {}
-    }
+      , origin: new google.maps.LatLng(41.8507300, -87.6512600)
+      , destination: new google.maps.LatLng(41.8525800, -87.6514100)
+      , directions: null
+      , enrRouteList: null
+      , center: { lat: 32.7826722, lng: -96.79759519999999 }
+    }  
 }
 
   componentWillMount() {
@@ -39,12 +44,39 @@ export class DriverMap extends Component {
   }
 
   handleMarkerClick(driverId) {
-    this.props.dispatch(showDriverInfo(driverId))
+    const showDriverList = this.state.enRouteList.map(driver => {
+        if (driver._id === driverId) {
+            driver.showInfo = !driver.showInfo;
+        }
+        return driver;
+    })
+    this.setState({enRouteList: showDriverList});
   }
 
   componentWillReceiveProps(props) {
-    console.log(props);
+    this.setState({enRouteList: props.drivers.enRouteList})
   }
+
+  componentDidMount() {
+    const DirectionsService = new google.maps.DirectionsService();
+
+    DirectionsService.route({
+      origin: this.state.origin,
+      destination: this.state.destination,
+      travelMode: google.maps.TravelMode.DRIVING,
+    }, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        this.setState({
+          directions: result,
+        });
+      } else {
+        console.error(`error fetching directions ${result}`);
+      }
+    });
+  }
+
+
+
 
   render() {
   const mapContainer = ( <div style={{height: "100%", width: "100%"}}></div> );
@@ -55,10 +87,11 @@ export class DriverMap extends Component {
             <GoogleMap
                 ref={(map) => {}}
                 defaultZoom={15}
-                center={this.props.drivers.mapCenter}
+                center={this.state.center}
                 options={{streetViewControl: false, mapTypeControl: false}}
+                directions
                 >
-                {this.props.drivers.enRouteList.map((driver, index)=> (
+                {this.state.enRouteList && this.state.enRouteList.map((driver, index)=> (
                 <Marker
                     style={{height: "10px", width: "10px", overflow: "hidden"}}
                     key={index}
@@ -72,6 +105,7 @@ export class DriverMap extends Component {
                     </InfoWindow>
                     )}
                 </Marker>
+
                 ))}
             </GoogleMap>
         }

@@ -112,6 +112,7 @@ const initialState = {
     driverList: []
     , enRouteList: []
     , mapCenter: { lat: 32.7826722, lng: -96.79759519999999 }
+    , showDirections: {status: false, origin: null, destination: null}
 }
 
 // Reducer
@@ -138,13 +139,6 @@ export default function adminDriver(state = initialState, action) {
             return Object.assign({}, state, action.driver, {status: "Driver Deleted"})
         case DELETE_DRIVER_ERROR:
             return Object.assign({}, state, {status: "Error", error: action.error});
-        case SHOW_DRIVER:
-            const showDriverList = state.driverList.map(driver => {
-                driver.showInfo = false;
-                if (driver._id === action.driverId) driver.showInfo = !driver.showInfo;
-                return driver;
-            })
-            return Object.assign({}, state, {driverList: showDriverList}, {status: "Driver Updated"})
         case UPDATE_DRIVERS:
             for (let i = 0; i < state.enRouteList.length; i++) {
                 if (state.enRouteList[i]._id === action.driver._id) {
