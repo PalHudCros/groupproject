@@ -23,6 +23,10 @@ export default function(app) {
       jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
       orderCtrl.addDriverToOrder
     )
+    .get(
+      jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
+      orderCtrl.getOrdersByDriver
+    )
   app.route('/api/orders/unfilled')
     .get(
       jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
@@ -43,4 +47,5 @@ export default function(app) {
       jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
       orderCtrl.getDeliveredOrders
     )
+
 }

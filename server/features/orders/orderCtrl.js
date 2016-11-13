@@ -2,7 +2,7 @@ import InventoryItem from '../wines/InventoryItem'
 import Order from './Order'
 import User from '../users/User'
 import Cart from '../carts/Cart'
-
+import Driver from '../drivers/Driver'
 import mongoose from 'mongoose'
 
 module.exports = {
@@ -104,5 +104,15 @@ module.exports = {
       if (err) return res.status(500).json(err)
       if(orders) return res.status(500).json(orders)
     })
+  }
+  , getOrderByDriver( req, res ){
+    Driver.find({sub:req.user.sub}, (err, driver)=>{
+      if (err) return res.status(500).json(err)
+        Order.find({driver:driver._id}, (err, order) => {
+          if (err) return res.status(500).json(err)
+          if (order) retunr res.status(500).json(order)
+        })
+    })
+
   }
 }
