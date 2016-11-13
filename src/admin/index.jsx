@@ -21,7 +21,7 @@ import InStockContent from './container/InStockContent/InStockContent.jsx';
 import Drivers from './component/Drivers/Drivers.jsx';
 import Customers from './component/Customers/Customers.jsx';
 import Error from './component/Error/Error.jsx'
-import Orders from './component/Orders/Orders.jsx'
+import Orders from './container/Orders/Orders.jsx'
 // Store
 import store from "./store.js";
 

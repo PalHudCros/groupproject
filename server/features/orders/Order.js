@@ -14,8 +14,16 @@ const Order = new Schema({
   , cartTax: { type: Number, required: true }
   , cartTotal: { type: Number, required: true }
   , ordered: {type: Date, default: new Date() }
-  , delivered: {type: Boolean, default: false }
-  , filled: {type: Boolean, default: false}
+  , delivered: {
+      status:{type:Boolean, default:false },
+      driver:{ type: Schema.Types.ObjectId, ref:'Driver' },
+      time:{ type: Date }
+  }
+  , filled: {
+      status:{ type:Boolean, default:false },
+      driver:{ type: Schema.Types.ObjectId, ref:'Driver' },
+      time:{ type: Date }
+  }
 });
 
 module.exports = mongoose.model("Order", Order);
