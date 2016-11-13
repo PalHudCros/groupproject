@@ -3,6 +3,7 @@ import {createHeaders} from "../../utils/jwtHelper"
 //Intial state
 const initialState = {
     orderList: []
+    , unfilledOrderList: []
 }
 //Actions
 const GET_ORDERS_PROCESS = "orders/GET_ORDERS_PROCESS";
