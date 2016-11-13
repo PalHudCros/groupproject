@@ -38,12 +38,16 @@ subdomains(app)
 
 io.on('connection', function (socket) {
   socket.on('driverPosition', position => {
-    console.log("Server console log: ", position);
     socket.broadcast.emit('driverPosition', position)
   });
 
   socket.on('disconnect', function (data) {
     console.log(data);
+  });
+
+  socket.on('order', order => {
+    console.log("Order Placed: ", order)
+    socket.broadcast.emit('order', order)
   });
 });
 
