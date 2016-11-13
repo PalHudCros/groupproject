@@ -38,7 +38,6 @@ class Userbar extends Component {
 
     return (
       <div className="userbar-wrapper driver">
-        <h2>User Bar</h2>
         <a onClick={this.handleLogout.bind(this)}>
             <span className="UserIcon">
             {

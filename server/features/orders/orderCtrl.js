@@ -110,7 +110,7 @@ module.exports = {
       if (err) return res.status(500).json(err)
         Order.find({driver:driver._id}, (err, order) => {
           if (err) return res.status(500).json(err)
-          if (order) retunr res.status(500).json(order)
+          if (order) return res.status(500).json(order)
         })
     })
 
