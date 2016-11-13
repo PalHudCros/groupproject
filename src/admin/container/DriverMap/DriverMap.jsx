@@ -12,6 +12,8 @@ import Chip from 'material-ui/Chip';
 import config from "../../../../config/config.js";
 import {showDriverInfo, updateDrivers} from "../../ducks/driverDuck";
 
+
+
 export class DriverMap extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +64,7 @@ export class DriverMap extends Component {
                     key={index}
                     position={driver.position}
                     onClick={this.handleMarkerClick.bind(this, driver._id)}
-                    icon={driver.picture}
+                    icon={{url: driver.picture, scaledSize: new google.maps.Size(25, 25)}}
                     >
                     { driver.showInfo && ( 
                     

@@ -146,7 +146,6 @@ export default function adminDriver(state = initialState, action) {
             })
             return Object.assign({}, state, {driverList: showDriverList}, {status: "Driver Updated"})
         case UPDATE_DRIVERS:
-            console.log('ENROUTELIST',state.enRouteList);            
             for (let i = 0; i < state.enRouteList.length; i++) {
                 if (state.enRouteList[i]._id === action.driver._id) {
                     state.enRouteList[i].position = action.driver.position;

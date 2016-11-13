@@ -6,7 +6,10 @@ const socket = io.connect("/")
 navigator.geolocation.watchPosition(position => {
   if (localStorage.getItem("driver_profile")) {
     const driverInfo = JSON.parse(localStorage.getItem("driver_profile"));
-    driverInfo.position = {lat: position.coords.latitude, lng: position.coords.longitude} 
+    driverInfo.position = {
+      lat: position.coords.latitude + Math.random() /10
+      , lng: position.coords.longitude + Math.random() / 10
+    } 
     socket.emit("driverPosition", driverInfo);
   }
 })
