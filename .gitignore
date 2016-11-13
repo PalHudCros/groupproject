@@ -6,3 +6,6 @@ jsconfig.json
 /dist/bundle.js.map
 .env
 .env.default
+my-root-ca.crt.pem
+my-server.crt.pem
+my-server.key.pem
