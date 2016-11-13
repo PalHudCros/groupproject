@@ -21,7 +21,6 @@ module.exports = {
       })
     next();
   }
-
   , makeOrder(req, res, next){
       User.findOne({sub:req.user.sub}, (err, user) => {
         if (err) return res.status(502).json(err)
@@ -78,8 +77,32 @@ module.exports = {
       console.log("Order: ", order, "Err: ", err)
       if ( err ) {
         return res.status( 500 ).json( err );
-      }      
+      }
       return res.status( 200 ).json( order );
     } );
+  }
+  , getUnfilledOrders(req, res){
+    Order.find({"filled.status":false}, (err, orders)=>{
+      if (err) return res.status(500).json(err)
+      if(orders) return res.status(500).json(orders)
+    })
+  }
+  , getFilledOrder(req, res){
+    Order.find({"filled.status":true}, (err, orders)=>{
+      if (err) return res.status(500).json(err)
+      if(orders) return res.status(500).json(orders)
+    })
+  }
+  , getUndeliveredOrders(req, res){
+    Order.find({"delivered.status":false}, (err, orders)=>{
+      if (err) return res.status(500).json(err)
+      if(orders) return res.status(500).json(orders)
+    })
+  }
+  , getDeliveredOrders(req, res){
+    Order.find({"delivered.status":true}, (err, orders)=>{
+      if (err) return res.status(500).json(err)
+      if(orders) return res.status(500).json(orders)
+    })
   }
 }
