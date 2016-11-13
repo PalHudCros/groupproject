@@ -5,8 +5,14 @@ import mongoDBSession from "connect-mongodb-session";
 import {json} from "body-parser";
 import config from "./config/config";
 import path from "path";
+import fs from "fs";
+
 
 const app = express();
+var server = require('http').createServer(app)
+
+var io = require('socket.io')(server);
+
 const port = process.env.PORT || 5001;
 
 app.use(json());
@@ -30,6 +36,17 @@ masterRoutes(app);
 import subdomains from "./server/subdomains.js"
 subdomains(app)
 
+io.on('connection', function (socket) {
+  socket.on('driverPosition', position => {
+    console.log("Server console log: ", position);
+    socket.broadcast.emit('driverPosition', position)
+  });
+
+  socket.on('disconnect', function (data) {
+    console.log(data);
+  });
+});
+
 // Listen on Port
 subdomains(app)
-app.listen(port, ()=>console.log(`listening on port ${port}`));
+server.listen(port, ()=>console.log(`listening on port ${port}`));
