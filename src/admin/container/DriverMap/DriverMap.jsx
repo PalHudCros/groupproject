@@ -38,7 +38,6 @@ export class DriverMap extends Component {
 
   render() {
   const mapContainer = ( <div style={{height: "100%", width: "100%"}}></div> );
-  console.log()
     return (
      <GoogleMapLoader
         containerElement={mapContainer}
