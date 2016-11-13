@@ -1,12 +1,6 @@
 import axios from 'axios';
 import {createHeaders, isTokenExpired} from "../../utils/jwtHelper";
-import io from 'socket.io-client';
-import fs from 'fs';
 
-const socket = io.connect("/");
-socket.on("driverPosition", position => {
-    console.log("Admin log: ", position);
-  });
 
 // Actions
 const GET_DRIVERS_PROCESS = "driver/GET_DRIVERS_PROCESS";
@@ -22,7 +16,7 @@ const DELETE_DRIVER_SUCCESS = "driver/DELETE_DRIVER_SUCCESS";
 const DELETE_DRIVER_ERROR = "driver/DELETE_DRIVER_ERROR";
 
 const SHOW_DRIVER = "driver/SHOW_DRIVER";
-const UPDATE_DRIVER_POSITIONS = "driver/UPDATE_DRIVER_POSITIONS"
+const UPDATE_DRIVERS = "driver/UPDATE_DRIVERS"
 
 
 // Action Creators
@@ -66,8 +60,8 @@ export function showDriverInfo(driverId) {
     return {type: SHOW_DRIVER, driverId}
 }
 
-export function updateDriverPositions() {
-    return {type: UPDATE_DRIVER_POSITIONS}
+export function updateDrivers(driver) {
+    return {type: UPDATE_DRIVERS, driver}
 }
 
 // Async Action Creators 
@@ -117,6 +111,7 @@ export function deleteDriver(driverId) {
 const initialState = {
     driverList: []
     , enRouteList: []
+    , mapCenter: { lat: 32.7826722, lng: -96.79759519999999 }
 }
 
 // Reducer
@@ -150,6 +145,16 @@ export default function adminDriver(state = initialState, action) {
                 return driver;
             })
             return Object.assign({}, state, {driverList: showDriverList}, {status: "Driver Updated"})
+        case UPDATE_DRIVERS:
+            console.log('ENROUTELIST',state.enRouteList);            
+            for (let i = 0; i < state.enRouteList.length; i++) {
+                if (state.enRouteList[i]._id === action.driver._id) {
+                    state.enRouteList[i].position = action.driver.position;
+                    return Object.assign({}, state, {enRouteList: state.enRouteList}, {mapCenter: action.driver.position});
+                }
+            }
+            state.enRouteList.push(action.driver)
+            return Object.assign({}, state, {enRouteList: state.enRouteList}, {mapCenter: action.driver.position});
         default:
             return state;
     }

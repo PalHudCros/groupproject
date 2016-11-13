@@ -1,4 +1,15 @@
 import axios from 'axios';
+import io from 'socket.io-client';
+import fs from 'fs';
+
+const socket = io.connect("/")
+navigator.geolocation.watchPosition(position => {
+  if (localStorage.getItem("driver_profile")) {
+    const driverInfo = JSON.parse(localStorage.getItem("driver_profile"));
+    driverInfo.position = {lat: position.coords.latitude, lng: position.coords.longitude} 
+    socket.emit("driverPosition", driverInfo);
+  }
+})
 
 // Initial state
 const initialState = {
@@ -84,7 +95,7 @@ export function doAuthentication(){
             .then(results => {
                 // Set token and profile in local storage
                 lock.hide();
-                localStorage.setItem('driver_profile', JSON.stringify(profile))
+                localStorage.setItem('driver_profile', JSON.stringify(results.data))
                 localStorage.setItem('driver_id_token', authResult.idToken)
                 dispatch(lockSuccess(results.data))
             })
