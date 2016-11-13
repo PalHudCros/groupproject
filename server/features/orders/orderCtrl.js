@@ -72,4 +72,14 @@ module.exports = {
       return res.status(200).json(orders)
     })
   }
+
+   , addDriverToOrder( req, res ) {
+    Order.findByIdAndUpdate( req.body.orderId, { $push: { "filled.driver": req.body.driverId }, $set: {"filled.status": true} }, {new: true}, ( err, order ) => {
+      console.log("Order: ", order, "Err: ", err)
+      if ( err ) {
+        return res.status( 500 ).json( err );
+      }      
+      return res.status( 200 ).json( order );
+    } );
+  }
 }

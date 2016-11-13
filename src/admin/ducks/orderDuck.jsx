@@ -9,6 +9,10 @@ const GET_ORDERS_PROCESS = "orders/GET_ORDERS_PROCESS";
 const GET_ORDERS_SUCCESS = "orders/GET_ORDERS_SUCCESS";
 const GET_ORDERS_FAILURE = "orders/GET_ORDERS_FAILURE";
 
+const ADD_DRIVER_PROCESS = "orders/ADD_DRIVER_PROCESS";
+const ADD_DRIVER_SUCCESS = "orders/ADD_DRIVER_SUCCESS";
+const ADD_DRIVER_FAILURE = "orders/ADD_DRIVER_FAILURE";
+
 //Action Creators
 function getOrdersProcess() {
     return {type: GET_ORDERS_PROCESS}
@@ -20,6 +24,18 @@ function getOrdersSuccess(orders) {
 
 function getOrdersFailure(err) {
     return {type: GET_ORDERS_FAILURE, err}
+}
+
+function addDriverProcess() {
+    return {type: ADD_DRIVER_PROCESS}
+}
+
+function addDriverSuccess(driver) {
+    return {type: ADD_DRIVER_SUCCESS, driver}
+}
+
+function addDriverFailure(err) {
+    return {type: ADD_DRIVER_FAILURE, err}
 }
 
 //Async Actions
@@ -41,6 +57,12 @@ export function getOrders() {
     }
 }
 
+export function addDriverToOrder(orderId, driverId) {
+    return dispatch => {
+        dispatch(addDriverProcess());
+    // Add crap later
+    }
+}
 //Reducer
 export default function orderReducer(state=initialState, action) {
     switch(action.type) {

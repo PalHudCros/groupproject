@@ -2,12 +2,17 @@ import React, {Component} from "react";
 import {Link} from "react-router";
 import {connect} from "react-redux";
 import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps, Circle } from 'react-google-maps';
+import io from 'socket.io-client';
+import fs from 'fs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 
+
 import config from "../../../../config/config.js";
-import {showDriverInfo, updateDriverPositions} from "../../ducks/driverDuck";
+import {showDriverInfo, updateDrivers} from "../../ducks/driverDuck";
+
+
 
 export class DriverMap extends Component {
   constructor(props) {
@@ -15,7 +20,6 @@ export class DriverMap extends Component {
 
     this.state = {
       map: {}
-      , center: { lat: 32.7826722, lng: -96.79759519999999 }
     }
 }
 
@@ -26,6 +30,12 @@ export class DriverMap extends Component {
           this.setState({center: newCenter});
         });
     }
+
+    const socket = io.connect("/");
+    socket.on("driverPosition", driver => {
+        console.log("Admin log: ", driver);
+        this.props.dispatch(updateDrivers(driver));
+      });
   }
 
   handleMarkerClick(driverId) {
@@ -38,7 +48,6 @@ export class DriverMap extends Component {
 
   render() {
   const mapContainer = ( <div style={{height: "100%", width: "100%"}}></div> );
-  console.log()
     return (
      <GoogleMapLoader
         containerElement={mapContainer}
@@ -46,16 +55,16 @@ export class DriverMap extends Component {
             <GoogleMap
                 ref={(map) => {}}
                 defaultZoom={15}
-                center={this.state.center}
+                center={this.props.drivers.mapCenter}
                 options={{streetViewControl: false, mapTypeControl: false}}
                 >
-                {this.props.drivers.driverList.map((driver, index)=> (
+                {this.props.drivers.enRouteList.map((driver, index)=> (
                 <Marker
                     style={{height: "10px", width: "10px", overflow: "hidden"}}
                     key={index}
-                    position={this.state.center}
+                    position={driver.position}
                     onClick={this.handleMarkerClick.bind(this, driver._id)}
-                    icon={driver.picture}
+                    icon={{url: driver.picture, scaledSize: new google.maps.Size(25, 25)}}
                     >
                     { driver.showInfo && ( 
                     

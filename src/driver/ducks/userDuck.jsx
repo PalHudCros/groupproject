@@ -1,4 +1,18 @@
 import axios from 'axios';
+import io from 'socket.io-client';
+import fs from 'fs';
+
+const socket = io.connect("/")
+navigator.geolocation.watchPosition(position => {
+  if (localStorage.getItem("driver_profile")) {
+    const driverInfo = JSON.parse(localStorage.getItem("driver_profile"));
+    driverInfo.position = {
+      lat: position.coords.latitude + Math.random() /10
+      , lng: position.coords.longitude + Math.random() / 10
+    } 
+    socket.emit("driverPosition", driverInfo);
+  }
+})
 
 // Initial state
 const initialState = {
@@ -84,7 +98,7 @@ export function doAuthentication(){
             .then(results => {
                 // Set token and profile in local storage
                 lock.hide();
-                localStorage.setItem('driver_profile', JSON.stringify(profile))
+                localStorage.setItem('driver_profile', JSON.stringify(results.data))
                 localStorage.setItem('driver_id_token', authResult.idToken)
                 dispatch(lockSuccess(results.data))
             })
@@ -106,7 +120,7 @@ export default function userReducer(state = initialState, action) {
     case LOCK_ERROR:
         return Object.assign({}, state, {status: action.err})
     case LOGOUT_SUCCESS:
-        return Object.assing({}, initialState, {status: "Logged Out"}); 
+        return Object.assign({}, initialState, {status: "Logged Out"}); 
     default:
         return state
   }
