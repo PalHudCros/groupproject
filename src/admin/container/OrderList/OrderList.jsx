@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getOrders} from "../../ducks/orderDuck";
+import {getUnfilledOrders} from "../../ducks/orderDuck";
 
 class OrderList extends Component{
     constructor(props) {
@@ -11,7 +11,7 @@ class OrderList extends Component{
         }
     }
     componentWillMount() {
-        this.props.dispatch(getOrders());
+        this.props.dispatch(getUnfilledOrders());
     }
 
     componentWillReceiveProps(props) {

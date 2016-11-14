@@ -8,31 +8,28 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 
-
 import config from "../../../../config/config.js";
 import {showDriverInfo, updateDrivers} from "../../ducks/driverDuck";
-
-
+import {getUndeliveredOrders} from "../../ducks/orderDuck";
 
 export class DriverMap extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      map: {}
-      , origin: new google.maps.LatLng(38.8507300, -92.6512600)
-      , destination: new google.maps.LatLng(41.8525800, -87.6514100)
+      enRouteList: null
+      , orderList: null
       , directions: null
-      , enRouteList: null
-      , center: { lat: 32.7826722, lng: -96.79759519999999 }
+      , center: { lat: 38.7826722, lng: -92.79759519999999 }
       , selectedDriver: {
           id: ""
           , position: {}
       }
     }  
-}
+  }
 
   componentWillMount() {
+    this.props.dispatch(getUndeliveredOrders())
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
           let newCenter = {lat: position.coords.latitude, lng: position.coords.longitude}
@@ -41,7 +38,24 @@ export class DriverMap extends Component {
     }
     const socket = io.connect("/");
     socket.on("driverPosition", driver => {
-        console.log("Admin log: ", driver);
+        if (this.state.selectedDriver.id && driver._id === this.state.selectedDriver.id) {
+          this.setState({"selectedDriver.position": driver.position});
+          let DirectionsService = new google.maps.DirectionsService();
+          DirectionsService.route({
+            origin: driver.position,
+            destination: {lat: driver.position.lat + .01, lng: driver.position.lng + .01},
+            travelMode: google.maps.TravelMode.DRIVING,
+          }, (result, status) => {
+            console.log(result);
+            if (status === google.maps.DirectionsStatus.OK) {
+              this.setState({
+                directions: result,
+              });
+            } else {
+              console.error(`error fetching directions ${result}`);
+            }
+          });
+        }
         this.props.dispatch(updateDrivers(driver));
       });
   }
@@ -54,10 +68,11 @@ export class DriverMap extends Component {
       let DirectionsService = new google.maps.DirectionsService();
       DirectionsService.route({
         origin: driverPosition,
-        destination: this.state.destination,
+        destination: {lat: driverPosition.lat + .01, lng: driverPosition.lng + .01}, // Need to geocode?
         travelMode: google.maps.TravelMode.DRIVING,
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
+          console.log(result);
           this.setState({
             directions: result,
           });
@@ -68,28 +83,9 @@ export class DriverMap extends Component {
     }    
   }
 
-  componentDidMount() {
-    let DirectionsService = new google.maps.DirectionsService();
-    if (this.state.selectedDriver.id) {
-      DirectionsService.route({
-        origin: this.selectedDriver.position,
-        destination: this.state.destination,
-        travelMode: google.maps.TravelMode.DRIVING,
-      }, (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK) {
-          this.setState({
-            directions: result,
-          });
-        } else {
-          console.error(`error fetching directions ${result}`);
-        }
-      });   
-    }
-  }
-
   componentWillReceiveProps(props) {
-    console.log(props.drivers.enRouteList)
-   this.setState({enRouteList: props.drivers.enRouteList}, () => {console.log(this.state.enRouteList)})
+    this.setState({orderList: props.orders.undeliveredOrderList})
+    this.setState({enRouteList: props.drivers.enRouteList})
   }
 
   render() {
@@ -104,7 +100,7 @@ export class DriverMap extends Component {
                 center={this.state.center}
                 options={{streetViewControl: false, mapTypeControl: false}}
                 >
-                {this.state.directions && <DirectionsRenderer directions={this.state.directions} />}
+                {this.state.directions && this.state.selectedDriver.id && <DirectionsRenderer directions={this.state.directions} />}
                 {this.state.enRouteList && this.state.enRouteList.map((driver, index)=> (
                 <Marker
                     key={index}
@@ -129,6 +125,7 @@ export class DriverMap extends Component {
 
 export default connect( state => ( {
   drivers: state.drivers
+  , orders: state.orders
 } ) )( DriverMap );
 
 /*<MuiThemeProvider>

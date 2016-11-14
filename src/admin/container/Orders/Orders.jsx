@@ -24,7 +24,7 @@ class Orders extends React.Component {
         socket.on("driverPosition", driver => {
             this.props.dispatch(updateDrivers(driver));
         });
-        this.props.dispatch(getOrders())
+        this.props.dispatch(getUnfilledOrders())
     }
 
     componentWillReceiveProps(props) {
