@@ -6,7 +6,7 @@ export default function SuperNav(){
   return(
     <div className="row supernav shop">
         <div className="col-xs-offset-2 col-xs-2 slogan-wrapper shop">
-          <p>Your Personal Sommelier</p>
+          <p>Your Personal <span>Sommelier</span></p>
         </div>
         <div className="col-xs-offset-3 col-xs-3 address-wrapper shop">
           <AddressIcon></AddressIcon>

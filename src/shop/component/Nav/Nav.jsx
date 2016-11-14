@@ -15,10 +15,10 @@ export default function Nav(){
         <h1>Fero Vino</h1>
       </div>
 
-      <div className="col-md-1 col-md-offset-2 wine-button shop">
+      <div className="col-md-2 col-md-offset-2 wine-button shop">
         <Link to="/shop">
           <FlatButton
-            label="All Wines"
+            label="Wines"
             rippleColor="#ef4036"
             labelStyle={{ color: "#7b7b7d" }}
             hoverColor="rgba(123, 123, 125, .2)"
@@ -27,7 +27,7 @@ export default function Nav(){
         </Link>
       </div>
 
-      <div className="col-md-3 searchbar-wrapper shop">
+      <div className="col-md-2 searchbar-wrapper shop">
         <SearchBox></SearchBox>
       </div>
 
