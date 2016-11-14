@@ -20,11 +20,15 @@ export class DriverMap extends Component {
 
     this.state = {
       map: {}
-      , origin: new google.maps.LatLng(41.8507300, -87.6512600)
+      , origin: new google.maps.LatLng(38.8507300, -92.6512600)
       , destination: new google.maps.LatLng(41.8525800, -87.6514100)
       , directions: null
-      , enrRouteList: null
+      , enRouteList: null
       , center: { lat: 32.7826722, lng: -96.79759519999999 }
+      , selectedDriver: {
+          id: ""
+          , position: {}
+      }
     }  
 }
 
@@ -35,7 +39,6 @@ export class DriverMap extends Component {
           this.setState({center: newCenter});
         });
     }
-
     const socket = io.connect("/");
     socket.on("driverPosition", driver => {
         console.log("Admin log: ", driver);
@@ -43,40 +46,51 @@ export class DriverMap extends Component {
       });
   }
 
-  handleMarkerClick(driverId) {
-    const showDriverList = this.state.enRouteList.map(driver => {
-        if (driver._id === driverId) {
-            driver.showInfo = !driver.showInfo;
+  handleMarkerClick(driverId, driverPosition) {
+    if (this.state.selectedDriver.id === driverId) {
+      this.setState({selectedDriver: {id: "", position: {}}})
+    } else {
+      this.setState({selectedDriver: {id: driverId, position: driverPosition}})
+      let DirectionsService = new google.maps.DirectionsService();
+      DirectionsService.route({
+        origin: driverPosition,
+        destination: this.state.destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+      }, (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({
+            directions: result,
+          });
+        } else {
+          console.error(`error fetching directions ${result}`);
         }
-        return driver;
-    })
-    this.setState({enRouteList: showDriverList});
-  }
-
-  componentWillReceiveProps(props) {
-    this.setState({enRouteList: props.drivers.enRouteList})
+      });   
+    }    
   }
 
   componentDidMount() {
-    const DirectionsService = new google.maps.DirectionsService();
-
-    DirectionsService.route({
-      origin: this.state.origin,
-      destination: this.state.destination,
-      travelMode: google.maps.TravelMode.DRIVING,
-    }, (result, status) => {
-      if (status === google.maps.DirectionsStatus.OK) {
-        this.setState({
-          directions: result,
-        });
-      } else {
-        console.error(`error fetching directions ${result}`);
-      }
-    });
+    let DirectionsService = new google.maps.DirectionsService();
+    if (this.state.selectedDriver.id) {
+      DirectionsService.route({
+        origin: this.selectedDriver.position,
+        destination: this.state.destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+      }, (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({
+            directions: result,
+          });
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      });   
+    }
   }
 
-
-
+  componentWillReceiveProps(props) {
+    console.log(props.drivers.enRouteList)
+   this.setState({enRouteList: props.drivers.enRouteList}, () => {console.log(this.state.enRouteList)})
+  }
 
   render() {
   const mapContainer = ( <div style={{height: "100%", width: "100%"}}></div> );
@@ -89,18 +103,16 @@ export class DriverMap extends Component {
                 defaultZoom={15}
                 center={this.state.center}
                 options={{streetViewControl: false, mapTypeControl: false}}
-                directions
                 >
+                {this.state.directions && <DirectionsRenderer directions={this.state.directions} />}
                 {this.state.enRouteList && this.state.enRouteList.map((driver, index)=> (
                 <Marker
-                    style={{height: "10px", width: "10px", overflow: "hidden"}}
                     key={index}
                     position={driver.position}
-                    onClick={this.handleMarkerClick.bind(this, driver._id)}
+                    onClick={this.handleMarkerClick.bind(this, driver._id, driver.position)}
                     icon={{url: driver.picture, scaledSize: new google.maps.Size(25, 25)}}
                     >
-                    { driver.showInfo && ( 
-                    
+                    { driver._id === this.state.selectedDriver.id && (
                     <InfoWindow><h1>Hello</h1>
                     </InfoWindow>
                     )}
