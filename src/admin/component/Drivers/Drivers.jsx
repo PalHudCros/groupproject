@@ -3,18 +3,22 @@ import { Link } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import DriverMap from "../../container/DriverMap/DriverMap.jsx";
 // import DriverMap2 from "../../container/DriverMap/DriverMap2.jsx";
-import DriverList from "../../container/DriverList/DriverList"
+import DriverList from "../../container/DriverList/DriverList";
+import OrderList from "../../container/OrderList/OrderList";
+
 
 
 export default function DriversContent(props) {
 
   return (
-      <nav className="row driverscontent admin">
-
-        <DriverList />
+      <div className="row driverscontent admin">
+        <div className="row">
+          <DriverList />
+          <OrderList />
+        </div>
         <DriverMap></DriverMap>
  
-      </nav>
+      </div>
   );
 
 }

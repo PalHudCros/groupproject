@@ -21,3 +21,17 @@ export function isTokenExpired(token){
 }
 // Contact GitHub API Training Shop Blog About
 // © 2016 GitHub, Inc. Terms Privacy Security Status
+
+export function getDriverToken(){
+  return localStorage.getItem('driver_id_token')
+}
+export function createHeaders(token) {
+  return {
+      headers:
+      {
+      'Accept': 'application/json'
+      , 'Content-Type': 'application/json'
+      , 'Authorization': `Bearer ${token}`
+      }
+  }
+}

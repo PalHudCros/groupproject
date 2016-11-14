@@ -4,7 +4,6 @@ import AutoComplete from 'material-ui/AutoComplete';
 import { getWines } from "../../ducks/wineDuck";
 import { browserHistory } from "react-router";
 
-
 export class SearchBox extends Component{
   constructor(props){
     super(props);

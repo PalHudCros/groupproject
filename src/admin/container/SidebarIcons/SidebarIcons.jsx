@@ -7,7 +7,8 @@ import IconButton from 'material-ui/IconButton';
 import DashboardIcon from 'material-ui/svg-icons/image/grid-on';
 import InventoryIcon from 'material-ui/svg-icons/device/storage';
 import DriversIcon from 'material-ui/svg-icons/notification/drive-eta';
-import CustomersIcon from 'material-ui/svg-icons/social/people'
+import CustomersIcon from 'material-ui/svg-icons/social/people';
+import OrdersIcon from 'material-ui/svg-icons/action/assignment';
 import Close from 'material-ui/svg-icons/navigation/close';
 import {Link, browserHistory} from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -56,6 +57,14 @@ export class SidebarIcons extends Component {
           onClick={this.handleToggle.bind(this, ["Where Are My Drivers", "Manage Drivers"], ["/drivers", "/drivers"], "Drivers")}
         >
           <DriversIcon></DriversIcon>
+        </IconButton></Link>
+      <Link to="/orders"><IconButton
+          iconStyle={{width: 60, height: 60, color: "#ef4036"}}
+          style={{width: 120, height: 120, padding: 30}}
+          label="Orders"
+          onTouchTap={this.handleToggle.bind(this, ["Assign Orders to Drivers"], ["/orders"], "Orders")}
+        >
+          <OrdersIcon></OrdersIcon>
         </IconButton></Link>
         <Link to="/customers"><IconButton
           iconStyle={{width: 60, height: 60, color: "#ef4036"}}
