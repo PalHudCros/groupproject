@@ -38,6 +38,7 @@ subdomains(app)
 
 io.on('connection', function (socket) {
   socket.on('driverPosition', position => {
+    console.log(position)
     socket.broadcast.emit('driverPosition', position)
   });
 

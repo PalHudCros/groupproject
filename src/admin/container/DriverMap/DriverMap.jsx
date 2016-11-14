@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
 import {connect} from "react-redux";
-import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps, Circle } from 'react-google-maps';
+import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, withGoogleMaps, Circle, DirectionsRenderer } from 'react-google-maps';
 import io from 'socket.io-client';
 import fs from 'fs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -20,7 +20,16 @@ export class DriverMap extends Component {
 
     this.state = {
       map: {}
-    }
+      , origin: new google.maps.LatLng(38.8507300, -92.6512600)
+      , destination: new google.maps.LatLng(41.8525800, -87.6514100)
+      , directions: null
+      , enRouteList: null
+      , center: { lat: 32.7826722, lng: -96.79759519999999 }
+      , selectedDriver: {
+          id: ""
+          , position: {}
+      }
+    }  
 }
 
   componentWillMount() {
@@ -30,7 +39,6 @@ export class DriverMap extends Component {
           this.setState({center: newCenter});
         });
     }
-
     const socket = io.connect("/");
     socket.on("driverPosition", driver => {
         console.log("Admin log: ", driver);
@@ -38,12 +46,50 @@ export class DriverMap extends Component {
       });
   }
 
-  handleMarkerClick(driverId) {
-    this.props.dispatch(showDriverInfo(driverId))
+  handleMarkerClick(driverId, driverPosition) {
+    if (this.state.selectedDriver.id === driverId) {
+      this.setState({selectedDriver: {id: "", position: {}}})
+    } else {
+      this.setState({selectedDriver: {id: driverId, position: driverPosition}})
+      let DirectionsService = new google.maps.DirectionsService();
+      DirectionsService.route({
+        origin: driverPosition,
+        destination: this.state.destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+      }, (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({
+            directions: result,
+          });
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      });   
+    }    
+  }
+
+  componentDidMount() {
+    let DirectionsService = new google.maps.DirectionsService();
+    if (this.state.selectedDriver.id) {
+      DirectionsService.route({
+        origin: this.selectedDriver.position,
+        destination: this.state.destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+      }, (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({
+            directions: result,
+          });
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      });   
+    }
   }
 
   componentWillReceiveProps(props) {
-    console.log(props);
+    console.log(props.drivers.enRouteList)
+   this.setState({enRouteList: props.drivers.enRouteList}, () => {console.log(this.state.enRouteList)})
   }
 
   render() {
@@ -55,23 +101,23 @@ export class DriverMap extends Component {
             <GoogleMap
                 ref={(map) => {}}
                 defaultZoom={15}
-                center={this.props.drivers.mapCenter}
+                center={this.state.center}
                 options={{streetViewControl: false, mapTypeControl: false}}
                 >
-                {this.props.drivers.enRouteList.map((driver, index)=> (
+                {this.state.directions && <DirectionsRenderer directions={this.state.directions} />}
+                {this.state.enRouteList && this.state.enRouteList.map((driver, index)=> (
                 <Marker
-                    style={{height: "10px", width: "10px", overflow: "hidden"}}
                     key={index}
                     position={driver.position}
-                    onClick={this.handleMarkerClick.bind(this, driver._id)}
+                    onClick={this.handleMarkerClick.bind(this, driver._id, driver.position)}
                     icon={{url: driver.picture, scaledSize: new google.maps.Size(25, 25)}}
                     >
-                    { driver.showInfo && ( 
-                    
+                    { driver._id === this.state.selectedDriver.id && (
                     <InfoWindow><h1>Hello</h1>
                     </InfoWindow>
                     )}
                 </Marker>
+
                 ))}
             </GoogleMap>
         }
