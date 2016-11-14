@@ -12,50 +12,50 @@ class Orders extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: ""
+            orderList: null
         }
-        console.log("Props: ", props);
     }
 
     componentWillMount() {
         const socket = io.connect("/");
         socket.on("order", order => {
-            console.log("Admin log: ", order);
             this.props.dispatch(getOrders());
         });
         socket.on("driverPosition", driver => {
-            console.log("Admin log: ", driver);
             this.props.dispatch(updateDrivers(driver));
         });
         this.props.dispatch(getOrders())
     }
 
-    selectDriver(event, index, value) {
-        console.log("Value: ", value)
-        this.setState({value})
+    componentWillReceiveProps(props) {
+        const assignPropsToState = props.orders.unfilledOrderList.filter(order => !order.filled.status).map((order, index) => {  
+            this.setState(Object.assign({}, this.state, {[`listItem${index}Value`]: 0}))
+        })          
     }
 
-    submitDriver(orderId) {
-        this.props.dispatch(addDriverToOrder({orderId, driverId: this.state.value}))
+    selectDriver(index, event, fakeIndex, value) {
+        this.setState({[`listItem${index}Value`]: value})
+    }
+
+    submitDriver(orderId, index) {
+        this.props.dispatch(addDriverToOrder({orderId, driverId: this.state[`listItem${index}Value`]}))
     }
 
     render() {
         const driverList = this.props.drivers.enRouteList.map((driver, index) => (
-            <MenuItem value={index} primaryText={driver.name}></MenuItem>
+            <MenuItem value={driver._id} primaryText={driver.name}></MenuItem>
         ))
-        console.log("DRIVER LIST: ", driverList);
-        const orderList = this.props.orders.orderList.filter(order => !order.filled.status).map((order, index) => {
-            console.log("ORDER IN MAP: ", order);
+
+        const orderList = this.props.orders.unfilledOrderList.filter(order => !order.filled.status).map((order, index) => {  
             return ( 
                 <tr>
                     <td>{order._id}</td>
-                    <td><SelectField value={this.state.value} onChange={this.selectDriver}>{driverList}</SelectField></td>
-                    <td><button onTouchTap={this.submitDriver.bind(this, order._id)}>Submit</button></td>
-                    
+                    <td><SelectField value={this.state[`listItem${index}Value`]} onChange={this.selectDriver.bind(this, index)} floatingLabelText="Select a Driver" floatingLabelFixed={false}>{driverList}</SelectField></td>
+                    <td><button onTouchTap={this.submitDriver.bind(this, order._id, index)}>Submit</button></td>                    
                 </tr>
-            )}
-        )
-        console.log("ORDER LIST: ", orderList);
+            )
+        })
+        
         return (
                 <MuiThemeProvider><table><tbody>{orderList}</tbody></table></MuiThemeProvider>
         )

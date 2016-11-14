@@ -19,19 +19,31 @@ class OrderList extends Component{
     }
     
     render() {
-        const orders = this.props.orders.orderList.map((order, index) => (
-            <tbody key={order._id}>
-                <tr>
-                    <td>{order.user.name}</td>
-                    <td>{order.user.orderAddress[0].street}</td>
-                </tr>
-                <tr>
-                    <td>{order.products[0]._id}</td>
+        const orders = this.props.orders.unfilledOrderList.map((order, index) => {
+            let products = order.products.map((product, idx) => (
+                <tr key={product._id}>
+                    <td>{order.products[0].item.Name}</td>
                     <td>{order.products[0].quantity}</td>
                 </tr>
-            </tbody>
+            ))
 
-        ))
+            return (
+                <tbody key={order._id}>
+                    <tr>
+                        <td>{order.user.name}</td>
+                    </tr>
+                    <tr>
+                        <td>{order.user.orderAddress[0].street}</td>
+                    </tr>
+                    <tr>
+                        <td>{order.user.orderAddress[0].city}, {order.user.orderAddress[0].state} {order.user.orderAddress[0].zip}</td>
+                    </tr>
+                    {products}
+                </tbody>
+            )
+        })
+
+
         return (
             <div className="col-xs-6">
                 <h2>Order List</h2>

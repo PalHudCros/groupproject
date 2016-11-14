@@ -31,8 +31,8 @@ function addDriverProcess() {
     return {type: ADD_DRIVER_PROCESS}
 }
 
-function addDriverSuccess(driver) {
-    return {type: ADD_DRIVER_SUCCESS, driver}
+function addDriverSuccess(orders) {
+    return {type: ADD_DRIVER_SUCCESS, orders}
 }
 
 function addDriverFailure(err) {
@@ -46,7 +46,7 @@ export function getOrders() {
         let token = localStorage.getItem('admin_id_token');
         const headers = createHeaders(token);
         dispatch(getOrdersProcess());
-        return axios.get("/api/order", headers)
+        return axios.get("/api/orders/unfilled", headers)
         .then(results => {
             console.log("RESULTS: ", results.data);
             dispatch(getOrdersSuccess(results.data));            
@@ -58,10 +58,19 @@ export function getOrders() {
     }
 }
 
-export function addDriverToOrder(orderId, driverId) {
+export function addDriverToOrder(orderInfo) {
     return dispatch => {
+        let token = localStorage.getItem('admin_id_token');        
         dispatch(addDriverProcess());
-    // Add crap later
+        return axios.put("/api/order/driver", orderInfo, createHeaders(token))
+        .then(results => {
+            console.log("Order Duck result: ", results)
+            dispatch(addDriverSuccess(results.data));
+        })
+        .catch(err => {
+            console.log("Order Duck Error: ", err);
+            dispatch(addDriverFailure(err));
+        })
     }
 }
 //Reducer
@@ -72,7 +81,13 @@ export default function orderReducer(state=initialState, action) {
         case GET_ORDERS_FAILURE:
             return Object.assign({}, state, {status: "You idiot!"})
         case GET_ORDERS_SUCCESS:
-            return Object.assign({}, state, {orderList: action.orders}, {status: "Marvelous"});
+            return Object.assign({}, state, {unfilledOrderList: action.orders}, {status: "Marvelous"});
+        case ADD_DRIVER_PROCESS:
+            return Object.assign({}, state, {status: "Adding Driver"} )
+        case ADD_DRIVER_FAILURE:
+            return Object.assign({}, state, {status: "You idiot!"})
+        case ADD_DRIVER_SUCCESS:
+            return Object.assign({}, state, {unfilledOrderList: action.orders}, {status: "Marvelous"});
         default:
             return state;
     }
