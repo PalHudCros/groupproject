@@ -46,7 +46,7 @@ export class SearchBox extends Component{
         onUpdateInput={ this.handleUpdateInput.bind(this) }
         onNewRequest={this.handleNewRequest.bind(this)}
         floatingLabelStyle={{ color: "#ef4036" }}
-        underlineStyle={{ borderColor: "#e2e2e2" }}
+        underlineStyle={{ borderColor: "rgba(238, 64, 54, .3)" }}
         underlineFocusStyle={{ borderColor: "#ef4036" }}
       />
     )

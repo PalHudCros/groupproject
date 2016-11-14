@@ -3,7 +3,9 @@
 }
 
 .supernav-wrapper.shop {
-  background-color: $pal-supernav-white;
+  overflow: hidden;
+  height: 30px;
+  font-size: 12px;
 }
 
 .nav-wrapper.shop {

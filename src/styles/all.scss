@@ -13,12 +13,14 @@ $pal-header-footer-link: #484d56;
 $pal-header-footer-text: #2a678f;
 // black social media icons on footer
 $pal-header-footer-icons: #727786;
+$pal-supernav-text: #595D66;
 
 //Base
 @import "./base/reset";
 @import "./base/bootstrap";
 @import "./base/mixins";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
 * {
   font-family: "Roboto", sans-serif !important;
 }

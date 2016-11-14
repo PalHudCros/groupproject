@@ -1,3 +1,34 @@
 .nav.shop {
-  height: 120px;
+  height: 70px;
+}
+
+.logo-wrapper.shop {
+  text-align: left;
+  h1 {
+    margin: 17px 0px 0px 10px;
+    font-family: Pacifico, cursive !important;
+    color: $pal-red;
+    font-size: 37px;
+    margin-left: 10px;
+  }
+}
+
+.wine-button.shop {
+  text-align: right;
+  a {
+    position: absolute;
+    right: -70px;
+    margin-top: 28px;
+  }
+}
+
+.searchbar-wrapper.shop {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.shopping-cart-button-wrapper.shop {
+  text-align: right;
+  margin-right: 20px;
+  margin-top: 30px;
 }

@@ -5,13 +5,13 @@ import AddressIcon from "../../container/AddressIcon/AddressIcon"
 export default function SuperNav(){
   return(
     <div className="row supernav shop">
-        <div className="col-xs-offset-2 col-xs-2 shop">
+        <div className="col-xs-offset-2 col-xs-2 slogan-wrapper shop">
           <p>Your Personal Sommelier</p>
         </div>
-        <div className="col-xs-offset-2 col-xs-3 shop">
+        <div className="col-xs-offset-3 col-xs-3 address-wrapper shop">
           <AddressIcon></AddressIcon>
         </div>
-        <div className="col-xs-1 shop">
+        <div className="col-xs-1 user-icon-wrapper shop">
           <UserIcon></UserIcon>
         </div>
     </div>
