@@ -10,14 +10,16 @@ import Chip from 'material-ui/Chip';
 
 import config from "../../../../config/config.js";
 import {showDriverInfo, updateDrivers} from "../../ducks/driverDuck";
+import {getUndeliveredOrders} from "../../ducks/orderDuck";
 
 export class DriverMap extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      directions: null
-      , enRouteList: null
+      enRouteList: null
+      , orderList: null
+      , directions: null
       , center: { lat: 38.7826722, lng: -92.79759519999999 }
       , selectedDriver: {
           id: ""
@@ -27,6 +29,7 @@ export class DriverMap extends Component {
   }
 
   componentWillMount() {
+    this.props.dispatch(getUndeliveredOrders())
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
           let newCenter = {lat: position.coords.latitude, lng: position.coords.longitude}
@@ -65,7 +68,7 @@ export class DriverMap extends Component {
       let DirectionsService = new google.maps.DirectionsService();
       DirectionsService.route({
         origin: driverPosition,
-        destination: {lat: driverPosition.lat + .01, lng: driverPosition.lng + .01},
+        destination: {lat: driverPosition.lat + .01, lng: driverPosition.lng + .01}, // Need to geocode?
         travelMode: google.maps.TravelMode.DRIVING,
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -81,7 +84,7 @@ export class DriverMap extends Component {
   }
 
   componentWillReceiveProps(props) {
-    this.setState({orderList})
+    this.setState({orderList: props.orders.undeliveredOrderList})
     this.setState({enRouteList: props.drivers.enRouteList})
   }
 
@@ -97,7 +100,7 @@ export class DriverMap extends Component {
                 center={this.state.center}
                 options={{streetViewControl: false, mapTypeControl: false}}
                 >
-                {this.state.directions && <DirectionsRenderer directions={this.state.directions} />}
+                {this.state.directions && this.state.selectedDriver.id && <DirectionsRenderer directions={this.state.directions} />}
                 {this.state.enRouteList && this.state.enRouteList.map((driver, index)=> (
                 <Marker
                     key={index}
