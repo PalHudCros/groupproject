@@ -16,7 +16,8 @@ export default function Home(props){
                 zDepth={1}
                 rounded={false}
                 >
-                <h1>Welcome to WineApp</h1>
+                <h1>Welcome</h1>
+                <img src="" alt=""/>
               </Paper>
             </MuiThemeProvider>
           </div>

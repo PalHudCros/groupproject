@@ -11,11 +11,11 @@ export default function Nav(){
   return(
     <div className="nav shop">
 
-      <div className="col-md-offset-2 col-md-2 logo-wrapper shop">
+      <div className="col-md-offset-1 col-md-2 logo-wrapper shop">
         <h1>Fero Vino</h1>
       </div>
 
-      <div className="col-md-2 col-md-offset-2 wine-button shop">
+      <div className="col-md-2 col-md-offset-3 wine-button shop">
         <Link to="/shop">
           <FlatButton
             label="Wines"
