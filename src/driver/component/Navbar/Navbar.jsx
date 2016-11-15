@@ -9,16 +9,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default function Navbar() {
   return (
-    <div className="navbar-wrapper driver">
-
-          <MuiThemeProvider>
-            <Userbar></Userbar>
-          </MuiThemeProvider>
-
-          <MuiThemeProvider>
-            <Nav></Nav>
-          </MuiThemeProvider>
-          
-    </div>
+      <MuiThemeProvider>
+        <Nav></Nav>
+      </MuiThemeProvider>
   );
 }

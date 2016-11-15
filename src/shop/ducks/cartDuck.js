@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { browserHistory } from "react-router";
+import io from "socket.io-client";
+import fs from "fs";
 
+const socket = io.connect("/")
+socket.emit("order", {})
 
 // Actions
 const ADD_PRODUCT_PROCESS = 'ADD_PRODUCT_PROCESS';
@@ -203,7 +207,9 @@ export function postOrder(cart){
     return axios.post('/api/order', cart, config )
       .then( results => {
 				browserHistory.push("confirmation")
+		    socket.emit("order", results.data);
         dispatch(checkoutSuccess(results.data))
+
       })
       .catch( error => {
         dispatch(checkoutFailure(error))

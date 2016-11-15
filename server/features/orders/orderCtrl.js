@@ -2,7 +2,7 @@ import InventoryItem from '../wines/InventoryItem'
 import Order from './Order'
 import User from '../users/User'
 import Cart from '../carts/Cart'
-
+import Driver from '../drivers/Driver'
 import mongoose from 'mongoose'
 
 module.exports = {
@@ -21,7 +21,6 @@ module.exports = {
       })
     next();
   }
-
   , makeOrder(req, res, next){
       User.findOne({sub:req.user.sub}, (err, user) => {
         if (err) return res.status(502).json(err)
@@ -71,5 +70,60 @@ module.exports = {
       if (err) return res.status(500).json(err);
       return res.status(200).json(orders)
     })
+  }
+
+   , addDriverToOrder( req, res, next ) {
+     console.log("Req.body: ", req.body)
+    Order.findByIdAndUpdate( req.body.orderId, { $push: { "filled.driver": req.body.driverId }, $set: {"filled.status": true} }, {new: true}, ( err, order ) => {
+      console.log("Order: ", order, "Err: ", err)
+      if ( err ) {
+        return res.status( 500 ).json( err );
+      }
+      next();
+    } );
+  }
+  , getUnfilledOrders(req, res){
+    Order.find({"filled.status":false})
+    .populate("user products.item")
+    .exec((err, orders)=>{
+      if (err) return res.status(500).json(err)
+      if(orders) return res.status(200).json(orders)
+    })
+  }
+  , getFilledOrder(req, res){
+    Order.find({"filled.status":true})
+    .populate("user products.item")
+    .exec((err, orders)=>{
+      if (err) return res.status(500).json(err)
+      if(orders) return res.status(200).json(orders)
+    })
+  }
+  , getUndeliveredOrders(req, res){
+    Order.find({"delivered.status":false})
+    .populate("user products.item")
+    .exec((err, orders)=>{
+      if (err) return res.status(500).json(err)
+      if(orders) return res.status(200).json(orders)
+    })
+  }
+  , getDeliveredOrders(req, res){
+    Order.find({"delivered.status":true})
+    .populate("user products.item")
+    .exec((err, orders)=>{
+      if (err) return res.status(500).json(err)
+      if(orders) return res.status(200).json(orders)
+    })
+  }
+  , getOrderByDriver( req, res ){
+    Driver.find({sub:req.user.sub}, (err, driver)=>{
+      if (err) return res.status(500).json(err)
+        Order.find({driver:driver._id})
+        .populate("user products.item")
+        .exec((err, orders)=>{
+          if (err) return res.status(500).json(err)
+          if(orders) return res.status(200).json(orders)
+        })
+    })
+
   }
 }

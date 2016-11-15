@@ -27,11 +27,6 @@ const Driver = new mongoose.Schema( {
     type: String
     , default: "DLVRY PRSN"
   }
-  , orders: [ {
-    type: mongoose.Schema.Types.ObjectId
-    , ref: "Order"
-    , default: ""
-  } ]
   , updated_at: {type: Date}
 } );
 

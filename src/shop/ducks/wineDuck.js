@@ -103,9 +103,9 @@ export default function wine(state = initialState, action) {
 }
 
 // Async Actions
-export function getWines(query) {
-    let filter = "";
-    if (query) filter += "?Varietal.Id=" + query._id;
+export function getWines(query, page=50, skip=0) {
+    let filter = "?page=" + page + "&skip=" + skip;
+    if (query) filter += "&varietal=" + query._id;
     return dispatch => {
         dispatch(process());
         return axios.get("/api/wines/inventory" + filter)
