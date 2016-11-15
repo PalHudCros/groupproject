@@ -12,7 +12,7 @@ export default function Nav(){
     <div className="nav shop">
 
       <div className="col-md-offset-1 col-md-2 logo-wrapper shop">
-        <h1>Fero Vino</h1>
+        <Link to="/"><h1>Fero Vino</h1></Link>
       </div>
 
       <div className="col-md-2 col-md-offset-3 wine-button shop">
@@ -35,6 +35,7 @@ export default function Nav(){
         <Link to="/cart">
           <FlatButton
             label="Cart"
+            rippleColor="#ef4036"
             labelStyle={{ color: "#7b7b7d" }}
             icon={<ActionShoppingCart
               color="#7b7b7d"
