@@ -9,3 +9,7 @@ jsconfig.json
 my-root-ca.crt.pem
 my-server.crt.pem
 my-server.key.pem
+/dist/admin/admin.js
+/dist/driver/driver.js
+/dist/shop/shop.js
+/dist/images
