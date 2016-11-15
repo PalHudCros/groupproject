@@ -5,19 +5,23 @@
   margin: 0 auto;
 }
 
-.featured-span.shop {
-  height: 100%;
+.category-wrapper.shop {
+  height: 1px;
+  min-height: 100%;
 }
 
-/* height: 100,
-marginTop:20,
-textAlign: 'center',
-display: 'inline-block', */
+.featured-span.shop {
+  margin-top: 50px;
+}
 
-// .featured-span:first-child {
-//   border-right: solid 1px #e8e8e8;
-// }
-//
-// .featured-span:last-child {
-//   border-left: solid 1px #e8e8e8;
-// }
+.jumbotron-wrapper.shop {
+  margin-top: 50px;
+  height: 1px;
+  min-height: 200px;
+}
+
+.category-wrapper.shop {
+  height: 1px;
+  min-height: 200px;
+  margin-top: 50px;
+}

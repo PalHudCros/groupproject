@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from "react-router";
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import grapes from "../../images/green_grapes.jpeg";
 
 
 export default function Home(props){
@@ -9,15 +10,15 @@ export default function Home(props){
       <div className="home-wrapper shop">
 
         <div className="row shop">
-          <div className="col-md-12 shop">
+          <div className="col-md-12 jumbotron-wrapper shop">
             <MuiThemeProvider>
               <Paper
-                style={styles.jumbtron}
+                style={ styles.jumbotron }
                 zDepth={1}
                 rounded={false}
                 >
                 <h1>Welcome</h1>
-                <img src="" alt=""/>
+                <img src={ grapes } />
               </Paper>
             </MuiThemeProvider>
           </div>
@@ -27,7 +28,7 @@ export default function Home(props){
             <div className="featured-span col-xs-12 col-sm-12 col-md-4 shop">
               <MuiThemeProvider>
               <Paper
-                style={styles.card}
+                style={ styles.category }
                 zDepth={1}
                 rounded={false}
                 >
@@ -39,7 +40,7 @@ export default function Home(props){
             <div className="featured-span col-xs-12 col-sm-12 col-md-4 shop">
               <MuiThemeProvider>
               <Paper
-                style={styles.card}
+                style={ styles.category }
                 zDepth={1}
                 rounded={false}
                 >
@@ -51,7 +52,7 @@ export default function Home(props){
             <div className="featured-span col-xs-12 col-sm-12 col-md-4 shop">
               <MuiThemeProvider>
               <Paper
-                style={styles.card}
+                style={ styles.category }
                 zDepth={1}
                 rounded={false}
                 >
@@ -65,13 +66,14 @@ export default function Home(props){
 }
 
 const styles = {
-
   jumbotron: {
+    height: "400px"
+    , maxHeight: "100%"
+    , width: "100%"
+  }
+  , category: {
     height: "200px"
+    , maxHeight: "100%"
+    , width: "100%"
   }
-  , cards: {
-    height: "100px"
-    , marginTop: "20px"
-  }
-
 };

@@ -23,4 +23,16 @@
 .user-icon-wrapper.shop {
   text-align: right;
   margin-top: 4px;
+  a {
+    color: $pal-red;
+  }
+  a:hover {
+    color: $pal-green;
+  }
+  a:active {
+    color: $pal-red;
+  }
+  a:visited {
+    color: $pal-red;
+  }
 }
