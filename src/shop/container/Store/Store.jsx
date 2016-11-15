@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 import {getWines} from "../../ducks/wineDuck";
 // import WineList from "../../container/WineList/WineList";
-import WineStoreCard from '../../Component/WineStoreCard/WineStoreCard'
+import WineStoreCard from '../../component/WineStoreCard/WineStoreCard'
 
 class Store extends Component{
   constructor(props){
@@ -24,7 +24,7 @@ class Store extends Component{
     }
 
     componentDidMount() {
-        const list = ReactDOM.findDOMNode(this.refs.list)        
+        const list = ReactDOM.findDOMNode(this.refs.list)
         console.log(list);
         list.addEventListener('scroll', () => {console.log("Scrolling")});
     }
