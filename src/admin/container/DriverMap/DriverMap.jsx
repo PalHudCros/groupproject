@@ -25,7 +25,7 @@ export class DriverMap extends Component {
           id: ""
           , position: {}
       }
-    }  
+    }
   }
 
   componentWillMount() {
@@ -79,8 +79,8 @@ export class DriverMap extends Component {
         } else {
           console.error(`error fetching directions ${result}`);
         }
-      });   
-    }    
+      });
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -113,11 +113,10 @@ export class DriverMap extends Component {
                     </InfoWindow>
                     )}
                 </Marker>
-
                 ))}
             </GoogleMap>
         }
-        />            
+        />
     );
   }
 

@@ -1,19 +1,27 @@
+.home-wrapper.shop {
+  height: 1px;
+  min-height: 70vh;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.category-wrapper.shop {
+  height: 1px;
+  min-height: 100%;
+}
+
 .featured-span.shop {
-  height: 100%;
+  margin-top: 50px;
 }
 
-// .featured-span:first-child {
-//   border-right: solid 1px #e8e8e8;
-// }
-//
-// .featured-span:last-child {
-//   border-left: solid 1px #e8e8e8;
-// }
-
-.row.shop{
-
+.jumbotron-wrapper.shop {
+  margin-top: 50px;
+  height: 1px;
+  min-height: 200px;
 }
 
-.col-sm-4.shop{
-
+.category-wrapper.shop {
+  height: 1px;
+  min-height: 200px;
+  margin-top: 50px;
 }
