@@ -1,5 +1,38 @@
 .supernav.shop {
-  height: 35px;
-  display: flex;
-  justify-content: space-between;
+  height: 100%;
+  background-color: $pal-supernav-white;
+}
+
+.slogan-wrapper.shop {
+  margin-top: 7px;
+  p {
+    font-style: italic;
+    font-size: 12px;
+    color: $pal-supernav-text;
+  }
+}
+
+.address-wrapper.shop {
+  text-align: right;
+  margin-top: 4px;
+  span {
+    font-size: 12px;
+  }
+}
+
+.user-icon-wrapper.shop {
+  text-align: right;
+  margin-top: 4px;
+  a {
+    color: $pal-red;
+  }
+  a:hover {
+    color: $pal-green;
+  }
+  a:active {
+    color: $pal-red;
+  }
+  a:visited {
+    color: $pal-red;
+  }
 }

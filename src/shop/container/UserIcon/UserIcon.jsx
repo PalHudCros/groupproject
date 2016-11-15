@@ -45,7 +45,9 @@ class UserIcon extends Component{
           ?
           <Avatar src={this.props.user.picture} size={20} />
           :
-          <AccountCircle></AccountCircle>
+          <AccountCircle
+            style={{width: 20, height: 20, color: "#7b7b7d"}}
+            ></AccountCircle>
         }
           <span className="signIn shop">
           {

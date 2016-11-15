@@ -13,7 +13,17 @@ const Order = new Schema({
   , deliveryFee: { type: Number, required: true, default: 5 }
   , cartTax: { type: Number, required: true }
   , cartTotal: { type: Number, required: true }
-  , ordered: {type: Date, default: new Date(), required: true }
+  , ordered: {type: Date, default: new Date() }
+  , delivered: {
+      status:{type:Boolean, default:false },
+      driver:{ type: Schema.Types.ObjectId, ref:'Driver' },
+      time:{ type: Date }
+  }
+  , filled: {
+      status:{ type:Boolean, default:false },
+      driver:{ type: Schema.Types.ObjectId, ref:'Driver' },
+      time:{ type: Date }
+  }
 });
 
 module.exports = mongoose.model("Order", Order);

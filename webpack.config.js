@@ -13,7 +13,7 @@ module.exports = {
   				, exclude: /node_modules/
   				, loader: 'babel'
           , query: {
-            presets: ["es2015"]
+            presets: ["es2015", "react"]
           }
   			}
   			, {
@@ -21,8 +21,21 @@ module.exports = {
   				, exclude: /node_modules/
   				, loader: 'style-loader!css-loader!sass-loader'
   			}
-  		]
-  	}
+        , { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+      , { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+      , {
+        test: /\.html$/
+        , loader: "html"
+      }
+      , {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+            'file?hash=sha512&digest=hex&name=[hash].[ext]',
+            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
+			}
+      ]
+  }
   , resolve: {
     extensions: ['', '.js', '.jsx']
   }
@@ -41,4 +54,5 @@ module.exports = {
         path: './.env'
         })
     ]
+    , node: {fs: "empty"}
 }

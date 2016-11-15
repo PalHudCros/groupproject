@@ -1,0 +1,48 @@
+.footer-wrapper.shop {
+  height: 400px;
+  width: 100%;
+  background-color: $pal-footer-grey;
+  margin-top: 20px;
+}
+
+.footer.shop {
+  background-color: $pal-footer-grey;
+}
+
+.footer-about-wrapper.shop {
+  text-align: left;
+  margin-top: 40px;
+  h3 {
+    color: $pal-header-footer-link;
+    font-weight: bold;
+  }
+  ul {
+    margin-top: 15px;
+  }
+  li {
+    color: $pal-header-footer-link;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+}
+
+.footer-logo.shop {
+  color: $pal-red;
+  font-size: 15px;
+  font-family: Pacifico, cursive !important;
+}
+
+.footer-copyright-wrapper {
+  text-align: right;
+  margin-top: 40px;
+  h6 {
+    color: $pal-header-footer-link;
+    font-style: oblique;
+    font-weight: bold;
+  }
+  p {
+    color: $pal-header-footer-link;
+    font-size: 12px;
+    margin-top: 15px;
+  }
+}

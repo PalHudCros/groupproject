@@ -11,8 +11,8 @@ class CartDetails extends Component{
     this.state = {
       cart: props.cart
     }
-console.log('this state', this.state);
   }
+  
   componentWillMount(){
     this.props.dispatch(getCart())
 
@@ -22,13 +22,12 @@ console.log('this state', this.state);
 
     this.setState({
       cart: props.cart
-    }, ()=>{console.log('setState',this.state.cart)})
+    })
 
 
   }
 
   componentDidMount(){
-    console.log('updateTotals', this.props.cart.cart);
   }
   render(){
 

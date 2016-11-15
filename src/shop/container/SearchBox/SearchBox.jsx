@@ -39,6 +39,8 @@ export class SearchBox extends Component{
     return(
       <AutoComplete
         hintText="Search for Wines"
+        hintStyle={{ color: "rgba(238, 64, 54, .3)" }}
+        textFieldStyle={{ width: "80%" }}
         filter={ AutoComplete.fuzzyFilter }
         dataSource={ this.state.wineCategories }
         dataSourceConfig={ {text: "varietal", value: "_id"} }
@@ -46,7 +48,7 @@ export class SearchBox extends Component{
         onUpdateInput={ this.handleUpdateInput.bind(this) }
         onNewRequest={this.handleNewRequest.bind(this)}
         floatingLabelStyle={{ color: "#ef4036" }}
-        underlineStyle={{ borderColor: "#e2e2e2" }}
+        underlineStyle={{ borderColor: "rgba(238, 64, 54, .5)" }}
         underlineFocusStyle={{ borderColor: "#ef4036" }}
       />
     )
