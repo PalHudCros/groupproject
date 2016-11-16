@@ -1,5 +1,7 @@
-import mongoose from "mongoose";
-import Cart from '../carts/Cart'
+// import mongoose from "mongoose";
+const mongoose = require('mongoose');
+// import Cart from '../carts/Cart'
+const Cart = require('../carts/Cart');
 
 const User = new mongoose.Schema({
   sub: {type: String, required: true, unique: true}

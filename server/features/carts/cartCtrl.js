@@ -1,4 +1,5 @@
-import User from '../users/User'
+// import User from '../users/User'
+const User = require('../users/User');
 
 module.exports = {
   getCartSession( req, res, next ){

@@ -1,9 +1,15 @@
-import InventoryItem from '../wines/InventoryItem'
-import Order from './Order'
-import User from '../users/User'
-import Cart from '../carts/Cart'
-import Driver from '../drivers/Driver'
-import mongoose from 'mongoose'
+// import InventoryItem from '../wines/InventoryItem'
+const InventoryItem = require('../wines/InventoryItem');
+// import Order from './Order'
+const Order = require('./Order');
+// import User from '../users/User'
+const User = require('../users/User');
+// import Cart from '../carts/Cart'
+const Cart = require('../carts/Cart');
+// import Driver from '../drivers/Driver'
+const Driver = require('../drivers/Driver');
+// import mongoose from 'mongoose'
+const mongoose = require('mongoose');
 
 module.exports = {
   findProductsAndSubtractFromInventory(req, res, next){
@@ -14,7 +20,6 @@ module.exports = {
     })
     next();
   }
-
   , addAddressToUser(req, res, next) {
       User.findOneAndUpdate({sub: req.user.sub}, {orderAddress: req.body.orderAddress}, (err, user) => {
         if (err) return res.status(501).json(err);
@@ -40,7 +45,6 @@ module.exports = {
       })
       next()
   }
-
   , deleteCartAndSession(req, res, next){
       req.session.destroy();
       User.findOneAndUpdate({sub:req.user.sub}, {$set: {cart:[]}}, {new:true}, (err, user) => {
@@ -49,7 +53,6 @@ module.exports = {
       })
       next()
   }
-
   , getOneOrder(req, res){
       User.findOne({sub: req.user.sub}, (err, user) => {
         if (err) return res.status(505).json(err)
@@ -62,7 +65,6 @@ module.exports = {
         })
       })
   }
-
   , getOrders(req, res){
     Order.find({})
     .populate("user products.item")
@@ -71,7 +73,6 @@ module.exports = {
       return res.status(200).json(orders)
     })
   }
-
    , addDriverToOrder( req, res, next ) {
      console.log("Req.body: ", req.body)
     Order.findByIdAndUpdate( req.body.orderId, { $push: { "filled.driver": req.body.driverId }, $set: {"filled.status": true} }, {new: true}, ( err, order ) => {
@@ -124,6 +125,5 @@ module.exports = {
           if(orders) return res.status(200).json(orders)
         })
     })
-
   }
 }

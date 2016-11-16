@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+//import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Admin = new mongoose.Schema( {
   sub: {type: String, required: true, unique: true}

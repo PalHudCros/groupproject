@@ -1,8 +1,11 @@
-import orderCtrl from './orderCtrl'
-import jwt from 'express-jwt'
-import config from '../../../config/config';
+// import orderCtrl from './orderCtrl'
+const orderCtrl = require('./orderCtrl');
+// import jwt from 'express-jwt'
+const jwt = require('express-jwt');
+// import config from '../../../config/config';
+const config = require('../../../config/config');
 
-export default function(app) {
+module.exports = (app) => {
   app.route('/api/order')
     .post(
       jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
