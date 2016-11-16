@@ -8,3 +8,12 @@
   z-index: 1;
   box-shadow: 0px 0px 16px -2px black;
 }
+
+.logo.admin {
+  h1 {
+    margin: 0px 0px 0px 10px;
+    font-family: Pacifico, cursive !important;
+    color: $pal-red;
+    font-size: 37px;
+  }
+}
