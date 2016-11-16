@@ -132,10 +132,10 @@ export class DriverMap extends Component {
                         <MuiThemeProvider>
                           <Avatar src={driver.picture} />                          
                         </MuiThemeProvider>              
-                          <span>{driver.name}</span>          
-                        <h2>
+                        <h2>{driver.name}</h2>          
+                        <h3>
                           Destination:
-                        </h2>
+                        </h3>
                         {this.props.orders.filledOrderList.filter(order => order.filled.driver === driver._id).map(order => (
                           <div id={order.user.orderAddress.street}>
                             <p>{order.user.orderAddress[0].street}</p>
