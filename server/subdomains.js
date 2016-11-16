@@ -8,12 +8,12 @@ module.exports = app => {
   app.use(subdomain('driver', driverRouter))
   app.use(subdomain('admin', adminRouter))
 
-adminRouter.use(express.static(`${__dirname}/..dist/admin`))
+adminRouter.use(express.static(`${__dirname}/../dist/admin`))
   .get('*',
   (req, res)=>{ res.sendFile('index.html', {root:`${__dirname}/../dist/admin`}) }
 );
 
-driverRouter.use(express.static(`${__dirname}/../dist/drivers`))
+driverRouter.use(express.static(`${__dirname}/../dist/driver`))
   .get('*',
     (req, res)=>{ res.sendFile('index.html', {root:`${__dirname}/../dist/driver`}) }
   );
