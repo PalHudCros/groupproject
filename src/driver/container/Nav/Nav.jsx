@@ -11,7 +11,7 @@ import Userbar from '../Userbar/Userbar';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-import {getToken, isTokenExpired} from "../../../utils/jwtHelper";
+import {getDriverToken, isTokenExpired} from "../../../utils/jwtHelper";
 
 class Nav extends Component {
   constructor(props) {

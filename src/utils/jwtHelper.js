@@ -2,6 +2,7 @@
 const decode = require('jwt-decode');
 
 module.exports ={
+  
 getTokenExpirationDate(token){
   const decoded = decode(token)
   if(!decoded.exp) {
