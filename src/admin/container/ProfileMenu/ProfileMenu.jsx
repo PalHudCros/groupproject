@@ -8,7 +8,7 @@ import Avatar from 'material-ui/svg-icons/action/face';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
-import { login, doAuthentication, logout, hideLock } from "../../ducks/userDuck";
+import { login, doAuthentication, getExistingUser, logout, hideLock } from "../../ducks/userDuck";
 import { isTokenExpired } from "../../../utils/jwtHelper.js"
 
 
@@ -24,11 +24,15 @@ class ProfileMenu extends Component {
    componentWillMount() {
     this.props.dispatch(doAuthentication());
     const token = localStorage.getItem('admin_id_token');
+    const profile = localStorage.getItem('admin_profile');
     let expired;
     // if (token) expired = isTokenExpired(token)
     if (!token || expired) {
       this.props.dispatch(login());
+    } else {
+      this.props.dispatch(getExistingUser(token, profile));
     }
+
   }
 
   render() {

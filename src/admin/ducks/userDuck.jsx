@@ -21,7 +21,6 @@ const options = {
     }
 };
 const lock = new Auth0Lock(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN, options);
-lock.on('authenticated', () => {lock.hide()})
 
 // Action Creators
 // Synchronous Action Creators
@@ -67,6 +66,7 @@ export function login(){
 export function doAuthentication(){
   return dispatch => {
     lock.on('authenticated', function(authResult){
+      lock.hide();
       lock.getProfile(authResult.idToken, function(err, profile){
           // Handle auth error
           if (err) {
@@ -74,27 +74,34 @@ export function doAuthentication(){
           }
           // Handle auth success
           // Set token and profile in local storage
-          localStorage.setItem('admin_profile', JSON.stringify(profile))
           localStorage.setItem('admin_id_token', authResult.idToken)
+          localStorage.setItem('admin_profile', JSON.stringify(profile))
+          dispatch()
+          dispatch(getExistingUser(authResult.idToken, profile))
           // Set headers for authentication
-          const config = {
-            headers:{
-            'Accept': 'application/json'
-            , 'Content-Type': 'application/json'
-            , 'Authorization': `Bearer ${authResult.idToken}`
-          }}
-          // Send user profile to database for user
-          return axios.post('/api/admin', profile, config)
-            .then(results => {
-              dispatch(lockSuccess(results.data))
-            })
-            .catch(error => {
-              localStorage.removeItem('admin_profile');
-              localStorage.removeItem('admin_id_token')
-              dispatch(lockError(error))
-            }) 
       })
     })
+  }
+}
+
+export function getExistingUser(token, profile) {
+  return dispatch => {
+    const config = {
+      headers:{
+      'Accept': 'application/json'
+      , 'Content-Type': 'application/json'
+      , 'Authorization': `Bearer ${token}`
+    }}
+    // Send user profile to database for user
+    return axios.post('/api/admin', profile, config)
+      .then(results => {
+        dispatch(lockSuccess(results.data))
+      })
+      .catch(error => {
+        localStorage.removeItem('admin_id_token')
+        localStorage.removeItem('admin_profile')
+        dispatch(lockError(error));
+      })
   }
 }
 
