@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     <Router history={ browserHistory }>
       <Route component={ Dashboard } path="/">
         <IndexRoute component={ QueueContent }></IndexRoute>
-        <Route component={ OrdersContent } path="orders"></Route>
         <Route component={ MapContent } path="map"></Route>
         <Route component={Error} path="*"></Route>
       </Route>
