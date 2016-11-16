@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <Route component={ Drivers } path="drivers">
           <Route component={ DriverMap } path="map"></Route>
           <Route component={ DriverList } path="list"></Route>
-          <Route component={ DistributorContent } path="distributor"></Route>
         </Route>
         <Route component={ Orders } path="orders">
         </Route>

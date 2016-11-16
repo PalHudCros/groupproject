@@ -12,12 +12,7 @@ export default function DriversContent(props) {
 
   return (
       <div className="row driverscontent admin">
-        <div className="row">
-          <DriverList />
-          <OrderList />
-        </div>
-        <DriverMap></DriverMap>
- 
+        {props.children}
       </div>
   );
 
