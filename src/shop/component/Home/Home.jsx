@@ -18,7 +18,7 @@ export default function Home(props){
                 rounded={false}
                 >
                 <h1>Welcome</h1>
-                <img src={ grapes } />
+                <img src={ "../../images/green_grapes.jpeg" } />
               </Paper>
             </MuiThemeProvider>
           </div>

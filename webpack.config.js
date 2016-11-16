@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const DotenvPlugin = require('webpack-dotenv-plugin');
+require( "file!img!./file.png" );
 
 module.exports = {
   entry: { shop: "./src/shop/index.jsx", driver: "./src/driver/index.jsx", admin:"./src/admin/index.jsx" }
@@ -21,19 +22,17 @@ module.exports = {
   				, exclude: /node_modules/
   				, loader: 'style-loader!css-loader!sass-loader'
   			}
-        , { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
-      , { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
-      , {
-        test: /\.html$/
-        , loader: "html"
-      }
-      , {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-            'file?hash=sha512&digest=hex&name=[hash].[ext]',
-            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-        ]
-			}
+        // , {
+        //   test: /\.(jpe?g|png|gif|svg)$/i,
+        //   loaders: [
+        //       'file?hash=sha512&digest=hex&name=[hash].[ext]',
+        //       'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        //   ]
+			  // }
+        , {
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          , include: require('./src/shop/images/green_grapes.jpeg')
+        }
       ]
   }
   , resolve: {
