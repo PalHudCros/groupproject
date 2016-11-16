@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
+import RadioButton from 'material-ui/RadioButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -46,23 +46,23 @@ export default class ShopSideBar extends Component{
                 <table>
                   <tbody className="col-xs-12">
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="Red Wine"/></td>
+                      <td className="col-xs-8"><RadioButton label="Barbera"/></td>
                       <td className="col-xs-4" className="category-count">(2353)</td>
                     </tr>
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="White Wines"/></td>
+                      <td className="col-xs-8"><RadioButton label="White Wines"/></td>
                       <td className="col-xs-4" className="category-count">(23)</td>
                     </tr>
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="Rosé Wines"/></td>
+                      <td className="col-xs-8"><RadioButton label="Rosé Wines"/></td>
                       <td className="col-xs-4" className="category-count">(23)</td>
                     </tr>
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="Sparkling Wines"/></td>
+                      <td className="col-xs-8"><RadioButton label="Sparkling Wines"/></td>
                       <td className="col-xs-4" className="category-count">(23)</td>
                     </tr>
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="Fortified Wines"/></td>
+                      <td className="col-xs-8"><RadioButton label="Fortified Wines"/></td>
                       <td className="col-xs-4" className="category-count">(23)</td>
                     </tr>
                   </tbody>
@@ -74,44 +74,128 @@ export default class ShopSideBar extends Component{
                 <table>
                   <tbody className="col-xs-12">
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="Red Wine"/></td>
+                      <td className="col-xs-8"><RadioButton label="Red Wine"/></td>
                       <td className="col-xs-4" className="category-count">(2353)</td>
                     </tr>
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="White Wines"/></td>
+                      <td className="col-xs-8"><RadioButton label="White Wines"/></td>
                       <td className="col-xs-4" className="category-count">(23)</td>
                     </tr>
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="Rosé Wines"/></td>
+                      <td className="col-xs-8"><RadioButton label="Rosé Wines"/></td>
                       <td className="col-xs-4" className="category-count">(23)</td>
                     </tr>
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="Sparkling Wines"/></td>
+                      <td className="col-xs-8"><RadioButton label="Sparkling Wines"/></td>
                       <td className="col-xs-4" className="category-count">(23)</td>
                     </tr>
                     <tr className="col-xs-12">
-                      <td className="col-xs-8"><Checkbox label="Fortified Wines"/></td>
+                      <td className="col-xs-8"><RadioButton label="Dessert, Sherry & Port"/></td>
                       <td className="col-xs-4" className="category-count">(23)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Saké"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Cabernet Sauvignon"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Chardonnay"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Sauvignon Blanc"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Pinot Noir"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Other Red Blends"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Sangiovese"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Syrah/Shiraz"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Rhône Blends"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Albarino"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Cabernet Franc"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Carmenere"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Chenin Blanc"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Dolcetto"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Gamay"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Gewurztraminer"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Grenche"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Gruner Veltliner"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Junmai"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Junmai-Daiginjo"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Junmai-Ginjo"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Madeira"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Malbec"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Merlot"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
+                    </tr>
+                    <tr className="col-xs-12">
+                      <td className="col-xs-8"><RadioButton label="Albarino"/></td>
+                      <td className="col-xs-4" className="category-count">(2353)</td>
                     </tr>
                   </tbody>
                 </table>
             </div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-
           </Paper>
         </MuiThemeProvider>
       </div>
@@ -132,7 +216,7 @@ const styles = {
   block: {
     maxWidth: 250,
   },
-  checkbox: {
+  RadioButton: {
     marginBottom: 16,
   },
 };

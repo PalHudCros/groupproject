@@ -16,8 +16,9 @@ class Store extends Component{
 
   componentWillMount() {
       const wines = this.props.wines.wines.map((wine, ind)=> {
+        console.log(wine);
           return (
-            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.BottleImage}></WineStoreCard>
+            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.BottleImage} Name={wine.Name}></WineStoreCard>
           )
       });
       this.setState({wines: wines})

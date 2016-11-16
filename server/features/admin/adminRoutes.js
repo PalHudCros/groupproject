@@ -1,7 +1,11 @@
-import jwt from 'express-jwt' 
-import config from '../../../config/config'
-import adminCtrl from './adminCtrl.js';
-import driverCtrl from '../drivers/driverCtrl.js'
+// import jwt from 'express-jwt'
+const jwt = require('express-jwt');
+// import config from '../../../config/config'
+const config = require('../../../config/config');
+// import adminCtrl from './adminCtrl.js';
+const adminCtrl = require('./adminCtrl.js');
+// import driverCtrl from '../drivers/driverCtrl.js'
+const driverCtrl = require('../drivers/driverCtrl.js');
 
 module.exports = app => {
 
@@ -12,5 +16,5 @@ module.exports = app => {
           next()
         }
       , adminCtrl.getAdmin, adminCtrl.saveAdmin);
-  
+
 };

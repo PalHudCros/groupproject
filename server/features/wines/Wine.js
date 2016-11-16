@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Wine = new mongoose.Schema({
     Id: {type: Number}
@@ -28,20 +29,20 @@ const Wine = new mongoose.Schema({
         , WineType: {
             Id: {type: Number}
             , Name: {type: String}
-            , Url: {type: String} 
+            , Url: {type: String}
         }
     }
-    , Vineyard: { 
+    , Vineyard: {
         Id: {type: Number}
         , Name: {type: String}
         , Url: {type: String}
         , ImageUrl: {type: String}
-        , GeoLocation: { 
+        , GeoLocation: {
             Latitude: {type: Number}
             , Longitude: {type: Number}
             , Url: {type: String}
         }
-    }                                                                                                                                                           
+    }
     , Vintage: {type: String}
     , Community: {
         Reviews: {
@@ -49,34 +50,34 @@ const Wine = new mongoose.Schema({
             , Url: {type: String}
         }
         , Url: {type: String}
-    }                                                                                                                                                                                                     
+    }
     , Description: {type: String}
     , GeoLocation: {
         Latitude: {type: Number}
         , Longitude: {type: Number}
         , Url: {type: String}
-    }                                                                                                                                                                                                   
+    }
     , PriceMax: {type: Number}
     , PriceMin: {type: Number}
     , PriceRetail: {type: Number}
-    , ProductAttributes:[{ 
+    , ProductAttributes:[{
         Id: {type: Number}
         , Name: {type: String}
         , Url: {type: String}
-        , ImageUrl: {type: String} 
+        , ImageUrl: {type: String}
     }]
-    , Ratings: { 
+    , Ratings: {
         HighestScore: {type: Number}
     }
-    , Retail:{ 
+    , Retail:{
         InStock: {type: Boolean}
         , Price: {type: Number}
         , Sku: {type: String}
         , State: {type: String}
         , Url: {type: String}
     }
-    , Vintages: { 
-        List: [{type: String}] 
+    , Vintages: {
+        List: [{type: String}]
     }
     , LabelImage: {type: String}
     , BottleImage: {type: String}

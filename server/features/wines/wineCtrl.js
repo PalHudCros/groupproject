@@ -1,6 +1,9 @@
-import axios from 'axios';
-import config from '../../../config/config';
-import Wine from './Wine';
+// import axios from 'axios';
+const axios = require('axios');
+// import config from '../../../config/config';
+const config = require('../../../config/config');
+// import Wine from './Wine';
+const Wine = require('./Wine');
 import InventoryItem from './InventoryItem';
 
 
