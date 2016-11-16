@@ -77,7 +77,6 @@ export function doAuthentication(){
           // Set token and profile in local storage
           localStorage.setItem('admin_id_token', authResult.idToken)
           localStorage.setItem('admin_profile', JSON.stringify(profile))
-          dispatch()
           dispatch(getExistingUser(authResult.idToken, profile))
           // Set headers for authentication
       })
