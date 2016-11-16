@@ -54,7 +54,6 @@ export function getUnfilledOrders() {
         dispatch(getOrdersProcess());
         return axios.get("/api/orders/unfilled", headers)
         .then(results => {
-            console.log("RESULTS: ", results.data);
             dispatch(getUnfilledOrdersSuccess(results.data));            
         })
         // .catch(error => {
@@ -71,7 +70,6 @@ export function getFilledOrders() {
         dispatch(getOrdersProcess());
         return axios.get("/api/orders/filled", headers)
         .then(results => {
-            console.log("RESULTS: ", results.data);
             dispatch(getFilledOrdersSuccess(results.data));            
         })
         // .catch(error => {
