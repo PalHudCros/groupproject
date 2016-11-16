@@ -16,13 +16,10 @@ class UserIcon extends Component{
   }
   componentWillMount() {
     let token = localStorage.getItem('id_token');
+    let profile = localStorage.getItem('profile');
     if (token) {
-      let profile = localStorage.getItem('profile');
       this.props.dispatch(getExistingUser(token, profile));
     }
-  }
-
-  componentWillReceiveProps(props){
   }
 
   handleAuthClick() {
@@ -41,7 +38,7 @@ class UserIcon extends Component{
           className="UserIcon shop"
         >
         {
-          localStorage.getItem('id_token')
+          this.props.user.picture
           ?
           <Avatar src={this.props.user.picture} size={20} />
           :
