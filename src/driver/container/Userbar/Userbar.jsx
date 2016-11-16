@@ -28,8 +28,7 @@ class Userbar extends Component {
       this.props.dispatch(login());
     }
     else {
-      this.props.dispatch(getExistingUser(token))
-
+      this.props.dispatch(getExistingUser(token, profile))
     }
   }
 
