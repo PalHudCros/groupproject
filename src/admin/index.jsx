@@ -22,6 +22,9 @@ import Drivers from './component/Drivers/Drivers.jsx';
 import Customers from './component/Customers/Customers.jsx';
 import Error from './component/Error/Error.jsx'
 import Orders from './container/Orders/Orders.jsx'
+import DriverMap from './container/DriverMap/DriverMap.jsx';
+import DriverList from './container/DriverList/DriverList.jsx';
+
 // Store
 import store from "./store.js";
 
@@ -41,6 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
           </Route>
         </Route>
         <Route component={ Drivers } path="drivers">
+          <Route component={ DriverMap } path="map"></Route>
+          <Route component={ DriverList } path="list"></Route>
+          <Route component={ DistributorContent } path="distributor"></Route>
         </Route>
         <Route component={ Orders } path="orders">
         </Route>
