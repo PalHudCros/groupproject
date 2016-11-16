@@ -50,7 +50,7 @@ export class SidebarIcons extends Component {
         >
           <InventoryIcon></InventoryIcon>
         </IconButton></Link>
-      <Link to="/drivers"><IconButton
+      <Link to="/drivers/map"><IconButton
           iconStyle={{width: 60, height: 60, color: "#ef4036"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Drivers"

@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <Router history={ browserHistory }>
       <Route component={ AdminPanel } path="/">
         <IndexRoute component={ Dashboard }></IndexRoute>
-        <Route component={ Inventory } path="inventory/">
+        <Route component={ Inventory } path="inventory">
           <Route component={ APIContent } path="api"></Route>
           <Route component={ DistributorContent } path="distributor"></Route>
           <Route component={ InStockContent } path="instock">
