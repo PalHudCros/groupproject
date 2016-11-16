@@ -6,11 +6,13 @@ import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton'
 import {List, ListItem} from 'material-ui/List';
-import Toggle from 'material-ui/Toggle';
+import Checkbox from 'material-ui/Checkbox';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import Subheader from 'material-ui/Subheader';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
-import {getOrdersByDriver} from '../../ducks/orderDuck'
+import {getOrdersByDriver, deliverOrder} from '../../ducks/orderDuck'
 
 class QueueContent extends React.Component {
   constructor(props) {
@@ -25,6 +27,10 @@ class QueueContent extends React.Component {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     let dateFormat = new Date(date);
     return `${days[dateFormat.getDay()]}, ${dateFormat.getMonth()}/${dateFormat.getDate()} ${dateFormate.getHours() + 1}:${dateFormat.getMinutes()}`;  
+  }
+
+  setDelivered(orderId) {
+    this.props.dispatch(deliverOrder(orderId));
   }
 
   render() {
@@ -54,30 +60,36 @@ class QueueContent extends React.Component {
                 </MuiThemeProvider>
               </div>
             </div>
+            <h2>Orders: </h2>
             <div className="order-snapshot col-xs-12">
               <MuiThemeProvider>
               <List>
-              <Subheader>Orders</Subheader>
-              { this.props.orders.orderList.length &&
+              { this.props.orders.orderList.length 
+                ? 
                 this.props.orders.orderList.map((order, index) => (
               <ListItem
                   primaryText={order.user.orderAddress[0].street}
                   secondaryText={`${order.user.orderAddress[0].city}, ${order.user.orderAddress[0].state}`}                    
                   initiallyOpen={false}
-                  primaryTogglesNestedList={true}
+                  leftCheckbox={<Checkbox onCheck={this.setDelivered.bind(this, order._id)} />}
+                  primaryTogglesNestedList={true}                  
                   nestedItems={order.products.map((product, idx) => (
                     <ListItem
                       key={idx}
                       primaryText={product.item.Name}
-                      secondaryText={`Qty: ${product.quantity}`}
-                    />
+                      secondaryText={`Qty: ${product.quantity}`}>
+                      </ListItem>
                   ))
                   }
                 />
-              ))}
+              ))
+              : <div></div>
+              }
               </List>
               </MuiThemeProvider>
+
             </div>
+
         </section>
     );
   }
