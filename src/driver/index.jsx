@@ -15,7 +15,7 @@ injectTapEventPlugin();
 import Dashboard from './component/Dashboard/Dashboard.jsx';
 import QueueContent from './component/QueueContent/QueueContent.jsx';
 import OrdersContent from './component/OrdersContent/OrdersContent.jsx';
-import MapContent from './component/MapContent/MapContent.jsx';
+import MapContent from './container/MapContent/MapContent.jsx';
 import Error from './component/Error/Error.jsx'
 
 // Store

@@ -21,7 +21,7 @@ function getOrderFailure(error){
       dispatch(getOrderProcess())
       axios.get('/api/order/driver', createHeaders(getDriverToken()))
         .then(results => {
-          return dispatch(getOrderSucess(results.data))
+          return dispatch(getOrderSuccess(results.data))
         })
         .catch(err => {
           return dispatch(getOrderFailure(err))
@@ -29,8 +29,8 @@ function getOrderFailure(error){
     }
   }
 //Intial state
-initialState = {
-  orderList = []
+const initialState = {
+  orderList: []
 }
 
 //Reducers
@@ -42,7 +42,8 @@ export default function orderReducer(state = initialState, action){
       return Object.assign({}, state, {isFetching:action.isFetching, orderList:action.orders})
     case GET_ORDER_FAILURE:
       return Object.assign({}, state, {isFetching:action.isFetching, error:action.error})
-    default: state
+    default: 
+      return state
   }
 
 }
