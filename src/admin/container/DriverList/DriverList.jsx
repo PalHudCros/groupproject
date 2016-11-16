@@ -62,9 +62,8 @@ export class DriverList extends Component {
         })
   }
 
-  deleteDriver(driverId) {
-
-  }
+  deleteDriver(driverId) {     
+    }
 
   componentWillReceiveProps(props) {
       const drivers = props.drivers.driverList.map(driver => (
