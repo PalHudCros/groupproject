@@ -13,10 +13,21 @@ const config = require('./config/config');
 const path = require('path');
 //import fs from "fs";
 const fs = require('fs');
+const https = require('https');
 
+const keyPem = fs.readFileSync('./ssl/privkey.pem');
+const certPem = fs.readFileSync('./ssl/fullchain.pem');
+const caPem = fs.readFileSync('./ssl/chain.pem');
+
+console.log({keyPem, certPem, caPem});
 
 const app = express();
-var server = require('http').createServer(app)
+var server = require('https').createServer({
+	key: keyPem,
+	cert: certPem,
+	ca: caPem
+},
+app)
 
 var io = require('socket.io')(server);
 
