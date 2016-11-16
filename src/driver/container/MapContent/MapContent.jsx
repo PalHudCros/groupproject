@@ -38,11 +38,8 @@ export class DriverMap extends Component {
   }
 
   handleClick() {
+    this.setState({openWindow: !this.state.openWindow});
     if (this.props.orders.orderList.length) {
-      if (!this.state.position) {
-        navigator.geolocation.getCurrentPosition(position => {
-          let origin= {lat: position.coords.latitude, lng: position.coords.longitude}
-        })
       }
       let addresses = this.props.orders.orderList.map(order => {
         return `${order.user.orderAddress[0].street}, ${order.user.orderAddress[0].city}, ${order.user.orderAddress[0].state}`
@@ -53,13 +50,26 @@ export class DriverMap extends Component {
             //   for (let i = 1; i < this.state.selectedDriver.destinations.length; i++) {
             //     waypoints.push({location: this.state.selectedDriver.destinations[i]});
             //   }
-            // }            
+            // }
+      let origin;
+      if (this.state.position && this.state.position.lat) {
+        origin = this.state.position;
+      } else if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          origin= {lat: position.coords.latitude, lng: position.coords.longitude}
+        })
+      } else {
+        origin = this.state.center;
+      }
+                        
       DirectionsService.route({
-        origin: this.state.position || origin || this.state.center,
+        origin: origin,
         destination: addresses[0],
         // waypoints: waypoints,
         travelMode: google.maps.TravelMode.DRIVING,
       }, (result, status) => {
+        console.log(result)
+        console.log(status);
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
             directions: result,
@@ -67,9 +77,8 @@ export class DriverMap extends Component {
         } else {
           console.error(`error fetching directions ${result}`);
         }
-      });
-    }
-
+    });
+    
   }
 
   render() {
@@ -90,7 +99,7 @@ export class DriverMap extends Component {
                   
                 <Marker
                     position={this.state.position || this.state.center}
-                    onClick={() => {this.setState({openWindow: !this.state.openWindow})}}
+                    onClick={this.handleClick.bind(this)}
 
                     >
                     { this.state.openWindow && (
@@ -98,7 +107,7 @@ export class DriverMap extends Component {
                       <div>
                         <h2>Deliveries:</h2> 
                         {this.state.orders.map((order, index) => (
-                          <div id={order._id}>
+                          <div id={index}>
                             <h3>{index + 1}:</h3>
                             <p>{order.user.orderAddress[0].street}</p>
                             <p>{order.user.orderAddress[0].city}, {order.user.orderAddress[0].state}</p>
