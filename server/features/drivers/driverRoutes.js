@@ -1,6 +1,9 @@
-import jwt from 'express-jwt' 
-import config from '../../../config/config'
-import driverCtrl from './driverCtrl.js';
+// import jwt from 'express-jwt'
+const jwt = require('express-jwt');
+// import config from '../../../config/config'
+const config = require('../../../config/config');
+// import driverCtrl from './driverCtrl.js';
+const driverCtrl = require('./driverCtrl');
 
 module.exports = app => {
 

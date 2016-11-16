@@ -1,8 +1,11 @@
-import cartCtrl from './cartCtrl'
-import jwt from 'express-jwt'
-import config from '../../../config/config';
+// import cartCtrl from './cartCtrl'
+const cartCtrl = require('./cartCtrl');
+// import jwt from 'express-jwt'
+const jwt = require('express-jwt');
+// import config from '../../../config/config';
+const config = require('../../../config/config');
 
-export default function(app) {
+module.exports = app => {
   app.route('/api/cart/session')
     .get(cartCtrl.getCartSession)
     .post(cartCtrl.setCartSession)

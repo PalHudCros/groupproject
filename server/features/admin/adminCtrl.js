@@ -1,4 +1,5 @@
-import Admin from "./Admin";
+// import Admin from "./Admin";
+const Admin = require('./Admin');
 
 module.exports = {
 	getAdmin(req, res, next) {

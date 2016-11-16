@@ -5,23 +5,22 @@
   margin: 0 auto;
 }
 
-.category-wrapper.shop {
-  height: 1px;
-  min-height: 100%;
+.cta.shop {
+  margin-top: 10px;
+}
+
+.cta-image {
+  width: 100%;
+  position: absolute;
+  bottom: -211px;
 }
 
 .featured-span.shop {
-  margin-top: 50px;
-}
-
-.jumbotron-wrapper.shop {
-  margin-top: 50px;
-  height: 1px;
-  min-height: 200px;
+  margin-top: 10px;
 }
 
 .category-wrapper.shop {
   height: 1px;
   min-height: 200px;
-  margin-top: 50px;
+  margin-top: 10px;
 }

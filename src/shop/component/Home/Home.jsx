@@ -9,22 +9,21 @@ export default function Home(props){
   return(
       <div className="home-wrapper shop">
 
-        <div className="row shop">
-          <div className="col-md-12 jumbotron-wrapper shop">
+        <div className="cta row shop">
+          <div className="col-md-12 shop">
             <MuiThemeProvider>
               <Paper
                 style={ styles.jumbotron }
                 zDepth={1}
                 rounded={false}
                 >
-                <h1>Welcome</h1>
-                <img src={ grapes } />
+                <img src={grapes} className="cta-image"/>
               </Paper>
             </MuiThemeProvider>
           </div>
         </div>
 
-          <div className="row shop">
+          <div className="featured-wrapper row shop">
             <div className="featured-span col-xs-12 col-sm-12 col-md-4 shop">
               <MuiThemeProvider>
               <Paper
@@ -40,7 +39,6 @@ export default function Home(props){
             <div className="featured-span col-xs-12 col-sm-12 col-md-4 shop">
               <MuiThemeProvider>
               <Paper
-                style={ styles.category }
                 zDepth={1}
                 rounded={false}
                 >
@@ -67,13 +65,9 @@ export default function Home(props){
 
 const styles = {
   jumbotron: {
-    height: "400px"
-    , maxHeight: "100%"
+    height: "300px"
     , width: "100%"
-  }
-  , category: {
-    height: "200px"
-    , maxHeight: "100%"
-    , width: "100%"
+    , position:'relative'
+    , overflow:'hidden'
   }
 };

@@ -1,4 +1,5 @@
-import wineCtrl from './wineCtrl';
+// import wineCtrl from './wineCtrl';
+const wineCtrl = require('./wineCtrl');
 
 module.exports = app => {
     app.get('/api/wines/global', wineCtrl.getWinesFromAPI);

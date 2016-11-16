@@ -1,8 +1,11 @@
-import axios from 'axios';
-import config from '../../../config/config';
-import Wine from './Wine';
-import InventoryItem from './InventoryItem';
-
+// import axios from 'axios';
+const axios = require('axios');
+// import config from '../../../config/config';
+const config = require('../../../config/config');
+// import Wine from './Wine';
+const Wine = require('./Wine');
+// import InventoryItem from './InventoryItem';
+const InventoryItem = require('./InventoryItem');
 
 const baseUrl = 'http://services.wine.com/api/beta/service.svc/json/catalog?offset=0&size=100&apikey=' + config.wineAPI.key + '&sort=popularity%7Cascending&state=TX'
 

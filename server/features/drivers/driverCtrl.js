@@ -1,9 +1,14 @@
-import axios from 'axios';
-import config from '../../../config/config';
-import Driver from './Driver.js';
-import Order from '../orders/Order.js'
+// import axios from 'axios';
+const axios = require('axios');
+// import config from '../../../config/config';
+const config = require('../../../config/config');
+// import Driver from './Driver.js';
+const Driver = require('./Driver');
+// import Order from '../orders/Order.js'
+const Order = require('../orders/Order');
 
-import {createHeaders} from "../../../src/utils/jwtHelper" 
+// import {createHeaders} from "../../../src/utils/jwtHelper"
+const createHeaders = require('../../../src/utils/jwtHelper').createHeaders;
 
 module.exports = {
 
@@ -15,7 +20,7 @@ module.exports = {
         }
         if ( driver ) {
           return res.status( 200 ).json( driver );
-        } 
+        }
       });
   }
 
@@ -40,7 +45,7 @@ module.exports = {
       "connection": "Username-Password-Authentication"
       , "email": req.body.email
       , "password": req.body.password
-    } 
+    }
 		axios.post("https://hudson.auth0.com/api/v2/users", newDriver, options)
 			.then(result => {
         req.user = result.data;
