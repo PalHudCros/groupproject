@@ -50,6 +50,7 @@ export function logout(){
   // Clear user token and profile data from localStorage
   localStorage.removeItem('admin_id_token');
   localStorage.removeItem('admin_profile');
+  lock.show();
   return {
     type: LOGOUT_SUCCESS
   }

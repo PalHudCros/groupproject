@@ -35,6 +35,10 @@ class ProfileMenu extends Component {
 
   }
 
+  handleLogout() {
+    this.props.dispatch(logout());
+  }
+
   render() {
 
     return (
@@ -47,14 +51,14 @@ class ProfileMenu extends Component {
           iconStyle={{width: 60, height: 60, color: "#727786"}}
           style={{width: 120, height: 120, padding: 0}}
                           >
-          <Hamburger /><Avatar src={this.props.user.picture}/></IconButton>}
+          <Hamburger /></IconButton>}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
         >
         <MenuItem primaryText="Settings" />
         <Divider />
         <MenuItem primaryText="Back to Store Front" />
-        <MenuItem primaryText="Sign out" />
+        <MenuItem primaryText="Sign out" onTouchTap={this.handleLogout.bind(this)}/>
       </IconMenu>
     </div>
     </div>
