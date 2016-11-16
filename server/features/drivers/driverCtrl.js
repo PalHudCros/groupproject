@@ -7,7 +7,8 @@ const Driver = require('./Driver');
 // import Order from '../orders/Order.js'
 const Order = require('../orders/Order');
 
-import {createHeaders} from "../../../src/utils/jwtHelper"
+// import {createHeaders} from "../../../src/utils/jwtHelper"
+const createHeaders = require('../../../src/utils/jwtHelper').createHeaders;
 
 module.exports = {
 
