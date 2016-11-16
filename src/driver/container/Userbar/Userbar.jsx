@@ -22,7 +22,8 @@ class Userbar extends Component {
  componentWillMount() {
     this.props.dispatch(doAuthentication());
     const token = localStorage.getItem('driver_id_token');
-    if (!token || isTokenExpired(token)) {
+    // if (!token || isTokenExpired(token)) {
+    if (!token) {
       this.props.dispatch(login());
     }
   }
@@ -47,7 +48,13 @@ class Userbar extends Component {
               :
               <AccountCircle></AccountCircle>
             }
+            {
+              this.props.user._id
+              ?
               <span className="signIn">Sign Out</span>
+              :
+              <span className="signIn">Sign In</span>
+            }
             </span>
          </a>
       </div>
