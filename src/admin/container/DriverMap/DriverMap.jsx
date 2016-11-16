@@ -10,7 +10,7 @@ import Chip from 'material-ui/Chip';
 
 import config from "../../../../config/config.js";
 import {showDriverInfo, updateDrivers} from "../../ducks/driverDuck";
-import {getUndeliveredOrders} from "../../ducks/orderDuck";
+import {getFilledOrders} from "../../ducks/orderDuck";
 
 export class DriverMap extends Component {
   constructor(props) {
@@ -20,16 +20,18 @@ export class DriverMap extends Component {
       enRouteList: null
       , orderList: null
       , directions: null
-      , center: { lat: 38.7826722, lng: -92.79759519999999 }
+      , center: { lat: 32.7821, lng: -96.797 }
+      , zoom: 15
       , selectedDriver: {
-          id: ""
+          id: ""  
           , position: {}
+          , destinations: []
       }
     }
   }
 
   componentWillMount() {
-    this.props.dispatch(getUndeliveredOrders())
+    this.props.dispatch(getFilledOrders())
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
           let newCenter = {lat: position.coords.latitude, lng: position.coords.longitude}
@@ -41,12 +43,18 @@ export class DriverMap extends Component {
         if (this.state.selectedDriver.id && driver._id === this.state.selectedDriver.id) {
           this.setState({"selectedDriver.position": driver.position});
           let DirectionsService = new google.maps.DirectionsService();
+          // let waypoints = [];
+          // if (this.selectedDriver.destinations.length > 1) {
+          //   for (let i = 1; i < this.state.selectedDriver.destinations.length; i++) {
+          //     waypoints.push({location: this.state.selectedDriver.destinations[i]});
+          //   }
+          // }            
           DirectionsService.route({
             origin: driver.position,
-            destination: {lat: driver.position.lat + .01, lng: driver.position.lng + .01},
+            destination: this.state.selectedDriver.destinations[0],
+            // waypoints: waypoints,
             travelMode: google.maps.TravelMode.DRIVING,
           }, (result, status) => {
-            console.log(result);
             if (status === google.maps.DirectionsStatus.OK) {
               this.setState({
                 directions: result,
@@ -62,17 +70,27 @@ export class DriverMap extends Component {
 
   handleMarkerClick(driverId, driverPosition) {
     if (this.state.selectedDriver.id === driverId) {
-      this.setState({selectedDriver: {id: "", position: {}}})
+      this.setState({zoom: 15, center: { lat: 32.7821, lng: -96.797 }, selectedDriver: {id: "", position: {}, destinations: []}})
     } else {
-      this.setState({selectedDriver: {id: driverId, position: driverPosition}})
+      const destinations = this.props.orders.filledOrderList.filter(order => order.filled.driver === driverId).map(order => {
+        let address = order.user.orderAddress[0]; 
+        return `${address.street}, ${address.city}, ${address.state}`
+      })
+      this.setState({zoom: 18, center: driverPosition, selectedDriver: {id: driverId, position: driverPosition, destinations: destinations}})
       let DirectionsService = new google.maps.DirectionsService();
+      // let waypoints = [];
+      // // if (destinations.length > 1) {
+      // //   for (let i = 1; i < destinations.length; i++) {
+      // //     waypoints.push({location: destinations[i]});
+      // //   }
+      // // }
       DirectionsService.route({
         origin: driverPosition,
-        destination: {lat: driverPosition.lat + .01, lng: driverPosition.lng + .01}, // Need to geocode?
+        destination: destinations[0],
+        // waypoints: waypoints,
         travelMode: google.maps.TravelMode.DRIVING,
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
-          console.log(result);
           this.setState({
             directions: result,
           });
@@ -84,7 +102,7 @@ export class DriverMap extends Component {
   }
 
   componentWillReceiveProps(props) {
-    this.setState({orderList: props.orders.undeliveredOrderList})
+    this.setState({orderList: props.orders.filledOrderList})
     this.setState({enRouteList: props.drivers.enRouteList})
   }
 
@@ -95,8 +113,8 @@ export class DriverMap extends Component {
         containerElement={mapContainer}
         googleMapElement={
             <GoogleMap
-                ref={(map) => {}}
-                defaultZoom={15}
+                ref={(map) => this._mapComponent = map}
+                zoom={this.state.zoom}
                 center={this.state.center}
                 options={{streetViewControl: false, mapTypeControl: false}}
                 >
@@ -109,7 +127,22 @@ export class DriverMap extends Component {
                     icon={{url: driver.picture, scaledSize: new google.maps.Size(25, 25)}}
                     >
                     { driver._id === this.state.selectedDriver.id && (
-                    <InfoWindow><h1>Hello</h1>
+                    <InfoWindow>
+                      <div>
+                        <MuiThemeProvider>
+                          <Avatar src={driver.picture} />                          
+                        </MuiThemeProvider>              
+                        <h2>{driver.name}</h2>          
+                        <h3>
+                          Destination:
+                        </h3>
+                        {this.props.orders.filledOrderList.filter(order => order.filled.driver === driver._id).map(order => (
+                          <div id={order.user.orderAddress.street}>
+                            <p>{order.user.orderAddress[0].street}</p>
+                            <p>{order.user.orderAddress[0].city}, {order.user.orderAddress[0].state}</p>
+                          </div>                          
+                        )).slice(0, 1)}
+                      </div>                      
                     </InfoWindow>
                     )}
                 </Marker>
@@ -126,10 +159,3 @@ export default connect( state => ( {
   drivers: state.drivers
   , orders: state.orders
 } ) )( DriverMap );
-
-/*<MuiThemeProvider>
-  <RaisedButton label="Add Driver" primary={true} onTouchTap={this.createDriver}/>
-</MuiThemeProvider>
-<MuiThemeProvider>
-  <RaisedButton label="Delete Driver" secondary={true} onTouchTap={this.deleteDriver}/>
-</MuiThemeProvider> */

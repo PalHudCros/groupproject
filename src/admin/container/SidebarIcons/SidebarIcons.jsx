@@ -54,7 +54,7 @@ export class SidebarIcons extends Component {
           iconStyle={{width: 60, height: 60, color: "#ef4036"}}
           style={{width: 120, height: 120, padding: 30}}
           label="Drivers"
-          onClick={this.handleToggle.bind(this, ["Where Are My Drivers", "Manage Drivers"], ["/drivers", "/drivers"], "Drivers")}
+          onClick={this.handleToggle.bind(this, ["Where Are My Drivers", "Manage Drivers"], ["/drivers/map", "/drivers/list"], "Drivers")}
         >
           <DriversIcon></DriversIcon>
         </IconButton></Link>
