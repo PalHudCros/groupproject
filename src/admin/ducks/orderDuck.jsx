@@ -4,13 +4,13 @@ import {createHeaders} from "../../utils/jwtHelper"
 const initialState = {
     orderList: []
     , unfilledOrderList: []
-    , undeliveredOrderList: []
+    , filledOrderList: []
 }
 //Actions
 const GET_ORDERS_PROCESS = "orders/GET_ORDERS_PROCESS";
 const GET_ORDERS_FAILURE = "orders/GET_ORDERS_FAILURE";
 const GET_UNFILLED_ORDERS_SUCCESS = "orders/GET_UNFILLED_ORDERS_SUCCESS";
-const GET_UNDELIVERED_ORDERS_SUCCESS = "orders/GET_UNDELIVERED_ORDERS_SUCCESS";
+const GET_FILLED_ORDERS_SUCCESS = "orders/GET_FILLED_ORDERS_SUCCESS";
 
 const ADD_DRIVER_PROCESS = "orders/ADD_DRIVER_PROCESS";
 const ADD_DRIVER_SUCCESS = "orders/ADD_DRIVER_SUCCESS";
@@ -29,8 +29,8 @@ function getUnfilledOrdersSuccess(orders) {
     return {type: GET_UNFILLED_ORDERS_SUCCESS, orders}
 }
 
-function getUndeliveredOrdersSuccess(orders) {
-    return {type: GET_UNDELIVERED_ORDERS_SUCCESS, orders}
+function getFilledOrdersSuccess(orders) {
+    return {type: GET_FILLED_ORDERS_SUCCESS, orders}
 }
 
 function addDriverProcess() {
@@ -54,7 +54,6 @@ export function getUnfilledOrders() {
         dispatch(getOrdersProcess());
         return axios.get("/api/orders/unfilled", headers)
         .then(results => {
-            console.log("RESULTS: ", results.data);
             dispatch(getUnfilledOrdersSuccess(results.data));            
         })
         // .catch(error => {
@@ -64,15 +63,14 @@ export function getUnfilledOrders() {
     }
 }
 
-export function getUndeliveredOrders() {
+export function getFilledOrders() {
     return dispatch => {
         let token = localStorage.getItem('admin_id_token');
         const headers = createHeaders(token);
         dispatch(getOrdersProcess());
-        return axios.get("/api/orders/undelivered", headers)
+        return axios.get("/api/orders/filled", headers)
         .then(results => {
-            console.log("RESULTS: ", results.data);
-            dispatch(getUndeliveredOrdersSuccess(results.data));            
+            dispatch(getFilledOrdersSuccess(results.data));            
         })
         // .catch(error => {
         //     console.log(error)
@@ -105,8 +103,8 @@ export default function orderReducer(state=initialState, action) {
             return Object.assign({}, state, {status: "You idiot!"})
         case GET_UNFILLED_ORDERS_SUCCESS:
             return Object.assign({}, state, {unfilledOrderList: action.orders}, {status: "Marvelous"});
-        case GET_UNDELIVERED_ORDERS_SUCCESS:
-            return Object.assign({}, state, {undeliveredOrderList: action.orders}, {status: "Marvelous"});
+        case GET_FILLED_ORDERS_SUCCESS:
+            return Object.assign({}, state, {filledOrderList: action.orders}, {status: "Marvelous"});
         case ADD_DRIVER_PROCESS:
             return Object.assign({}, state, {status: "Adding Driver"} )
         case ADD_DRIVER_FAILURE:

@@ -8,6 +8,9 @@ jsconfig.json
 /dist/admin/admin.js
 /dist/driver/driver.js
 /dist/shop/shop.js
+/dist/admin/admin.js.map
+/dist/driver/driver.js.map
+/dist/shop/shop.js.map
 /dist/images
 /dist/shop/images
 /dist/driver/images
