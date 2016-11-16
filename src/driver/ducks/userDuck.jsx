@@ -81,32 +81,42 @@ export function login(){
 export function doAuthentication(){
   return dispatch => {
     lock.on('authenticated', function(authResult){
+      lock.hide();
       lock.getProfile(authResult.idToken, function(err, profile){
           // Handle auth error
           if (err) {
             return dispatch(lockError(err))
           }
+          // Handle auth success
+          // Set token and profile in local storage
+          localStorage.setItem('driver_id_token', authResult.idToken)
+          localStorage.setItem('driver_profile', JSON.stringify(profile))
+          
+          dispatch(getExistingUser( authResult.idToken, profile))
           // Set headers for authentication
-          const config = {
-            headers:{
-            'Accept': 'application/json'
-            , 'Content-Type': 'application/json'
-            , 'Authorization': `Bearer ${authResult.idToken}`
-          }}
-          // Send user profile to database for user verification
-          return axios.post('/api/driver', profile, config)
-            .then(results => {
-                // Set token and profile in local storage
-                lock.hide();
-                localStorage.setItem('driver_profile', JSON.stringify(results.data))
-                localStorage.setItem('driver_id_token', authResult.idToken)
-                dispatch(lockSuccess(results.data))
-            })
-            .catch(error => {
-              dispatch(lockError(error))
-            }) 
       })
     })
+  }
+}
+
+export function getExistingUser(token, profile) {
+  return dispatch => {
+    const config = {
+      headers:{
+      'Accept': 'application/json'
+      , 'Content-Type': 'application/json'
+      , 'Authorization': `Bearer ${token}`
+    }}
+    // Send user profile to database for user
+    return axios.post('/api/driver', profile, config)
+      .then(results => {
+        dispatch(lockSuccess(results.data))
+      })
+      .catch(error => {
+        localStorage.removeItem('driver_id_token')
+        localStorage.removeItem('driver_profile')
+        dispatch(lockError(error));
+      })
   }
 }
 

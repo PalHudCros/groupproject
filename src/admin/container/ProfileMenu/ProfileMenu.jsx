@@ -8,7 +8,7 @@ import Avatar from 'material-ui/svg-icons/action/face';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
-import { login, doAuthentication, logout, hideLock } from "../../ducks/userDuck";
+import { login, doAuthentication, getExistingUser, logout, hideLock } from "../../ducks/userDuck";
 import { isTokenExpired } from "../../../utils/jwtHelper.js"
 
 
@@ -24,11 +24,19 @@ class ProfileMenu extends Component {
    componentWillMount() {
     this.props.dispatch(doAuthentication());
     const token = localStorage.getItem('admin_id_token');
+    const profile = localStorage.getItem('admin_profile');
     let expired;
     // if (token) expired = isTokenExpired(token)
     if (!token || expired) {
       this.props.dispatch(login());
+    } else {
+      this.props.dispatch(getExistingUser(token, profile));
     }
+
+  }
+
+  handleLogout() {
+    this.props.dispatch(logout());
   }
 
   render() {
@@ -43,14 +51,14 @@ class ProfileMenu extends Component {
           iconStyle={{width: 60, height: 60, color: "#727786"}}
           style={{width: 120, height: 120, padding: 0}}
                           >
-          <Hamburger /><Avatar src={this.props.user.picture}/></IconButton>}
+          <Hamburger /></IconButton>}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
         >
         <MenuItem primaryText="Settings" />
         <Divider />
         <MenuItem primaryText="Back to Store Front" />
-        <MenuItem primaryText="Sign out" />
+        <MenuItem primaryText="Sign out" onTouchTap={this.handleLogout.bind(this)}/>
       </IconMenu>
     </div>
     </div>
