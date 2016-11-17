@@ -18,6 +18,14 @@ export default function Home(props){
                 rounded={false}
                 >
                 <img src={grapes} className="cta-image"/>
+                <div className="cta-div">
+                <div className="cta-button">
+                  Search
+                </div>
+                <div className="cta-parse">
+                  Discover new and exciting wines from the comfort of your home.
+                </div>
+                </div>
               </Paper>
             </MuiThemeProvider>
           </div>
@@ -31,7 +39,18 @@ export default function Home(props){
                 zDepth={1}
                 rounded={false}
                 >
-                <h2>Reds</h2>
+                <div className="wine-type-title">Red Wines</div>
+                <div className="wine-type-list">
+                <Link>Cabernet Sauvignon</Link>
+                <br/>
+                <Link>Bordeaux Blends</Link>
+                <br/>
+                <Link>Pinot Noir</Link>
+                <br/>
+                <Link>Sangiovese</Link>
+                <br/>
+                <Link>Syrah/Shiraz</Link>
+                </div>
                 </Paper>
               </MuiThemeProvider>
 
@@ -42,7 +61,19 @@ export default function Home(props){
                 zDepth={1}
                 rounded={false}
                 >
-                <h2>Whites</h2>
+                <div className="wine-type-title">Whites Wines</div>
+                <div className="wine-type-list">
+                <Link>Chardonnay</Link>
+                <br/>
+                <Link>Sauvignon Blanc</Link>
+                <br/>
+                <Link>Pinot Gris/Grigio</Link>
+                <br/>
+                <Link>Gewürztraminer</Link>
+                <br/>
+                <Link>Chenin Blanc</Link>
+
+                </div>
                 </Paper>
               </MuiThemeProvider>
 
@@ -54,7 +85,18 @@ export default function Home(props){
                 zDepth={1}
                 rounded={false}
                 >
-                <h2>Champagne</h2>
+                <div className="wine-type-title">Dessert Wines</div>
+                <div className="wine-type-list">
+                <Link>Dolcetto</Link>
+                <br/>
+                <Link>Muscat</Link>
+                <br/>
+                <Link>Sherry</Link>
+                <br/>
+                <Link>Port</Link>
+                <br/>
+                <Link>Riesling</Link>
+                </div>
                 </Paper>
               </MuiThemeProvider>
             </div>

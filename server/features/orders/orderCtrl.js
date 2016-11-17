@@ -39,7 +39,6 @@ module.exports = {
           cartTax: req.body.totals.cartTax,
           cartTotal:req.body.totals.cartTotal
         }).save((err, order)=> {
-          console.log("503: ", err);
           if (err) return res.status(503).json(err)
         })
       })
@@ -48,7 +47,6 @@ module.exports = {
   , deleteCartAndSession(req, res, next){
       req.session.destroy();
       User.findOneAndUpdate({sub:req.user.sub}, {$set: {cart:[]}}, {new:true}, (err, user) => {
-        console.log('find one and update',user.cart, req.session)
         if (err) return res.status(504).json(err)
       })
       next()

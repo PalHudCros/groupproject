@@ -15,6 +15,7 @@ injectTapEventPlugin();
 import App from "./component/App/App";
 import Shop from "./component/Shop/Shop";
 import Home from "./component/Home/Home";
+import About from "./component/About/About"
 import Cart from "./component/Cart/Cart";
 import Checkout from "./component/Checkout/Checkout";
 import Error from "./component/Error/Error";
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <Route component={ Shop } path="shop"></Route>
           <Route component={ Cart } path="cart"></Route>
           <Route component={ Checkout } path="checkout"></Route>
+          <Route component={ About } path="about"></Route>
           <Route component={ Confirmation } path="confirmation"></Route>
           <Route component={ SingleWine } path=":wineId"></Route>
           <Route component={ Error } path="*"></Route>

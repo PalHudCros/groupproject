@@ -19,7 +19,6 @@ const keyPem = fs.readFileSync('./ssl/privkey.pem');
 const certPem = fs.readFileSync('./ssl/fullchain.pem');
 const caPem = fs.readFileSync('./ssl/chain.pem');
 
-console.log({keyPem, certPem, caPem});
 
 const app = express();
 var server = require('https').createServer({

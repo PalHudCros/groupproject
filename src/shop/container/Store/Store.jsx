@@ -26,7 +26,6 @@ class Store extends Component{
 
     componentDidMount() {
         const list = ReactDOM.findDOMNode(this.refs.list)
-        console.log(list);
         list.addEventListener('scroll', () => {console.log("Scrolling")});
     }
     componentWillUnmount() {
@@ -37,7 +36,7 @@ class Store extends Component{
   componentWillReceiveProps(props) {
       const wines = props.wines.wines.map((wine, ind)=> {
           return (
-            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.BottleImage}></WineStoreCard>
+            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.BottleImage} Name={wine.Name}></WineStoreCard>
           )
       });
       this.setState({wines: wines})
