@@ -32,7 +32,7 @@ const initialState = {
         {_id: 139, varietal: "Cabernet Sauvignon", qty: 0},
         {_id: 140, varietal: "Chardonnay", qty: 0},
         {_id: 151, varietal: "Sauvignon Blanc", qty: 0},
-        {_id: 194, varietal: "Pinot Gris/Grigio", qty: 0},
+        {_id: 194, varietal: "Pinot Gris/Grigio", qty: 0}, 
         {_id: 144, varietal: "Bordeaux Blends", qty: 0},
         {_id: 143, varietal: "Pinot Noir", qty: 0},
         {_id: 145, varietal: "Other Red Blends", qty: 0},

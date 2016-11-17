@@ -69,6 +69,10 @@ const SUCCESS = "wines/SUCCESS";
 const FAILURE = "wines/FAILURE";
 const SELECT = "wines/SELECT";
 
+const GET_COUNTS_PROCESS = "wines/GET_COUNTS_PROCESS";
+const GET_COUNTS_SUCCESS = "wines/GET_COUNTS_SUCCESS";
+const GET_COUNTS_FAILURE = "wines/GET_COUNTS_FAILURE";
+
 // Action Creators
 export function process() {
     return {type: PROCESS};
@@ -86,20 +90,16 @@ export function selectWine(wine) {
     return {type: SELECT, selectedWine: wine}
 }
 
-//Reducer
-export default function wine(state = initialState, action) {
-    switch ( action.type ) {
-        case PROCESS:
-            return Object.assign({}, state, {status: "fetching"});
-        case SUCCESS:
-            return Object.assign({}, state, {wines: action.wines, selectedWine: {}}, {status: "fetched"})
-        case FAILURE:
-            return Object.assign({}, state, {status: "error"});
-        case SELECT:
-            return Object.assign({}, state, {selectedWine: action.selectedWine});
-        default:
-            return state;
-    }
+function getCountsProcess() {
+    return {type: GET_COUNTS_PROCESS};
+}
+
+function getCountsSuccess(counts) {
+    return {type: GET_COUNTS_SUCCESS, counts};
+}
+
+function getCountsFailure(err) {
+    return {type: GET_COUNTS_FAILURE, err};
 }
 
 // Async Actions
@@ -117,3 +117,55 @@ export function getWines(query, page=50, skip=0) {
             })
         }
 }
+
+export function getWinesByText(text, page=50, skip=0) {
+    let filter = "?page=" + page + "&skip=" + skip;
+    if (text) filter += "&text=" + text;
+    return dispatch => {
+        dispatch(process());
+        return axios.get("/api/wines/inventory/text" + filter)
+            .then(results => {
+                dispatch(success(results.data));
+            })
+            .catch(error => {
+                dispatch(failure(error))
+            })
+        }
+}
+
+export function getCategoryCounts() {
+    return dispatch => {
+        dispatch(getCountsProcess());
+        return axios.get("/api/wines/inventory/counts")
+            .then(results => {
+                dispatch(getCountsSuccess(results.data));
+            })
+            .catch(error => {
+                dispatch(getCountsFailure(error));
+            });
+    }
+}
+
+//Reducer
+export default function wine(state = initialState, action) {
+    switch ( action.type ) {
+        case PROCESS:
+            return Object.assign({}, state, {status: "fetching"});
+        case SUCCESS:
+            return Object.assign({}, state, {wines: action.wines, selectedWine: {}}, {status: "fetched"})
+        case FAILURE:
+            return Object.assign({}, state, {status: "error"});
+        case GET_COUNTS_PROCESS:
+            return Object.assign({}, state, {status: "fetching"});
+        case GET_COUNTS_SUCCESS:
+            return Object.assign({}, state, {categories: action.counts}, {status: "fetched"})
+        case GET_COUNTS_FAILURE:
+            return Object.assign({}, state, {status: "error"});
+        case SELECT:
+            return Object.assign({}, state, {selectedWine: action.selectedWine});
+        default:
+            return state;
+    }
+}
+
+
