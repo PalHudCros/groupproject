@@ -11,8 +11,10 @@
 }
 
 .logo.admin {
+  display: flex;
+  justify-content: center;
   h1 {
-    margin: 0px 0px 0px 10px;
+    margin: 0;
     font-family: Pacifico, cursive !important;
     color: $pal-red;
     font-size: 200%;
