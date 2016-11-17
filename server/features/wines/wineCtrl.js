@@ -110,7 +110,7 @@ module.exports = {
     }
 
     , getInventoryCategoryCounts(req, res) {
-        InventoryItem.aggregate([{$group: {_id: "$Varietal.Id", varietal: {$first: "$Varietal.Name"}, qty: {$sum: "$Quantity"}}}], (err, results) => {
+        InventoryItem.aggregate([{$group: {_id: "$Varietal.Id", varietal: {$first: "$Varietal.Name"}, qty: {$sum: 1}}}], (err, results) => {
             if (err) return res.status(500).json(err);
             return res.status(200).json(results);
           });
