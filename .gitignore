@@ -12,7 +12,7 @@ jsconfig.json
 /dist/driver/driver.js.map
 /dist/shop/shop.js.map
 /dist/images
-/dist/shop/images
+/dist/shop
 /dist/driver/images
 /dist/admin/images
 /ssl

@@ -25,15 +25,6 @@ export default function Nav(){
             >
           </FlatButton>
         </Link>
-        <Link to="/about">
-          <FlatButton
-            label="About"
-            rippleColor="#ef4036"
-            labelStyle={{ color: "#7b7b7d" }}
-            hoverColor="rgba(123, 123, 125, .2)"
-            >
-          </FlatButton>
-        </Link>
       </div>
 
       <div className="col-md-2 searchbar-wrapper shop">

@@ -12,6 +12,9 @@ import sassIcon from './../../images/sass.png'
 import googlemapsapiIcon from './../../images/googlemapsapi.jpeg'
 import webpackIcon from './../../images/webpack.jpeg'
 import socketIcon from './../../images/socket.png'
+import driverView from './../../images/driverView.png'
+import adminView from './../../images/adminView.png'
+import shopView from  './../../images/shopView.png'
 
 function About(props){
   return(
@@ -30,7 +33,7 @@ function About(props){
                   <div className="shop-section">
                     <div><a href="https://www.ferovino.com">Shop</a></div>
                     <div className="image">
-                      <img src="" alt=""/>
+                      <img src={shopView} className="sub-images" alt=""/>
                     </div>
                     <ul>
                       <li>Search</li>
@@ -44,7 +47,7 @@ function About(props){
                   <div className="admin-section">
                     <div><a href="https://admin.ferovino.com">Admin</a></div>
                     <div className="image">
-                      <img src="" alt=""/>
+                      <img src={adminView} className="sub-images" alt=""/>
                     </div>
                     <ul>
                       <li>Manage Inventory</li>
@@ -57,7 +60,7 @@ function About(props){
                   <div className="driver-section">
                     <div><a href="https://driver.ferovino.com">Driver</a></div>
                     <div className="image">
-                      <img src="" alt=""/>
+                      <img src={driverView} className="sub-images" alt=""/>
                     </div>
                     <ul>
                       <li>Get Directions</li>
