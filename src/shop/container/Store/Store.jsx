@@ -15,7 +15,6 @@ class Store extends Component{
   }
 
   componentWillMount() {
-        console.log("WINE: ", wine);
       const wines = this.props.wines.wines.map((wine, ind)=> {
           return (
             <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.BottleImage} Name={wine.Name}></WineStoreCard>
@@ -28,19 +27,20 @@ class Store extends Component{
         const list = ReactDOM.findDOMNode(this.refs.list)
         list.addEventListener('scroll', () => {console.log("Scrolling")});
     }
+
     componentWillUnmount() {
         const list = ReactDOM.findDOMNode(this.refs.list)
         list.removeEventListener('scroll', this._handleScroll);
     }
 
-  componentWillReceiveProps(props) {
+    componentWillReceiveProps(props) {
       const wines = props.wines.wines.map((wine, ind)=> {
           return (
-            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.BottleImage}></WineStoreCard>
+            <WineStoreCard key={wine.Id} wineId={wine.Id} bottleImage={wine.BottleImage} Name={wine.Name}></WineStoreCard>
           )
       });
       this.setState({wines: wines})
-  }
+    }
 
   _handleScroll(e) {
       console.log("Scrolling!")
