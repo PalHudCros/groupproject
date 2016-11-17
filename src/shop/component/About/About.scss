@@ -1,0 +1,105 @@
+.project-header {
+  display: flex;
+  justify-content: center
+}
+.project-title {
+  padding: 10px 0 0 0;
+  margin: 0 auto;
+  font-size: 20px;
+  border-bottom: solid 2px black;
+}
+
+.project-body {
+
+}
+.project-parse {
+  text-align: center;
+  padding-bottom: 10px;
+}
+.the-project {
+
+}
+.shop-section {
+  div {
+    text-align: center;
+    font-size: 18px;
+  }
+  .image {
+    background-color: green;
+    width:100%auto;
+    height: 100px;
+  }
+}
+.admin-section {
+  div {
+    text-align: center;
+    font-size: 18px;
+  }
+  .image {
+    background-color: grey;
+    width:100%auto;
+    height: 100px;
+  }
+}
+.driver-section {
+  div {
+    text-align: center;
+    font-size: 18px;
+  }
+  .image {
+    background-color: pink;
+    width:100%auto;
+    height: 100px;
+  }
+}
+.team-header {
+  display: flex;
+  justify-content: center;
+  div{
+    padding: 10px 0 0 0;
+    font-size: 20px;
+    border-bottom: solid 2px black;
+  }
+}
+.team-body {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.teammate {
+  padding: 10px;
+  width: 33%;
+}
+.avatar-circle {
+  width: 120px;
+  height: 120px;
+  border: solid 3px black;
+  border-radius: 50%;
+  margin: 0 auto;
+  background-size: contain;
+}
+.ava-joe {
+  background-image: url('https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAPrAAAAJGVhNzEzNjQ2LTEyNjMtNDIyYy1hMTA0LWQyYTNlYzRkYTBhYQ.jpg');
+}
+.ava-jj {
+  background-image: url('https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAhQAAAAJGU0MjhlY2RlLTgzNzYtNDY5OC05MGE2LWJmMjk4NmMxYjU2MQ.jpg');
+}
+.ava-brian {
+  background-image: url('https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAScAAAAJGVkN2VjNWZlLTRlNDUtNGZkZi04Y2RkLTM2YzIxYTFiNDE1NA.jpg');
+}
+.teammate-body{
+
+}
+.teammate-name{
+
+}
+.stack-header {
+
+}
+.stack-body {
+
+}
+.stack-image {
+  margin: 0 25%;
+  width: 50%;
+}

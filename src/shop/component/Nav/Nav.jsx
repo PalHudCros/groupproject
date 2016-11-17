@@ -25,7 +25,7 @@ export default function Nav(){
             >
           </FlatButton>
         </Link>
-        <Link to="/shop">
+        <Link to="/about">
           <FlatButton
             label="About"
             rippleColor="#ef4036"

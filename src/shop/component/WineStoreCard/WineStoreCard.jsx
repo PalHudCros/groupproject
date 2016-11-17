@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 export default function WineStoreCard(props){
+  console.log(props);
   return(
     <div className="col-lg-3 col-md-3 col-sm-4 col-xs-5" style={{padding:"10px"}}>
       <MuiThemeProvider>
