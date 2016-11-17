@@ -68,6 +68,11 @@ io.on('connection', function (socket) {
   socket.on('order', order => {
     socket.broadcast.emit('order', order)
   });
+
+  socket.on('order_status', order => {
+    socket.broadcast.emit('order_status', order)
+  });
+
 });
 
 // Listen on Port

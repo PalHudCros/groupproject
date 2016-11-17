@@ -7,7 +7,12 @@ import io from 'socket.io-client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import {getUnfilledOrders} from "../../ducks/orderDuck";
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import FlatButton from 'material-ui/FlatButton';
+
+import {getUnfilledOrders, getFilledOrders} from "../../ducks/orderDuck";
+
 
 class Orders extends Component {
     constructor(props) {
@@ -20,12 +25,16 @@ class Orders extends Component {
     componentWillMount() {
         const socket = io.connect("/");
         socket.on("order", order => {
-            this.props.dispatch(getOrders());
+            this.props.dispatch(getUnfilledOrders());
         });
         socket.on("driverPosition", driver => {
             this.props.dispatch(updateDrivers(driver));
         });
-        this.props.dispatch(getUnfilledOrders())
+        socket.on("order_status", order => {
+            this.props.dispatch(getFilledOrders());
+        })
+        this.props.dispatch(getUnfilledOrders());
+        this.props.dispatch(getFilledOrders());
     }
 
     componentWillReceiveProps(props) {
@@ -39,6 +48,8 @@ class Orders extends Component {
     }
 
     submitDriver(orderId, index) {
+        const socket = io.connect('/');
+        socket.emit("order_status", {order: orderId, status: "Filled"})
         this.props.dispatch(addDriverToOrder({orderId, driverId: this.state[`listItem${index}Value`]}))
     }
 
@@ -47,18 +58,60 @@ class Orders extends Component {
             <MenuItem value={driver._id} primaryText={driver.name}></MenuItem>
         ))
 
-        const orderList = this.props.orders.unfilledOrderList.filter(order => !order.filled.status).map((order, index) => {
+        const unfilledOrderList = this.props.orders.unfilledOrderList.filter(order => !order.filled.status).map((order, index) => {
             return (
-                <tr>
-                    <td>{order._id}</td>
-                    <td><SelectField value={this.state[`listItem${index}Value`]} onChange={this.selectDriver.bind(this, index)} floatingLabelText="Select a Driver" floatingLabelFixed={false}>{driverList}</SelectField></td>
-                    <td><button onTouchTap={this.submitDriver.bind(this, order._id, index)}>Submit</button></td>
-                </tr>
+                <div>
+                    <ListItem
+                        key={order._id}
+                        primaryText={order.user.orderAddress[0].street}
+                        secondaryText={`${order.user.orderAddress[0].city}, ${order.user.orderAddress[0].state}`}                    
+                        nestedItems={order.products.map((product, idx) => (
+                        <ListItem
+                            key={product._id}
+                            primaryText={product.item.Name}
+                            secondaryText={`Qty: ${product.quantity}`}>
+                            </ListItem>
+                        ))
+                        }
+                    >
+                    </ListItem>
+                    <h3>Select a Driver:</h3>
+                    <SelectField value={this.state[`listItem${index}Value`]} onChange={this.selectDriver.bind(this, index)} >{driverList}</SelectField>
+                    <FlatButton onClick={this.submitDriver.bind(this, order._id, index)}>Submit</FlatButton>
+                </div>
+            )
+        })
+
+        const filledOrderList = this.props.orders.filledOrderList.filter(order => !order.filled.status).map((order, index) => {
+            return (
+                <ListItem
+                    key={order._id}
+                    primaryText={order.user.orderAddress[0].street}
+                    secondaryText={`${order.user.orderAddress[0].city}, ${order.user.orderAddress[0].state}`}                    
+                    initiallyOpen={false}
+                    primaryTogglesNestedList={true}                  
+                    nestedItems={order.products.map((product, idx) => (
+                    <ListItem
+                        key={idx}
+                        primaryText={product.item.Name}
+                        secondaryText={`Qty: ${product.quantity}`}>
+                        </ListItem>
+                    ))
+                    }
+                >
+                </ListItem>
             )
         })
 
         return (
-                <MuiThemeProvider><table><tbody>{orderList}</tbody></table></MuiThemeProvider>
+            <div className="row">
+                <div className="col-xs-6">
+                    <MuiThemeProvider><List><Subheader>Unfilled Orders</Subheader>{unfilledOrderList}</List></MuiThemeProvider>
+                </div>
+                <div className="col-xs-6">
+                    <MuiThemeProvider><List><Subheader>Filled Orders</Subheader>{filledOrderList}</List></MuiThemeProvider>
+                </div>
+            </div>
         )
 
     }

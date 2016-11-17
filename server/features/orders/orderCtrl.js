@@ -92,9 +92,11 @@ module.exports = {
     })
   }
   , getFilledOrder(req, res){
-    Order.find({"filled.status":true})
+    Order.find({"filled.status":true, "delivered.status": false})
     .populate("user products.item")
     .exec((err, orders)=>{
+      console.log("Err", err)
+      console.log("Order", orders)
       if (err) return res.status(500).json(err)
       if(orders) return res.status(200).json(orders)
     })
@@ -128,8 +130,6 @@ module.exports = {
   }
   , setDeliveredStatus(req, res, next) {
     Order.findByIdAndUpdate(req.body.order, {$set: {"delivered.status": true}}, {new: true}, (err, order)=> {
-      console.log("ERROR: ", err)
-      console.log("UPDATE: ", order)
       if (err) return res.status(500).json(err);
       next();
     })

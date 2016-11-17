@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {createHeaders} from "../../utils/jwtHelper"
+
 //Intial state
 const initialState = {
     orderList: []
@@ -104,6 +105,7 @@ export default function orderReducer(state=initialState, action) {
         case GET_UNFILLED_ORDERS_SUCCESS:
             return Object.assign({}, state, {unfilledOrderList: action.orders}, {status: "Marvelous"});
         case GET_FILLED_ORDERS_SUCCESS:
+            console.log(action.orders)
             return Object.assign({}, state, {filledOrderList: action.orders}, {status: "Marvelous"});
         case ADD_DRIVER_PROCESS:
             return Object.assign({}, state, {status: "Adding Driver"} )
