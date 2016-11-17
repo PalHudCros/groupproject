@@ -143,7 +143,6 @@ export function getCart(){
 
 export function getOrders(){
 	const idToken = localStorage.getItem('id_token')
-	console.log(idToken);
 	const config = {
 		headers:{
 		'Accept': 'application/json'

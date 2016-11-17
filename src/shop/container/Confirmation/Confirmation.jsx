@@ -39,6 +39,7 @@ class Confirmation extends React.Component {
                       key={idx}
                       primaryText={product.item.Name}
                       secondaryText={`Qty: ${product.quantity}`}>
+                      <img style={{float: "right", width: "auto", height: "50px"}}src={product.item.BottleImage} />
                       </ListItem>
                   ))
 
