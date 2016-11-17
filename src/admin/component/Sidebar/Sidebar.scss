@@ -7,4 +7,15 @@
   width: 10%;
   z-index: 1;
   box-shadow: 0px 0px 16px -2px black;
+  padding-top: 1.5%;
+}
+
+.logo.admin {
+  h1 {
+    margin: 0px 0px 0px 10px;
+    font-family: Pacifico, cursive !important;
+    color: $pal-red;
+    font-size: 200%;
+    min-height: 5%;
+  }
 }

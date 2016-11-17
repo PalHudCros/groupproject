@@ -8,6 +8,9 @@ export default function Sidebar( props ) {
 
   return (
       <nav className="side-nav admin">
+        <div className="logo admin">
+          <h1>Fero Vino</h1>
+        </div>
         <MuiThemeProvider>
           <ProfileMenu></ProfileMenu>
         </MuiThemeProvider>

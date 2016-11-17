@@ -49,7 +49,7 @@ class ProfileMenu extends Component {
         menuStyle={{background: "linear-gradient(to right, rgba( 242, 245, 247, 1), rgba( 235, 227, 225, 1))"}}
         iconButtonElement={<IconButton
           iconStyle={{width: 60, height: 60, color: "#727786"}}
-          style={{width: 120, height: 120, padding: 0}}
+          style={{width: 120, height: 60, padding: 0}}
                           >
           <Hamburger /></IconButton>}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
