@@ -20,6 +20,12 @@ module.exports = (app) => {
       orderCtrl.getOrders
     )
 
+  app.route('/api/order/customer')
+    .post(
+      jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
+      orderCtrl.getOrderByCustomer
+    )
+
   app.route('/api/order/driver')
     .put(
       jwt({secret: new Buffer(config.auth0.secret, 'base64'), audience: config.auth0.audience}),
