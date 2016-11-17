@@ -35,7 +35,7 @@ class QueueContent extends React.Component {
   }
 
   setDelivered(orderId) {
-    const sockety = io.connect('/');
+    const socket = io.connect('/');
     socket.emit("order_status", {order: orderId, status: "Delivered"});
     this.props.dispatch(deliverOrder(orderId));
   }
