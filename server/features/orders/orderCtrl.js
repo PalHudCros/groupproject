@@ -39,7 +39,6 @@ module.exports = {
           cartTax: req.body.totals.cartTax,
           cartTotal:req.body.totals.cartTotal
         }).save((err, order)=> {
-          console.log("503: ", err);
           if (err) return res.status(503).json(err)
         })
       })
@@ -127,6 +126,22 @@ module.exports = {
           if(orders) return res.status(200).json(orders)
         })
     })
+  }
+  , getOrderByCustomer( req, res ){
+      User.find({sub:req.user.sub}, (err, user)=> { 
+        if (err) return res.status(500).json(err);
+        console.log("USER FIND Error: ", err)
+        console.log("User: ", user)
+        Order.find({"user._id": user._id})
+        .populate("user products.item")
+        .exec((err, orders)=>{
+          console.log("ORDER FIND ERROR: ", err);
+          console.log("ORDER: ", orders);
+
+          if (err) return res.status(500).json(err)
+          if(orders) return res.status(200).json(orders)
+        })
+      })
   }
   , setDeliveredStatus(req, res, next) {
     Order.findByIdAndUpdate(req.body.order, {$set: {"delivered.status": true}}, {new: true}, (err, order)=> {

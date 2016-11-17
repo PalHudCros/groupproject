@@ -23,6 +23,10 @@ const GET_CART_PROCESS = 'GET_CART_PROCESS';
 const GET_CART_SUCCESS = 'GET_CART_SUCCESS';
 const GET_CART_FAILURE = 'GET_CART_FAILURE';
 
+const GET_ORDERS_PROCESS = 'GET_ORDERS_PROCESS';
+const GET_ORDERS_SUCCESS = 'GET_ORDERS_SUCCESS';
+const GET_ORDERS_FAILURE = 'GET_ORDERS_FAILURE';
+
 const UPDATE_TOTALS_SUCCESS = "UPDATE_TOTALS_SUCCESS"
 
 // Action Creators
@@ -73,6 +77,18 @@ export function getCartFailure(error){
 	return { type: GET_CART_FAILURE, isFetching: true, error }
 }
 
+export function getOrdersProcess(){
+return { type: GET_ORDERS_PROCESS, isFetching: true }
+}
+
+export function getOrdersSuccess(cart){
+	return { type: GET_ORDERS_SUCCESS, isFetching: false, orders  }
+}
+
+export function getOrdersFailure(error){
+	return { type: GET_ORDERS_FAILURE, isFetching: false, error }
+}
+
 export function updateTotals(totals){
   return {type: UPDATE_TOTALS_SUCCESS, totals }
 }
@@ -121,6 +137,28 @@ export function getCart(){
 			})
 			.catch(error => {
 				dispatch(getCartFailure(error))
+			})
+	}
+}
+
+export function getOrders(){
+	const idToken = localStorage.getItem('id_token')
+	console.log(idToken);
+	const config = {
+		headers:{
+		'Accept': 'application/json'
+		, 'Content-Type': 'application/json'
+		, 'Authorization': `Bearer ${idToken}`
+	}}
+	return dispatch => {
+		dispatch(getOrdersProcess())
+		return axios.post("/api/order/customer", config)
+			.then(results => {
+				console.log(results.data);
+				dispatch(getOrdersSuccess(results.data))
+			})
+			.catch(error => {
+				dispatch(getOrdersFailure(error))
 			})
 	}
 }
@@ -224,7 +262,7 @@ const initialState = {
   , totals: {
     cartQuantity:0
   }
-	, order: {}
+	, orders: []
 }
 
 // Reducer
@@ -245,7 +283,9 @@ export default function cartReducer(state = initialState, action) {
 		case CHECKOUT_PROCESS:
 			return Object.assign({}, state, action.isFetching)
 		case CHECKOUT_SUCCESS:
-			return Object.assign({}, initialState, {order: action.order}, action.isFetching)
+			const orderList = state.orders.slice();
+			orderList.push(action.order)
+			return Object.assign({}, initialState, {orders: orderList}, action.isFetching)
 		case CHECKOUT_FAILURE:
 			return Object.assign({}, state, action.error)
 		case GET_CART_PROCESS:
@@ -253,6 +293,12 @@ export default function cartReducer(state = initialState, action) {
 		case GET_CART_SUCCESS:
 			return Object.assign({}, state, action.isFetching,  {cart:action.cart}, {totals:action.totals});
 		case GET_CART_FAILURE:
+			return Object.assign({}, state, action.error)
+		case GET_ORDERS_PROCESS:
+			return Object.assign({}, state, action.isFetching)
+		case GET_ORDERS_SUCCESS:
+			return Object.assign({}, state, action.isFetching,  {cart:action.cart}, {totals:action.totals});
+		case GET_ORDERS_FAILURE:
 			return Object.assign({}, state, action.error)
     // case UPDATE_TOTALS_SUCCESS:
     //   const bob = Object.assign({}, state, {totals:action.totals})

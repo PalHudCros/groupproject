@@ -19,7 +19,7 @@ import Cart from "./component/Cart/Cart";
 import Checkout from "./component/Checkout/Checkout";
 import Error from "./component/Error/Error";
 import SingleWine from "./container/SingleWine/SingleWine";
-import Confirmation from "./component/Confirmation/Confirmation";
+import Confirmation from "./container/Confirmation/Confirmation";
 
 //Store
 import store from "./store";
