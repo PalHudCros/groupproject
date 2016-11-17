@@ -11,8 +11,8 @@ import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import Subheader from 'material-ui/Subheader';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-
 import {getOrdersByDriver, deliverOrder} from '../../ducks/orderDuck'
+import io from 'socket.io-client';
 
 class QueueContent extends React.Component {
   constructor(props) {
@@ -21,6 +21,11 @@ class QueueContent extends React.Component {
 
   componentWillMount() {
     this.props.dispatch(getOrdersByDriver());
+    const socket = io.connect('/');
+    socket.on('order_status', order => {
+      console.log("orders")
+      this.props.dispatch(getOrdersByDriver());
+    })
   }
 
   formatDate(date) {
