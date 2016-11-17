@@ -60,6 +60,20 @@ module.exports = {
             return res.status(200).json(wines);
           })
     }
+    , getWinesFromInventoryByText(req, res) {
+        let text = req.query.text
+        if (!req.query.text) text = "";
+        InventoryItem.find({ $text: { $search: text } })
+          .limit(req.query.page/1)
+          .skip(req.query.skip/1)
+          .exec((err, wines) => {
+            if (err) {
+              console.log(err);
+              return res.status(500).json(err);
+            }
+            return res.status(200).json(wines);
+          })
+    }
     , addWineToDistributor(req, res) {
         Wine.findOneAndUpdate({Id: req.body.Id}, { $inc: { Quantity: req.body.Quantity } }, (err, updatedWine) => {
           if (err) {

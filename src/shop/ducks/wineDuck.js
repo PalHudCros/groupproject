@@ -118,6 +118,21 @@ export function getWines(query, page=50, skip=0) {
         }
 }
 
+export function getWinesByText(text, page=50, skip=0) {
+    let filter = "?page=" + page + "&skip=" + skip;
+    if (text) filter += "&text=" + text;
+    return dispatch => {
+        dispatch(process());
+        return axios.get("/api/wines/inventory/text" + filter)
+            .then(results => {
+                dispatch(success(results.data));
+            })
+            .catch(error => {
+                dispatch(failure(error))
+            })
+        }
+}
+
 export function getCategoryCounts() {
     return dispatch => {
         dispatch(getCountsProcess());

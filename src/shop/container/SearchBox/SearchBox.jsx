@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import AutoComplete from 'material-ui/AutoComplete';
-import { getWines } from "../../ducks/wineDuck";
+import { getWines, getWinesByText } from "../../ducks/wineDuck";
 import { browserHistory } from "react-router";
 
 export class SearchBox extends Component{
@@ -26,13 +26,14 @@ export class SearchBox extends Component{
   }
 
   handleNewRequest(query) {
-    if ( query ) {
+    if ( query._id ) {
       this.props.dispatch( getWines(query) );
       if ( window.location.pathname !== "/shop" ) {
         browserHistory.push( "/shop" );
-      }
-    } else {
-      this.setState( { search: "Please enter a search term" } );
+      }      
+    } else if (typeof query === "string") {
+      console.log("string");
+      this.props.dispatch(getWinesByText(query));
     }
   }
   render() {
