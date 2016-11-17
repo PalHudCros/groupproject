@@ -92,9 +92,11 @@ module.exports = {
     })
   }
   , getFilledOrder(req, res){
-    Order.find({"filled.status":true})
+    Order.find({"filled.status":true, "delivered.status": false})
     .populate("user products.item")
     .exec((err, orders)=>{
+      console.log("Err", err)
+      console.log("Order", orders)
       if (err) return res.status(500).json(err)
       if(orders) return res.status(200).json(orders)
     })
@@ -118,12 +120,18 @@ module.exports = {
   , getOrderByDriver( req, res ){
     Driver.find({sub:req.user.sub}, (err, driver)=>{
       if (err) return res.status(500).json(err)
-        Order.find({driver:driver._id})
+        Order.find({driver:driver._id, "delivered.status": false})
         .populate("user products.item")
         .exec((err, orders)=>{
           if (err) return res.status(500).json(err)
           if(orders) return res.status(200).json(orders)
         })
+    })
+  }
+  , setDeliveredStatus(req, res, next) {
+    Order.findByIdAndUpdate(req.body.order, {$set: {"delivered.status": true}}, {new: true}, (err, order)=> {
+      if (err) return res.status(500).json(err);
+      next();
     })
   }
 }

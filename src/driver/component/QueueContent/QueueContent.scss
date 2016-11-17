@@ -1,0 +1,28 @@
+.user-profile, .order-snapshot {
+    
+    padding: 25px;
+
+    .header {
+        .user-info{
+            padding: 0;
+
+            .user-name {
+                font-size: 1.25em;
+            }
+        }
+    }
+
+    .avatar {
+        float: right;
+    }
+
+    .user-info {
+        padding: 50px;
+    }
+
+    .update-button {
+        display: flex;
+        justify-content: right;
+
+    }
+}

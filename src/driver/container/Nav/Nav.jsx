@@ -37,8 +37,8 @@ class Nav extends Component {
             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
           >
-            <Link to="/orders"><MenuItem primaryText="My Orders" /></Link>
-            <Link to="/map"><MenuItem primaryText="My Navigation" /></Link>
+            <Link to="/"><MenuItem primaryText="Home" /></Link>
+            <Link to="/map"><MenuItem primaryText="Map" /></Link>
 
           </IconMenu>}
           iconElementRight={<Userbar/>}
