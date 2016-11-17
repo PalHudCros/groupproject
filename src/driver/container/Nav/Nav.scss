@@ -3,3 +3,16 @@
   width: 100%;
   background-color: orange;
 }
+
+.app-bar.driver {
+  background-color: $pal-supernav-white !important;
+  a {
+    text-decoration: none !important;
+  }
+  h1 {
+    color: #ef4036 !important;
+    font-family: "Pacifico", cursive !important;
+    margin: 0 !important;
+    font-size: 37px !important;
+  }
+}

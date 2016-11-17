@@ -30,15 +30,17 @@ class Nav extends Component {
     return (
       <MuiThemeProvider>
         <AppBar
-          title={<span><Link to="/">WineApp</Link></span>}
+          className="app-bar driver"
+          title={<Link to="/"><h1>Fero Vino</h1></Link>}
           onTitleTouchTap={this.handleTouchTap}
           iconElementLeft={<IconMenu
+            style={{ backgroundColor: "#f2f5f7" }}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
           >
-            <Link to="/orders"><MenuItem primaryText="My Orders" /></Link>
-            <Link to="/map"><MenuItem primaryText="My Navigation" /></Link>
+            <Link to="/"><MenuItem primaryText="Home" /></Link>
+            <Link to="/map"><MenuItem primaryText="Map" /></Link>
 
           </IconMenu>}
           iconElementRight={<Userbar/>}

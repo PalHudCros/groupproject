@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import SearchBar from "../../container/SearchBar/SearchBar.jsx";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
-import { getWinesFromInventory } from "../../ducks/inventoryDuck";
+import { getWinesFromDistribution } from "../../ducks/inventoryDuck";
 import DistributorWineStage from "../../container/DistributorWineStage/DistributorWineStage";
 import DistributorTable from "../../container/DistributorTable/DistributorTable.jsx";
 
@@ -22,7 +22,7 @@ export class DistributorContent extends Component {
   fetchWinesFromInventory() {
     if ( this.state.refreshButtonState !== "loading" ) {
       this.setState( { refreshButtonState: "loading" } );
-      this.props.dispatch( getWinesFromInventory() );
+      this.props.dispatch( getWinesFromDistribution() );
     }
   }
 

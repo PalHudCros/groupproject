@@ -19,7 +19,6 @@ const keyPem = fs.readFileSync('./ssl/privkey.pem');
 const certPem = fs.readFileSync('./ssl/fullchain.pem');
 const caPem = fs.readFileSync('./ssl/chain.pem');
 
-
 const app = express();
 var server = require('https').createServer({
 	key: keyPem,
@@ -67,6 +66,11 @@ io.on('connection', function (socket) {
   socket.on('order', order => {
     socket.broadcast.emit('order', order)
   });
+
+  socket.on('order_status', order => {
+    socket.broadcast.emit('order_status', order)
+  });
+
 });
 
 // Listen on Port
