@@ -3,8 +3,6 @@ import {createHeaders, getDriverToken} from "../../utils/jwtHelper"
 import io from 'socket.io-client';
 import fs from 'fs';
 
-const socket = io.connect("/")
-
 //Actions
 const GET_ORDER_PROCESS = "GET_ORDER_PROCESS";
 const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
@@ -51,7 +49,6 @@ function deliverOrderFailure(error){
     }
   }
   export function deliverOrder(orderId){
-    socket.emit("order_status", {order: orderId, status: "delivered" })
     return dispatch=>{
       dispatch(getOrderProcess())
       axios.put('/api/orders/delivered', {order: orderId}, createHeaders(getDriverToken()))

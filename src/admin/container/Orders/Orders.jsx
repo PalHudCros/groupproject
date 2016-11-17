@@ -49,7 +49,7 @@ class Orders extends Component {
 
     submitDriver(orderId, index) {
         const socket = io.connect('/');
-        socket.emit("order_status", {order: orderId, driverId: this.state[`listItem${index}Value`], status: "Filled"})
+        socket.emit("order_status", {order: orderId, status: "Filled"})
         this.props.dispatch(addDriverToOrder({orderId, driverId: this.state[`listItem${index}Value`]}))
     }
 
